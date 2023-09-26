@@ -1,6 +1,7 @@
 import Home from "./views/Home"
 import Landing from "./views/Landing"
 import Login from "./views/Login.jsx"
+import "./index.css"
 import RegisterUser from "./views/RegisterUser.jsx"
 import RegisterShop from "./views/RegisterShop.jsx"
 import { Route, Routes, useLocation } from "react-router-dom"
