@@ -1,5 +1,5 @@
 import Home from "./views/Home"
-import Acceso from "./views/Acceso"
+import Landing from "./views/Landing"
 import { Route, Routes, useLocation } from "react-router-dom"
 
 function App() {
@@ -7,9 +7,9 @@ function App() {
 
   return (
     <div>
-      <h1>Moru App</h1>
       <Routes>
-        
+        <Route exact path='/' element={<Landing />}></Route>
+        <Route path="/home" element={<Home />}></Route>
       </Routes>
     </div>
 
