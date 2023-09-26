@@ -1,3 +1,4 @@
+
 import { configureStore } from "@reduxjs/toolkit";
 import user from './characterSlice'
 
@@ -7,3 +8,4 @@ export default configureStore({
         //episodes: episodes, 
     }
 })
+
