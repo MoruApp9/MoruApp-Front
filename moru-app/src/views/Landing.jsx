@@ -2,7 +2,10 @@ const Landing = () => {
 
 
     return (
-    <h1>Soy el Landing</h1>
+        <div >
+            <h1>Soy el Landing</h1>
+            <button></button>
+        </div>
     )
 }
 
