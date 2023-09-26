@@ -1,2 +1,2 @@
 # MoruApp-Front
-hola mudno blablablabla
+hola mundo
