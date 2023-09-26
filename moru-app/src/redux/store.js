@@ -4,6 +4,6 @@ import user from './characterSlice'
 export default configureStore({
     reducer: {
         user: user,
-        //episodes: episodes,
+        //episodes: episodes, 
     }
 }) 
