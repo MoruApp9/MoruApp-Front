@@ -1,8 +1,18 @@
+import Home from "./views/Home"
+import Landing from "./views/Landing"
+import { Route, Routes, useLocation } from "react-router-dom"
+
 function App() {
+  const {pathname} = useLocation();
+
   return (
-    <>
-      <h1>Moru App</h1>
-    </>
+    <div>
+      <Routes>
+        <Route exact path='/' element={<Landing />}></Route>
+        <Route path="/home" element={<Home />}></Route>
+      </Routes>
+    </div>
+
   )
 }
 
