@@ -23,27 +23,60 @@ const RegisterShop = () => {
             <div className="min-h-screen flex justify-center mr-7 mt-10">
                 <div>
                     <div className="flex items-center ml-10">
-                        <img src={imagen} alt="Imagen" className="w-32" />
+                        <img
+                            src={imagen}
+                            alt="Imagen"
+                            className="w-32" />
                         <h1 className="text-xs ml-2 mt-4 font-roboto-slab">Creando Cuenta Empresarial</h1>
                     </div>
 
                     <div className="mb-8 mt-4" >
-                        <input className="relative top-4 left-5 w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-xs font-roboto-slab" type="text" value={shopData.name} placeholder="Nombre de la tienda" onChange={changeHandler} />
+                        <input
+                            className="relative top-4 left-5 w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-xs font-roboto-slab"
+                            type="text"
+                            value={shopData.name}
+                            name="name"
+                            placeholder="Nombre de la tienda"
+                            onChange={changeHandler} />
                     </div>
                     <div className="mb-8">
-                        <input className="relative top-4 left-5 w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-xs font-roboto-slab" value={shopData.nitNumber} placeholder="Numero Nit" onChange={changeHandler} />
+                        <input
+                            className="relative top-4 left-5 w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-xs font-roboto-slab"
+                            type="number"
+                            value={shopData.nitNumber}
+                            name="nitNumber"
+                            placeholder="Numero Nit"
+                            onChange={changeHandler} />
                     </div>
                     <div className="mb-8">
-                        <select className="relative top-4 left-5 w-60 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-xs font-roboto-slab">Categoria
+                        <select className="relative top-4 left-5 w-60 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-xs font-roboto-slab">
                             <option value="">Categoria</option>
                         </select>
                     </div>
                     <div className="mb-8 flex items-center">
-                        <input className="relative top-4 left-5 w-32 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-xs font-roboto-slab" type="text" value={shopData.country} placeholder="Pais" onChange={changeHandler} />
-                        <input className="relative left-14 w-40 top-4 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-xs font-roboto-slab" type="text" value={shopData.department} placeholder="Departamento" onChange={changeHandler} />
+                        <input
+                            className="relative top-4 left-5 w-32 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-xs font-roboto-slab"
+                            type="text"
+                            value={shopData.country}
+                            name="country"
+                            placeholder="Pais"
+                            onChange={changeHandler} />
+                        <input
+                            className="relative left-14 w-40 top-4 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-xs font-roboto-slab"
+                            type="text"
+                            value={shopData.department}
+                            name="department"
+                            placeholder="Departamento"
+                            onChange={changeHandler} />
                     </div>
                     <div className="mb-8">
-                        <input className="relative top-4 left-5 w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-xs font-roboto-slab" type="text" value={shopData.municipality} placeholder="Municipio" onChange={changeHandler} />
+                        <input
+                            className="relative top-4 left-5 w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-xs font-roboto-slab"
+                            type="text"
+                            value={shopData.municipality}
+                            name="municipality"
+                            placeholder="Municipio"
+                            onChange={changeHandler} />
                     </div>
                     <div>
                         <button
