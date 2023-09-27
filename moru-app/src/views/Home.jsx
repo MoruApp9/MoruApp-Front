@@ -1,6 +1,10 @@
-const Home = ()=>{
+import { useAuth0 } from '@auth0/auth0-react'
+
+const Home = () => {
+    const { loginWithRedirect } = useAuth0();
+
     return(
-        <h1>Soy el Home</h1>
+        <button onClick={() => loginWithRedirect()}>Ingresar</button>
     )
 }
 
