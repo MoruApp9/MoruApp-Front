@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import logo from "../images/logo.jpeg";
 import { BsEyeSlash, BsEye } from 'react-icons/bs';
+import { Link } from 'react-router-dom'
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
-
 
     return (
         <div className="flex justify-center items-center h-screen">
@@ -29,7 +29,9 @@ const Login = () => {
                 </div>
 
                 <div className="mt-2">
-                    <button className="text-gray-700 text-xs font-roboto-slab">Crear cuenta</button>
+                    <Link to='/registershop'>
+                        <button className="text-gray-700 text-xs font-roboto-slab">Crear cuenta</button>
+                    </Link>
                 </div>
             </div>
         </div>
