@@ -1,5 +1,5 @@
 import Home from "./views/Home"
-import Landing from "./views/Landing"
+//import Landing from "./views/Landing"
 import Login from "./views/Login.jsx"
 import "./index.css"
 import RegisterUser from "./views/RegisterUser.jsx"
@@ -13,7 +13,6 @@ function App() {
   return (
     <div>
       {
-        pathname !== "/" &&
         pathname !== "/login" &&
         pathname !== "/registeruser" &&
         pathname !== "/registershop" &&
