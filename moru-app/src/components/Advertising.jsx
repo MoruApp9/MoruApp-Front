@@ -7,12 +7,12 @@ import slide5 from '../images/slide5.png'
 import { useState, useEffect } from 'react';
 
 const Advertising = () => {
-    const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-          setActiveIndex((prevIndex) => (prevIndex === slides.length - 1 ? 0 : prevIndex + 1));
-        }, 5000);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex((prevIndex) => (prevIndex === slides.length - 1 ? 0 : prevIndex + 1));
+    }, 5000);
 
     return () => clearInterval(interval);
   }, []);
@@ -27,14 +27,13 @@ const Advertising = () => {
   ];
 
   return (
-    <div className="slider rounded-lg  w-full">
-      <div className="slides w-full h-72 md:h-102 relative">
+    <div className="rounded-lg  w-full">
+      <div className="w-full h-72 md:h-102 relative">
         {slides.map((_, index) => (
           <input
             key={index}
             type="radio"
             name="radio-btn"
-            className="radio-btn"
             id={`radio${index + 1}`}
             checked={index === activeIndex}
             onChange={() => setActiveIndex(index)}
@@ -44,7 +43,7 @@ const Advertising = () => {
         {slides.map((slide, index) => (
           <div
             key={index}
-            className={`slide w-full h-72 md:h-102 absolute top-0 ${
+            className={`w-full h-72 md:h-102 absolute top-0 ${
               index === activeIndex ? 'left-0' : '-left-full'
             } transition-transform duration-2000`}
           >
