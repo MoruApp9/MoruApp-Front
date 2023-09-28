@@ -1,4 +1,3 @@
-import { useState } from "react"
 //TODO usar iconos de react
 import shoppingIcon from "../images/icons/carrito-de-compras.png"
 import sandwichIcon from "../images/icons/sandwich-icon.jpg"
@@ -8,7 +7,10 @@ import countIcon from '../images/icons/count.svg'
 //import logoutIcon from '../images/icons/logout.svg'
 import publishIcon from '../images/icons/publish.svg'
 import supportIcon from '../images/icons/support.svg'
+import { BiLogInCircle } from 'react-icons/bi';
+
 import { Link } from "react-router-dom"
+import { useState } from "react"
 
 import { useAuth0 } from '@auth0/auth0-react'
 import { LogOutButton } from '../components/LogOut'
@@ -21,19 +23,19 @@ const Nav = () => {
   return (
     <nav className="flex flex-col sticky top-0  bg-white  z-50">
       <div className="flex justify-between w-full items-center px-6 py-2 shadow-lg rounded-bl-lg rounded-br-xl ">
+        
+        <div className="flex items-center space-x-5">
         <button onClick={() => {setOpenMenu(true)}}>
           <img className="w-7" src={sandwichIcon} alt="sandwichIcon" />
         </button>
-
-        <div className="flex items-center space-x-4">
           {
             isAuthenticated 
             ? <LogOutButton /> 
-            : <button onClick={() => loginWithRedirect()}>Ingresar</button>
+            : <BiLogInCircle className="text-4xl text-purple-moru" />
           }
 
-          <Link to="/carrito-de-compras"><img className="w-12" src={shoppingIcon} alt="shoppingIcon" /></Link>
       </div>
+          <Link to="/carrito-de-compras"><img className="w-12" src={shoppingIcon} alt="shoppingIcon" /></Link>
 
         </div>
       <div onClick={() => {setOpenMenu(false)}} className={`${!openMenu && 'hidden'} bg-gray-600/50 min-h-screen w-full fixed backdrop-blur-sm`}></div>
