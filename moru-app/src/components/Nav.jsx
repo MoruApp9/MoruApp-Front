@@ -15,6 +15,7 @@ const Nav = () => {
   const { loginWithRedirect, isAuthenticated } = useAuth0();
 
   return (
+<<<<<<< HEAD
     <nav className="flex flex-col sticky top-0 bg-white">
       <div className="flex justify-between w-full items-center px-6 py-2 shadow-lg rounded-bl-lg rounded-br-lg">
         <button onClick={() => setOpenMenu(true)}>
@@ -23,6 +24,22 @@ const Nav = () => {
         <div>
           {isAuthenticated ? <LogOutButton /> : <button onClick={() => loginWithRedirect()}>Ingresar</button>}
         </div>
+=======
+    <nav className="flex flex-col sticky top-0  bg-white  z-50">
+      <div className="flex justify-between w-full items-center px-6 py-2 shadow-lg rounded-bl-lg rounded-br-lg ">
+      <button onClick={() => {setOpenMenu(true)}}>
+        <img className="w-7" src={sandwichIcon} alt="sandwichIcon" />
+          </button>
+
+            {
+                isAuthenticated ? 
+                <LogOutButton /> 
+                : <button onClick={() => loginWithRedirect()}>Ingresar</button>
+            }
+
+        {/* <Link to="/"><img className="w-20" src={logoMoru} alt="Moru App" /></Link> */}
+
+>>>>>>> 9f08044ab0df2cb3962920a3d35fdd9ad254483b
         <Link to="/carrito-de-compras">
           <img className="w-12" src={shoppingIcon} alt="shoppingIcon" />
         </Link>
