@@ -18,7 +18,6 @@ import { useState } from "react"
 
 import { useAuth0 } from '@auth0/auth0-react'
 import { LogOutButton } from '../components/LogOut'
-import SearchBar from './SearchBar'
 //import logoMoru from "../images/logo.jpeg"
 
 const Nav = () => {
@@ -38,7 +37,7 @@ const Nav = () => {
           }
 
         </div>
-        <Link to="/"><AiFillHome className="text-4xl text-purple-moru" /></Link>
+        <Link to="/"><AiFillHome className="text-3xl text-purple-moru" /></Link>
         <Link to="/carrito-de-compras"><img className="w-12" src={shoppingIcon} alt="shoppingIcon" /></Link>
       </div>
 
@@ -64,8 +63,6 @@ const Nav = () => {
           </li>
         </div>
       </div>
-
-      <SearchBar/>
 
     </nav>
   )

@@ -8,6 +8,7 @@ import Nav from "./components/Nav"
 import ShoppingCart from "./views/ShoppingCart"
 import { Route, Routes, useLocation } from "react-router-dom"
 import FAQ from "./components/FAQ"
+import SearchBar from "./components/searchbar"
 
 function App() {
   const { pathname } = useLocation()
@@ -19,6 +20,12 @@ function App() {
         pathname !== "/registeruser" &&
         pathname !== "/registershop" &&
         <Nav />
+      }
+      {
+        pathname !== "/login" &&
+        pathname !== "/registeruser" &&
+        pathname !== "/registershop" &&
+        <SearchBar/>
       }
 
       <Routes>
