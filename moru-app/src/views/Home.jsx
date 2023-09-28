@@ -1,11 +1,13 @@
 import Advertising from '../components/Advertising';
+import AllProducts from '../components/AllProducts';
 
 const Home = () => {
 
     return(
         <div>
-            <Advertising/>            
-        </div>
+                <Advertising/>   
+                <AllProducts/>         
+        </div>            
     )
 }
 
