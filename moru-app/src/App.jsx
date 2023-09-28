@@ -8,6 +8,7 @@ import Nav from "./components/Nav"
 import ShoppingCart from "./views/ShoppingCart"
 import { Route, Routes, useLocation } from "react-router-dom"
 import FAQ from "./components/FAQ"
+import ProductDetail from './views/Detail'
 
 function App() {
   const { pathname } = useLocation()
@@ -29,6 +30,7 @@ function App() {
         <Route path="/landing" element={<Landing />}></Route>
         <Route path="/carrito-de-compras" element={<ShoppingCart/>}/>
         <Route path="/support" element={<FAQ/>}/>
+        <Route path="/producto/:id" element={<ProductDetail/>} />
       </Routes>
     </div>
   )
