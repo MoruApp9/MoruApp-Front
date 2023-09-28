@@ -52,28 +52,29 @@ const Advertising = () => {
           </div>
         ))}
       </div>
-
-      <div className="navigation-auto absolute mt-2 flex justify-center w-full">
-        {slides.map((_, index) => (
-          <div
-            key={index}
-            className={`auto-btn${index + 1} border-2 border-purple-moru p-1 md:p-2 md:mt-2 rounded-full cursor-pointer transition duration-1000 ${
-              index === activeIndex ? 'bg-purple-moru' : ''
-            }`}
-            style={{ marginRight: '2px' }}
-          />
-        ))}
-      </div>
       
-      <div className="navigation-manual mt-2 md:mt-4 flex justify-center">
+      <div className="navigation-manual absolute mt-2 flex justify-center w-full">
         {slides.map((_, index) => (
           <label
             key={index}
             htmlFor={`radio${index + 1}`}
-            className={`manual-btn border-2 border-purple-moru p-1 md:p-2 rounded-full cursor-pointer transition duration-1000 ${
+            className={`manual-btn border-2 border-purple-moru p-1 md:p-2 md:mt-2 rounded-full cursor-pointer transition duration-1000 ${
               index === activeIndex ? 'bg-purple-moru' : ''
             }`}
-            style={{ marginRight: '2px' }}
+            style={{ marginRight: '4px' }}
+            
+          />
+        ))}
+      </div>
+    
+      <div className="navigation-auto mt-2 md:mt-4 flex justify-center">
+        {slides.map((_, index) => (
+          <div
+            key={index}
+            className={`auto-btn${index + 1} border-2 border-purple-moru p-1 md:p-2 rounded-full cursor-pointer transition duration-1000${
+              index === activeIndex ? 'bg-purple-moru' : ''
+            }`}
+            style={{ marginRight: '4px' }}
           />
         ))}
       </div>
