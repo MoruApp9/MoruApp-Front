@@ -14,6 +14,7 @@ import { useState } from "react"
 
 import { useAuth0 } from '@auth0/auth0-react'
 import { LogOutButton } from '../components/LogOut'
+import SearchBar from './SearchBar'
 //import logoMoru from "../images/logo.jpeg"
 
 const Nav = () => {
@@ -61,6 +62,8 @@ const Nav = () => {
           </li>
         </div>
       </div>
+
+      <SearchBar/>
 
     </nav>
   )
