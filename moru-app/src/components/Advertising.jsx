@@ -4,7 +4,7 @@ import slide3 from '../images/slide3.png'
 import slide4 from '../images/slide4.png'
 import slide5 from '../images/slide5.png'
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 const Advertising = () => {
     const [activeIndex, setActiveIndex] = useState(0);
@@ -61,7 +61,7 @@ const Advertising = () => {
             className={`manual-btn border-2 border-purple-moru p-1 md:p-2 md:mt-2 rounded-full cursor-pointer transition duration-1000 ${
               index === activeIndex ? 'bg-purple-moru' : ''
             }`}
-            style={{ marginRight: '4px' }}
+            style={{ marginRight: '4px' }} 
             
           />
         ))}
