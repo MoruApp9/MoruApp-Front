@@ -8,6 +8,9 @@ export default {
       },
       colors: {
         'purple-moru': "#280a50"
+      },
+      height: {
+        '102': "430px"
       }
     },
   },
