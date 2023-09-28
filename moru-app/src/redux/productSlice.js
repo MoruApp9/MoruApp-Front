@@ -93,7 +93,7 @@ const initialState = {
         },
         {
             "product": {
-                "id": "1",
+                "id": "4",
                 "name": "Peluche de Osito",
                 "description": "Peluche suave y tierno, ideal para regalar.",
                 "image": "https://http2.mlstatic.com/D_NQ_NP_2X_601270-MLM44514590038_012021-AB-M.jpg",
@@ -124,7 +124,7 @@ const initialState = {
         },
         {
             "product": {
-                "id": "2",
+                "id": "5",
                 "name": "Muñeca de Porcelana",
                 "description": "Muñeca delicadamente elaborada a mano.",
                 "image": "https://juguetesdecoleccion.com/wp-content/uploads/muneca-rapunzel-princesa-disney.jpg",
@@ -155,7 +155,7 @@ const initialState = {
         },
         {
             "product": {
-                "id": "3",
+                "id": "6",
                 "name": "Rompecabezas de 1000 Piezas",
                 "description": "Diviértete armando este desafiante rompecabezas.",
                 "image": "https://http2.mlstatic.com/D_NQ_NP_2X_601270-MLM44514590038_012021-AB-M.jpg",
