@@ -3,6 +3,9 @@ import shoppingIcon from "../images/icons/carrito-de-compras.png"
 import storeIcon from '../images/icons/store.svg'
 import { AiFillHome } from "react-icons/ai"
 import { FiMenu } from "react-icons/fi"
+import { MdFavorite } from "react-icons/md"
+import { MdAccountCircle } from "react-icons/md"
+import { BiSupport } from "react-icons/bi"
 import favIcon from '../images/icons/fav.svg'
 import countIcon from '../images/icons/count.svg'
 //import logoutIcon from '../images/icons/logout.svg'
@@ -51,13 +54,12 @@ const Nav = () => {
             <ul className={`flex ${isAuthenticated ? 'order-5' : 'order-1'}  justify-center`}  >{
               isAuthenticated
                 ? <LogOutButton />
-                : <button className="  flex items-center space-x-4" onClick={() => loginWithRedirect()}><BiLogInCircle className="text-4xl text-purple-moru" /><span>Ingresar</span></button>
+                : <button className="  flex items-center space-x-4 mr-3" onClick={() => loginWithRedirect()}><BiLogInCircle className="text-4xl text-purple-moru" /><span>Ingresar</span></button>
             }</ul >
-            {/*             <ul className="flex justify-center space-x-4"> <img className="w-7" src={storeIcon} alt="store" /><Link>Tienda</Link></ul>
- */}        <ul onClick={() => { setOpenMenu(false) }} className="  order-2 flex justify-center space-x-4 " ><img className="w-7" src={favIcon} alt="fav" /><Link to="/fav">Favoritos</Link></ul>
-            {/*             <ul className="flex justify-center space-x-4" ><img className="w-7" src={publishIcon} alt="publish" /><Link>Publicar</Link></ul>
- */}        <ul onClick={() => { setOpenMenu(false) }} className=" order-3 flex justify-center space-x-4 mr-5" ><img className="w-7" src={countIcon} alt="count" /><Link to="/account">Cuenta</Link></ul>
-            <ul onClick={() => { setOpenMenu(false) }} className=" order-4 flex justify-center space-x-4 mr-3" ><img className="w-7" src={supportIcon} alt="publish" /><Link to="/support">Soporte</Link></ul>
+
+            <ul onClick={() => { setOpenMenu(false) }} className="  order-2 flex justify-center space-x-4 " ><MdFavorite className="w-7 text-purple-moru text-3xl"></MdFavorite><Link to="/fav">Favoritos</Link></ul>
+            <ul onClick={() => { setOpenMenu(false) }} className=" order-3 flex justify-center space-x-4 mr-5" ><MdAccountCircle className="w-7 text-purple-moru text-3xl"></MdAccountCircle><Link to="/account">Cuenta</Link></ul>
+            <ul onClick={() => { setOpenMenu(false) }} className=" order-4 flex justify-center space-x-4 mr-3" ><BiSupport className="w-7 text-purple-moru text-3xl"></BiSupport><Link to="/support">Soporte</Link></ul>
           </li>
         </div>
       </div>
