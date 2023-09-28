@@ -46,9 +46,6 @@ const Nav = () => {
           </button>
 
           <li className="flex flex-col space-y-10 text-xl">
-    
-            <ul className="mflex justify-center space-x-4"> <img className="w-7" src={storeIcon} alt="store" /><Link>Tienda</Link></ul>
-
             <ul className="flex justify-center space-x-4"> <img className="w-7" src={storeIcon} alt="store" /><Link>Tienda</Link></ul>
             <ul className="flex justify-center space-x-4" ><img className="w-7" src={favIcon} alt="fav" /><Link>Favoritos</Link></ul>
             <ul className="flex justify-center space-x-4" ><img className="w-7" src={publishIcon} alt="publish" /><Link>Publicar</Link></ul>

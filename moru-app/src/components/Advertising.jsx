@@ -4,7 +4,7 @@ import slide3 from '../images/slide3.png'
 import slide4 from '../images/slide4.png'
 import slide5 from '../images/slide5.png'
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 const Advertising = () => {
     const [activeIndex, setActiveIndex] = useState(0);
