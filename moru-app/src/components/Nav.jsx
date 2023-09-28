@@ -18,7 +18,7 @@ const Nav = () => {
   const { loginWithRedirect, isAuthenticated } = useAuth0();
 
   return (
-    <nav className="flex flex-col sticky top-0  bg-white  ">
+    <nav className="flex flex-col sticky top-0  bg-white  z-50">
       <div className="flex justify-between w-full items-center px-6 py-2 shadow-lg rounded-bl-lg rounded-br-lg ">
       <button onClick={() => {setOpenMenu(true)}}>
         <img className="w-7" src={sandwichIcon} alt="sandwichIcon" />
