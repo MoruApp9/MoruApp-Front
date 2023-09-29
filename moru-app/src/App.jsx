@@ -25,6 +25,7 @@ function App() {
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
+
   return (
     <div>
       {
@@ -51,7 +52,7 @@ function App() {
         <Route path="/carrito-de-compras" element={<ShoppingCart/>}/>
         <Route path="/support" element={<FAQ/>}/>
         <Route path="/producto/:id" element={<ProductDetail/>} />
-        <Route path="/products" element={<CategoryView />} />
+        <Route path="/products/:id" element={<CategoryView />} />
         <Route path="/fav" element={<Favorites/>} />
       </Routes>
     </div>

@@ -43,7 +43,7 @@ const Product = ({ product }) => {
                     <button className="text-gray-500" onClick={handleFavorite}>
                         <FiHeart className={`text-red-500 ${isFav ? 'fill-current' : 'stroke-current'}`} />
                     </button>
-                  </div> : null
+                    </div> : null
                 }
                 <div className="px-4 pb-2">
                     <h2 className="text-lg font-semibold">{product.name}</h2>
@@ -57,7 +57,7 @@ const Product = ({ product }) => {
                 </div>
             </div>
         </Link>
-      );
+    );
 };
 
 export default Product;

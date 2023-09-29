@@ -28,7 +28,7 @@ export const getProductsByCategory = (categoryId) => {
 };
 
 export const getCategorias = () => {
-  return async (dispatch) => {
+  return async () => {
     try {
       const response = await axios.get(`https://moruapp-back.up.railway.app/categories/allcategories`);
       const data = response.data;
