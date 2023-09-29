@@ -2,11 +2,12 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-import slide1 from '../images/slide.png';
-import slide2 from '../images/slide2.png';
-import slide3 from '../images/slide3.png';
-import slide4 from '../images/slide4.png';
-import slide5 from '../images/slide5.png';
+import slide1 from '../images/slideCate.png';
+import slide2 from '../images/slideCate2.png';
+import slide3 from '../images/slideCate3.png';
+import slide4 from '../images/slideCate4.png';
+import slide5 from '../images/slideCate5.png';
+import slide6 from '../images/slideCate6.png';
 
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';

@@ -31,6 +31,7 @@ function App() {
         pathname !== "/login" &&
         pathname !== "/registeruser" &&
         pathname !== "/registershop" &&
+        pathname !== "/landing" &&
         <Nav />
       }
       {
