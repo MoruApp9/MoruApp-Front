@@ -5,6 +5,7 @@ import products from "./productSlice";
 import productsFiltered from "./productsFilteredSlice";
 import favorites from "./favoritesSlice";
 import cartSlice from "./cartSlice";
+import categoriesReducer from './categoriesSlice';
 
 export default configureStore({
     reducer: {
@@ -13,7 +14,7 @@ export default configureStore({
         cart: cartSlice,
         productsFiltered,
         favorites: favorites,
-        //episodes: episodes, 
+        categories: categoriesReducer
     },
     middleware: [thunk],
 })

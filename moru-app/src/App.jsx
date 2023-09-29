@@ -11,6 +11,7 @@ import FAQ from "./components/FAQ"
 import SearchBar from "./components/searchbar"
 import ProductDetail from './views/Detail'
 import Favorites from './views/Favorites'
+import CategoryView from './views/CategoryView';
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { getProducts } from './services/services'; 
@@ -49,6 +50,7 @@ function App() {
         <Route path="/carrito-de-compras" element={<ShoppingCart/>}/>
         <Route path="/support" element={<FAQ/>}/>
         <Route path="/producto/:id" element={<ProductDetail/>} />
+        <Route path="/products" element={<CategoryView />} />
         <Route path="/fav" element={<Favorites/>} />
       </Routes>
     </div>
