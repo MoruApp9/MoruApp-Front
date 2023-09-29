@@ -4,6 +4,7 @@ import user from './userSlice'
 import products from "./productSlice";
 import productsFiltered from "./productsFilteredSlice";
 import favorites from "./favoritesSlice";
+import isFav from "./isFavSlice";
 import cartSlice from "./cartSlice";
 
 export default configureStore({
@@ -13,6 +14,7 @@ export default configureStore({
         cart: cartSlice,
         productsFiltered,
         favorites: favorites,
+        isFav: isFav,
         //episodes: episodes, 
     },
     middleware: [thunk],

@@ -34,10 +34,7 @@ function App() {
         <Nav />
       }
       {
-        pathname !== "/login" &&
-        pathname !== "/registeruser" &&
-        pathname !== "/registershop" &&
-        pathname !== "/support" &&
+        pathname === "/" &&
         <SearchBar/>
       }
 
