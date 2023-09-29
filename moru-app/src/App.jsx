@@ -42,7 +42,8 @@ function App() {
       }
 
       <Routes>
-        <Route exact path="/" element={<Home />}></Route>
+        <Route exact path="/" element={<Landing />}></Route>
+        <Route path="/home" element={<Home />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/registeruser" element={<RegisterUser />}></Route>
         <Route path="/registershop" element={<RegisterShop />}></Route>
