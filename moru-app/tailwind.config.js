@@ -10,8 +10,8 @@ export default {
         'purple-moru': "#280a50"
       },
       height: {
-        '102': "430px"
-      }
+        '102': "450px"
+      },
     },
   },
   plugins: [],
