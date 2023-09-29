@@ -14,7 +14,7 @@ const ProductDetail = () => {
 
     return (
         <div>
-        <div className="max-w-3xl mx-auto py-8 flex flex-col sm:flex-row">
+        <div className="max-w-3xl mx-auto flex flex-col sm:flex-row">
 
             <div className="sm:w-2/3 pr-4">
                 <div className="bg-white shadow overflow-hidden sm:rounded-lg">
