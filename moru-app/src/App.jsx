@@ -10,6 +10,7 @@ import { Route, Routes, useLocation } from "react-router-dom"
 import FAQ from "./components/FAQ"
 import SearchBar from "./components/searchbar"
 import ProductDetail from './views/Detail'
+import Favorites from './views/Favorites'
 
 function App() {
   const { pathname } = useLocation()
@@ -38,6 +39,7 @@ function App() {
         <Route path="/carrito-de-compras" element={<ShoppingCart/>}/>
         <Route path="/support" element={<FAQ/>}/>
         <Route path="/producto/:id" element={<ProductDetail/>} />
+        <Route path="/fav" element={<Favorites/>} />
       </Routes>
     </div>
   )

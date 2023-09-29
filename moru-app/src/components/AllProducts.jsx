@@ -7,7 +7,7 @@ const AllProducts = ({ currentProductId }) => {
         // Filtra la lista de productos para excluir el producto actual
         return state.products.products.filter((product) => product.product.id !== currentProductId);
     });
-    
+
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-10">
         {products.map((product) => (
