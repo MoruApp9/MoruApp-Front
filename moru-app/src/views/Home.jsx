@@ -1,7 +1,16 @@
-const Home = ()=>{
+import Advertising from '../components/Advertising';
+import AllProducts from '../components/AllProducts';
+
+const Home = () => {
+
     return(
-        <h1>Soy el Home</h1>
+        <div>
+                <Advertising/>   
+                <AllProducts/>         
+        </div>            
     )
 }
 
 export default Home;
+
+
