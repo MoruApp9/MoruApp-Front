@@ -1,4 +1,5 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, applyMiddleware } from "@reduxjs/toolkit";
+import thunk from 'redux-thunk';
 import user from './userSlice'
 import products from "./productSlice";
 import productsFiltered from "./productsFilteredSlice";
@@ -13,6 +14,7 @@ export default configureStore({
         productsFiltered,
         favorites: favorites,
         //episodes: episodes, 
-    }
+    },
+    middleware: [thunk],
 })
 
