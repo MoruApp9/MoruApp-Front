@@ -27,6 +27,7 @@ function App() {
         pathname !== "/login" &&
         pathname !== "/registeruser" &&
         pathname !== "/registershop" &&
+        pathname !== "/support" &&
         <SearchBar/>
       }
 
