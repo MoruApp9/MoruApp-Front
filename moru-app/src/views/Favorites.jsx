@@ -12,8 +12,8 @@ const Favorites = ()=>{
                 favorites.map((fav) => {
                     return (
                         <Product
-                        key={fav.id}
-                        product={{product:fav}}                  
+                        key={fav.name}
+                        product={fav}                  
                         />
                     )
                 })

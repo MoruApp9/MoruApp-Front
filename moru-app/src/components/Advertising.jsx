@@ -1,21 +1,28 @@
-import slide1 from '../images/slide.png'
-import slide2 from '../images/slide2.png'
-import slide3 from '../images/slide3.png'
-import slide4 from '../images/slide4.png'
-import slide5 from '../images/slide5.png'
+import { useState, useEffect, useRef } from 'react';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
-import { useState, useEffect } from 'react';
+import slide1 from '../images/slide.png';
+import slide2 from '../images/slide2.png';
+import slide3 from '../images/slide3.png';
+import slide4 from '../images/slide4.png';
+import slide5 from '../images/slide5.png';
 
 const Advertising = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [autoplay, setAutoplay] = useState(true);
+  const sliderRef = useRef(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveIndex((prevIndex) => (prevIndex === slides.length - 1 ? 0 : prevIndex + 1));
+      if (autoplay) {
+        sliderRef.current.slickNext();
+      }
     }, 5000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [autoplay]);
 
   const slides = [
     slide1,
@@ -26,56 +33,70 @@ const Advertising = () => {
     // Agrega más imágenes si es necesario
   ];
 
-  return (
-    <div className="rounded-lg  w-full">
-      <div className="w-full h-72 md:h-102 relative">
-        {slides.map((_, index) => (
-          <input
-            key={index}
-            type="radio"
-            name="radio-btn"
-            id={`radio${index + 1}`}
-            checked={index === activeIndex}
-            onChange={() => setActiveIndex(index)}
-          />
-        ))}
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 1000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    initialSlide: 0,
+    autoplay: autoplay,
+    autoplaySpeed: 1000,
+    beforeChange: (current, next) => {
+      setActiveIndex(next);
+    },
+    afterChange: (current) => {
+      if (!autoplay) {
+        setAutoplay(true);
+      }
+    },
+    customPaging: (i) => (
+      <div
+        style={{
+          width: "20px",
+          height: "20px",
+          borderRadius: "50%",
+          background: i === activeIndex ? "#6B7280" : "#ddd",
+        }}
+      ></div>
+    ),
+  };
 
+  const handleDotClick = (index) => {
+    setActiveIndex(index);
+    setAutoplay(false);
+    sliderRef.current.slickGoTo(index); 
+  };
+
+  return (
+    <div className="rounded-lg w-full overflow-hidden">
+      <Slider {...settings} ref={sliderRef}>
         {slides.map((slide, index) => (
-          <div
-            key={index}
-            className={`w-full h-72 md:h-102 absolute top-0 ${
-              index === activeIndex ? 'left-0' : '-left-full'
-            } transition-transform duration-2000`}
-          >
+          <div key={index} className="w-full h-56 sm:h-72 md:h-96 lg:h-102">
             <img src={slide} alt={`Slide ${index + 1}`} className="w-full h-full" />
           </div>
         ))}
-      </div>
-      
-      <div className="navigation-manual absolute mt-2 flex justify-center w-full">
-        {slides.map((_, index) => (
-          <label
-            key={index}
-            htmlFor={`radio${index + 1}`}
-            className={`manual-btn border-2 border-purple-moru p-1 md:p-2 md:mt-2 rounded-full cursor-pointer transition duration-1000 ${
-              index === activeIndex ? 'bg-purple-moru' : ''
-            }`}
-            style={{ marginRight: '4px' }} 
-            
-          />
-        ))}
-      </div>
-    
-      <div className="navigation-auto mt-2 md:mt-4 flex justify-center">
-        {slides.map((_, index) => (
-          <div
-            key={index}
-            className={`auto-btn${index + 1} border-2 border-purple-moru p-1 md:p-2 rounded-full cursor-pointer transition duration-1000${
-              index === activeIndex ? 'bg-purple-moru' : ''
-            }`}
-            style={{ marginRight: '4px' }}
-          />
-        ))}
+      </Slider>
+      <div className="dots-container">
+        <ul style={{ margin: 0, padding: 0, display: "flex", justifyContent: "center", color:"transparent"}}>
+          {slides.map((slide, index) => (
+            <li
+              key={index}
+              className={index === activeIndex ? 'active' : ''}
+              onClick={() => handleDotClick(index)}
+              style={{ listStyle: "none", margin: "20px 5px 0", cursor: "pointer", }}
+            >
+              <div
+              style={{
+                width: "10px",
+                height: "10px",
+                borderRadius: "50%",
+                background: index === activeIndex ? "#6B7280" : "#ddd",
+              }}
+              ></div>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
