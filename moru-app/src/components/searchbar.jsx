@@ -9,7 +9,7 @@ const SearchBar = () => {
   
   const productsFiltered = useSelector((state) =>
     state.products.products.filter(
-      (product) => product.product.name.toLowerCase() === name?.toLowerCase()
+      (product) => product.name.toLowerCase() === name?.toLowerCase()
     )
   )
 

@@ -6,7 +6,7 @@ const ProductDetail = () => {
     const { id } = useParams();
     const product = useSelector((state) => {
         return state.products.products.find(
-            (product) => product.product.id === id
+            (product) => product.id === id
         );
     });
 
@@ -20,16 +20,16 @@ const ProductDetail = () => {
                 <div className="bg-white shadow overflow-hidden sm:rounded-lg">
                     <div className="px-4 py-5 sm:px-6">
                         <h2 className="text-2xl font-semibold text-gray-800">
-                            {product.product.name}
+                            {product.name}
                         </h2>
-                        <p className="text-xl text-green-800">Precio: ${product.product.price}</p>
+                        <p className="text-xl text-green-800">Precio: ${product.price}</p>
                     </div>
                     <div className="px-4 py-5 sm:px-6">
-                        <p className="text-gray-700">{product.product.description}</p>
+                        <p className="text-gray-700">{product.description}</p>
                     </div>
                     <div className="border-t border-gray-200">
                         <img
-                            src={product.product.image}
+                            src={product.image}
                             alt=""
                             className="w-full h-auto"
                         />
@@ -43,12 +43,15 @@ const ProductDetail = () => {
                         <h3 className="text-lg font-semibold text-gray-800">Detalles adicionales</h3>
                     </div>
                     <div className="px-4 py-2 sm:px-6">
-                        <h4 className="text-gray-700 font-semibold">Stock por Talla:</h4>
+                        {/* <h4 className="text-gray-700 font-semibold">Stock por Talla:</h4> */}
                         <ul className="list-disc list-inside">
-                            {product.stock.map((item) => (
+                            {/* {product.stock.map((item) => (
                                 <li key={item.id} className="text-gray-700">
                                     {item.size}: {item.stock}
-                                </li>))}
+                                </li>))} */}
+                            <h2>{product.season ? `temporada: ${product.season}` : null}</h2>
+                            <h2>{product.gender ? `género: ${product.gender}` : null}</h2>
+
                         </ul>
                     </div>
                 </div>

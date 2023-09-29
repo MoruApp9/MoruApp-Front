@@ -11,10 +11,19 @@ import FAQ from "./components/FAQ"
 import SearchBar from "./components/searchbar"
 import ProductDetail from './views/Detail'
 import Favorites from './views/Favorites'
+import { useEffect } from "react"
+import { useDispatch } from "react-redux"
+import { getProducts } from './services/services'; 
+
 
 function App() {
   const { pathname } = useLocation()
+  const dispatch = useDispatch();
 
+
+  useEffect(() => {
+    dispatch(getProducts());
+  }, [dispatch]);
   return (
     <div>
       {
