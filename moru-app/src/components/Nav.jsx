@@ -18,11 +18,20 @@ import { useState } from "react"
 
 import { useAuth0 } from '@auth0/auth0-react'
 import { LogOutButton } from '../components/LogOut'
+
+import { cleanProductsFiltered } from "../redux/productsFilteredSlice"
+import { useDispatch } from "react-redux"
+
 //import logoMoru from "../images/logo.jpeg"
 
 const Nav = () => {
   const [openMenu, setOpenMenu] = useState(false)
   const { loginWithRedirect, isAuthenticated } = useAuth0();
+  const dispatch = useDispatch()
+
+  const handleOnClickMenu = () => {
+    dispatch(cleanProductsFiltered())
+  }
 
   return (
     <nav className="flex flex-col sticky top-0  bg-white  z-50">
@@ -37,7 +46,9 @@ const Nav = () => {
           }
 
         </div>
-        <Link to="/"><AiFillHome className="text-3xl text-purple-moru" /></Link>
+
+        <Link onClick={handleOnClickMenu} to="/"><AiFillHome className="text-3xl text-purple-moru" /></Link>
+       
         <Link to="/carrito-de-compras"><img className="w-12" src={shoppingIcon} alt="shoppingIcon" /></Link>
       </div>
 
