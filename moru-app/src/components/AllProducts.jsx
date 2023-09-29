@@ -9,7 +9,7 @@ const AllProducts = ({ currentProductId }) => {
     });
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-10">
+        <div className="p-6 lg:px-28 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         {products.map((product) => (
                 <Product key={product.id} product={product} />
             ))}

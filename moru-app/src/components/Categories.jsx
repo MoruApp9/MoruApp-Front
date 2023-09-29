@@ -2,11 +2,12 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-import slide1 from '../images/slide.png';
-import slide2 from '../images/slide2.png';
-import slide3 from '../images/slide3.png';
-import slide4 from '../images/slide4.png';
-import slide5 from '../images/slide5.png';
+import slide1 from '../images/slideCate.png';
+import slide2 from '../images/slideCate2.png';
+import slide3 from '../images/slideCate3.png';
+import slide4 from '../images/slideCate4.png';
+import slide5 from '../images/slideCate5.png';
+import slide6 from '../images/slideCate6.png';
 
 function Arrow(props) {
     const { className, style, onClick } = props;
@@ -38,16 +39,19 @@ const Categories = () => {
     { img: slide3, category: 'Fitness y Deporte' },
     { img: slide4, category: 'Hogar y Decoraciones' },
     { img: slide5, category: 'Herramientas' },
+    { img: slide6, category: 'Libros y Cultura' },
     { img: slide1, category: 'Moda y Ropa' },
     { img: slide2, category: 'Restaurante' },
     { img: slide3, category: 'Fitness y Deporte' },
     { img: slide4, category: 'Hogar y Decoraciones' },
     { img: slide5, category: 'Herramientas' },
+    { img: slide6, category: 'Libros y Cultura' },
     { img: slide1, category: 'Moda y Ropa' },
     { img: slide2, category: 'Restaurante' },
     { img: slide3, category: 'Fitness y Deporte' },
     { img: slide4, category: 'Hogar y Decoraciones' },
     { img: slide5, category: 'Herramientas' },
+    { img: slide6, category: 'Libros y Cultura'  },
   ];
 
   const settings = {
