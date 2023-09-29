@@ -19,7 +19,7 @@ function Arrow(props) {
         alignItems: "center",
         background: "gray",
         boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
-        cursor: "pointer", 
+        cursor: "pointer",
       };
     return (
       <div
@@ -99,20 +99,22 @@ const Categories = () => {
   };
 
   return (
-    <div className="w-full px-8 lg:px-36 py-6">
-        <h1 className='ml-2 xl:ml-36 py-4 xl:pb-6 text-2xl md:text-3xl font-roboto-slab'>Categorias</h1>
-        <Slider {...settings} >
-            {categories.map((category, index) => (
-            <div key={index} className="flex flex-col items-center px-2">
-                <img
-                src={category.img}
-                alt={category.category}
-                className="rounded mx-auto mb-2 w-28 h-28 object-cover sm:w-24 sm:h-24 md:w-40 md:h-40 "
-                />
-                <p className="text-center text-lg md:text-xl">{category.category}</p>
-            </div>
-            ))}
-        </Slider>
+    <div>
+        <h1 className='ml-4 lg:ml-28 py-4 text-2xl md:text-3xl font-roboto-slab'>Categorias</h1>
+        <div className="w-full px-10 lg:px-36 py-2">
+            <Slider {...settings} >
+                {categories.map((category, index) => (
+                <div key={index} className="flex flex-col items-center px-2">
+                    <img
+                    src={category.img}
+                    alt={category.category}
+                    className="rounded mx-auto mb-2 w-28 h-28 object-cover sm:w-24 sm:h-24 md:w-40 md:h-40 "
+                    />
+                    <p className="text-center text-lg md:text-xl">{category.category}</p>
+                </div>
+                ))}
+            </Slider>
+        </div>
     </div>
   );
 }
