@@ -25,7 +25,7 @@ const Product = ({ product }) => {
     };
 
     return (
-        <div>
+        <div  className="block border rounded shadow p-4 mb-4 mr-6 ml-6">
         {location.pathname !== '/fav' ? 
             (
                 isFav ? (
@@ -36,7 +36,7 @@ const Product = ({ product }) => {
             ) : null
         }
             
-            <Link to={`/producto/${productId}`} className="block border rounded shadow p-4 mb-4 mr-6 ml-6">
+            <Link to={`/producto/${productId}`}>
                 <div className="flex">
                     <div className="flex-1 pr-4">
                         <h2 className="text-lg font-semibold">{product.name}</h2>
