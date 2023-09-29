@@ -38,13 +38,11 @@ const Product = ({ product }) => {
         <Link to={`/producto/${productId}`}>
             <div className="max-w-md mx-auto bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition duration-300">
                 <img src={product.image} alt={product.name} className="w-full h-48 object-cover" />
-                {location.pathname !== '/fav' ?
-                    <div className="flex items-center justify-end px-4 pt-2">
+                <div className="flex items-center justify-end px-4 pt-2">
                     <button className="text-gray-500" onClick={handleFavorite}>
                         <FiHeart className={`text-red-500 ${isFav ? 'fill-current' : 'stroke-current'}`} />
                     </button>
-                  </div> : null
-                }
+                </div>
                 <div className="px-4 pb-2">
                     <h2 className="text-lg font-semibold">{product.name}</h2>
                     <p className="text-gray-500">${product.price}</p>
@@ -57,7 +55,7 @@ const Product = ({ product }) => {
                 </div>
             </div>
         </Link>
-      );
+    );
 };
 
 export default Product;
