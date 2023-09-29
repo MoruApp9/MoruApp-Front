@@ -50,7 +50,9 @@ const RegisterShop = () => {
                     </div>
                     <div className="mb-8">
                         <select className="relative top-4 left-5 w-60 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-xs font-roboto-slab">
-                            <option value="">Categoria</option>
+                            <option value="">Categoria 1</option>
+                            <option value="">Categoria 2</option>
+                            <option value="">Categoria 3</option>
                         </select>
                     </div>
                     <div className="mb-8 flex items-center">
