@@ -48,7 +48,7 @@ const Nav = () => {
         </div>
 
         <Link onClick={handleOnClickMenu} to="/"><AiFillHome className="text-3xl text-purple-moru" /></Link>
-       
+
         <Link to="/carrito-de-compras"><img className="w-12" src={shoppingIcon} alt="shoppingIcon" /></Link>
       </div>
 

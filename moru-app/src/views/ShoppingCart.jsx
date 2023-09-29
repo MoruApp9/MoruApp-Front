@@ -3,16 +3,17 @@ import { removefromCart } from '../redux/cartSlice'
 
 const ShoppingCart = () => {
   const cartItems = useSelector(state => state.cart.cart)
-  const total = cartItems.reduce((accumulator, product) => {
+  console.log(cartItems)
+
+  /* const total = cartItems.reduce((accumulator, product) => {
     return accumulator + product.price;
-  }, 0);
+  }, 0); */
   
-  console.log(`Total del carrito: ${total}`);
   const dispatch = useDispatch();
 
   return (
     <div>
-      <span>{`Total del carrito: ${total}`}</span>
+{/*       <span>{`Total del carrito: ${total}`}</span>    */}
       {
         cartItems.map(item => {
           return(
