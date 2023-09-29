@@ -31,7 +31,7 @@ const Product = ({ product }) => {
                     <button onClick={handleFavorite}>🤍</button>
                 )
             }
-            <Link to={`/producto/${productId}`} className="block border rounded shadow p-4 mb-4">
+            <Link to={`/producto/${productId}`} className="block border rounded shadow p-4 mb-4 mr-6 ml-6">
                 <div className="flex">
                     <div className="flex-1 pr-4">
                         <h2 className="text-lg font-semibold">{product.product.name}</h2>
