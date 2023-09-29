@@ -4,7 +4,7 @@ import { removefromCart } from '../redux/cartSlice'
 const ShoppingCart = () => {
   const cartItems = useSelector(state => state.cart.cart)
   const total = cartItems.reduce((accumulator, product) => {
-    return accumulator + product.price;
+    return accumulator + parseFloat(product.price);
   }, 0);
   
   console.log(`Total del carrito: ${total}`);
