@@ -8,7 +8,7 @@ const Landing = () => {
                 <div className="mt-auto flex flex-col items-center">
                     <button
                         className="mb-2 text-purple-900 w-48 h-12 bg-white rounded-lg ">
-                        <Link to="/home">Ingreso (solo vista)</Link>
+                        <Link to="/">Ingreso (solo vista)</Link>
                     </button>
                     <button
                         className="mb-2 text-purple-900 w-48 h-12 bg-white rounded-lg " >

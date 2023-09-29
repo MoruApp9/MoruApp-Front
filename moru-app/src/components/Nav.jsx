@@ -47,7 +47,7 @@ const Nav = () => {
 
         </div>
 
-        <Link onClick={handleOnClickMenu} to="/home"><AiFillHome className="text-3xl text-purple-moru" /></Link>
+        <Link onClick={handleOnClickMenu} to="/"><AiFillHome className="text-3xl text-purple-moru" /></Link>
        
         <Link to="/carrito-de-compras"><img className="w-12" src={shoppingIcon} alt="shoppingIcon" /></Link>
       </div>
@@ -69,7 +69,8 @@ const Nav = () => {
             }</ul >
 
             <ul onClick={() => { setOpenMenu(false) }} className="  order-2 flex justify-center space-x-4 " ><MdFavorite className="w-7 text-purple-moru text-3xl"></MdFavorite><Link to="/fav">Favoritos</Link></ul>
-            <ul onClick={() => { setOpenMenu(false) }} className=" order-3 flex justify-center space-x-4 mr-5" ><MdAccountCircle className="w-7 text-purple-moru text-3xl"></MdAccountCircle><Link to="/account">Cuenta</Link></ul>
+            {isAuthenticated && (
+            <ul onClick={() => { setOpenMenu(false) }} className=" order-3 flex justify-center space-x-4 mr-5" ><MdAccountCircle className="w-7 text-purple-moru text-3xl"></MdAccountCircle><Link to="/account">Cuenta</Link></ul>)}
             <ul onClick={() => { setOpenMenu(false) }} className=" order-4 flex justify-center space-x-4 mr-3" ><BiSupport className="w-7 text-purple-moru text-3xl"></BiSupport><Link to="/support">Soporte</Link></ul>
           </li>
         </div>
