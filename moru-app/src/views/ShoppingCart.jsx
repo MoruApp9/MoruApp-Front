@@ -7,12 +7,11 @@ const ShoppingCart = () => {
     return accumulator + parseFloat(product.price);
   }, 0);
   
-  console.log(`Total del carrito: ${total}`);
   const dispatch = useDispatch();
 
   return (
     <div>
-      <span>{`Total del carrito: ${total}`}</span>
+{/*       <span>{`Total del carrito: ${total}`}</span>    */}
       {
         cartItems.map(item => {
           return(
