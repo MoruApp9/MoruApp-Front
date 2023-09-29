@@ -8,7 +8,9 @@ import Nav from "./components/Nav"
 import ShoppingCart from "./views/ShoppingCart"
 import { Route, Routes, useLocation } from "react-router-dom"
 import FAQ from "./components/FAQ"
+import SearchBar from "./components/searchbar"
 import ProductDetail from './views/Detail'
+import Favorites from './views/Favorites'
 
 function App() {
   const { pathname } = useLocation()
@@ -21,6 +23,13 @@ function App() {
         pathname !== "/registershop" &&
         <Nav />
       }
+      {
+        pathname !== "/login" &&
+        pathname !== "/registeruser" &&
+        pathname !== "/registershop" &&
+        pathname !== "/support" &&
+        <SearchBar/>
+      }
 
       <Routes>
         <Route exact path="/" element={<Home />}></Route>
@@ -31,6 +40,7 @@ function App() {
         <Route path="/carrito-de-compras" element={<ShoppingCart/>}/>
         <Route path="/support" element={<FAQ/>}/>
         <Route path="/producto/:id" element={<ProductDetail/>} />
+        <Route path="/fav" element={<Favorites/>} />
       </Routes>
     </div>
   )
