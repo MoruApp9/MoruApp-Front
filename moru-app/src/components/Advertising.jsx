@@ -3,11 +3,13 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-import slide1 from '../images/slide.png';
-import slide2 from '../images/slide2.png';
-import slide3 from '../images/slide3.png';
-import slide4 from '../images/slide4.png';
-import slide5 from '../images/slide5.png';
+import slide1 from '../images/slide.jpeg';
+import slide2 from '../images/slide2.jpeg';
+import slide3 from '../images/slide3.jpeg';
+import slide4 from '../images/slide4.jpeg';
+import slide5 from '../images/slide5.jpeg';
+import slide6 from '../images/slide6.jpeg';
+import slide7 from '../images/slide7.jpeg';
 
 const Advertising = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -29,7 +31,10 @@ const Advertising = () => {
     slide2,
     slide3,
     slide4,
-    slide5
+    slide5,
+    slide6,
+    slide7
+
     // Agrega más imágenes si es necesario
   ];
 
@@ -41,7 +46,7 @@ const Advertising = () => {
     slidesToScroll: 1,
     initialSlide: 0,
     autoplay: autoplay,
-    autoplaySpeed: 1000,
+    autoplaySpeed: 11000,
     beforeChange: (current, next) => {
       setActiveIndex(next);
     },

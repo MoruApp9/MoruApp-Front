@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { addFav, removeFav } from "../redux/favoritesSlice";
 import { addToCart } from '../redux/cartSlice'
 import { useLocation } from "react-router-dom";
+import { FiHeart } from 'react-icons/fi';
 
 const Product = ({ product }) => {
     const productId = product.id;
@@ -13,7 +14,9 @@ const Product = ({ product }) => {
 
     const [isFav, setIsFav] = useState(false)
 
-    const handleFavorite = () => {
+    const handleFavorite = (event) => {
+        event.stopPropagation();
+        event.preventDefault();
         if (isFav === true) {
             setIsFav(false);
             dispatch(removeFav(product))
@@ -24,37 +27,37 @@ const Product = ({ product }) => {
         }
     };
 
-    return (
-        <div  className="block border rounded shadow p-4 mb-4 mr-6 ml-6">
-        {location.pathname !== '/fav' ? 
-            (
-                isFav ? (
-                    <button className="ps-9" onClick={handleFavorite}>❤️</button>
-                ) : (
-                    <button className="ps-9" onClick={handleFavorite}>🤍</button>
-                )
-             ) : null
-        }
-            
-            <Link to={`/producto/${productId}`}>
-                <div className="flex">
-                    <div className="flex-1 pr-4">
-                        <h2 className="text-lg font-semibold">{product.name}</h2>
-                        <p className="text-xl text-green-800">Price: ${product.price}</p>
-                    </div>
+    const handleAddToCart = (event) => {
+        event.stopPropagation();
+        event.preventDefault();
+        dispatch(addToCart(product))
+    };
 
-                    <div className="flex-1">
-                        <img
-                            src={product.image}
-                            alt={product.name}
-                            className="w-32 h-32 object-cover"
-                        />
-                    </div>
+
+    return (
+        <Link to={`/producto/${productId}`}>
+            <div className="max-w-md mx-auto bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition duration-300">
+                <img src={product.image} alt={product.name} className="w-full h-48 object-cover" />
+                {location.pathname !== '/fav' ?
+                    <div className="flex items-center justify-end px-4 pt-2">
+                    <button className="text-gray-500" onClick={handleFavorite}>
+                        <FiHeart className={`text-red-500 ${isFav ? 'fill-current' : 'stroke-current'}`} />
+                    </button>
+                  </div> : null
+                }
+                <div className="px-4 pb-2">
+                    <h2 className="text-lg font-semibold">{product.name}</h2>
+                    <p className="text-gray-500">${product.price}</p>
                 </div>
-            </Link>
-            <button className="ps-9" onClick={() => dispatch(addToCart(product))}>Agregar al carrito</button>
-        </div >
-    );
+
+                <div className="flex items-center justify-center py-2">
+                    <button className="bg-blue-500 text-white px-4 py-2 rounded-full" onClick={handleAddToCart}>
+                        Agregar al carrito
+                    </button>
+                </div>
+            </div>
+        </Link>
+      );
 };
 
 export default Product;
