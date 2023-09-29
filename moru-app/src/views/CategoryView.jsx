@@ -1,36 +1,43 @@
-import { useState, useEffect } from 'react';
-import { useParams, } from 'react-router-dom';
-import { getProductsByCategory } from '../services/services'; 
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProductsByCategory } from '../services/services';
 
 const CategoryView = () => {
-    const { id } = useParams(); 
-    const [productos, setProductos] = useState([]); 
-    const location = useLocation();
+    const { id } = useParams();
+    const dispatch = useDispatch();
+    const [sortOrder, setSortOrder] = useState('asc'); 
+    const productos = useSelector((state) => state.products.products.filter(producto => producto.generalcategoryId === +id));
 
+    const handleSortChange = (e) => {
+        setSortOrder(e.target.value);
+    };
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const productos = await getProductsByCategory(id);
-                setProductos(productos);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-    
-        fetchData();
-    }, [id]);
-    
+        dispatch(getProductsByCategory(id));
+    }, [dispatch, id]);
+
+    const sortedProductos = [...productos].sort((a, b) => {
+        if (sortOrder === 'asc') {
+            return a.price - b.price;
+        } else {
+            return b.price - a.price;
+        }
+    });
 
     return (
         <div>
-            <h1>Categoría ID: {id}</h1>
+            <select value={sortOrder} onChange={handleSortChange}>
+                <option value="asc">Menor precio</option>
+                <option value="desc">Mayor precio</option>
+            </select>
+
             <div className="productos-container">
-                {productos.map((producto, index) => (
+                {sortedProductos.map((producto, index) => (
                     <div key={index} className="producto">
-                        <img src={producto.imagen} alt={producto.nombre} />
-                        <p>{producto.nombre}</p>
-                        <p>{producto.precio}</p>
+                        <img src={producto.image} alt={producto.name} />
+                        <p>{producto.name}</p>
+                        <p>{producto.price}</p>
                     </div>
                 ))}
             </div>

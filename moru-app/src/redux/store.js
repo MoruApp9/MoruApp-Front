@@ -15,8 +15,8 @@ export default configureStore({
         cart: cartSlice,
         productsFiltered,
         favorites: favorites,
+        categories: categoriesReducer,
         isFav: isFav,
-        //episodes: episodes, 
     },
     middleware: [thunk],
 })

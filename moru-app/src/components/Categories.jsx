@@ -2,17 +2,10 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-import slide1 from '../images/slideCate.png';
-import slide2 from '../images/slideCate2.png';
-import slide3 from '../images/slideCate3.png';
-import slide4 from '../images/slideCate4.png';
-import slide5 from '../images/slideCate5.png';
-import slide6 from '../images/slideCate6.png';
-
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProductsByCategory } from '../services/services';
+import { getProductsByCategory, getProducts } from '../services/services';
 import { setCategorias } from '../redux/categoriesSlice';
 
 function Arrow(props) {
@@ -36,7 +29,6 @@ function Arrow(props) {
         />
     );
 }
-
 
 const Categories = ({ getProductsByCategory }) => {
     const [productos, setProductos] = useState([]);
@@ -114,13 +106,10 @@ const Categories = ({ getProductsByCategory }) => {
         ],
     };
 
-    const handleClickCategoria = async (categoriaId) => {
-        try {
-            navigate(`/products?generalCategory=${categoriaId}`);
-        } catch (error) {
-            console.error(error);
-        }
+    const handleClickCategoria = (generalCategory) => {
+        navigate(`/products/${generalCategory}`); 
     };
+
 
 
     return (

@@ -4,7 +4,6 @@ import Product from "./Product";
 
 const AllProducts = ({ currentProductId }) => {
     const products = useSelector((state) => {
-        // Filtra la lista de productos para excluir el producto actual
         return state.products.products.filter((product) => product.id !== currentProductId);
     });
 
