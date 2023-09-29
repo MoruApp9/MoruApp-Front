@@ -26,9 +26,9 @@ const Product = ({ product }) => {
         <div>
             {
                 isFav ? (
-                    <button onClick={handleFavorite}>❤️</button>
+                    <button className="ps-9" onClick={handleFavorite}>❤️</button>
                 ) : (
-                    <button onClick={handleFavorite}>🤍</button>
+                    <button className="ps-9" onClick={handleFavorite}>🤍</button>
                 )
             }
             <Link to={`/producto/${productId}`} className="block border rounded shadow p-4 mb-4 mr-6 ml-6">
@@ -47,7 +47,7 @@ const Product = ({ product }) => {
                     </div>
                 </div>
             </Link>
-            <button onClick={() => dispatch(addToCart(product.product))}>Agregar al carrito</button>
+            <button className="ps-9" onClick={() => dispatch(addToCart(product.product))}>Agregar al carrito</button>
         </div >
     );
 };
