@@ -3,15 +3,13 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addFav, removeFav } from "../redux/favoritesSlice";
-
+import { addToCart } from '../redux/cartSlice'
 
 const Product = ({ product }) => {
-
     const productId = product.product.id;
-    
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+
     const [isFav, setIsFav] = useState(false)
-    
 
     const handleFavorite = () => {
         if (isFav === true) {
@@ -49,7 +47,8 @@ const Product = ({ product }) => {
                     </div>
                 </div>
             </Link>
-        </div>
+            <button onClick={() => dispatch(addToCart(product.product))}>Agregar al carrito</button>
+        </div >
     );
 };
 
