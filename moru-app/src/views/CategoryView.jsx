@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProductsByCategory } from '../services/services';
+import Product from '../components/Product'
+import Categories from '../components/Categories';
 
 const CategoryView = () => {
     const { id } = useParams();
@@ -27,6 +29,7 @@ const CategoryView = () => {
 
     return (
         <div>
+            <Categories/>
             <select value={sortOrder} onChange={handleSortChange}>
                 <option value="asc">Menor precio</option>
                 <option value="desc">Mayor precio</option>
@@ -34,11 +37,8 @@ const CategoryView = () => {
 
             <div className="productos-container">
                 {sortedProductos.map((producto, index) => (
-                    <div key={index} className="producto">
-                        <img src={producto.image} alt={producto.name} />
-                        <p>{producto.name}</p>
-                        <p>{producto.price}</p>
-                    </div>
+                    <Product key={producto.id} product={producto} />
+                    
                 ))}
             </div>
         </div>

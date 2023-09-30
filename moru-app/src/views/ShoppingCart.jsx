@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from "react-redux"
 import { removefromCart } from '../redux/cartSlice'
+import Product from '../components/Product'
 
 const ShoppingCart = () => {
   const cartItems = useSelector(state => state.cart.cart)
@@ -11,16 +12,13 @@ const ShoppingCart = () => {
 
   return (
     <div>
-{/*       <span>{`Total del carrito: ${total}`}</span>    */}
+    <h1 className="text-4xl font-bold text-center text-blue-500 m-8">¡Este es tu carrito!</h1>
+      <span>{`Total del carrito: ${total}`}</span> 
       {
         cartItems.map(item => {
           return(
             <div className="d-flex">
-              <img src={item.image} alt="" />
-              <div>
-                <h4>{item.name}</h4>
-                <button onClick={() => dispatch(removefromCart({id: item.id}))}>Eliminar</button>
-              </div>
+              <Product key={item.id} product={item} />
             </div>
           )
         })

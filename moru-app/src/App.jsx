@@ -15,7 +15,8 @@ import CategoryView from './views/CategoryView';
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { getProducts } from './services/services'; 
-import PublishProduct from "./views/PublishProduct"
+import PublishProduct from "./views/PublishProduct";
+import MiTienda from './views/MiTienda'
 
 
 function App() {
@@ -33,7 +34,7 @@ function App() {
         pathname !== "/login" &&
         pathname !== "/registeruser" &&
         pathname !== "/registershop" &&
-        pathname !== "/landing" &&
+        /* pathname !== "/landing" && */
         <Nav />
       }
       {
@@ -46,13 +47,14 @@ function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/registeruser" element={<RegisterUser />}></Route>
         <Route path="/registershop" element={<RegisterShop />}></Route>
-        <Route path="/landing" element={<Landing />}></Route>
+        {/* <Route path="/landing" element={<Landing />}></Route> */}
         <Route path="/carrito-de-compras" element={<ShoppingCart/>}/>
         <Route path="/support" element={<FAQ/>}/>
         <Route path="/producto/:id" element={<ProductDetail/>} />
         <Route path="/products/:id" element={<CategoryView />} />
         <Route path="/fav" element={<Favorites/>} />
         <Route path="/publicar-producto" element={<PublishProduct/>} />
+        <Route path="/tienda" element={<MiTienda/>} />
       </Routes>
     </div>
   )
