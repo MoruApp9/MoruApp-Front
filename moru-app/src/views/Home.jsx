@@ -11,7 +11,7 @@ const Home = () => {
   return (
     <div>
       {!productsFiltered.length && <Advertising />}
-      <Categories/>
+      {!productsFiltered.length && <Categories/>}
       {!productsFiltered.length && <AllProducts />}
       {productsFiltered.length && <Filters />}
     </div>

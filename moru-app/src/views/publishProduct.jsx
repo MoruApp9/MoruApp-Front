@@ -1,29 +1,13 @@
 import { useState } from "react"
+import {uploadImageClaudinary} from "../services/services"
 
 const PublishProduct = () => {
-  const [image, setImage] = useState('')
-  const [loading, setloading] = useState(false)
 
   const handleOnChange = async (event) => {
-    const files = event.target.files
-    const data = new FormData()
-    data.append("file", files[0])
-    data.append("upload_preset", "storeImages")
-    setloading(true)
-    const res = await fetch(
-      "https://api.cloudinary.com/v1_1/dsgvvje7v/image/upload",
-      {
-        method: "POST",
-        body: data,
-      }
-    )
-    const file = await res.json()
-    console.log(res);
-    setImage(file.secure_url)
-    console.log(file.secure_url);
-    setloading(false)
+    await uploadImageClaudinary(event) // esta función sube la imagen a claudinary y entrega la URL para mandarselo al back
+    console.log(await uploadImageClaudinary(event)); //url creada mostrada en consola
   }
-
+  
   return (
     <div>
       <form>
@@ -33,7 +17,6 @@ const PublishProduct = () => {
           placeholder="Sube tu imagen aquí"
           onChange={handleOnChange}
         />
-        {loading ? (<h3>Cargando imagenes...</h3>) : (<img src={image} className="max-w-xs"/>)}
       </form>
     </div>
   )
