@@ -7,6 +7,7 @@ import favorites from "./favoritesSlice";
 import isFav from "./isFavSlice";
 import cartSlice from "./cartSlice";
 import categoriesReducer from './categoriesSlice';
+import userRoleSlice from "./userRoleSlice";
 
 export default configureStore({
     reducer: {
@@ -17,7 +18,7 @@ export default configureStore({
         favorites: favorites,
         categories: categoriesReducer,
         isFav: isFav,
-        //episodes: episodes, 
+        userRole: userRoleSlice
     },
     middleware: [thunk],
 })

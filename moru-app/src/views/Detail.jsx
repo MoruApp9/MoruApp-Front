@@ -13,6 +13,8 @@ const ProductDetail = () => {
             (product) => product.id === id
         );
     });
+    const userRole = useSelector(state => state.userRole)
+
 
     if (!product) return <div>Producto no encontrado</div>;
 
@@ -68,13 +70,13 @@ const ProductDetail = () => {
 
                         <div className="">
                             <div className="m-4 mb-0 flex items-center justify-end text-lg sm:text-2xl ">
-                                <button className="text-gray-500" onClick={handleFavorite}>
+                            {userRole === 'buyer' && <button className="text-gray-500" onClick={handleFavorite}>
                                     <FiHeart className={`text-red-500 ${isFav ? 'fill-current' : 'stroke-current'}`} />
-                                </button>
+                                </button>}
                             </div>
-                            <div className="px-4 sm:px-6">
+                            {/* <div className="px-4 sm:px-6">
                                 <h3 className="text-lg font-semibold text-gray-800">Detalles adicionales</h3>
-                            </div>
+                            </div> */}
                             <div className="px-4 py-2 sm:px-6">
                                 {/* <h4 className="text-gray-700 font-semibold">Stock por Talla:</h4> */}
                                 <ul className="list-disc list-inside">
@@ -91,9 +93,9 @@ const ProductDetail = () => {
                     </div>
 
                     <div className="mt-4 flex items-center justify-center">
-                        <button className="bg-blue-500 text-white px-4 py-2 rounded-full" onClick={handleAddToCart}>
+                    {userRole === 'buyer' && <button className="bg-blue-500 text-white px-4 py-2 rounded-full" onClick={handleAddToCart}>
                             Agregar al carrito
-                        </button>
+                        </button>}
                     </div>
                 </div>
             </div>
