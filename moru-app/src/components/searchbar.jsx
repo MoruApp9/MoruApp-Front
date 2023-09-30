@@ -1,20 +1,18 @@
 import { useState } from "react"
 import { BiSearchAlt } from "react-icons/bi"
-import { useDispatch, useSelector } from "react-redux"
-import { setProductsByName } from "../redux/productsFilteredSlice"
+import { useDispatch } from "react-redux"
+import { setProductsByName, cleanProductsFiltered } from "../redux/productsFilteredSlice"
+import { getProductsByName } from "../services/services"
 
 const SearchBar = () => {
   const [name, setName] = useState('')
   const dispatch = useDispatch()
-  
-  const productsFiltered = useSelector((state) =>
-    state.products.products.filter(
-      (product) => product.name.toLowerCase() === name?.toLowerCase()
-    )
-  )
 
-  const onSearch = () => {
-     dispatch(setProductsByName(productsFiltered))
+  const onSearch = async () => {
+    //console.log( await getProductsByName(name));
+    const productsFiltered = await getProductsByName(name)
+    dispatch(cleanProductsFiltered())
+    dispatch(setProductsByName(productsFiltered))
   }
 
   const handleChange = (event) => {

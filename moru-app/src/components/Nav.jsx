@@ -1,16 +1,11 @@
 //TODO usar iconos de react
 import shoppingIcon from "../images/icons/carrito-de-compras.png"
-import storeIcon from '../images/icons/store.svg'
 import { AiFillHome } from "react-icons/ai"
 import { FiMenu } from "react-icons/fi"
 import { MdFavorite } from "react-icons/md"
 import { MdAccountCircle } from "react-icons/md"
 import { BiSupport } from "react-icons/bi"
-import favIcon from '../images/icons/fav.svg'
-import countIcon from '../images/icons/count.svg'
-//import logoutIcon from '../images/icons/logout.svg'
-import publishIcon from '../images/icons/publish.svg'
-import supportIcon from '../images/icons/support.svg'
+
 import { BiLogInCircle } from 'react-icons/bi';
 
 import { Link } from "react-router-dom"
