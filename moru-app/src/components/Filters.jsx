@@ -5,9 +5,9 @@ const Filters = () => {
   const productsFiltered = useSelector((state) => state.productsFiltered)
 
   return (
-    <div>
+    <div className="p-6 lg:px-28 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
       {productsFiltered?.map((product) => {
-        return <Product key={product.product.id} product={product} />
+        return <Product key={product.id} product={product} />
       })}
     </div>
   )
