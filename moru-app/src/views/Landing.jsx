@@ -10,8 +10,14 @@ const Landing = () => {
                         className="mb-2 text-purple-900 w-48 h-12 bg-white rounded-lg ">
                         <Link to="/">Ingreso (solo vista)</Link>
                     </button>
-                    <button className="mb-2 text-purple-900 w-48 h-12 bg-white rounded-lg " >Cuenta Usuario</button>
-                    <button className="mb-2 text-purple-900 w-48 h-12 bg-white rounded-lg " >Cuenta Empresarial</button>
+                    <button
+                        className="mb-2 text-purple-900 w-48 h-12 bg-white rounded-lg " >
+                        <Link to="/registeruser">Cuenta Usuario</Link>
+                    </button>
+                    <button
+                        className="mb-2 text-purple-900 w-48 h-12 bg-white rounded-lg ">
+                        <Link to="/registershop">Cuenta Empresarial</Link>
+                    </button>
                 </div>
             </div>
         </div>

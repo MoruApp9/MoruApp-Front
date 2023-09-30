@@ -2,11 +2,11 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-import slide1 from '../images/slide.png';
-import slide2 from '../images/slide2.png';
-import slide3 from '../images/slide3.png';
-import slide4 from '../images/slide4.png';
-import slide5 from '../images/slide5.png';
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProductsByCategory, getProducts } from '../services/services';
+import { setCategorias } from '../redux/categoriesSlice';
 
 function Arrow(props) {
     const { className, style, onClick } = props;
@@ -20,103 +20,122 @@ function Arrow(props) {
         background: "gray",
         boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
         cursor: "pointer",
-      };
+    };
     return (
-      <div
-        className={className}
-        style={arrowStyle}
-        onClick={onClick}
-      />
+        <div
+            className={className}
+            style={arrowStyle}
+            onClick={onClick}
+        />
     );
 }
 
+const Categories = ({ getProductsByCategory }) => {
+    const [productos, setProductos] = useState([]);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const categorias = useSelector((state) => state.categories.categorias)
 
-const Categories = () => {
-  const categories = [
-    { img: slide1, category: 'Moda y Ropa' },
-    { img: slide2, category: 'Restaurante' },
-    { img: slide3, category: 'Fitness y Deporte' },
-    { img: slide4, category: 'Hogar y Decoraciones' },
-    { img: slide5, category: 'Herramientas' },
-    { img: slide1, category: 'Moda y Ropa' },
-    { img: slide2, category: 'Restaurante' },
-    { img: slide3, category: 'Fitness y Deporte' },
-    { img: slide4, category: 'Hogar y Decoraciones' },
-    { img: slide5, category: 'Herramientas' },
-    { img: slide1, category: 'Moda y Ropa' },
-    { img: slide2, category: 'Restaurante' },
-    { img: slide3, category: 'Fitness y Deporte' },
-    { img: slide4, category: 'Hogar y Decoraciones' },
-    { img: slide5, category: 'Herramientas' },
-  ];
-
-  const settings = {
-    dots: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 6,
-    slidesToScroll: 6,
-    nextArrow: <Arrow />,
-    prevArrow: <Arrow />,
-    initialSlide:0,
-    responsive: [
-        {
-            breakpoint: 1024,
-            settings: {
-                slidesToShow: 5,
-                slidesToScroll: 1,
+    useEffect(() => {
+        // Cuando el componente se monta, obtén las categorías y almacénalas en el estado global
+        const fetchCategorias = async () => {
+            try {
+                // Realiza la solicitud para obtener categorías
+                const response = await fetch('https://moruapp-back.up.railway.app/categories/allCategories');
+                if (response.ok) {
+                    const data = await response.json();
+                    // Dispatch de la acción para establecer las categorías en el estado global
+                    dispatch(setCategorias(data));
+                } else {
+                    console.error('Error al obtener categorías');
+                }
+            } catch (error) {
+                console.error(error);
             }
-        },
-        {
-            breakpoint: 768,
-            settings: {
-                slidesToShow: 5,
-                slidesToScroll: 1,
+        };
+
+        fetchCategorias();
+    }, [dispatch]);
+
+
+    const settings = {
+        dots: false,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 6,
+        slidesToScroll: 6,
+        nextArrow: <Arrow />,
+        prevArrow: <Arrow />,
+        initialSlide: 0,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 5,
+                    slidesToScroll: 1,
+                }
             },
-        },
-        {
-            breakpoint: 630,
-            settings: {
-                slidesToShow: 4,
-                slidesToScroll: 1,
-            }
-        },
-        {
-            breakpoint: 515,
-            settings: {
-                slidesToShow: 3,
-                slidesToScroll: 1,
-            }
-        },
-        {
-            breakpoint: 360,
-            settings: {
-                slidesToShow: 2,
-                slidesToScroll: 1,
-            }
-        },
-    ],
-  };
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 5,
+                    slidesToScroll: 1,
+                },
+            },
+            {
+                breakpoint: 630,
+                settings: {
+                    slidesToShow: 4,
+                    slidesToScroll: 1,
+                }
+            },
+            {
+                breakpoint: 515,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 1,
+                }
+            },
+            {
+                breakpoint: 360,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                }
+            },
+        ],
+    };
 
-  return (
-    <div>
-        <h1 className='ml-4 lg:ml-28 py-4 text-2xl md:text-3xl font-roboto-slab'>Categorias</h1>
-        <div className="w-full px-10 lg:px-36 py-2">
-            <Slider {...settings} >
-                {categories.map((category, index) => (
-                <div key={index} className="flex flex-col items-center px-2">
-                    <img
-                    src={category.img}
-                    alt={category.category}
-                    className="rounded mx-auto mb-2 w-28 h-28 object-cover sm:w-24 sm:h-24 md:w-40 md:h-40 "
-                    />
-                    <p className="text-center text-lg md:text-xl">{category.category}</p>
-                </div>
-                ))}
-            </Slider>
+    const handleClickCategoria = (generalCategory) => {
+        navigate(`/products/${generalCategory}`); 
+    };
+
+
+
+    return (
+        <div>
+            <h1 className='ml-4 lg:ml-28 py-4 text-2xl md:text-3xl font-roboto-slab'>Categorias</h1>
+            <div className="w-full px-10 lg:px-36 py-2">
+                <Slider {...settings} >
+                    {categorias.map((categoria) => (
+                        <div key={categoria.id} className="flex flex-col items-center px-2">
+                            <img
+                                src={categoria.img}
+                                alt={categoria.category}
+                                className="rounded mx-auto mb-2 w-28 h-28 object-cover sm:w-24 sm:h-24 md:w-40 md:h-40 "
+                            />
+                            <p
+                                className="text-center text-lg md:text-xl"
+                                onClick={() => handleClickCategoria(categoria.id)}
+                            >
+                                {categoria.name}
+                            </p>
+                        </div>
+                    ))}
+                </Slider>
+            </div>
         </div>
-    </div>
-  );
+    );
 }
 
 export default Categories;
