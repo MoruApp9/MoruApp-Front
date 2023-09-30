@@ -16,6 +16,7 @@ import CategoryView from './views/CategoryView';
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { getProducts } from './services/services'; 
+import PublishProduct from "./views/PublishProduct"
 
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
         <Route path="/producto/:id" element={<ProductDetail/>} />
         <Route path="/products/:id" element={<CategoryView />} />
         <Route path="/fav" element={<Favorites/>} />
+        <Route path="/publicar-producto" element={<PublishProduct/>} />
       </Routes>
     </div>
   )

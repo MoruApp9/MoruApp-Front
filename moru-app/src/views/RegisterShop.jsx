@@ -31,7 +31,6 @@ const RegisterShop = () => {
                             className="w-32" />
                         <h1 className="text-xs ml-2 mt-4 font-roboto-slab">Creando Cuenta Empresarial</h1>
                     </div>
-
                     <div className="mb-8 mt-4" >
                         <input
                             className="relative top-4 left-5 w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-xs font-roboto-slab"
@@ -41,6 +40,7 @@ const RegisterShop = () => {
                             placeholder="Nombre de la tienda"
                             onChange={changeHandler} />
                     </div>
+                    
                     <div className="mb-8">
                         <input
                             className="relative top-4 left-5 w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-xs font-roboto-slab"
@@ -81,6 +81,7 @@ const RegisterShop = () => {
                             name="municipality"
                             placeholder="Municipio"
                             onChange={changeHandler} />
+                                
                     </div>
                     <div>
                         <button
