@@ -14,6 +14,7 @@ import Favorites from './views/Favorites'
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { getProducts } from './services/services'; 
+import publishProduct from "./views/publishProduct"
 
 
 function App() {
@@ -51,6 +52,7 @@ function App() {
         <Route path="/support" element={<FAQ/>}/>
         <Route path="/producto/:id" element={<ProductDetail/>} />
         <Route path="/fav" element={<Favorites/>} />
+        <Route path="/publicar-producto" element={<publishProduct/>} />
       </Routes>
     </div>
   )
