@@ -1,16 +1,11 @@
 //TODO usar iconos de react
 import shoppingIcon from "../images/icons/carrito-de-compras.png"
-import storeIcon from '../images/icons/store.svg'
 import { AiFillHome } from "react-icons/ai"
 import { FiMenu } from "react-icons/fi"
 import { MdFavorite } from "react-icons/md"
 import { MdAccountCircle } from "react-icons/md"
 import { BiSupport } from "react-icons/bi"
-import favIcon from '../images/icons/fav.svg'
-import countIcon from '../images/icons/count.svg'
-//import logoutIcon from '../images/icons/logout.svg'
-import publishIcon from '../images/icons/publish.svg'
-import supportIcon from '../images/icons/support.svg'
+
 import { BiLogInCircle } from 'react-icons/bi';
 import { BsPersonCircle } from 'react-icons/bs';
 import { IoMdPerson, IoMdPersonAdd } from 'react-icons/io';
@@ -22,7 +17,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { LogOutButton } from '../components/LogOut'
 
 import { cleanProductsFiltered } from "../redux/productsFilteredSlice"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
 //import logoMoru from "../images/logo.jpeg"
 
@@ -30,6 +25,8 @@ const Nav = () => {
   const [openMenu, setOpenMenu] = useState(false)
   const { loginWithRedirect, isAuthenticated } = useAuth0();
   const dispatch = useDispatch()
+  const userRole = useSelector(state => state.userRole)
+  console.log(userRole);
 
   const handleOnClickMenu = () => {
     dispatch(cleanProductsFiltered())
@@ -52,7 +49,7 @@ const Nav = () => {
 
         <Link onClick={handleOnClickMenu} to="/"><AiFillHome className="text-3xl text-purple-moru" /></Link>
 
-        <Link to="/carrito-de-compras"><img className="w-12" src={shoppingIcon} alt="shoppingIcon" /></Link>
+        {userRole === 'buyer' && (<Link to="/carrito-de-compras"><img className="w-12" src={shoppingIcon} alt="shoppingIcon" /></Link>)}
       </div>
 
       <div onClick={() => { setOpenMenu(false) }} className={`${!openMenu && 'hidden'} bg-gray-600/50 min-h-screen w-full fixed backdrop-blur-sm`}></div>
@@ -71,9 +68,14 @@ const Nav = () => {
                 : <button className="  flex items-center space-x-4 mr-3" onClick={() => loginWithRedirect()}><BsPersonCircle className="text-4xl text-purple-moru" /><span>Ingresar</span></button>
             }</ul >
 
-            <ul onClick={() => { setOpenMenu(false) }} className="  order-2 flex justify-center space-x-4 " ><MdFavorite className="w-7 text-purple-moru text-3xl"></MdFavorite><Link to="/fav">Favoritos</Link></ul>
+            {userRole === 'buyer' && <ul onClick={() => { setOpenMenu(false) }} className="  order-2 flex justify-center space-x-4 " ><MdFavorite className="w-7 text-purple-moru text-3xl"></MdFavorite><Link to="/fav">Favoritos</Link></ul>}
+
+            {userRole === 'seller' && <ul onClick={() => { setOpenMenu(false) }} className="  order-2 flex justify-center space-x-4 " ><MdFavorite className="w-7 text-purple-moru text-3xl"></MdFavorite><Link to="/publicar-producto">Publicar</Link></ul>}
+
+            {userRole === 'seller' && <ul onClick={() => { setOpenMenu(false) }} className="  order-2 flex justify-center space-x-4 " ><MdFavorite className="w-7 text-purple-moru text-3xl"></MdFavorite><Link to="/tienda">Mi tienda</Link></ul>}
+
             {isAuthenticated && (
-            <ul onClick={() => { setOpenMenu(false) }} className=" order-3 flex justify-center space-x-4 mr-5" ><MdAccountCircle className="w-7 text-purple-moru text-3xl"></MdAccountCircle><Link to="/account">Cuenta</Link></ul>)}
+              <ul onClick={() => { setOpenMenu(false) }} className=" order-3 flex justify-center space-x-4 mr-5" ><MdAccountCircle className="w-7 text-purple-moru text-3xl"></MdAccountCircle><Link to="/account">Cuenta</Link></ul>)}
             <ul onClick={() => { setOpenMenu(false) }} className=" order-4 flex justify-center space-x-4 mr-3" ><BiSupport className="w-7 text-purple-moru text-3xl"></BiSupport><Link to="/support">Soporte</Link></ul>
           </li>
         </div>

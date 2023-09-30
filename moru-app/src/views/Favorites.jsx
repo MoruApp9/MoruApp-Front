@@ -4,10 +4,9 @@ import { useSelector } from "react-redux";
 const Favorites = ()=>{
 
     const favorites = useSelector(state => state.favorites.favorites)
-    console.log("Estoy en", favorites);
     return(
         <div>
-        <h1>Tus Favoritos</h1>
+    <h1 className="text-4xl font-bold text-center text-blue-500 m-8">¡Estos son tus favoritos!</h1>
         {favorites.length &&
                 favorites.map((fav) => {
                     return (
