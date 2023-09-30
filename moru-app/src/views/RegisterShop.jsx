@@ -1,9 +1,11 @@
-import { useState } from "react"
-import { Link } from "react-router-dom"
-import imagen from "../images/Moru.jpeg"
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import imagen from "../images/Moru.jpeg";
+import { useAuth0 } from '@auth0/auth0-react';
 
 const RegisterShop = () => {
 
+    const { loginWithRedirect, isAuthenticated } = useAuth0();
     const [shopData, setShopData] = useState({
         name: "",
         nitNumber: "",
@@ -83,11 +85,11 @@ const RegisterShop = () => {
                     <div>
                         <button
                             className="relative top-5 left-7 w-36 h-14 px-2 border-2 border-purple-moru rounded-lg bg-gray-200 text-xs font-roboto-slab">
-                            <Link to="/login">Atras</Link>
+                            <Link to="/registration">Atras</Link>
                         </button>
                         <button
                             className="relative top-5 left-14 w-36 h-14 px-2 border border-purple-moru rounded-lg bg-purple-moru text-white text-xs font-roboto-slab">
-                            <Link to="/home">Siguiente</Link>
+                            <button onClick={() => loginWithRedirect()}>Siguiente</button>
                         </button>
                     </div>
                 </div>

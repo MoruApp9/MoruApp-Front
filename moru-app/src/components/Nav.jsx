@@ -12,6 +12,8 @@ import countIcon from '../images/icons/count.svg'
 import publishIcon from '../images/icons/publish.svg'
 import supportIcon from '../images/icons/support.svg'
 import { BiLogInCircle } from 'react-icons/bi';
+import { BsPersonCircle } from 'react-icons/bs';
+import { IoMdPerson, IoMdPersonAdd } from 'react-icons/io';
 
 import { Link } from "react-router-dom"
 import { useState } from "react"
@@ -40,10 +42,11 @@ const Nav = () => {
         <div className="flex items-center space-x-5">
           <button onClick={() => { setOpenMenu(true) }}><FiMenu className="text-4xl text-purple-moru"></FiMenu></button>
           {
-            !isAuthenticated && <button onClick={() => loginWithRedirect()}><BiLogInCircle className="text-4xl text-purple-moru" /></button>
+            !isAuthenticated && <button onClick={() => loginWithRedirect()}><BsPersonCircle className="text-4xl text-purple-moru" /></button>
             /* ? <LogOutButton /> 
             : */
           }
+          {!isAuthenticated && <Link className='' to={`/registration`}><p >Crear Cuenta</p></Link>}
 
         </div>
 
@@ -65,7 +68,7 @@ const Nav = () => {
             <ul className={`flex ${isAuthenticated ? 'order-5' : 'order-1'}  justify-center`}  >{
               isAuthenticated
                 ? <LogOutButton />
-                : <button className="  flex items-center space-x-4 mr-3" onClick={() => loginWithRedirect()}><BiLogInCircle className="text-4xl text-purple-moru" /><span>Ingresar</span></button>
+                : <button className="  flex items-center space-x-4 mr-3" onClick={() => loginWithRedirect()}><BsPersonCircle className="text-4xl text-purple-moru" /><span>Ingresar</span></button>
             }</ul >
 
             <ul onClick={() => { setOpenMenu(false) }} className="  order-2 flex justify-center space-x-4 " ><MdFavorite className="w-7 text-purple-moru text-3xl"></MdFavorite><Link to="/fav">Favoritos</Link></ul>
