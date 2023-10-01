@@ -51,7 +51,7 @@ const Nav = () => {
 
       <div onClick={() => { setOpenMenu(false) }} className={`${!openMenu && 'hidden'} bg-gray-600/50 min-h-screen w-full fixed backdrop-blur-sm`}></div>
 
-      <div className={`${openMenu ? 'w-72' : 'w-0'} bg-white min-h-screen  fixed top-0 left-0 right-0 transition-all duration-300`}>
+      <div className={`${openMenu ? 'w-72' : 'w-0'} bg-white rounded-tr-xl rounded-br-xl min-h-screen  fixed top-0 left-0 right-0 transition-all duration-300`}>
 
         <div className={`${!openMenu && 'hidden'} pt-4`}>
           <button onClick={() => { setOpenMenu(false) }}>
