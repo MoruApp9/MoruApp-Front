@@ -1,23 +1,26 @@
+import { Route, Routes, useLocation } from "react-router-dom"
+import { useEffect } from "react"
+import { useDispatch } from "react-redux"
+import { getProducts } from './services/services'; 
+
+import "./index.css"
+
 import Home from "./views/Home"
 import Landing from "./views/Landing"
 import Login from "./views/Login.jsx"
-import "./index.css"
 import RegisterUser from "./views/RegisterUser.jsx"
 import RegisterShop from "./views/RegisterShop.jsx"
 import Nav from "./components/Nav"
 import ShoppingCart from "./views/ShoppingCart"
-import { Route, Routes, useLocation } from "react-router-dom"
 import FAQ from "./components/FAQ"
 import SearchBar from "./components/searchbar"
 import Registration from "./components/Registration"
 import ProductDetail from './views/Detail'
 import Favorites from './views/Favorites'
 import CategoryView from './views/CategoryView';
-import { useEffect } from "react"
-import { useDispatch } from "react-redux"
-import { getProducts } from './services/services'; 
 import PublishProduct from "./views/PublishProduct";
 import MiTienda from './views/MiTienda'
+import Account from "./views/Account"
 
 
 function App() {
@@ -57,6 +60,8 @@ function App() {
         <Route path="/fav" element={<Favorites/>} />
         <Route path="/publicar-producto" element={<PublishProduct/>} />
         <Route path="/tienda" element={<MiTienda/>} />
+        <Route path="/cuenta" element={<Account/>} />
+      
       </Routes>
     </div>
   )
