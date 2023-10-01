@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import imagen from "../images/Moru.jpeg";
 import { useAuth0 } from '@auth0/auth0-react';
@@ -9,160 +8,175 @@ import { Formik, Form, ErrorMessage, Field } from 'formik';
 const RegisterUser = () => {
     const { loginWithRedirect, isAuthenticated } = useAuth0();
     const dispatch = useDispatch();
-    const [ submittedForm, setSubmittedForm ] = useState (false);
 
     return (
-        <div className="">
-            <div className="flex items-center ml-10">
-                <img
-                    src={imagen}
-                    alt="Imagen"
-                    className="w-32" />
-                <h1 className="text-xs ml-2 mt-4 font-roboto-slab">Creando Cuenta Personal</h1>
+        <div className="min-h-screen flex flex-col justify-center items-center">
+            <div className="flex flex-col items-center gap-8 my-8 md:my-0">
+                <div className="flex items-center justify-between">
+                    <img
+                        src={imagen}
+                        alt="Imagen"
+                        className="w-32" />
+                    <h1 className="text-xs ml-2 mt-4 font-roboto-slab">Creando Cuenta Personal</h1>
+                </div>
+                <Formik
+                    initialValues={{
+                        user:'user',
+                        name: '',
+                        lastname: '',
+                        country: '',
+                        department: '',
+                        municipality: '',
+                        address: ''
+                    }}
+
+                    validate={(values) => {
+                        let error = {};
+
+                        if (!values.name) {
+                            error.name = 'Por favor, ingresa un nombre'
+                        }else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.name)) {
+                            error.name = 'El nombre solo puede contener letras y espacios'
+                        }
+
+                        if (!values.lastname) {
+                            error.lastname = 'Por favor, ingresa un apellido'
+                        }else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.lastname)) {
+                            error.lastname = 'El apellido solo puede contener letras y espacios'
+                        }
+
+                        if (!values.country) {
+                            error.country = 'Por favor, ingresa un país'
+                        }else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.country)) {
+                            error.country = 'El país solo puede contener letras y espacios'
+                        }
+
+                        if (!values.department) {
+                            error.department = 'Por favor, ingresa un departamento'
+                        }else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.department)) {
+                            error.department = 'El departamento solo puede contener letras y espacios'
+                        }
+
+                        if (!values.municipality) {
+                            error.municipality = 'Por favor, ingresa un municipio'
+                        }else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.municipality)) {
+                            error.municipality = 'El municipio solo puede contener letras y espacios'
+                        }
+
+                        if (!values.address) {
+                            error.address = 'Por favor, ingresa una dirección'
+                        }
+
+                        return error
+                    }}
+
+                    onSubmit={(valores) => {
+                        //dispatch(postUser(valores));
+                        console.log(valores)
+                        //loginWithRedirect();
+                    }}
+                >
+                    {({errors}) => (
+                        <Form  autoComplete="off" className="flex flex-col gap-6">
+                            <div className="hidden">
+                                <Field
+                                    type="text"
+                                    name="user"
+                                />
+                            </div>
+
+                            <div>
+                                <Field
+                                    className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
+                                    type="text"
+                                    name="name"
+                                    placeholder="Nombres"
+                                />
+                                <ErrorMessage name="name" component={() => (
+                                    <div className="text-xs text-red-600">{errors.name}</div>
+                                )}/>
+                            </div>
+
+                            <div>
+                                <Field
+                                    className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
+                                    type="text"
+                                    name="lastname"
+                                    placeholder="Apellidos"
+                                />
+                                <ErrorMessage name="lastname" component={() => (
+                                    <div className="text-xs text-red-600">{errors.lastname}</div>
+                                )}/>
+                            </div>
+
+                            <div className="flex items-center justify-between flex-col md:flex-row gap-6">
+                                <div>
+                                    <Field
+                                        className="w-80 md:w-32 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
+                                        type="text"
+                                        name="country"
+                                        placeholder="Pais"
+                                    />
+                                    <ErrorMessage name="country" component={() => (
+                                        <div className="text-xs text-red-600">{errors.country}</div>
+                                    )}/>
+                                </div>
+                                
+                                <div>
+                                    <Field
+                                        className="w-80 md:w-40 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
+                                        type="text"
+                                        name="department"
+                                        placeholder="Departamento"
+                                    />
+                                    <ErrorMessage name="department" component={() => (
+                                        <div className="text-xs text-red-600">{errors.department}</div>
+                                    )}/>
+                                </div>
+                                
+                            </div>
+
+                            <div>
+                                <Field
+                                    className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
+                                    type="text"
+                                    name="municipality"
+                                    placeholder="Municipio"
+                                />
+                                <ErrorMessage name="municipality" component={() => (
+                                    <div className="text-xs text-red-600">{errors.municipality}</div>
+                                )}/>
+                            </div>
+
+                            <div>
+                                <Field
+                                    className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
+                                    type="text"
+                                    name="address"
+                                    placeholder="Dirección"
+                                />
+                                <ErrorMessage name="address" component={() => (
+                                    <div className="text-xs text-red-600">{errors.address}</div>
+                                )}/>
+                            </div>
+
+                            <div className="flex sm:justify-between flex-col sm:flex-row gap-2 justify-center items-center">
+                                <Link to="/registration">
+                                    <button
+                                        className="w-36 md:h-14 h-10 px-2 border-2 border-purple-moru rounded-lg bg-gray-200 text-sm font-roboto-slab">
+                                        Atras
+                                    </button>
+                                </Link>
+                                <button
+                                    className="w-36 h-10 md:h-14 px-2 border border-purple-moru rounded-lg bg-purple-moru text-white text-sm font-roboto-slab"
+                                    type="submit">
+                                    Siguiente
+                                </button>
+                            </div>
+                        </Form>
+                    )}
+                </Formik>
             </div>
-            <Formik
-                initialValues={{
-                    name: '',
-                    lastname: '',
-                    country: '',
-                    department: '',
-                    municipality: '',
-                    address: ''
-                }}
-
-                validate={(values) => {
-                    let errors = {};
-
-                    if (!values.name) {
-                        errors.name = 'Por favor ingresa un nombre'
-                    }else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.name)) {
-                        errors.name = 'El nombre solo puede contener letras y espacios'
-                    }
-
-                    if (!values.lastname) {
-                        errors.lastname = 'Por favor ingresa un apellido'
-                    }else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.lastname)) {
-                        errors.lastname = 'El apellido solo puede contener letras y espacios'
-                    }
-
-                    if (!values.country) {
-                        errors.country = 'Por favor ingresa un país'
-                    }else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.country)) {
-                        errors.country = 'El país solo puede contener letras y espacios'
-                    }
-
-                    if (!values.department) {
-                        errors.department = 'Por favor ingresa un departamento'
-                    }else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.department)) {
-                        errors.department = 'El departamento solo puede contener letras y espacios'
-                    }
-
-                    if (!values.municipality) {
-                        errors.municipality = 'Por favor ingresa un municipio'
-                    }else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.municipality)) {
-                        errors.municipality = 'El municipio solo puede contener letras y espacios'
-                    }
-
-                    if (!values.address) {
-                        errors.address = 'Por favor ingresa una dirección'
-                    }
-                }}
-
-                onSubmit={({resetForm}) => {
-                    resetForm();
-                    setSubmittedForm(true);
-                }}
-            >
-                {({errors}) => (
-                    <Form >
-                        <div className="mb-8 mt-4" >
-                            <label htmlFor="name">Nombre</label>
-                            <Field
-                                className="relative top-4 left-5 w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-xs font-roboto-slab"
-                                type="text"
-                                name="name"
-                            />
-                            <ErrorMessage name="name" component={() => (
-                                <div>{errors.name}</div>
-                            )}/>
-                        </div>
-
-                        <div className="mb-8 mt-4" >
-                            <label htmlFor="lastname">Apellido</label>
-                            <Field
-                                className="relative top-4 left-5 w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-xs font-roboto-slab"
-                                type="text"
-                                name="lastname"
-                            />
-                            <ErrorMessage name="lastname" component={() => (
-                                <div>{errors.lastname}</div>
-                            )}/>
-                        </div>
-
-                        <div className="mb-8 flex items-center">
-                            <label htmlFor="contry">País</label>
-                            <Field
-                                className="relative top-4 left-5 w-32 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-xs font-roboto-slab"
-                                type="text"
-                                name="country"
-                                placeholder="Pais"
-                            />
-                            <ErrorMessage name="country" component={() => (
-                                <div>{errors.country}</div>
-                            )}/>
-                            <label htmlFor="department">Departamento</label>
-                            <Field
-                                className="relative left-14 w-40 top-4 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-xs font-roboto-slab"
-                                type="text"
-                                name="department"
-                                placeholder="Departamento"
-                            />
-                            <ErrorMessage name="department" component={() => (
-                                <div>{errors.department}</div>
-                            )}/>
-                        </div>
-
-                        <div className="mb-8">
-                            <label htmlFor="municipality">Municipio</label>
-                            <Field
-                                className="relative top-4 left-5 w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-xs font-roboto-slab"
-                                type="text"
-                                name="municipality"
-                                placeholder="Municipio"
-                            />
-                            <ErrorMessage name="municipality" component={() => (
-                                <div>{errors.municipality}</div>
-                            )}/>
-                        </div>
-
-                        <div className="mb-8 mt-4" >
-                            <label htmlFor="address">Dirección</label>
-                            <Field
-                                className="relative top-4 left-5 w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-xs font-roboto-slab"
-                                type="text"
-                                name="address"
-                                placeholder="Dirección"
-                            />
-                            <ErrorMessage name="address" component={() => (
-                                <div>{errors.address}</div>
-                            )}/>
-                        </div>
-
-                        <div>
-                            <button
-                                className="relative top-5 left-7 w-36 h-14 px-2 border-2 border-purple-moru rounded-lg bg-gray-200 text-xs font-roboto-slab">
-                                <Link to="/registration">Atras</Link>
-                            </button>
-                            <button
-                                className="relative top-5 left-14 w-36 h-14 px-2 border border-purple-moru rounded-lg bg-purple-moru text-white text-xs font-roboto-slab">
-                                <button type="submit">Siguiente</button>
-                            </button>
-                        </div>
-                    </Form>
-                )}
-                
-            </Formik>
-            
         </div>
     )
 }

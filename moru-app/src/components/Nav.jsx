@@ -8,7 +8,6 @@ import { BiSupport } from "react-icons/bi"
 
 import { BiLogInCircle } from 'react-icons/bi';
 import { BsPersonCircle } from 'react-icons/bs';
-import { IoMdPerson, IoMdPersonAdd } from 'react-icons/io';
 
 import { Link } from "react-router-dom"
 import { useState } from "react"
