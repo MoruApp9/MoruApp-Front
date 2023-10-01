@@ -7,7 +7,8 @@ export default {
         'roboto-slab': ['Roboto Slab', 'serif'],
       },
       colors: {
-        'purple-moru': "#280a50"
+        'purple-moru': "#280a50",
+        'purple-moru-dark': "#1F0638",
       },
       height: {
         '102': "450px"

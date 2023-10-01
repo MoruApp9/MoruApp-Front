@@ -14,6 +14,7 @@ import Nav from "./components/Nav"
 import ShoppingCart from "./views/ShoppingCart"
 import FAQ from "./components/FAQ"
 import SearchBar from "./components/searchbar"
+import Registration from "./components/Registration"
 import ProductDetail from './views/Detail'
 import Favorites from './views/Favorites'
 import CategoryView from './views/CategoryView';
@@ -48,6 +49,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Home />}></Route>
         <Route path="/login" element={<Login />}></Route>
+        <Route path="/registration" element={<Registration />}></Route>
         <Route path="/registeruser" element={<RegisterUser />}></Route>
         <Route path="/registershop" element={<RegisterShop />}></Route>
         {/* <Route path="/landing" element={<Landing />}></Route> */}
