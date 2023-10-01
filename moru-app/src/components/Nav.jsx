@@ -5,16 +5,11 @@ import { FiMenu } from "react-icons/fi"
 import { MdFavorite } from "react-icons/md"
 import { MdAccountCircle } from "react-icons/md"
 import { BiSupport } from "react-icons/bi"
-
-import { BiLogInCircle } from 'react-icons/bi';
 import { BsPersonCircle } from 'react-icons/bs';
-
 import { Link } from "react-router-dom"
 import { useState } from "react"
-
 import { useAuth0 } from '@auth0/auth0-react'
 import { LogOutButton } from '../components/LogOut'
-
 import { cleanProductsFiltered } from "../redux/productsFilteredSlice"
 import { useDispatch, useSelector } from "react-redux"
 
@@ -38,7 +33,7 @@ const Nav = () => {
         <div className="flex items-center space-x-5">
           <button onClick={() => { setOpenMenu(true) }}><FiMenu className="text-4xl text-purple-moru"></FiMenu></button>
           {
-            !isAuthenticated && <button onClick={() => loginWithRedirect()}><BsPersonCircle className="text-4xl text-purple-moru" /></button>
+            !isAuthenticated && <button onClick={() => loginWithRedirect()}>Iniciar Sesión</button>
             /* ? <LogOutButton /> 
             : */
           }
