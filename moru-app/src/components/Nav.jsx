@@ -24,7 +24,7 @@ const Nav = () => {
   const { loginWithRedirect, isAuthenticated } = useAuth0();
   const dispatch = useDispatch()
   const userRole = useSelector(state => state.userRole)
-  console.log(userRole);
+  //console.log(userRole);
 
   const handleOnClickMenu = () => {
     dispatch(cleanProductsFiltered())
@@ -72,7 +72,7 @@ const Nav = () => {
             {userRole === 'seller' && <ul onClick={() => { setOpenMenu(false) }} className="  order-2 flex justify-center space-x-4 " ><MdFavorite className="w-7 text-purple-moru text-3xl"></MdFavorite><Link to="/tienda">Mi tienda</Link></ul>}
 
             {isAuthenticated && (
-              <ul onClick={() => { setOpenMenu(false) }} className=" order-3 flex justify-center space-x-4 mr-5" ><MdAccountCircle className="w-7 text-purple-moru text-3xl"></MdAccountCircle><Link to="/account">Cuenta</Link></ul>)}
+              <ul onClick={() => { setOpenMenu(false) }} className=" order-3 flex justify-center space-x-4 mr-5" ><MdAccountCircle className="w-7 text-purple-moru text-3xl"></MdAccountCircle><Link to="/cuenta">Cuenta</Link></ul>)}
             <ul onClick={() => { setOpenMenu(false) }} className=" order-4 flex justify-center space-x-4 mr-3" ><BiSupport className="w-7 text-purple-moru text-3xl"></BiSupport><Link to="/support">Soporte</Link></ul>
           </li>
         </div>
