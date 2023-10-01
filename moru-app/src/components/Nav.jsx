@@ -24,7 +24,7 @@ const Nav = () => {
   const { loginWithRedirect, isAuthenticated } = useAuth0();
   const dispatch = useDispatch()
   const userRole = useSelector(state => state.userRole)
-  console.log(userRole);
+  //console.log(userRole);
 
   const handleOnClickMenu = () => {
     dispatch(cleanProductsFiltered())
@@ -51,7 +51,7 @@ const Nav = () => {
 
       <div onClick={() => { setOpenMenu(false) }} className={`${!openMenu && 'hidden'} bg-gray-600/50 min-h-screen w-full fixed backdrop-blur-sm`}></div>
 
-      <div className={`${openMenu ? 'w-72' : 'w-0'} bg-white min-h-screen  fixed top-0 left-0 right-0 transition-all duration-300`}>
+      <div className={`${openMenu ? 'w-72' : 'w-0'} bg-white rounded-tr-xl rounded-br-xl min-h-screen  fixed top-0 left-0 right-0 transition-all duration-300`}>
 
         <div className={`${!openMenu && 'hidden'} pt-4`}>
           <button onClick={() => { setOpenMenu(false) }}>
@@ -72,7 +72,7 @@ const Nav = () => {
             {userRole === 'seller' && <ul onClick={() => { setOpenMenu(false) }} className="  order-2 flex justify-center space-x-4 " ><MdFavorite className="w-7 text-purple-moru text-3xl"></MdFavorite><Link to="/tienda">Mi tienda</Link></ul>}
 
             {isAuthenticated && (
-              <ul onClick={() => { setOpenMenu(false) }} className=" order-3 flex justify-center space-x-4 mr-5" ><MdAccountCircle className="w-7 text-purple-moru text-3xl"></MdAccountCircle><Link to="/account">Cuenta</Link></ul>)}
+              <ul onClick={() => { setOpenMenu(false) }} className=" order-3 flex justify-center space-x-4 mr-5" ><MdAccountCircle className="w-7 text-purple-moru text-3xl"></MdAccountCircle><Link to="/cuenta">Cuenta</Link></ul>)}
             <ul onClick={() => { setOpenMenu(false) }} className=" order-4 flex justify-center space-x-4 mr-3" ><BiSupport className="w-7 text-purple-moru text-3xl"></BiSupport><Link to="/support">Soporte</Link></ul>
           </li>
         </div>

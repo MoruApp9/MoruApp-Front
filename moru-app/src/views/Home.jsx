@@ -6,7 +6,7 @@ import Categories from '../components/Categories';
 
 const Home = () => {
   const productsFiltered = useSelector((state) => state.productsFiltered)
-  console.log("estado", productsFiltered)
+  // console.log("estado", productsFiltered)
 
   return (
     <div>
