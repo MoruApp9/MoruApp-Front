@@ -2,8 +2,7 @@ import { Link } from "react-router-dom";
 import imagen from "../images/Moru.jpeg";
 import { useAuth0 } from '@auth0/auth0-react';
 import { Formik, Form, ErrorMessage, Field } from 'formik';
-import { postClientRegister } from "../services/services";
-
+import PostLocalStorage from "../localStorage/PostLocalStorage";
 
 const RegisterUser = () => {
     const { loginWithRedirect, isAuthenticated } = useAuth0();
@@ -21,7 +20,7 @@ const RegisterUser = () => {
                 <Formik
                     initialValues={{
                         userRole:'buyer',
-                        name: '',
+                        nameClient: '',
                         lastname: '',
                         country: '',
                         department: '',
@@ -32,10 +31,10 @@ const RegisterUser = () => {
                     validate={(values) => {
                         let error = {};
 
-                        if (!values.name) {
-                            error.name = 'Por favor, ingresa un nombre'
-                        }else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.name)) {
-                            error.name = 'El nombre solo puede contener letras y espacios'
+                        if (!values.nameClient) {
+                            error.nameClient = 'Por favor, ingresa un nombre'
+                        }else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.nameClient)) {
+                            error.nameClient = 'El nombre solo puede contener letras y espacios'
                         }
 
                         if (!values.lastname) {
@@ -69,9 +68,9 @@ const RegisterUser = () => {
                         return error
                     }}
 
-                    onSubmit={async (valores) => {
-                        await postClientRegister(valores)
-                        //loginWithRedirect();
+                    onSubmit={(valores) => {
+                        PostLocalStorage(valores);
+                        loginWithRedirect();
                     }}
                 >
                     {({errors, isSubmitting}) => (
@@ -87,11 +86,11 @@ const RegisterUser = () => {
                                 <Field
                                     className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
                                     type="text"
-                                    name="name"
+                                    name="nameClient"
                                     placeholder="Nombres"
                                 />
-                                <ErrorMessage name="name" component={() => (
-                                    <div className="text-xs text-red-600">{errors.name}</div>
+                                <ErrorMessage name="nameClient" component={() => (
+                                    <div className="text-xs text-red-600">{errors.nameClient}</div>
                                 )}/>
                             </div>
 

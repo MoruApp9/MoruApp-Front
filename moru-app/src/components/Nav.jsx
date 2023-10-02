@@ -1,26 +1,27 @@
 //TODO usar iconos de react
-import shoppingIcon from "../images/icons/carrito-de-compras.png"
-import { AiFillHome } from "react-icons/ai"
-import { FiMenu } from "react-icons/fi"
-import { MdFavorite } from "react-icons/md"
-import { MdAccountCircle } from "react-icons/md"
-import { BiSupport } from "react-icons/bi"
+import shoppingIcon from "../images/icons/carrito-de-compras.png";
+import { AiFillHome } from "react-icons/ai";
+import { FiMenu } from "react-icons/fi";
+import { MdFavorite } from "react-icons/md";
+import { MdAccountCircle } from "react-icons/md";
+import { BiSupport } from "react-icons/bi";
 import { BsPersonCircle } from 'react-icons/bs';
-import { Link } from "react-router-dom"
-import { useState } from "react"
-import { useAuth0 } from '@auth0/auth0-react'
-import { LogOutButton } from '../components/LogOut'
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useAuth0 } from '@auth0/auth0-react';
+import { LogOutButton } from '../components/LogOut';
 import { cleanProductsFiltered } from "../redux/productsFilteredSlice"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux";
+import GetLocalStorage from '../localStorage/GetLocalStorage';
 
 //import logoMoru from "../images/logo.jpeg"
 
 const Nav = () => {
   const [openMenu, setOpenMenu] = useState(false)
   const { user, loginWithRedirect, isAuthenticated } = useAuth0();
-  console.log(user)
+  //console.log(user)
   const dispatch = useDispatch()
-  const currentUser = useSelector(state => state.user)
+  const currentUser = GetLocalStorage();
   //console.log(userRole);
 
   const handleOnClickMenu = () => {
