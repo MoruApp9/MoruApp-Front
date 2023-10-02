@@ -9,7 +9,7 @@ const Filters = () => {
       {productsFiltered?.map((product) => {
         return <Product key={product.id} product={product} />
       })}
-    </div>
+      </div>
   )
 }
 
