@@ -1,11 +1,11 @@
 import React from "react"
-import ReactDOM from "react-dom"
+import ReactDOM from "react-dom/client"
 import App from "./App"
 import "./index.css"
 import { BrowserRouter } from "react-router-dom"
 import store from "./redux/store"
 import { Provider } from "react-redux"
-import { Auth0Provider } from '@auth0/auth0-react'
+import { Auth0Provider } from "@auth0/auth0-react"
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -13,12 +13,13 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Auth0Provider
         domain="dev-mnept00qkj4yz84v.us.auth0.com"
         clientId="GSt7hjypueLPGGDpDLTOJrt0B693zEz2"
-        redirectUri={window.location.origin}
-      >
+        authorizationParams={{
+          redirect_uri: "http://localhost:5173/",
+        }}>
         <BrowserRouter>
           <App />
         </BrowserRouter>
-        </Auth0Provider>
+      </Auth0Provider>
     </Provider>
   </React.StrictMode>
 )
