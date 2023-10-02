@@ -1,13 +1,12 @@
 import { Link } from "react-router-dom";
 import imagen from "../images/Moru.jpeg";
 import { useAuth0 } from '@auth0/auth0-react';
-import { useDispatch } from 'react-redux';
 import { Formik, Form, ErrorMessage, Field } from 'formik';
+import { postClientRegister } from "../services/services";
 
 
 const RegisterUser = () => {
     const { loginWithRedirect, isAuthenticated } = useAuth0();
-    const dispatch = useDispatch();
 
     return (
         <div className="min-h-screen flex flex-col justify-center items-center">
@@ -21,7 +20,7 @@ const RegisterUser = () => {
                 </div>
                 <Formik
                     initialValues={{
-                        user:'user',
+                        userRole:'buyer',
                         name: '',
                         lastname: '',
                         country: '',
@@ -70,18 +69,17 @@ const RegisterUser = () => {
                         return error
                     }}
 
-                    onSubmit={(valores) => {
-                        //dispatch(postUser(valores));
-                        console.log(valores)
+                    onSubmit={async (valores) => {
+                        await postClientRegister(valores)
                         //loginWithRedirect();
                     }}
                 >
-                    {({errors}) => (
+                    {({errors, isSubmitting}) => (
                         <Form  autoComplete="off" className="flex flex-col gap-6">
                             <div className="hidden">
                                 <Field
                                     type="text"
-                                    name="user"
+                                    name="userRole"
                                 />
                             </div>
 
@@ -169,7 +167,8 @@ const RegisterUser = () => {
                                 </Link>
                                 <button
                                     className="w-36 h-10 md:h-14 px-2 border border-purple-moru rounded-lg bg-purple-moru text-white text-sm font-roboto-slab"
-                                    type="submit">
+                                    type="submit"
+                                    disabled={isSubmitting}>
                                     Siguiente
                                 </button>
                             </div>
