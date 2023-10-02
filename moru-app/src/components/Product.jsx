@@ -5,14 +5,16 @@ import { setIsFav } from "../redux/isFavSlice";
 import { addToCart, removefromCart } from '../redux/cartSlice'
 import { useLocation } from "react-router-dom";
 import { FiHeart } from 'react-icons/fi';
+import GetLocalStorage from '../localStorage/GetLocalStorage';
 
 const Product = ({ product }) => {
     const productId = product.id;
     const dispatch = useDispatch();
     const location = useLocation();
     const mostrarBotonAgregar = location.pathname !== '/carrito-de-compras';
-    const currentUser = useSelector(state => state.user);
     const isFav = useSelector((state) => state.isFav[productId] || false);
+
+    const currentUser = GetLocalStorage();
 
     const handleFavorite = (event) => {
         event.stopPropagation();
