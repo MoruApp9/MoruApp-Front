@@ -1,6 +1,7 @@
 import { setProducts } from '../redux/productSlice';
-import { setUserRole } from '../redux/userRoleSlice';
+import { setUser } from '../redux/userSlice';
 import axios from 'axios';
+import PostLocalStorage from "../localStorage/PostLocalStorage";
 
 const BASE_URL = 'https://moruapp-back.up.railway.app'
 
@@ -8,7 +9,6 @@ export const getProducts = () => {
   return async (dispatch) => { // Usa async para permitir operaciones asincrónicas
     try {
       const response = await axios.get(`${BASE_URL}/products/`);
-      
       const data = response.data;
       dispatch(setProducts(data));
     } catch (error) {
@@ -34,8 +34,7 @@ export const getProductsByCategory = (categoryId) => {
 export const getCategorias = () => {
   return async () => {
     try {
-      const response = await axios.get(`${BASE_URL}/categories/allcategories`);
-      
+      const response = await axios.post(`${BASE_URL}/categories/allcategories`);
       const data = response.data;
       return (data);
     } catch (error) {
@@ -61,7 +60,6 @@ export const uploadImageClaudinary = async (event) => {
     data.append("file", files[0])
     data.append("upload_preset", "storeImages")
     
-
     const res = await fetch(
       "https://api.cloudinary.com/v1_1/dsgvvje7v/image/upload",
       {
@@ -76,31 +74,35 @@ export const uploadImageClaudinary = async (event) => {
     return file.secure_url
 }
 
-export const postClientRegister = async(dataClient) => {  
-  return async (dispatch) => {
+export const postClientRegister = async(dataClient) => {
+  try {
+    await axios.post(`${BASE_URL}/client/register`, dataClient);
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const postAdmincommerceRegister = async(dataAdminCommerce) => {
+  try {
+    await axios.post(`${BASE_URL}/admincommerce/register`, dataAdminCommerce);
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+
+export const getUser = (emailUser) => {
+  return async () => {
     try {
-      const response = await axios.post(`${BASE_URL}/client/register`, dataClient);
+      const response = await axios.post(`${BASE_URL}/users/findforemail`, {email: emailUser});
       const data = response.data;
-      dispatch(setUserRole(data));
+      PostLocalStorage(data);
     } catch (error) {
       console.error(error);
       throw error;
     }
   };
 };
-
-export const postAdmincommerceRegister = (dataAdminCommerce) => {
-  console.log(dataAdminCommerce);
-  return async (dispatch) => {
-    try {
-      const response = await axios.post(`${BASE_URL}/admincommerce/register`, dataAdminCommerce);
-      const data = response.data;
-      dispatch(setUserRole(data));
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
-  };
-};
-
 

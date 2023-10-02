@@ -1,18 +1,37 @@
 import image from '../images/image.png';
-import { Link } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react'
 import { useSelector } from 'react-redux';
-import { postAdmincommerceRegister } from "../services/services";
-import { useEffect } from 'react';
+import { postAdmincommerceRegister, postClientRegister } from "../services/services";
+import GetLocalStorage from '../localStorage/GetLocalStorage';
+import { useNavigate } from 'react-router-dom';
 
 const Landing = () => {
     const { user, loginWithRedirect, isAuthenticated } = useAuth0();
-    const currentUser = useSelector(state => state.user);
+    //const currentUser = useSelector(state => state.user);
+    const dataComplete = {...GetLocalStorage(), ...user};
+    const navigate = useNavigate();
+    if (Object.keys(GetLocalStorage()).length > 0) {
+        if (dataComplete.userRole && dataComplete.email) {
+            if (dataComplete.useRole === "buyer") {
+                postClientRegister(dataComplete);
+            }else{
+                postAdmincommerceRegister(dataComplete);
+            }
+            
+            //navigate("/support");
+        }
+    }else {
+        //getUser();
+        if (Object.keys(GetLocalStorage()).length > 0) {
+            //navigate("/");
+        }else{
+            //navigate("/tienda");
+        }
+        //peticion de verificacion si existe el usuario o no---->acceso
+        //localStorage ---home  ---no existe
 
-    useEffect(()=>{
-        console.log({...currentUser,...user});
-        postAdmincommerceRegister({...currentUser,...user});
-    },[])
+    }
+
     return (
         <div>
             Cargando
