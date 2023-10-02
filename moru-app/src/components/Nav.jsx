@@ -47,9 +47,9 @@ const Nav = () => {
           <Link onClick={handleOnClickMenu} to="/"><AiFillHome className="transform translate-x-[-.9rem] text-3xl text-purple-moru" /></Link>
 
           {
-            isAuthenticated
-            ? <Link to="/tienda"><PiStorefrontDuotone className="w-7 text-purple-moru text-4xl"></PiStorefrontDuotone></Link>
-            : currentUser.userRole !== 'adminCommerce' && (<Link to="/carrito-de-compras"><img className="w-12" src={shoppingIcon} alt="shoppingIcon" /></Link>)
+            currentUser.userRole === 'adminCommerce'
+            ? isAuthenticated  && <Link to="/tienda"><PiStorefrontDuotone className="w-7 text-purple-moru text-4xl"></PiStorefrontDuotone></Link>
+            : <Link to="/carrito-de-compras"><img className="w-12" src={shoppingIcon} alt="shoppingIcon" /></Link>
           }
         </div>
       </div>
