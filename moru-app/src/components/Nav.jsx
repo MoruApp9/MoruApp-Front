@@ -47,9 +47,12 @@ const Nav = () => {
           <Link onClick={handleOnClickMenu} to="/"><AiFillHome className="transform translate-x-[-.9rem] text-3xl text-purple-moru" /></Link>
 
           {
-            isAuthenticated
+            // isAuthenticated
+            // ? <Link to="/tienda"><PiStorefrontDuotone className="w-7 text-purple-moru text-4xl"></PiStorefrontDuotone></Link>
+            // : currentUser.userRole !== 'adminCommerce' && (<Link to="/carrito-de-compras"><img className="w-12" src={shoppingIcon} alt="shoppingIcon" /></Link>)
+            isAuthenticated && GetLocalStorage() && currentUser.userRole === 'adminCommerce' 
             ? <Link to="/tienda"><PiStorefrontDuotone className="w-7 text-purple-moru text-4xl"></PiStorefrontDuotone></Link>
-            : currentUser.userRole !== 'adminCommerce' && (<Link to="/carrito-de-compras"><img className="w-12" src={shoppingIcon} alt="shoppingIcon" /></Link>)
+            : <Link to="/carrito-de-compras"><img className="w-12" src={shoppingIcon} alt="shoppingIcon" /></Link>
           }
         </div>
       </div>
@@ -80,11 +83,14 @@ const Nav = () => {
               }
             </ul>
 
-            {currentUser.userRole !== 'adminCommerce' && <ul onClick={() => { setOpenMenu(false) }} className="  order-2 flex justify-center space-x-4 " ><MdFavorite className="w-7 text-purple-moru text-3xl"></MdFavorite><Link to="/fav">Favoritos</Link></ul>}
+            {/* currentUser.userRole !== 'adminCommerce' && <ul onClick={() => { setOpenMenu(false) }} className="  order-2 flex justify-center space-x-4 " ><MdFavorite className="w-7 text-purple-moru text-3xl"></MdFavorite><Link to="/fav">Favoritos</Link></ul> */
+              (!isAuthenticated || GetLocalStorage() && currentUser.userRole === 'buyer' )&& <ul onClick={() => { setOpenMenu(false) }} className="  order-2 flex justify-center space-x-4 " ><MdFavorite className="w-7 text-purple-moru text-3xl"></MdFavorite><Link to="/fav">Favoritos</Link></ul>
+            }
+            
 
-            {isAuthenticated && currentUser.userRole === 'adminCommerce' && <ul onClick={() => { setOpenMenu(false) }} className="  order-2 flex justify-center space-x-4 " ><BiSolidCloudUpload className="w-7 text-purple-moru text-3xl"></BiSolidCloudUpload><Link to="/publicar-producto">Publicar</Link></ul>}
+            {isAuthenticated && GetLocalStorage() && currentUser.userRole === 'adminCommerce' && <ul onClick={() => { setOpenMenu(false) }} className="  order-2 flex justify-center space-x-4 " ><BiSolidCloudUpload className="w-7 text-purple-moru text-3xl"></BiSolidCloudUpload><Link to="/publicar-producto">Publicar</Link></ul>}
 
-            {isAuthenticated && currentUser.userRole === 'adminCommerce' && <ul onClick={() => { setOpenMenu(false) }} className="  order-2 flex justify-center space-x-4 " ><PiStorefrontDuotone className="w-7 text-purple-moru text-3xl"></PiStorefrontDuotone><Link to="/tienda">Mi tienda</Link></ul>}
+            {isAuthenticated && GetLocalStorage() && currentUser.userRole === 'adminCommerce' && <ul onClick={() => { setOpenMenu(false) }} className="  order-2 flex justify-center space-x-4 " ><PiStorefrontDuotone className="w-7 text-purple-moru text-3xl"></PiStorefrontDuotone><Link to="/tienda">Mi tienda</Link></ul>}
 
             {isAuthenticated && (
               <ul onClick={() => { setOpenMenu(false) }} className=" order-3 flex justify-center space-x-4 mr-5" ><MdAccountCircle className="w-7 text-purple-moru text-3xl"></MdAccountCircle><Link to="/cuenta">Cuenta</Link></ul>)}
