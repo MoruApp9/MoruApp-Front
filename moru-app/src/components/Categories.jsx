@@ -122,7 +122,7 @@ const Categories = ({ getProductsByCategory }) => {
                             <img
                                 src={categoria.img}
                                 alt={categoria.category}
-                                className="rounded mx-auto mb-2 w-28 h-28 object-cover sm:w-24 sm:h-24 md:w-40 md:h-40 "
+                                className="rounded mx-auto mb-2 w-28 h-28 object-cover sm:w-20 sm:h-20 md:w-40 md:h-40 "
                             />
                             <p
                                 className="text-center text-lg md:text-xl"
