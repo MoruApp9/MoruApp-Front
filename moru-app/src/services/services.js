@@ -76,6 +76,7 @@ export const uploadImageClaudinary = async (event) => {
 
 export const postClientRegister = async(dataClient) => {
   try {
+    console.log(dataClient);
     await axios.post(`${BASE_URL}/client/register`, dataClient);
   } catch (error) {
     console.error(error);
@@ -85,6 +86,7 @@ export const postClientRegister = async(dataClient) => {
 
 export const postAdmincommerceRegister = async(dataAdminCommerce) => {
   try {
+    console.log(dataAdminCommerce);
     await axios.post(`${BASE_URL}/admincommerce/register`, dataAdminCommerce);
   } catch (error) {
     console.error(error);
