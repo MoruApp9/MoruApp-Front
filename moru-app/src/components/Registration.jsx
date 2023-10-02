@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 const Registration = () => {
+    
     return (
         <div className="min-h-screen flex flex-col justify-center items-center">
             <div className="flex flex-col items-center mx-3 sm:mx-0 bg-slate-300 bg-opacity-50 p-12 rounded">
