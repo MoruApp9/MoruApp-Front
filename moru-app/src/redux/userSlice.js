@@ -23,7 +23,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const userSlice = createSlice({
     name: "user",
-    initialState: {userRole: 'adminCommerce'},  // dejar esto como obj vacío
+    initialState: {},  // dejar esto como obj vacío
     reducers: {
         setUser: (state, action) => action.payload 
     },
