@@ -4,9 +4,10 @@ import {
 
 const userRoleSlice = createSlice({
     name: "userRole",
-    initialState: "buyer", 
+    initialState: {}, 
     reducers: {
         setUserRole: (state, action) => {
+            //como manejar todo el objeto
             return action.payload; 
         },
     },

@@ -11,8 +11,7 @@ const Product = ({ product }) => {
     const dispatch = useDispatch();
     const location = useLocation();
     const mostrarBotonAgregar = location.pathname !== '/carrito-de-compras';
-    const userRole = useSelector(state => state.userRole);
-
+    const currentUser = useSelector(state => state.user);
     const isFav = useSelector((state) => state.isFav[productId] || false);
 
     const handleFavorite = (event) => {
@@ -46,7 +45,7 @@ const Product = ({ product }) => {
             <div className="max-w-md mx-auto bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition duration-300">
                 <img src={product.image} alt={product.name} className="w-full h-48 object-cover" />
                 <div className="flex items-center justify-end px-4 pt-2">
-                {userRole === 'buyer' && <button className="text-gray-500" onClick={handleFavorite}>
+                {currentUser.userRole === 'buyer' && <button className="text-gray-500" onClick={handleFavorite}>
                         <FiHeart className={`text-red-500 ${isFav ? 'fill-current' : 'stroke-current'}`} />
                     </button>}
                 </div>
@@ -56,7 +55,7 @@ const Product = ({ product }) => {
                 </div>
 
                 <div className="flex items-center justify-center py-2">
-                    {userRole === 'buyer' ? 
+                    {currentUser.userRole === 'buyer' ? 
                         mostrarBotonAgregar  ? 
                             <button className="bg-blue-500 text-white px-4 py-2 rounded-full" onClick={handleAddToCart}> Agregar al carrito </button> 
                             : <button className="bg-blue-500 text-white px-4 py-2 rounded-full" onClick={deleteToCart}>Eliminar</button> 

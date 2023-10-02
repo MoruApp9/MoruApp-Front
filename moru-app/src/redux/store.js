@@ -18,7 +18,6 @@ export default configureStore({
         favorites: favorites,
         categories: categoriesReducer,
         isFav: isFav,
-        userRole: userRoleSlice
     },
     middleware: [thunk],
 })

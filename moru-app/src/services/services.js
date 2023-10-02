@@ -1,4 +1,5 @@
 import { setProducts } from '../redux/productSlice';
+import { setUserRole } from '../redux/userRoleSlice';
 import axios from 'axios';
 
 const BASE_URL = 'https://moruapp-back.up.railway.app'
@@ -75,5 +76,31 @@ export const uploadImageClaudinary = async (event) => {
     return file.secure_url
 }
 
+export const postClientRegister = async(dataClient) => {  
+  return async (dispatch) => {
+    try {
+      const response = await axios.post(`${BASE_URL}/client/register`, dataClient);
+      const data = response.data;
+      dispatch(setUserRole(data));
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
+};
+
+export const postAdmincommerceRegister = (dataAdminCommerce) => {
+  console.log(dataAdminCommerce);
+  return async (dispatch) => {
+    try {
+      const response = await axios.post(`${BASE_URL}/admincommerce/register`, dataAdminCommerce);
+      const data = response.data;
+      dispatch(setUserRole(data));
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
+};
 
 

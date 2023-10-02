@@ -52,7 +52,7 @@ function App() {
         <Route path="/registration" element={<Registration />}></Route>
         <Route path="/registeruser" element={<RegisterUser />}></Route>
         <Route path="/registershop" element={<RegisterShop />}></Route>
-        {/* <Route path="/landing" element={<Landing />}></Route> */}
+        <Route path="/landing" element={<Landing />}></Route>
         <Route path="/carrito-de-compras" element={<ShoppingCart/>}/>
         <Route path="/support" element={<FAQ/>}/>
         <Route path="/producto/:id" element={<ProductDetail/>} />
