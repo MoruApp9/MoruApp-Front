@@ -1,24 +1,10 @@
 //TODO usar iconos de react
-import shoppingIcon from "../images/icons/carrito-de-compras.png"
 import { AiFillHome } from "react-icons/ai"
 import { AiOutlineUserAdd } from "react-icons/ai"
-import { FiMenu } from "react-icons/fi"
-import { MdFavorite } from "react-icons/md"
-import { MdAccountCircle } from "react-icons/md"
-import { BiSupport } from "react-icons/bi"
 import { BiSolidUser } from 'react-icons/bi';
 import { BiSolidCloudUpload } from 'react-icons/bi'
 import { PiStorefrontDuotone } from 'react-icons/pi'
-
-import { Link } from "react-router-dom"
-import { useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { cleanProductsFiltered } from "../redux/productsFilteredSlice"
-
-import { useAuth0 } from '@auth0/auth0-react'
-import { LogOutButton } from '../components/LogOut'
 import shoppingIcon from "../images/icons/carrito-de-compras.png";
-import { AiFillHome } from "react-icons/ai";
 import { FiMenu } from "react-icons/fi";
 import { MdFavorite } from "react-icons/md";
 import { MdAccountCircle } from "react-icons/md";
