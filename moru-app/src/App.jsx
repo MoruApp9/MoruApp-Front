@@ -1,7 +1,7 @@
 import { Route, Routes, useLocation } from "react-router-dom"
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
-import { getProducts } from './services/services'; 
+import { getProducts } from './services/services';
 
 import "./index.css"
 
