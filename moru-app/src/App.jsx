@@ -18,7 +18,7 @@ import Registration from "./components/Registration"
 import ProductDetail from './views/Detail'
 import Favorites from './views/Favorites'
 import CategoryView from './views/CategoryView';
-import PublishProduct from "./views/PublishProduct";
+import PostProduct from './views/PostProduct';
 import MiTienda from './views/MiTienda';
 import Account from "./views/Account"
 
@@ -58,7 +58,7 @@ function App() {
         <Route path="/producto/:id" element={<ProductDetail/>} />
         <Route path="/products/:id" element={<CategoryView />} />
         <Route path="/fav" element={<Favorites/>} />
-        <Route path="/publicar-producto" element={<PublishProduct/>} />
+        <Route path="/publicar-producto" element={<PostProduct/>} />
         <Route path="/tienda" element={<MiTienda/>} />
         <Route path="/cuenta" element={<Account/>} />
       
