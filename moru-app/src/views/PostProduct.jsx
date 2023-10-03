@@ -54,31 +54,37 @@ const PostProduct = () => {
             generalCategoryId: "",
           }}
 
-          // validate={(values) => {
-          //     let error = {};
+          validate={(values) => {
+              let error = {};
 
-          //     if (!values.nameAdminCommerce) {
-          //         error.nameAdminCommerce = 'Por favor, ingresa el nombre de una tienda'
-          //     }else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.nameAdminCommerce)) {
-          //         error.nameAdminCommerce = 'El nombre solo puede contener letras y espacios'
-          //     }
+              if (!values.name) {
+                  error.name = 'Por favor, ingresa el nombre de una tienda'
+              }else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.name)) {
+                  error.name = 'El nombre solo puede contener letras y espacios'
+              }
 
-          //     if (!values.lastname) {
-          //         error.lastname = 'Por favor, ingresa un apellido'
-          //     }else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.lastname)) {
-          //         error.lastname = 'El apellido solo puede contener letras y espacios'
-          //     }
+              if (!values.price) {
+                error.price = 'Por favor, ingresa un precio'
+            }else if (!/^\d+$/.test(values.price)) {
+                error.price = 'El precio debe contener solo números'
+            }
 
-          //     if (!values.phone) {
-          //         error.phone = 'Por favor, ingresa un número de celular'
-          //     }else if (!/^\d+$/.test(values.phone)) {
-          //         error.phone = 'El celular debe contener solo números'
-          //     }else if (values.phone.length !== 10) {
-          //         error.phone = 'El celular debe contener 10 dígitos'
-          //     }
+              if (!values.description) {
+                  error.description = 'Por favor, ingresa una descripción'
+              }else if (values.description.length > 300) {
+                  error.description = 'La descripción no debe superar los 300 carácteres'
+              }
 
-          //     return error
-          // }}
+              if (!values.event) {
+                error.event = 'Por favor, ingresa un evento'
+            }else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.event)) {
+                error.event = 'El nombre solo puede contener letras y espacios'
+            }
+              return error
+            
+          }}
+
+
 
           onSubmit={(valores) => {
             PostLocalStorage(valores);
@@ -94,6 +100,9 @@ const PostProduct = () => {
                   name="name"
                   placeholder="Nombre"
                 />
+                <ErrorMessage name="name" component={() => (
+                  <div className="text-xs text-red-600">{errors.name}</div>
+                )} />
               </div>
 
               <div>
@@ -132,14 +141,6 @@ const PostProduct = () => {
                                     <div className="text-xs text-red-600">{errors.phone}</div>
                                 )}/> */}
               </div>
-{/* 
-              <input
-          type="file"
-          name="file"
-          placeholder="Sube tu imagen aquí"
-          onChange={handleOnChange}
-        />
-      </form> */}
 
               <div>
                 <Field
