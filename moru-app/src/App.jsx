@@ -1,7 +1,8 @@
 import { Route, Routes, useLocation } from "react-router-dom"
 import { useEffect } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { getProducts } from './services/services';
+import { cleanErrors } from "./redux/errorsSlice";
 
 import "./index.css"
 
@@ -18,8 +19,8 @@ import Registration from "./components/Registration"
 import ProductDetail from './views/Detail'
 import Favorites from './views/Favorites'
 import CategoryView from './views/CategoryView';
-import PublishProduct from "./views/PublishProduct";
-import MiTienda from './views/MiTienda'
+import PostProduct from './views/PostProduct';
+import MiTienda from './views/MiTienda';
 import Account from "./views/Account"
 import RegisterTypeOfShop from './views/RegisterTypeOfShop';
 
@@ -27,8 +28,12 @@ import RegisterTypeOfShop from './views/RegisterTypeOfShop';
 function App() {
   const { pathname } = useLocation()
   const dispatch = useDispatch();
+  const error = useSelector(state => state.errors)
 
-
+  //error handler
+  error.length && dispatch(cleanErrors()) && window.alert(error)
+  
+  
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
@@ -59,7 +64,7 @@ function App() {
         <Route path="/producto/:id" element={<ProductDetail/>} />
         <Route path="/products/:id" element={<CategoryView />} />
         <Route path="/fav" element={<Favorites/>} />
-        <Route path="/publicar-producto" element={<PublishProduct/>} />
+        <Route path="/publicar-producto" element={<PostProduct/>} />
         <Route path="/tienda" element={<MiTienda/>} />
         <Route path="/cuenta" element={<Account/>} />
         <Route path="/registrar-tipo-de-tienda" element={<RegisterTypeOfShop/>} />

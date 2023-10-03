@@ -11,6 +11,7 @@ const SearchBar = () => {
   const onSearch = async () => {
     //console.log( await getProductsByName(name));
     const productsFiltered = await getProductsByName(name)
+    // console.log('error',productsFiltered);
     dispatch(cleanProductsFiltered())
     dispatch(setProductsByName(productsFiltered))
   }

@@ -5,7 +5,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProductsByCategory, getProducts } from '../services/services';
+import { getProductsByCategory, getProducts, getCategorias } from '../services/services';
 import { setCategorias } from '../redux/categoriesSlice';
 
 function Arrow(props) {
@@ -36,26 +36,40 @@ const Categories = ({ getProductsByCategory }) => {
     const dispatch = useDispatch();
     const categorias = useSelector((state) => state.categories.categorias)
 
-    useEffect(() => {
-        // Cuando el componente se monta, obtén las categorías y almacénalas en el estado global
-        const fetchCategorias = async () => {
-            try {
-                // Realiza la solicitud para obtener categorías
-                const response = await fetch('https://moruapp-back.up.railway.app/categories/allCategories');
-                if (response.ok) {
-                    const data = await response.json();
-                    // Dispatch de la acción para establecer las categorías en el estado global
-                    dispatch(setCategorias(data));
-                } else {
-                    console.error('Error al obtener categorías');
-                }
-            } catch (error) {
-                console.error(error);
-            }
-        };
+    // useEffect(() => {
+    //     // Cuando el componente se monta, obtén las categorías y almacénalas en el estado global
+    //     const fetchCategorias = async () => {
+    //         try {
+    //             // Realiza la solicitud para obtener categorías
+    //             const response = await fetch('https://moruapp-back.up.railway.app/categories/allCategories');
+    //             if (response.ok) {
+    //                 const data = await response.json();
+    //                 // Dispatch de la acción para establecer las categorías en el estado global
+    //                 dispatch(setCategorias(data));
+    //             } else {
+    //                 console.error('Error al obtener categorías');
+    //             }
+    //         } catch (error) {
+    //             console.error(error);
+    //         }
+    //     };
 
-        fetchCategorias();
-    }, [dispatch]);
+    //     fetchCategorias();
+    // }, [dispatch]);
+
+
+    useEffect(() => {
+        const fetchData = async () => {  //hace la funcion asincrona para poder esperar a que se resuelva la promesa de Categorias
+          try {
+            const data = await getCategorias()
+            console.log(data);
+            dispatch(setCategorias(data));
+          } catch (error) {
+            console.log(error);
+          }
+        };
+        fetchData();
+      }, [dispatch])
 
 
     const settings = {
@@ -113,19 +127,19 @@ const Categories = ({ getProductsByCategory }) => {
 
 
     return (
-        <div>
-            <h1 className='ml-4 lg:ml-28 py-4 text-2xl md:text-3xl font-roboto-slab'>Categorias</h1>
+        <div className='font-roboto-slab'>
+            <h1 className=' text-purple-moru ml-4 lg:ml-28 py-4 text-2xl md:text-3xl  '>Categorias</h1>
             <div className="w-full px-10 lg:px-36 py-2">
                 <Slider {...settings} >
                     {categorias.map((categoria) => (
-                        <div key={categoria.id} className="flex flex-col items-center px-2">
+                        <div key={categoria.id} className=" cursor-pointer hover:shadow-xl flex flex-col items-center px-2">
                             <img
                                 src={categoria.img}
                                 alt={categoria.category}
-                                className="rounded mx-auto mb-2 w-28 h-28 object-cover sm:w-20 sm:h-20 md:w-40 md:h-40 "
+                                className='w-14 sm:w-20 md:w-26   m-auto'
                             />
                             <p
-                                className="text-center text-lg md:text-xl"
+                                className="text-center  md:text-xl text-base text-purple-moru "
                                 onClick={() => handleClickCategoria(categoria.id)}
                             >
                                 {categoria.name}
