@@ -19,7 +19,7 @@ import ProductDetail from './views/Detail'
 import Favorites from './views/Favorites'
 import CategoryView from './views/CategoryView';
 import PublishProduct from "./views/PublishProduct";
-import MiTienda from './views/MiTienda'
+import MiTienda from './views/MiTienda';
 import Account from "./views/Account"
 
 
