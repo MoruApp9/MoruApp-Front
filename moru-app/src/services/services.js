@@ -34,29 +34,25 @@ export const getProductsByCategory = (categoryId) => {
   }
 }
 
-export const getCategorias = () => {
-  return async () => {
-    try {
-      const response = await axios.post(`${BASE_URL}/categories/allcategories`)
-      const data = response.data
-      return data
-    } catch (error) {
-      errorHandler(error)
-      // Falta agregarle el error handler
-    }
-  }
-}
-
-export const getProductsByName = async (name) => {
+export const getCategorias = async() => {
   try {
-    const { data } = await axios.get(
-      `${BASE_URL}/products/searchbyname?name=${name}`
-    )
-    return data
+    const response = await axios.get(`${BASE_URL}/categories/allcategories`);
+    const data = response.data;
+    return (data);
   } catch (error) {
     errorHandler(error)
   }
-}
+};
+
+export const getProductsByName = async (name) => {
+    try {
+      const { data } = await axios.get(`${BASE_URL}/products/searchbyname?name=${name}`);
+      return data
+    } 
+    catch (error) {
+      errorHandler(error)
+    }
+  }
 
 export const uploadImageClaudinary = async (event) => {
   try {
@@ -97,6 +93,15 @@ export const postAdmincommerceRegister = async (dataAdminCommerce) => {
   try {
     console.log(dataAdminCommerce)
     await axios.post(`${BASE_URL}/admincommerce/register`, dataAdminCommerce)
+  } catch (error) {
+    errorHandler(error)
+  }
+}
+
+export const postProduct = async (productData) => {
+  try {
+    console.log(productData)
+    await axios.post(`${BASE_URL}/products/create`, productData)
   } catch (error) {
     errorHandler(error)
   }
