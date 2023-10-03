@@ -124,7 +124,7 @@ const PostProduct = () => {
                 <Field
                   className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
                   type="file"
-                  name="image"
+                  name="file"
                   placeholder="Sube tu imagen aquí"
                   onChange={handleOnChange}
                 />
@@ -132,6 +132,14 @@ const PostProduct = () => {
                                     <div className="text-xs text-red-600">{errors.phone}</div>
                                 )}/> */}
               </div>
+{/* 
+              <input
+          type="file"
+          name="file"
+          placeholder="Sube tu imagen aquí"
+          onChange={handleOnChange}
+        />
+      </form> */}
 
               <div>
                 <Field
