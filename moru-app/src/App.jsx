@@ -1,7 +1,8 @@
 import { Route, Routes, useLocation } from "react-router-dom"
 import { useEffect } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { getProducts } from './services/services';
+import { cleanErrors } from "./redux/errorsSlice";
 
 import "./index.css"
 
@@ -26,8 +27,12 @@ import Account from "./views/Account"
 function App() {
   const { pathname } = useLocation()
   const dispatch = useDispatch();
+  const error = useSelector(state => state.errors)
 
-
+  //error handler
+  error.length && dispatch(cleanErrors()) && window.alert(error)
+  
+  
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);

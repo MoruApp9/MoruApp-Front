@@ -7,7 +7,8 @@ import favorites from "./favoritesSlice";
 import isFav from "./isFavSlice";
 import cartSlice from "./cartSlice";
 import categoriesReducer from './categoriesSlice';
-import userRoleSlice from "./userRoleSlice";
+import errors from './errorsSlice'
+
 
 export default configureStore({
     reducer: {
@@ -18,7 +19,8 @@ export default configureStore({
         favorites: favorites,
         categories: categoriesReducer,
         isFav: isFav,
+        errors: errors
     },
-    middleware: [thunk],
+    applyMiddleware: [thunk],
 })
 

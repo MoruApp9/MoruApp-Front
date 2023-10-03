@@ -10,6 +10,7 @@ const Landing = () => {
     //const currentUser = useSelector(state => state.user);
     const dataComplete = {...GetLocalStorage(), ...user};
     const navigate = useNavigate();
+    
     if (Object.keys(GetLocalStorage()).length > 0) {
         if (dataComplete.userRole && dataComplete.email) {
             if (dataComplete.useRole === "buyer") {
