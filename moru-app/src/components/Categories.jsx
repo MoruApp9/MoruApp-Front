@@ -135,11 +135,9 @@ const Categories = ({ getProductsByCategory }) => {
                                 src={categoria.img}
                                 alt={categoria.category}
                                 className='w-14 sm:w-20 md:w-26   m-auto'
-                                className="mx-auto mb-2 w-14 h-14 object-cover sm:w-14 sm:h-14 md:w-20 md:h-20 "
                             />
                             <p
                                 className="text-center  md:text-xl text-base text-purple-moru "
-                                className="text-center text-lg md:text-xl text-purple-moru"
                                 onClick={() => handleClickCategoria(categoria.id)}
                             >
                                 {categoria.name}
