@@ -18,15 +18,12 @@ import { cleanProductsFiltered } from "../redux/productsFilteredSlice"
 import { useDispatch, useSelector } from "react-redux";
 import GetLocalStorage from '../localStorage/GetLocalStorage';
 
-//import logoMoru from "../images/logo.jpeg"
-
 const Nav = () => {
   const [openMenu, setOpenMenu] = useState(false)
   const { user, loginWithRedirect, isAuthenticated } = useAuth0();
-  //console.log(user)
   const dispatch = useDispatch()
   const currentUser = GetLocalStorage();
-  //console.log(userRole);
+  const carrito = useSelector(((state) => state.cart.cart))
 
   const handleOnClickMenu = () => {
     dispatch(cleanProductsFiltered())
@@ -38,9 +35,9 @@ const Nav = () => {
         <div className=" flex 1/3 items-center space-x-8">
           <button onClick={() => { setOpenMenu(true) }}><FiMenu className="text-4xl text-purple-moru"></FiMenu></button>
 
-          {!isAuthenticated && <button className="hidden md:block" onClick={() => loginWithRedirect()}>Iniciar Sesión</button>}
+          {!isAuthenticated && <button className="hidden md:block text-purple-moru" onClick={() => loginWithRedirect()}>Iniciar Sesión</button>}
 
-          {!isAuthenticated && <Link  className='hidden md:block' to={`/registration`}><p>Crear Cuenta</p></Link>}
+          {!isAuthenticated && <Link  className='hidden md:block text-purple-moru' to={`/registration`}><p>Crear Cuenta</p></Link>}
         </div>
 
         <div className="flex  items-center w-1/2 justify-between">
@@ -53,7 +50,11 @@ const Nav = () => {
             // : currentUser.userRole !== 'adminCommerce' && (<Link to="/carrito-de-compras"><img className="w-12" src={shoppingIcon} alt="shoppingIcon" /></Link>)
             isAuthenticated && GetLocalStorage() && currentUser.userRole === 'adminCommerce' 
             ? <Link to="/tienda"><PiStorefrontDuotone className="w-7 text-purple-moru text-4xl"></PiStorefrontDuotone></Link>
-            : <Link to="/carrito-de-compras"><img className="w-12" src={shoppingIcon} alt="shoppingIcon" /></Link>
+            : (
+                <Link  className="flex items-center" to="/carrito-de-compras"><img className="w-12" src={shoppingIcon} alt="shoppingIcon" />
+                {carrito.length?<span className="mr-2 bg-purple-moru text-white rounded-full w-5 text-center">{carrito.length}</span> : null}
+                </Link>
+            )
           }
         </div>
       </div>

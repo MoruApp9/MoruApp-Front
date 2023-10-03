@@ -17,9 +17,9 @@ function Arrow(props) {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        background: "gray",
+        background: "#280a50",
         boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
-        cursor: "pointer",
+        cursor: "pointer"    
     };
     return (
         <div
@@ -110,11 +110,9 @@ const Categories = ({ getProductsByCategory }) => {
         navigate(`/products/${generalCategory}`); 
     };
 
-
-
     return (
         <div>
-            <h1 className='ml-4 lg:ml-28 py-4 text-2xl md:text-3xl font-roboto-slab'>Categorias</h1>
+            <h1 className='ml-4 lg:ml-28 py-4 text-2xl md:text-3xl font-roboto-slab text-purple-moru'>¿Que estas buscando?</h1>
             <div className="w-full px-10 lg:px-36 py-2">
                 <Slider {...settings} >
                     {categorias.map((categoria) => (
@@ -122,10 +120,10 @@ const Categories = ({ getProductsByCategory }) => {
                             <img
                                 src={categoria.img}
                                 alt={categoria.category}
-                                className="rounded mx-auto mb-2 w-28 h-28 object-cover sm:w-20 sm:h-20 md:w-40 md:h-40 "
+                                className="mx-auto mb-2 w-14 h-14 object-cover sm:w-14 sm:h-14 md:w-20 md:h-20 "
                             />
                             <p
-                                className="text-center text-lg md:text-xl"
+                                className="text-center text-lg md:text-xl text-purple-moru"
                                 onClick={() => handleClickCategoria(categoria.id)}
                             >
                                 {categoria.name}
