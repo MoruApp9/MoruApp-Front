@@ -1,7 +1,8 @@
 import { Route, Routes, useLocation } from "react-router-dom"
 import { useEffect } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { getProducts } from './services/services';
+import { cleanErrors } from "./redux/errorsSlice";
 
 import "./index.css"
 
@@ -21,13 +22,18 @@ import CategoryView from './views/CategoryView';
 import PostProduct from './views/PostProduct';
 import MiTienda from './views/MiTienda';
 import Account from "./views/Account"
+import RegisterTypeOfShop from './views/RegisterTypeOfShop';
 
 
 function App() {
   const { pathname } = useLocation()
   const dispatch = useDispatch();
+  const error = useSelector(state => state.errors)
 
-
+  //error handler
+  error.length && dispatch(cleanErrors()) && window.alert(error)
+  
+  
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
@@ -61,6 +67,7 @@ function App() {
         <Route path="/publicar-producto" element={<PostProduct/>} />
         <Route path="/tienda" element={<MiTienda/>} />
         <Route path="/cuenta" element={<Account/>} />
+        <Route path="/registrar-tipo-de-tienda" element={<RegisterTypeOfShop/>} />
       
       </Routes>
     </div>
