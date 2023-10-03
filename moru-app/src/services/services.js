@@ -34,28 +34,13 @@ export const getProductsByCategory = (categoryId) => {
   }
 }
 
-// export const getCategorias = () => {
-//   return async () => {
-//     try {
-//       const response = await axios.post(`${BASE_URL}/categories/allcategories`);
-//       const data = response.data;
-//       console.log(data);
-//       return (data);
-//     } catch (error) {
-//       console.error(error);
-//       throw error;
-//     }
-//   };
-// };
-
 export const getCategorias = async() => {
   try {
     const response = await axios.get(`${BASE_URL}/categories/allcategories`);
     const data = response.data;
     return (data);
   } catch (error) {
-    console.error(error);
-    throw error;
+    errorHandler(error)
   }
 };
 
@@ -65,7 +50,7 @@ export const getProductsByName = async (name) => {
       return data
     } 
     catch (error) {
-      console.error(error);
+      errorHandler(error)
     }
   }
 
