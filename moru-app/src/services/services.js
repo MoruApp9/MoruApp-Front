@@ -89,7 +89,7 @@ export const postClientRegister = async(dataClient) => {
 
 export const postAdmincommerceRegister = async(dataAdminCommerce) => {
   try {
-    console.log(dataAdminCommerce);
+    //console.log(dataAdminCommerce);
     await axios.post(`${BASE_URL}/admincommerce/register`, dataAdminCommerce);
   } catch (error) {
     console.error(error);
@@ -110,6 +110,14 @@ export const getUser = async(emailUser) => {
       console.error(error);
       throw error;
     }
+};
 
+export const postCommerceRegister = async(dataCommerce) => {
+  try {
+    await axios.post(`${BASE_URL}/commerce/register`, dataCommerce);
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
 

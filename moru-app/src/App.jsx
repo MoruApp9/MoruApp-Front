@@ -21,6 +21,7 @@ import CategoryView from './views/CategoryView';
 import PublishProduct from "./views/PublishProduct";
 import MiTienda from './views/MiTienda'
 import Account from "./views/Account"
+import RegisterTypeOfShop from './views/RegisterTypeOfShop';
 
 
 function App() {
@@ -61,6 +62,7 @@ function App() {
         <Route path="/publicar-producto" element={<PublishProduct/>} />
         <Route path="/tienda" element={<MiTienda/>} />
         <Route path="/cuenta" element={<Account/>} />
+        <Route path="/registrar-tipo-de-tienda" element={<RegisterTypeOfShop/>} />
       
       </Routes>
     </div>
