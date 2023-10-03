@@ -98,6 +98,15 @@ export const postAdmincommerceRegister = async (dataAdminCommerce) => {
   }
 }
 
+export const postProduct = async (productData) => {
+  try {
+    console.log(productData)
+    await axios.post(`${BASE_URL}/products/create`, productData)
+  } catch (error) {
+    errorHandler(error)
+  }
+}
+
 export const getUser = async (emailUser) => {
   try {
     // const peticion = [axios.post(`${BASE_URL}/users/findforemail`, {email: emailUser})]

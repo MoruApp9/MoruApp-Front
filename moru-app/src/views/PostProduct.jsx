@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom";
 import imagen from "../images/Moru.jpeg";
-import { getCategorias, uploadImageClaudinary } from "../services/services"
+import { getCategorias, postProduct, uploadImageClaudinary } from "../services/services"
 import { Formik, Form, ErrorMessage, Field } from 'formik';
 import axios from "axios";
 import { useDispatch } from "react-redux";
@@ -49,9 +49,8 @@ const PostProduct = () => {
             description: "",
             image: "",
             event: "",
-            commerceId: "",
-            category: "",
-            generalCategoryId: "",
+            commerceId: "", //por defecto 
+            category: "", //por defecto
           }}
 
           validate={(values) => {
@@ -87,8 +86,7 @@ const PostProduct = () => {
 
 
           onSubmit={(valores) => {
-            PostLocalStorage(valores);
-            loginWithRedirect();
+            postProduct(valores)
           }}
         >
           {({ errors }) => (
@@ -179,26 +177,11 @@ const PostProduct = () => {
                   </option>
                   {categories.map((categoria) => (
                     <option key={categoria.id} value={categoria.id}>{categoria.name}</option>))}
-                </Field>
-                <ErrorMessage name="category" component={() => (
+                </Field> 
+                 <ErrorMessage name="category" component={() => (
                   <div className="text-xs text-red-600">{errors.category}</div>
-                )} />
-              </div>
+                )} /> 
 
-              <div>
-                <Field
-                  className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
-                  as="select"
-                  name="generalCategoryId" >
-                  <option value="" disabled>
-                    Selecciona un Id de categoría
-                  </option>
-                  {categories.map((categoria) => (
-                    <option key={categoria.id} value={categoria.id}>{categoria.id}</option>))}
-                </Field>
-                <ErrorMessage name="category" component={() => (
-                  <div className="text-xs text-red-600">{errors.category}</div>
-                )} />
               </div>
 
               <div className="flex sm:justify-between flex-col sm:flex-row gap-2 justify-center items-center">
@@ -208,11 +191,13 @@ const PostProduct = () => {
                     Atrás
                   </button>
                 </Link>
+                <Link to="/tienda">
                 <button
                   className="w-36 h-10 md:h-14 px-2 border border-purple-moru rounded-lg bg-purple-moru text-white text-sm font-roboto-slab"
                   type="submit">
                   Siguiente
                 </button>
+                </Link>
               </div>
             </Form>
           )}
