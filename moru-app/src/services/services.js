@@ -2,6 +2,7 @@ import { setProducts } from '../redux/productSlice';
 import { setUser } from '../redux/userSlice';
 import axios from 'axios';
 import PostLocalStorage from "../localStorage/PostLocalStorage";
+import GetLocalStorage from '../localStorage/GetLocalStorage';
 
 const BASE_URL = 'https://moruapp-back.up.railway.app'
 
@@ -76,7 +77,9 @@ export const uploadImageClaudinary = async (event) => {
 
 export const postClientRegister = async(dataClient) => {
   try {
-    console.log(dataClient);
+
+    //console.log(dataClient);
+
     await axios.post(`${BASE_URL}/client/register`, dataClient);
   } catch (error) {
     console.error(error);
@@ -95,16 +98,18 @@ export const postAdmincommerceRegister = async(dataAdminCommerce) => {
 };
 
 
-export const getUser = (emailUser) => {
-  return async () => {
+export const getUser = async(emailUser) => {
     try {
-      const response = await axios.post(`${BASE_URL}/users/findforemail`, {email: emailUser});
+      // const peticion = [axios.post(`${BASE_URL}/users/findforemail`, {email: emailUser})]
+      // const response = await Promise.all(peticion) ;
+      //console.log(emailUser);
+      const response = await axios.post(`${BASE_URL}/users/findforemail`, {email: emailUser}) ;
       const data = response.data;
       PostLocalStorage(data);
     } catch (error) {
       console.error(error);
       throw error;
     }
-  };
+
 };
 
