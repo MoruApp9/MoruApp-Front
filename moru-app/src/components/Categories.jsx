@@ -113,19 +113,19 @@ const Categories = ({ getProductsByCategory }) => {
 
 
     return (
-        <div>
-            <h1 className='ml-4 lg:ml-28 py-4 text-2xl md:text-3xl font-roboto-slab'>Categorias</h1>
+        <div className='font-roboto-slab'>
+            <h1 className=' text-purple-moru ml-4 lg:ml-28 py-4 text-2xl md:text-3xl  '>Categorias</h1>
             <div className="w-full px-10 lg:px-36 py-2">
                 <Slider {...settings} >
                     {categorias.map((categoria) => (
-                        <div key={categoria.id} className="flex flex-col items-center px-2">
+                        <div key={categoria.id} className=" cursor-pointer hover:shadow-xl flex flex-col items-center px-2">
                             <img
                                 src={categoria.img}
                                 alt={categoria.category}
-                                className="rounded mx-auto mb-2 w-28 h-28 object-cover sm:w-20 sm:h-20 md:w-40 md:h-40 "
+                                className='w-14 sm:w-20 md:w-26   m-auto'
                             />
                             <p
-                                className="text-center text-lg md:text-xl"
+                                className="text-center  md:text-xl text-base text-purple-moru "
                                 onClick={() => handleClickCategoria(categoria.id)}
                             >
                                 {categoria.name}
