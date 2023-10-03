@@ -1,7 +1,7 @@
 import { useState } from "react"
 import {uploadImageClaudinary} from "../services/services"
 
-const PublishProduct = () => {
+const PostProduct = () => {
 
   const handleOnChange = async (event) => {
     await uploadImageClaudinary(event) // esta función sube la imagen a claudinary y entrega la URL para mandarselo al back
@@ -22,4 +22,4 @@ const PublishProduct = () => {
   )
 }
 
-export default PublishProduct
+export default PostProduct;
