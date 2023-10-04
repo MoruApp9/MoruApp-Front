@@ -99,7 +99,7 @@ const ProductDetail = () => {
                     </div>
                 </div>
             </div>
-            <h4 className="text-xl font-roboto-slab font-semibold mb-0 mt-8 lg:ml-28 ml-6">Seguir viendo</h4>
+            <h4 className="text-xl font-roboto-slab font-semibold mb-0 mt-8 lg:ml-28 ml-6 text-purple-moru">Seguir viendo</h4>
             <AllProducts currentProductId={id}/>
         </div>
     );

@@ -66,13 +66,6 @@ const Home = () => {
     );
   }
 
-  // Aquí puedes manejar otros casos según sea necesario
-
-  return (
-    <div>
-      Otro contenido aquí...
-    </div>
-  );
 };
 
 export default Home;

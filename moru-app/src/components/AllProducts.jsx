@@ -18,7 +18,7 @@ const AllProducts = ({ currentProductId }) => {
     return (
         <div className="p-6 lg:px-28 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         {filteredProducts.map((product) => (
-                <Product key={product.id} product={product} />
+                <Product key={product.id} product={product}/>
             ))}
         </div>
     );
