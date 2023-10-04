@@ -4,7 +4,7 @@ import AllProducts from "../components/AllProducts";
 import Filters from "../components/Filters";
 import Categories from '../components/Categories';
 import { useAuth0 } from '@auth0/auth0-react';
-import { postAdmincommerceRegister, postClientRegister, getUser } from "../services/services";
+import { postAdmincommerceRegister, postClientRegister, getUser, getCommercesByOwner } from "../services/services";
 import { GetLocalStorage } from '../localStorage/GetLocalStorage';
 import ErrorMessage from "../components/ErrorMessage";
 import { useNavigate } from "react-router-dom";
@@ -50,11 +50,14 @@ const Home = () => {
   //console.log(dataComplete);
   // Comprobación de userRole y autenticación
 
-  if (localStorageData && localStorageData.error) navigate('/registration')
+  if (localStorageData && localStorageData.error) navigate('/registration');
 
-  if (localStorageData?.userRole === 'adminCommerce') { 
+  console.log(localStorageData);
+  console.log(dataComplete);
+  if (dataComplete?.userRole === 'adminCommerce') {
     console.log('a');
-  } else {
+    getCommercesByOwner(dataComplete.id);
+  } 
     // Si no se cumple la condición, muestra los productos
     return (
       <div>
@@ -64,7 +67,7 @@ const Home = () => {
         {productsFiltered.length && <Filters />}
       </div>
     );
-  }
+  
 
 };
 

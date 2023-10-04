@@ -63,7 +63,7 @@ export const getProductsByName = async (name) => {
     }
   }
 
-export const getCommercesByOwner = async(idUsuario) =>{
+export const getCommercesByOwner = async(idUsuario) =>{//idComercio
   try {
     const { data } = await axios.get(`${BASE_URL}/commerce/foradmincommerce/${idUsuario}`);
     PostLocalStorageCommercesByOwner(data);
