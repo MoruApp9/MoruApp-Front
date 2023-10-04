@@ -14,17 +14,14 @@ const RegisterTypeOfShop = () => {
         <div className="min-h-screen flex flex-col justify-center items-center">
             <div className="flex flex-col items-center gap-8 my-8 md:my-0">
                 <div className="flex items-center justify-center">
-                    <h1 className="text-2xl ml-2 mt-4 font-roboto-slab">Creación de una tienda</h1>
+                    <h1 className="text-2xl ml-2 mt-4 font-roboto-slab">Creación de una marca</h1>
                 </div>
                 <Formik
                     initialValues={{
                         admincommerceId: dataUser.id,
                         name: '',
                         rut: '',
-                        phone: '',
                         generalcategoryId: '',
-                        schedule: '',
-                        address: '',
                     }}
 
                     validate={(values) => {
@@ -42,26 +39,9 @@ const RegisterTypeOfShop = () => {
                             error.rut = 'El RUT debe contener 9 dígitos, el último separado por un "-"'
                         }
 
-                        if (!values.phone) {
-                            error.phone = 'Por favor, ingresa un número de celular'
-                        }else if (!/^\d+$/.test(values.phone)) {
-                            error.phone = 'El celular debe contener solo números'
-                        }else if (values.phone.length !== 10) {
-                            error.phone = 'El celular debe contener 10 dígitos'
-                        }
-
                         if (!values.generalcategoryId) {
                             error.generalcategoryId = 'Por favor, seleccione una categoría'
                         }
-
-                        if (!values.schedule) {
-                            error.schedule = 'Por favor, ingresa un horario'
-                        }
-
-                        if (!values.address) {
-                            error.address = 'Por favor, ingresa una dirección'
-                        }
-
                         return error
                     }}
 
@@ -87,7 +67,7 @@ const RegisterTypeOfShop = () => {
                             <div>
                                 <Field
                                     className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
-                                    type="text"
+                                    type="text" 
                                     name="rut"
                                     placeholder="RUT ejm. 12345678-9"
                                 />
@@ -96,17 +76,7 @@ const RegisterTypeOfShop = () => {
                                 )}/>
                             </div>
 
-                            <div>
-                                <Field
-                                    className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
-                                    type="text"
-                                    name="phone"
-                                    placeholder="Celular"
-                                />
-                                <ErrorMessage name="phone" component={() => (
-                                    <div className="text-xs text-red-600">{errors.phone}</div>
-                                )}/>
-                            </div>
+                            {/* Div con el field de tipo file para agregar el pdf del Rut (Cloudinary)*/ }
 
                             <div>
                                 <Field name="generalcategoryId" as="select" className="w-60 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab">
@@ -115,30 +85,6 @@ const RegisterTypeOfShop = () => {
                                 </Field>
                                 <ErrorMessage name="generalcategoryId" component={() => (
                                     <div className="text-xs text-red-600">{errors.generalcategoryId}</div>
-                                )}/>
-                            </div>
-
-                            <div>
-                                <Field
-                                    className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
-                                    type="text"
-                                    name="schedule"
-                                    placeholder="Horario ejm. 10am - 18pm"
-                                />
-                                <ErrorMessage name="schedule" component={() => (
-                                    <div className="text-xs text-red-600">{errors.schedule}</div>
-                                )}/>
-                            </div>
-
-                            <div>
-                                <Field
-                                    className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
-                                    type="text"
-                                    name="address"
-                                    placeholder="Dirección"
-                                />
-                                <ErrorMessage name="address" component={() => (
-                                    <div className="text-xs text-red-600">{errors.address}</div>
                                 )}/>
                             </div>
 
