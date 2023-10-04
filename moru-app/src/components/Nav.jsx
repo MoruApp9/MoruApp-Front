@@ -91,6 +91,8 @@ const Nav = () => {
 
             {isAuthenticated && GetLocalStorage() && currentUser.userRole === 'adminCommerce' && <ul onClick={() => { setOpenMenu(false) }} className="  order-2 flex justify-center space-x-4 " ><BiSolidCloudUpload className="w-7 text-purple-moru text-3xl"></BiSolidCloudUpload><Link to="/publicar-producto">Publicar</Link></ul>}
 
+            {isAuthenticated && GetLocalStorage() && currentUser.userRole === 'adminCommerce' && <ul onClick={() => { setOpenMenu(false) }} className="  order-2 flex justify-center space-x-4 " ><PiStorefrontDuotone className="w-7 text-purple-moru text-3xl"></PiStorefrontDuotone><Link to="/registrar-tipo-de-tienda">Crear Tienda</Link></ul>}
+
             {isAuthenticated && GetLocalStorage() && currentUser.userRole === 'adminCommerce' && <ul onClick={() => { setOpenMenu(false) }} className="  order-2 flex justify-center space-x-4 " ><PiStorefrontDuotone className="w-7 text-purple-moru text-3xl"></PiStorefrontDuotone><Link to="/tienda">Mi tienda</Link></ul>}
 
             {isAuthenticated && (

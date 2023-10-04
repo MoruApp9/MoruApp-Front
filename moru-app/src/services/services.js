@@ -115,10 +115,10 @@ export const getUser = async (emailUser) => {
     const response = await axios.post(`${BASE_URL}/users/findforemail`, {
       email: emailUser,
     })
-    const data = response.data
-    PostLocalStorage(data)
+    const data = response.data;
+    PostLocalStorage(data);
   } catch (error) {
-    errorHandler(error)
+    errorHandler(error);
   }
 }
 
@@ -126,8 +126,7 @@ export const postCommerceRegister = async(dataCommerce) => {
   try {
     await axios.post(`${BASE_URL}/commerce/register`, dataCommerce);
   } catch (error) {
-    console.error(error);
-    throw error;
+    errorHandler(error);
   }
 };
 
