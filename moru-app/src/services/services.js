@@ -44,6 +44,16 @@ export const getCategorias = async() => {
   }
 };
 
+export const getSpecificCategories = async(id) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/categories/allspecificcategories/${id}`);
+    const data = response.data;
+    return (data);
+  } catch (error) {
+    errorHandler(error)
+  }
+};
+
 export const getProductsByName = async (name) => {
     try {
       const { data } = await axios.get(`${BASE_URL}/products/searchbyname?name=${name}`);
@@ -53,6 +63,18 @@ export const getProductsByName = async (name) => {
       errorHandler(error)
     }
   }
+
+export const getCommercesByOwner = async(idUsuario) =>{
+  try {
+    const { data } = await axios.get(`${BASE_URL}/commerce/foradmincommerce/${idUsuario}`);
+    console.log(data);
+    return data
+  } 
+  catch (error) {
+    errorHandler(error)
+  }
+}
+
 
 export const uploadImageClaudinary = async (event) => {
   try {
@@ -116,6 +138,7 @@ export const getUser = async (emailUser) => {
       email: emailUser,
     })
     const data = response.data
+    console.log(data);
     PostLocalStorage(data)
   } catch (error) {
     errorHandler(error)
