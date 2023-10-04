@@ -1,11 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form, ErrorMessage, Field } from 'formik';
-import GetLocalStorage from '../localStorage/GetLocalStorage';
-import { getCategorias, postCommerceRegister } from "../services/services";
+import { GetLocalStorage } from '../localStorage/GetLocalStorage';
+import { useSelector } from 'react-redux';
+import { postCommerceRegister } from "../services/services";
+import { useEffect } from "react";
 
 const RegisterTypeOfShop = () => {
     const dataUser = GetLocalStorage();
-    const categories = getCategorias();
+    const categories = useSelector((state) => state.categories.categorias);
+    const navigate = useNavigate();
 
     return (
         <div className="min-h-screen flex flex-col justify-center items-center">
@@ -15,11 +18,11 @@ const RegisterTypeOfShop = () => {
                 </div>
                 <Formik
                     initialValues={{
-                        id: dataUser.id,
+                        admincommerceId: dataUser.id,
                         name: '',
                         rut: '',
                         phone: '',
-                        idgeneralcategory: '',
+                        generalcategoryId: '',
                         schedule: '',
                         address: '',
                     }}
@@ -47,8 +50,8 @@ const RegisterTypeOfShop = () => {
                             error.phone = 'El celular debe contener 10 dígitos'
                         }
 
-                        if (!values.idgeneralcategory) {
-                            error.idgeneralcategory = 'Por favor, seleccione una categoría'
+                        if (!values.generalcategoryId) {
+                            error.generalcategoryId = 'Por favor, seleccione una categoría'
                         }
 
                         if (!values.schedule) {
@@ -63,8 +66,8 @@ const RegisterTypeOfShop = () => {
                     }}
 
                     onSubmit={(valores) => {
-                        console.log(valores);
-                        //postCommerceRegister(valores);
+                        postCommerceRegister(valores);
+                        navigate('/tienda');
                     }}
                 >
                     {({errors, isSubmitting}) => (
@@ -106,12 +109,12 @@ const RegisterTypeOfShop = () => {
                             </div>
 
                             <div>
-                                <Field name="idgeneralcategory" as="select" className="w-60 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab">
+                                <Field name="generalcategoryId" as="select" className="w-60 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab">
                                     <option value="" disabled hidden>Selecciona categoría</option>
-                                    {/* {categories.map((category)=>(<option value={category.id}>{category.name}</option>))} */}
+                                    {categories.map((category)=>(<option key={category.id} value={category.id}>{category.name}</option>))}
                                 </Field>
-                                <ErrorMessage name="idgeneralcategory" component={() => (
-                                    <div className="text-xs text-red-600">{errors.idgeneralcategory}</div>
+                                <ErrorMessage name="generalcategoryId" component={() => (
+                                    <div className="text-xs text-red-600">{errors.generalcategoryId}</div>
                                 )}/>
                             </div>
 
@@ -139,7 +142,7 @@ const RegisterTypeOfShop = () => {
                                 )}/>
                             </div>
 
-                            <div className="flex sm:justify-between flex-col sm:flex-row gap-2 justify-center items-center">
+                            <div className="flex justify-between flex-row gap-2 items-center">
                                 <Link to="/registration">
                                     <button
                                         className="w-36 md:h-14 h-10 px-2 border-2 border-purple-moru rounded-lg bg-gray-200 text-sm font-roboto-slab">

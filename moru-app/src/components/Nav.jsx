@@ -16,7 +16,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { LogOutButton } from '../components/LogOut';
 import { cleanProductsFiltered } from "../redux/productsFilteredSlice"
 import { useDispatch, useSelector } from "react-redux";
-import GetLocalStorage from '../localStorage/GetLocalStorage';
+import { GetLocalStorage } from '../localStorage/GetLocalStorage';
 
 const Nav = () => {
   const [openMenu, setOpenMenu] = useState(false)
@@ -91,6 +91,8 @@ const Nav = () => {
             
 
             {isAuthenticated && GetLocalStorage() && currentUser.userRole === 'adminCommerce' && <ul onClick={() => { setOpenMenu(false) }} className="  order-2 flex justify-center space-x-4 " ><BiSolidCloudUpload className="w-7 text-purple-moru text-3xl"></BiSolidCloudUpload><Link to="/publicar-producto">Publicar</Link></ul>}
+
+            {isAuthenticated && GetLocalStorage() && currentUser.userRole === 'adminCommerce' && <ul onClick={() => { setOpenMenu(false) }} className="  order-2 flex justify-center space-x-4 " ><PiStorefrontDuotone className="w-7 text-purple-moru text-3xl"></PiStorefrontDuotone><Link to="/registrar-tipo-de-tienda">Crear Tienda</Link></ul>}
 
             {isAuthenticated && GetLocalStorage() && currentUser.userRole === 'adminCommerce' && <ul onClick={() => { setOpenMenu(false) }} className="  order-2 flex justify-center space-x-4 " ><PiStorefrontDuotone className="w-7 text-purple-moru text-3xl"></PiStorefrontDuotone><Link to="/tienda">Mi tienda</Link></ul>}
 

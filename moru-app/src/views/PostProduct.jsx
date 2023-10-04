@@ -6,7 +6,7 @@ import { Formik, Form, ErrorMessage, Field } from 'formik';
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { BsImageFill } from "react-icons/bs"
-import GetLocalStorage from '../localStorage/GetLocalStorage';
+import { GetLocalStorage } from '../localStorage/GetLocalStorage';
 
 const PostProduct = () => {
 

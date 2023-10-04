@@ -1,8 +1,7 @@
 import { setProducts } from "../redux/productSlice"
 import { setUser } from "../redux/userSlice"
 import axios from "axios"
-import PostLocalStorage from "../localStorage/PostLocalStorage"
-import GetLocalStorage from "../localStorage/GetLocalStorage"
+import { PostLocalStorage, PostLocalStorageCommercesByOwner } from "../localStorage/PostLocalStorage"
 import { errorHandler } from "./errorHandler"
 
 const BASE_URL = "https://moruapp-back.up.railway.app"
@@ -67,8 +66,7 @@ export const getProductsByName = async (name) => {
 export const getCommercesByOwner = async(idUsuario) =>{
   try {
     const { data } = await axios.get(`${BASE_URL}/commerce/foradmincommerce/${idUsuario}`);
-    console.log(data);
-    return data
+    PostLocalStorageCommercesByOwner(data);
   } 
   catch (error) {
     errorHandler(error)
@@ -122,7 +120,6 @@ export const postAdmincommerceRegister = async (dataAdminCommerce) => {
 
 export const postProduct = async (productData) => {
   try {
-    console.log(productData)
     await axios.post(`${BASE_URL}/products/create`, productData)
   } catch (error) {
     errorHandler(error)
@@ -138,10 +135,9 @@ export const getUser = async (emailUser) => {
       email: emailUser,
     })
     const data = response.data
-    console.log(data);
     PostLocalStorage(data)
   } catch (error) {
-    errorHandler(error)
+    errorHandler(error);
   }
 }
 
@@ -149,8 +145,7 @@ export const postCommerceRegister = async(dataCommerce) => {
   try {
     await axios.post(`${BASE_URL}/commerce/register`, dataCommerce);
   } catch (error) {
-    console.error(error);
-    throw error;
+    errorHandler(error);
   }
 };
 

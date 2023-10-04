@@ -5,7 +5,7 @@ import { setIsFav } from "../redux/isFavSlice";
 import { addToCart, removefromCart } from '../redux/cartSlice'
 import { useLocation } from "react-router-dom";
 import { FiHeart } from 'react-icons/fi';
-import GetLocalStorage from '../localStorage/GetLocalStorage';
+import { GetLocalStorage } from '../localStorage/GetLocalStorage';
 import { useAuth0 } from '@auth0/auth0-react';
 
 

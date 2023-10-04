@@ -5,7 +5,7 @@ import Filters from "../components/Filters";
 import Categories from '../components/Categories';
 import { useAuth0 } from '@auth0/auth0-react';
 import { postAdmincommerceRegister, postClientRegister, getUser } from "../services/services";
-import GetLocalStorage from '../localStorage/GetLocalStorage';
+import { GetLocalStorage } from '../localStorage/GetLocalStorage';
 import ErrorMessage from "../components/ErrorMessage";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
