@@ -1,8 +1,7 @@
 import { setProducts } from "../redux/productSlice"
 import { setUser } from "../redux/userSlice"
 import axios from "axios"
-import PostLocalStorage from "../localStorage/PostLocalStorage"
-import GetLocalStorage from "../localStorage/GetLocalStorage"
+import { PostLocalStorage, PostLocalStorageCommercesByOwner } from "../localStorage/PostLocalStorage"
 import { errorHandler } from "./errorHandler"
 
 const BASE_URL = "https://moruapp-back.up.railway.app"
@@ -44,6 +43,16 @@ export const getCategorias = async() => {
   }
 };
 
+export const getSpecificCategories = async(id) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/categories/allspecificcategories/${id}`);
+    const data = response.data;
+    return (data);
+  } catch (error) {
+    errorHandler(error)
+  }
+};
+
 export const getProductsByName = async (name) => {
     try {
       const { data } = await axios.get(`${BASE_URL}/products/searchbyname?name=${name}`);
@@ -53,6 +62,17 @@ export const getProductsByName = async (name) => {
       errorHandler(error)
     }
   }
+
+export const getCommercesByOwner = async(idUsuario) =>{
+  try {
+    const { data } = await axios.get(`${BASE_URL}/commerce/foradmincommerce/${idUsuario}`);
+    PostLocalStorageCommercesByOwner(data);
+  } 
+  catch (error) {
+    errorHandler(error)
+  }
+}
+
 
 export const uploadImageClaudinary = async (event) => {
   try {
@@ -100,7 +120,6 @@ export const postAdmincommerceRegister = async (dataAdminCommerce) => {
 
 export const postProduct = async (productData) => {
   try {
-    console.log(productData)
     await axios.post(`${BASE_URL}/products/create`, productData)
   } catch (error) {
     errorHandler(error)
@@ -115,8 +134,8 @@ export const getUser = async (emailUser) => {
     const response = await axios.post(`${BASE_URL}/users/findforemail`, {
       email: emailUser,
     })
-    const data = response.data;
-    PostLocalStorage(data);
+    const data = response.data
+    PostLocalStorage(data)
   } catch (error) {
     errorHandler(error);
   }

@@ -3,4 +3,12 @@ const GetLocalStorage = () => {
     return userData;
 };
 
-export default GetLocalStorage;
+const GetLocalStorageCommercesByOwner = () => {
+    const commercesData = JSON.parse(localStorage.getItem("Commerces"));
+    return commercesData;
+};
+
+export {
+   GetLocalStorage,
+   GetLocalStorageCommercesByOwner,
+}

@@ -1,6 +1,6 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import { BiLogOutCircle } from 'react-icons/bi'
-import DeleteLocalStorage from '../localStorage/DeleteLocalStorage';
+import {DeleteLocalStorage} from '../localStorage/DeleteLocalStorage';
 
 export const LogOutButton = () => {
     const { logout } = useAuth0();

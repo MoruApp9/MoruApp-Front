@@ -2,18 +2,34 @@ import backgroundDefault from '../images/background-perfil-shop.jpeg';
 import { BsFillCameraFill } from 'react-icons/bs';
 import { useSelector } from 'react-redux';
 import slide1 from '../images/slide.jpeg';
-import { HiPencil } from "react-icons/hi"
- 
-const MiTienda = () => {
+import { HiPencil } from "react-icons/hi";
+import { GetLocalStorage, GetLocalStorageCommercesByOwner } from '../localStorage/GetLocalStorage';
+import { useEffect, useState } from "react";
+import { getCommercesByOwner } from '../services/services';
 
-    //si existe una tienda que me muestre la tienda sino el formulario
+const MiTienda = () => {
 
     const handleOnChange = async (event) => {
         await uploadImageClaudinary(event) // esta función sube la imagen a claudinary y entrega la URL para mandarselo al back
         console.log(await uploadImageClaudinary(event)); //url creada mostrada en consola
     }
 
+    const [loadingData, setLoadingData] = useState(true);
+
     const image = backgroundDefault;
+
+    if (loadingData) {
+        return <h1>Cargando...</h1>;
+    }
+
+    useEffect(() => {
+        //getCommercesByOwner(id);
+        //const {id} = GetLocalStorage();
+        const {id} = GetLocalStorageCommercesByOwner();
+        if (id) {
+            setLoadingData(false);
+        }
+    },[])
 
     return(
         <div className='grid gap-4 max-w-7xl mx-auto'>

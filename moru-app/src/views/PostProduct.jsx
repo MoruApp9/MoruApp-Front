@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom";
 import imagen from "../images/Moru.jpeg";
-import { getCategorias, postProduct, uploadImageClaudinary } from "../services/services"
+import { getCommercesByOwner, getSpecificCategories, postProduct, uploadImageClaudinary } from "../services/services"
 import { Formik, Form, ErrorMessage, Field } from 'formik';
 import axios from "axios";
 import { useDispatch } from "react-redux";
-
-
+import { BsImageFill } from "react-icons/bs"
+import { GetLocalStorage } from '../localStorage/GetLocalStorage';
 
 const PostProduct = () => {
 
@@ -15,15 +15,19 @@ const PostProduct = () => {
     console.log(await uploadImageClaudinary(event)); //url creada mostrada en consola
   }
 
-  const [categories, setCategories] = useState([]);
+  const [specificCategories, setSpecificCategories] = useState([]);
   const dispatch = useDispatch();
+  const dataUser = GetLocalStorage(); //data del usuario logueado
+
+
 
   useEffect(() => {
     const fetchData = async () => {  //hace la funcion asincrona para poder esperar a que se resuelva la promesa de Categorias
       try {
-        const data = await getCategorias()
-        setCategories(data)
-        console.log(data);
+        const dataCommercesByOwner = await getCommercesByOwner(dataUser.id) //devuelve un array de objetos con todas las tiendas asociadas
+        // const data = await getSpecificCategories(tienda.generalcategoryId)
+        // setSpecificCategories(data)
+        // console.log(data);
       } catch (error) {
         console.log(error);
       }
@@ -51,52 +55,54 @@ const PostProduct = () => {
             event: "",
             commerceId: "", //por defecto 
             category: "", //por defecto
+            specificCategory: "",
+            extraCategory: ""
+
           }}
 
           validate={(values) => {
-              let error = {};
+            let error = {};
 
-              if (!values.name) {
-                  error.name = 'Por favor, ingresa el nombre de una tienda'
-              }else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.name)) {
-                  error.name = 'El nombre solo puede contener letras y espacios'
-              }
-
-              if (!values.price) {
-                error.price = 'Por favor, ingresa un precio'
-            }else if (!/^\d+$/.test(values.price)) {
-                error.price = 'El precio debe contener solo números'
+            if (!values.name) {
+              error.name = 'Por favor, ingresa el nombre de una tienda'
+            } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.name)) {
+              error.name = 'El nombre solo puede contener letras y espacios'
             }
 
-              if (!values.description) {
-                  error.description = 'Por favor, ingresa una descripción'
-              }else if (values.description.length > 300) {
-                  error.description = 'La descripción no debe superar los 300 carácteres'
-              }
-
-              if (!values.event) {
-                error.event = 'Por favor, ingresa un evento'
-            }else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.event)) {
-                error.event = 'El nombre solo puede contener letras y espacios'
+            if (!values.price) {
+              error.price = 'Por favor, ingresa un precio'
+            } else if (!/^\d+$/.test(values.price)) {
+              error.price = 'El precio debe contener solo números'
             }
-              return error
-            
+
+            if (!values.description) {
+              error.description = 'Por favor, ingresa una descripción'
+            } else if (values.description.length > 300) {
+              error.description = 'La descripción no debe superar los 300 carácteres'
+            }
+
+            if (!values.event) {
+              error.event = 'Por favor, ingresa un evento'
+            } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.event)) {
+              error.event = 'El nombre solo puede contener letras y espacios'
+            }
+            return error
+
           }}
-
-
 
           onSubmit={(valores) => {
             postProduct(valores)
           }}
         >
-          {({ errors }) => (
+          {({ values, errors }) => (
+            console.log(values),
             <Form autoComplete="off" className="flex flex-col gap-6 ">
               <div>
                 <Field
                   className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
                   type="text"
                   name="name"
-                  placeholder="Nombre"
+                  placeholder="Nombre del producto"
                 />
                 <ErrorMessage name="name" component={() => (
                   <div className="text-xs text-red-600">{errors.name}</div>
@@ -129,15 +135,17 @@ const PostProduct = () => {
 
               <div>
                 <Field
-                  className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
                   type="file"
                   name="file"
-                  placeholder="Sube tu imagen aquí"
+                  id="fileInput"
+                  className="hidden"
                   onChange={handleOnChange}
                 />
-                {/* <ErrorMessage name="phone" component={() => (
-                                    <div className="text-xs text-red-600">{errors.phone}</div>
-                                )}/> */}
+
+                <label htmlFor="fileInput" className="text-purple-moru w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-m font-roboto-slab flex items-center justify-center cursor-pointer">
+                  <span>Upload image</span>
+                  <BsImageFill className="text-xl ml-2"></BsImageFill>
+                </label>
               </div>
 
               <div>
@@ -156,35 +164,36 @@ const PostProduct = () => {
                 <Field
                   className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
                   as="select"
-                  name="commerceId" >
-                  <option value="" disabled>
-                    Selecciona un Id de comercio
-                  </option>
-                  <option key="Id1" value="Id1">Categoria</option>
-                </Field>
-                <ErrorMessage name="commerceId" component={() => (
-                  <div className="text-xs text-red-600">{errors.commerceId}</div>
-                )} />
-              </div>
-
-              <div>
-                <Field
-                  className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
-                  as="select"
                   name="category" >
                   <option value="" disabled>
-                    Selecciona una categoría
+                    Selecciona una categoría específica
                   </option>
-                  {categories.map((categoria) => (
+                  {specificCategories.map((categoria) => (
                     <option key={categoria.id} value={categoria.id}>{categoria.name}</option>))}
-                </Field> 
-                 <ErrorMessage name="category" component={() => (
-                  <div className="text-xs text-red-600">{errors.category}</div>
-                )} /> 
+                    <option value="otra">Otra</option>
+                </Field>
+                { values.category === "otra" ?
+                <div>
+                  <Field
+                  className="mt-6 w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
+                  type="text"
+                  name="extraCategory"
+                  placeholder="Ingresa tu categoría personal"
+                  >
+                  </Field>
+                </div>: null}
+                
 
+                {/* <Field
+                  className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
+                  type="text"
+                  name="extraCategory"
+                  placeholder="Categoría extra (opcional)">
+
+                </Field> */}
               </div>
 
-              <div className="flex sm:justify-between flex-col sm:flex-row gap-2 justify-center items-center">
+              <div className="flex sm:justify-between sm:flex-row gap-8 justify-center ">
                 <Link to="/">
                   <button
                     className="w-36 md:h-14 h-10 px-2 border-2 border-purple-moru rounded-lg bg-gray-200 text-sm font-roboto-slab">
@@ -192,11 +201,11 @@ const PostProduct = () => {
                   </button>
                 </Link>
                 <Link to="/tienda">
-                <button
-                  className="w-36 h-10 md:h-14 px-2 border border-purple-moru rounded-lg bg-purple-moru text-white text-sm font-roboto-slab"
-                  type="submit">
-                  Siguiente
-                </button>
+                  <button
+                    className="w-36 h-10 md:h-14 px-2 border border-purple-moru rounded-lg bg-purple-moru text-white text-sm font-roboto-slab"
+                    type="submit">
+                    Siguiente
+                  </button>
                 </Link>
               </div>
             </Form>

@@ -17,9 +17,9 @@ function Arrow(props) {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        background: "gray",
+        background: "#280a50",
         boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
-        cursor: "pointer",
+        cursor: "pointer"    
     };
     return (
         <div
@@ -121,14 +121,12 @@ const Categories = ({ getProductsByCategory }) => {
     };
 
     const handleClickCategoria = (generalCategory) => {
-        navigate(`/products/${generalCategory}`); 
+        navigate(`/products/${generalCategory}`);
     };
-
-
 
     return (
         <div className='font-roboto-slab'>
-            <h1 className=' text-purple-moru ml-4 lg:ml-28 py-4 text-2xl md:text-3xl  '>Categorias</h1>
+            <h1 className=' text-purple-moru ml-4 lg:ml-28 py-4 text-2xl md:text-3xl   text-purple-moru'>¿Que estas buscando?</h1>
             <div className="w-full px-10 lg:px-36 py-2">
                 <Slider {...settings} >
                     {categorias.map((categoria) => (

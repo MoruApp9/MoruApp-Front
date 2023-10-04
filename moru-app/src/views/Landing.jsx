@@ -2,7 +2,7 @@ import image from '../images/image.png';
 import { useAuth0 } from '@auth0/auth0-react'
 import { useSelector } from 'react-redux';
 import { postAdmincommerceRegister, postClientRegister } from "../services/services";
-import GetLocalStorage from '../localStorage/GetLocalStorage';
+import {GetLocalStorage} from '../localStorage/GetLocalStorage';
 import { useNavigate } from 'react-router-dom';
 
 const Landing = () => {

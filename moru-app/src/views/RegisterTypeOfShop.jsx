@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form, ErrorMessage, Field } from 'formik';
-import GetLocalStorage from '../localStorage/GetLocalStorage';
+import { GetLocalStorage } from '../localStorage/GetLocalStorage';
 import { useSelector } from 'react-redux';
 import { postCommerceRegister } from "../services/services";
 import { useEffect } from "react";
@@ -67,7 +67,6 @@ const RegisterTypeOfShop = () => {
 
                     onSubmit={(valores) => {
                         postCommerceRegister(valores);
-                        //obtener tiendas
                         navigate('/tienda');
                     }}
                 >
