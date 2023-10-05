@@ -8,12 +8,14 @@ import isFav from "./isFavSlice";
 import cartSlice from "./cartSlice";
 import categoriesReducer from './categoriesSlice';
 import errors from './errorsSlice'
+import allProducts from "./allProductsSlice";
 
 
 export default configureStore({
     reducer: {
         user: user,
         products: products,
+        allProducts: allProducts,
         cart: cartSlice,
         productsFiltered,
         favorites: favorites,

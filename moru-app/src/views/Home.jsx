@@ -61,7 +61,7 @@ const Home = () => {
         {!productsFiltered.length && <Advertising />}
         {!productsFiltered.length && <Categories />}
         {!productsFiltered.length && <AllProducts />}
-        {productsFiltered.length && <Filters />}
+        {/* {productsFiltered.length && <Filters />} */}
       </div>
     );
   }
