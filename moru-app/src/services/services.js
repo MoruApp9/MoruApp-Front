@@ -3,6 +3,7 @@ import { setUser } from "../redux/userSlice"
 import axios from "axios"
 import { PostLocalStorage, PostLocalStorageCommercesByOwner } from "../localStorage/PostLocalStorage"
 import { errorHandler } from "./errorHandler"
+import { setAllProducts } from "../redux/allProductsSlice"
 
 const BASE_URL = "https://moruapp-back.up.railway.app"
 
@@ -12,6 +13,7 @@ export const getProducts = () => {
     try {
       const response = await axios.get(`${BASE_URL}/products/`)
       const data = response.data
+      dispatch(setAllProducts(data))
       dispatch(setProducts(data))
     } catch (error) {
       errorHandler(error)
