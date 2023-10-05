@@ -19,7 +19,7 @@ function Arrow(props) {
         alignItems: "center",
         background: "#280a50",
         boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
-        cursor: "pointer"    
+        cursor: "pointer"
     };
     return (
         <div
@@ -60,16 +60,16 @@ const Categories = ({ getProductsByCategory }) => {
 
     useEffect(() => {
         const fetchData = async () => {  //hace la funcion asincrona para poder esperar a que se resuelva la promesa de Categorias
-          try {
-            const data = await getCategorias()
-            console.log(data);
-            dispatch(setCategorias(data));
-          } catch (error) {
-            console.log(error);
-          }
+            try {
+                const data = await getCategorias()
+                console.log(data);
+                dispatch(setCategorias(data));
+            } catch (error) {
+                console.log(error);
+            }
         };
         fetchData();
-      }, [dispatch])
+    }, [dispatch])
 
 
     const settings = {
