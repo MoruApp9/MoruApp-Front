@@ -15,7 +15,6 @@ const ProductDetail = () => {
     });
     const userRole = useSelector(state => state.userRole)
 
-
     if (!product) return <div>Producto no encontrado</div>;
 
     const dispatch = useDispatch();

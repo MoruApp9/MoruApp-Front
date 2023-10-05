@@ -130,7 +130,7 @@ const Categories = ({ getProductsByCategory }) => {
             <div className="w-full px-10 lg:px-36 py-2">
                 <Slider {...settings} >
                     {categorias.map((categoria) => (
-                        <div key={categoria.id} className=" cursor-pointer hover:shadow-xl flex flex-col items-center px-2">
+                        <div key={categoria.id} className=" cursor-pointer hover:shadow-xl flex flex-col items-center px-2" onClick={() => handleClickCategoria(categoria.id)}>
                             <img
                                 src={categoria.img}
                                 alt={categoria.category}
@@ -138,7 +138,6 @@ const Categories = ({ getProductsByCategory }) => {
                             />
                             <p
                                 className="text-center  md:text-xl text-base text-purple-moru "
-                                onClick={() => handleClickCategoria(categoria.id)}
                             >
                                 {categoria.name}
                             </p>
