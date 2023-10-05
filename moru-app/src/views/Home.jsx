@@ -56,7 +56,7 @@ const Home = () => {
   console.log(dataComplete);
   if (dataComplete?.userRole === 'adminCommerce') {
     console.log('a');
-    getCommercesByOwner(dataComplete.id);
+    //getCommercesByOwner(dataComplete.id); id del comercio
   } 
     // Si no se cumple la condición, muestra los productos
     return (

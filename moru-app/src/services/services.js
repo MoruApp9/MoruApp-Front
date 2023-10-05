@@ -63,9 +63,9 @@ export const getProductsByName = async (name) => {
     }
   }
 
-export const getCommercesByOwner = async(idUsuario) =>{//idComercio
+export const getCommercesByOwner = async(idBrand) =>{
   try {
-    const { data } = await axios.get(`${BASE_URL}/commerce/foradmincommerce/${idUsuario}`);
+    const { data } = await axios.get(`${BASE_URL}/branchforcommerce/${idBrand}`);
     PostLocalStorageCommercesByOwner(data);
   } 
   catch (error) {
@@ -134,7 +134,7 @@ export const getUser = async (emailUser) => {
     const response = await axios.post(`${BASE_URL}/users/findforemail`, {
       email: emailUser,
     })
-    const data = response.data
+    const data = response.data //deberia mandar los datos de la marca asociada
     PostLocalStorage(data)
   } catch (error) {
     errorHandler(error);
