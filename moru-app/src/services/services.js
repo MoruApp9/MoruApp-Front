@@ -65,7 +65,7 @@ export const getProductsByName = async (name) => {
     }
   }
 
-export const getCommercesByOwner = async(idBrand) =>{
+export const getBrandByOwner = async(idBrand) =>{
   try {
     const { data } = await axios.get(`${BASE_URL}/branchforcommerce/${idBrand}`);
     PostLocalStorageCommercesByOwner(data);

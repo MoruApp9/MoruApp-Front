@@ -4,7 +4,7 @@ import AllProducts from "../components/AllProducts";
 import Filters from "../components/Filters";
 import Categories from '../components/Categories';
 import { useAuth0 } from '@auth0/auth0-react';
-import { postAdmincommerceRegister, postClientRegister, getUser, getCommercesByOwner } from "../services/services";
+import { postAdmincommerceRegister, postClientRegister, getUser, getBrandByOwner } from "../services/services";
 import { GetLocalStorage } from '../localStorage/GetLocalStorage';
 import ErrorMessage from "../components/ErrorMessage";
 import { useNavigate } from "react-router-dom";
@@ -52,21 +52,26 @@ const Home = () => {
 
   if (localStorageData && localStorageData.error) navigate('/registration');
 
-  console.log(localStorageData);
-  console.log(dataComplete);
   if (dataComplete?.userRole === 'adminCommerce') {
     console.log('a');
-    //getCommercesByOwner(dataComplete.id); id del comercio
-  } 
-    // Si no se cumple la condición, muestra los productos
-    return (
-      <div>
-        {!productsFiltered.length && <Advertising />}
-        {!productsFiltered.length && <Categories />}
-        {!productsFiltered.length && <AllProducts />}
-        {/* {productsFiltered.length && <Filters />} */}
-      </div>
-    );
+    console.log(!dataComplete.brand || !dataComplete.brand.id);
+    if (!dataComplete.brand || !dataComplete.brand.id) {
+      navigate('/registrar-empresa');
+    }else{
+      getBrandByOwner(dataComplete.brand.id);
+    }
+    
+  }
+
+  // Si no se cumple la condición, muestra los productos
+  return (
+    <div>
+      {!productsFiltered.length && <Advertising />}
+      {!productsFiltered.length && <Categories />}
+      {!productsFiltered.length && <AllProducts />}
+      {/* {productsFiltered.length && <Filters />} */}
+    </div>
+  );
   
 
 };

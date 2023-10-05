@@ -5,7 +5,7 @@ import slide1 from '../images/slide.jpeg';
 import { HiPencil } from "react-icons/hi";
 import { GetLocalStorage, GetLocalStorageCommercesByOwner } from '../localStorage/GetLocalStorage';
 import { useEffect, useState } from "react";
-import { getCommercesByOwner } from '../services/services';
+import { getBrandByOwner } from '../services/services';
 
 const MiTienda = () => {
 
@@ -23,7 +23,7 @@ const MiTienda = () => {
     }
 
     useEffect(() => {
-        //getCommercesByOwner(id);
+        //getBrandByOwner(id);
         //const {id} = GetLocalStorage();
         const {id} = GetLocalStorageCommercesByOwner();
         if (id) {

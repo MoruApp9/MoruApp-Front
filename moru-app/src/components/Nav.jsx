@@ -9,7 +9,6 @@ import { FiMenu } from "react-icons/fi";
 import { MdFavorite } from "react-icons/md";
 import { MdAccountCircle } from "react-icons/md";
 import { BiSupport } from "react-icons/bi";
-import { BsPersonCircle } from 'react-icons/bs';
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useAuth0 } from '@auth0/auth0-react';
@@ -69,12 +68,12 @@ const Nav = () => {
             <FiMenu className="text-4xl text-purple-moru ml-6 mb-10"></FiMenu>
           </button>
 
-          <li className="  flex flex-col  text-xl space-y-10">
+          <li className="  flex flex-col text-xl space-y-10 items-start ml-14">
             <ul className={`flex ${isAuthenticated ? 'order-5' : 'order-1'}  justify-center`}  >
               {
                 isAuthenticated
                 ? <LogOutButton />
-                : <button className="  flex items-center space-x-4 mr-3" onClick={() => loginWithRedirect()}><BiSolidUser className="text-4xl text-purple-moru" /><span>Iniciar Sesión</span></button>
+                : <button className="flex items-center space-x-4 mr-3" onClick={() => loginWithRedirect()}><BiSolidUser className="text-4xl text-purple-moru" /><span>Iniciar Sesión</span></button>
               }
             </ul >
 
@@ -88,11 +87,9 @@ const Nav = () => {
             {/* currentUser.userRole !== 'adminCommerce' && <ul onClick={() => { setOpenMenu(false) }} className="  order-2 flex justify-center space-x-4 " ><MdFavorite className="w-7 text-purple-moru text-3xl"></MdFavorite><Link to="/fav">Favoritos</Link></ul> */
               (!isAuthenticated || GetLocalStorage() && currentUser.userRole === 'buyer' )&& <ul onClick={() => { setOpenMenu(false) }} className="  order-2 flex justify-center space-x-4 " ><MdFavorite className="w-7 text-purple-moru text-3xl"></MdFavorite><Link to="/fav">Favoritos</Link></ul>
             }
-            
+        
 
             {isAuthenticated && GetLocalStorage() && currentUser.userRole === 'adminCommerce' && <ul onClick={() => { setOpenMenu(false) }} className="  order-2 flex justify-center space-x-4 " ><BiSolidCloudUpload className="w-7 text-purple-moru text-3xl"></BiSolidCloudUpload><Link to="/publicar-producto">Publicar</Link></ul>}
-
-            {isAuthenticated && GetLocalStorage() && currentUser.userRole === 'adminCommerce' && <ul onClick={() => { setOpenMenu(false) }} className="  order-2 flex justify-center space-x-4 " ><PiStorefrontDuotone className="w-7 text-purple-moru text-3xl"></PiStorefrontDuotone><Link to="/registrar-tipo-de-tienda">Crear Tienda</Link></ul>}
 
             {isAuthenticated && GetLocalStorage() && currentUser.userRole === 'adminCommerce' && <ul onClick={() => { setOpenMenu(false) }} className="  order-2 flex justify-center space-x-4 " ><PiStorefrontDuotone className="w-7 text-purple-moru text-3xl"></PiStorefrontDuotone><Link to="/tienda">Mi tienda</Link></ul>}
 
@@ -102,7 +99,6 @@ const Nav = () => {
           </li>
         </div>
       </div>
-
     </nav>
   )
 }
