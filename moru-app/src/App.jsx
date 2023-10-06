@@ -67,7 +67,7 @@ function App() {
         <Route path="/publicar-producto" element={<PostProduct/>} />
         <Route path="/tienda" element={<MiTienda/>} />
         <Route path="/cuenta" element={<Account/>} />
-        <Route path="/registrar-tipo-de-tienda" element={<RegisterTypeOfShop/>} />
+        <Route path="/registrar-empresa" element={<RegisterTypeOfShop/>} />
       
       </Routes>
     </div>
