@@ -23,7 +23,7 @@ import PostProduct from './views/PostProduct';
 import MiTienda from './views/MiTienda';
 import Account from "./views/Account"
 import RegisterTypeOfShop from './views/RegisterTypeOfShop';
-
+import CrearSede from "./views/CrearSucursal";
 
 function App() {
   const { pathname } = useLocation()
@@ -68,7 +68,7 @@ function App() {
         <Route path="/tienda" element={<MiTienda/>} />
         <Route path="/cuenta" element={<Account/>} />
         <Route path="/registrar-empresa" element={<RegisterTypeOfShop/>} />
-      
+        <Route path="/crearSucursal" element={<CrearSede/>} />
       </Routes>
     </div>
   )

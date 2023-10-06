@@ -11,9 +11,9 @@ const AllProducts = ({ currentProductId }) => {
         return state.products.products.filter((product) => product.id !== currentProductId);
     }); */
 
-    const filteredProducts = useMemo(() => {
+    /* const filteredProducts = useMemo(() => {
         return allProducts.filter((product) => product.id !== currentProductId)
-    }, [allProducts, currentProductId])
+    }, [allProducts, currentProductId]) */
 
     return (
         <div className="font-roboto-slab">
@@ -30,7 +30,7 @@ const AllProducts = ({ currentProductId }) => {
                 </div>
             </div>
             }    
-            <div className="p-6 lg:px-28">
+{/*             <div className="p-6 lg:px-28">
                 <h1 className="text-2xl md:text-3xl text-purple-moru py-4">
                     Todos los productos
                 </h1>
@@ -39,7 +39,7 @@ const AllProducts = ({ currentProductId }) => {
                         <Product key={product.id} product={product} />
                     ))}
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 };
