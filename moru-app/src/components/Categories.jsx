@@ -126,7 +126,7 @@ const Categories = ({ getProductsByCategory }) => {
 
     return (
         <div className='font-roboto-slab'>
-            <h1 className=' text-purple-moru ml-4 lg:ml-28 py-4 text-2xl md:text-3xl   text-purple-moru'>¿Que estas buscando?</h1>
+            <h1 className=' text-purple-moru ml-4 lg:ml-28 py-4 text-2xl md:text-3xl'>¿Que estas buscando?</h1>
             <div className="w-full px-10 lg:px-36 py-2">
                 <Slider {...settings} >
                     {categorias.map((categoria) => (

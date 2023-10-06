@@ -9,5 +9,5 @@ export const LogOutButton = () => {
         DeleteLocalStorage();
         logout({ returnTo: window.location.origin});
     }
-    return <button className=" mt-9 flex items-center space-x-4" onClick={handleLogOut}><MdLogout className="text-4xl text-purple-moru"/><span>Cerrar sesión</span></button>
+    return <button className="flex items-center space-x-4 w-52 py-2" onClick={handleLogOut}><MdLogout className="w-7 text-3xl text-purple-moru"/><span>Cerrar sesión</span></button>
 }

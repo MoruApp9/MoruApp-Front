@@ -16,7 +16,7 @@ const AllProducts = ({ currentProductId }) => {
     }, [products, currentProductId]) */
 
     return (
-        <div>
+        <div className="font-roboto-slab">
             {
                 latest.length === allProducts.length ? null :
                 <div className="p-6 lg:px-28">
