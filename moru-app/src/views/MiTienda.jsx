@@ -5,7 +5,7 @@ import slide1 from '../images/slide.jpeg';
 import { HiPencil } from "react-icons/hi";
 import { GetLocalStorage, GetLocalStorageCommercesByOwner } from '../localStorage/GetLocalStorage';
 import { useEffect, useState } from "react";
-import { getCommercesByOwner } from '../services/services';
+import { getBrandByOwner } from '../services/services';
 
 const MiTienda = () => {
 
@@ -23,7 +23,7 @@ const MiTienda = () => {
     }
 
     useEffect(() => {
-        //getCommercesByOwner(id);
+        //getBrandByOwner(id);
         //const {id} = GetLocalStorage();
         const {id} = GetLocalStorageCommercesByOwner();
         if (id) {
@@ -32,7 +32,7 @@ const MiTienda = () => {
     },[])
 
     return(
-        <div className='grid gap-4 max-w-7xl mx-auto'>
+        <div className='grid gap-4 max-w-7xl mx-auto font-roboto-slab'>
             <div className=''>
                 <div className='relative'>
                     <div className='aspect-w-16 xl:h-100'>
@@ -64,7 +64,7 @@ const MiTienda = () => {
 
                 <div className='grid grid-cols-1 md:grid-cols-2 items-center max-w-7xl pt-4 px-8'>{/*nombre-boton editar nombre*/}
                     <div className='flex items-center'>
-                        <h1 className='text-3xl font-roboto-slab'>Nombre de la tienda</h1>
+                        <h1 className='text-3xl'>Nombre de la tienda</h1>
                     </div>
 
                     <div className='flex justify-end '>

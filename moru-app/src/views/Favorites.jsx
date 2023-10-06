@@ -7,7 +7,7 @@ const Favorites = () => {
     const favorites = useSelector(state => state.favorites.favorites)
     console.log(favorites.length);
     return (
-        <section className="flex flex-col  mx-4">
+        <section className="flex flex-col mx-4 font-roboto-slab">
         {
             favorites.length > 0
                 ? <h1 className="text-4xl font-bold text-center text-purple-moru-dark mt-8">¡Estos son tus favoritos!</h1>

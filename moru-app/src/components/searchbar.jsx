@@ -33,7 +33,7 @@ const SearchBar = () => {
   }
 
   return (
-    <div className="flex justify-center my-4 space-x-4" role="search">
+    <div className="flex justify-center my-4 space-x-4 font-roboto-slab" role="search">
       <input
         className=" px-8 w-4/6 py-2 border border-gray-300 rounded-lg focus:visited: focus:text-purple-moru focus:outline-none shadow-lg"
         type="text"
