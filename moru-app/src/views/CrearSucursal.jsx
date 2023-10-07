@@ -4,11 +4,11 @@ import imagen from "../images/Moru.jpeg";
 import { Formik, Form, ErrorMessage, Field } from 'formik';
 import { PostLocalStorage } from '../localStorage/PostLocalStorage';
 import { GetLocalStorage } from '../localStorage/GetLocalStorage'
+import { postSucursal } from '../services/services';
 
 const CrearSede = () => {
     const navigate = useNavigate()
     const dataUser = GetLocalStorage()
-    //console.log(dataUser);
 
     return (
         <div className="min-h-screen flex flex-col justify-center items-center">
@@ -23,21 +23,26 @@ const CrearSede = () => {
                 </div>
                 <Formik
                     initialValues={{
-                        direccion: "",
-                        horarioAtencion: "",
+                        alias: "",
+                        address: "",
+                        schedule: "",
                         phone: "",
-                        commerceId: '',
+                        commerceId: dataUser.brand.id
                     }}
 
                     validate={(values) => {
                         let errors = {};
 
-                        if (!values.direccion) {
-                            errors.direccion = 'Por favor, ingresa la dirección de la sede';
+                        if (!values.alias) {
+                            errors.alias = 'Por favor, ingresa un alias característico de esa sede'
                         }
 
-                        if (!values.horarioAtencion) {
-                            errors.horarioAtencion = 'Por favor, ingresa el horario de atención de la sede';
+                        if (!values.address) {
+                            errors.address = 'Por favor, ingresa la dirección de la sede';
+                        }
+
+                        if (!values.schedule) {
+                            errors.schedule = 'Por favor, ingresa el horario de atención de la sede';
                         }
 
                         if (!values.phone) {
@@ -48,7 +53,7 @@ const CrearSede = () => {
                     }}
 
                     onSubmit={(values) => {
-                        PostLocalStorage(values); 
+                        postSucursal(values);
                         navigate('/');
                     }}
                 >
@@ -58,11 +63,23 @@ const CrearSede = () => {
                                 <Field
                                     className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
                                     type="text"
-                                    name="direccion"
+                                    name="alias"
+                                    placeholder="Alias de esta sede"
+                                />
+                                <ErrorMessage name="alias" component={() => (
+                                    <div className="text-xs text-red-600">{errors.alias}</div>
+                                )}/>
+                            </div>
+
+                            <div>
+                                <Field
+                                    className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
+                                    type="text"
+                                    name="address"
                                     placeholder="Dirección de la Sede"
                                 />
-                                <ErrorMessage name="direccion" component={() => (
-                                    <div className="text-xs text-red-600">{errors.direccion}</div>
+                                <ErrorMessage name="address" component={() => (
+                                    <div className="text-xs text-red-600">{errors.address}</div>
                                 )} />
                             </div>
 
@@ -70,11 +87,11 @@ const CrearSede = () => {
                                 <Field
                                     className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
                                     type="text"
-                                    name="horarioAtencion"
+                                    name="schedule"
                                     placeholder="Horario de Atención"
                                 />
-                                <ErrorMessage name="horarioAtencion" component={() => (
-                                    <div className="text-xs text-red-600">{errors.horarioAtencion}</div>
+                                <ErrorMessage name="schedule" component={() => (
+                                    <div className="text-xs text-red-600">{errors.schedule}</div>
                                 )} />
                             </div>
 

@@ -18,7 +18,7 @@ const Home = () => {
   const navigate = useNavigate();
   const [loadingData, setLoadingData] = useState(true);
   const [localStorageData, setLocalStorageData] = useState(null);
-
+  const [cargaSedes, setCargaSedes] = useState(false)
 
   useEffect(() => {
     const handleUserAuthentication = async () => {
@@ -32,6 +32,11 @@ const Home = () => {
             dispatch(getUser(dataComplete.email))
           }
         }  
+        if (dataComplete.brand && !cargaSedes) {
+          console.log(dataComplete.brand.id);
+          getBrandByOwner(dataComplete.brand.id)
+          setCargaSedes(true)
+        }
       } catch (error) {
         console.error(error);
       } finally {

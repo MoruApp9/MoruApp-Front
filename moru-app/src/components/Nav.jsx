@@ -14,7 +14,7 @@ import { useState } from "react";
 import { useAuth0 } from '@auth0/auth0-react';
 import { cleanProductsFiltered } from "../redux/productsFilteredSlice"
 import { useDispatch, useSelector } from "react-redux";
-import { GetLocalStorage } from '../localStorage/GetLocalStorage';
+import { GetLocalStorage, GetLocalStorageCommercesByOwner } from '../localStorage/GetLocalStorage';
 import { IoIosArrowDown } from "react-icons/io";
 import {DeleteLocalStorage} from '../localStorage/DeleteLocalStorage';
 import { MdLogout } from 'react-icons/md'
@@ -26,6 +26,7 @@ const Nav = () => {
   const currentUser = GetLocalStorage();
   const carrito = useSelector(((state) => state.cart.cart));
   const navigate = useNavigate()
+  const sedes = GetLocalStorageCommercesByOwner()
 
   const [selectedOption, setSelectedOption] = useState(null);
 
@@ -45,16 +46,12 @@ const Nav = () => {
 
   const handleOptionClick = (e, option) => {
     e.preventDefault();
-    // Implementar la lógica cuando se hace clic en una opción
     console.log(`Clic en la opción: ${option}`);
     setSelectedOption(option);
     setOpenMenu(false);
     navigate('/tienda')
     // Aquí podrías redirigir a una nueva página o realizar otras acciones según la opción seleccionada
   };
-
-  const options = [{name: "mac"}]
-
 
   const handleOnClickMenu = () => {
     dispatch(cleanProductsFiltered()),
@@ -142,19 +139,20 @@ const Nav = () => {
               {isDropdownOpen && (
                 <div className="origin-top-right right-0 mt-2 w-52 whitespace-normal bg-gray-100 rounded-md">
                   <div role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                    {options.map((option, index) => (
-                      <Link to={"/tienda"} onClick={() => setSelectedOption('tienda')}>
+                    {sedes.map((option, index) => (
+                      //<Link onClick={() => setSelectedOption('tienda') }>
                       <button
                         key={index}
-                        onClick={(e) => handleOptionClick(e, option.name)}
+                        onClick={(e) => handleOptionClick(e, option.alias)}
                         role="menuitem"
-                        className={`flex p-2 w-full text-left hover:bg-gray-200 rounded-md ${selectedOption === option.name ? 'bg-gray-200 ': ''}`}
+                        className={`flex p-2 w-full text-left hover:bg-gray-200 rounded-md ${selectedOption === option.alias ? 'bg-gray-200 ': ''}`}
                       >
-                        {option.name}
+                        {option.alias}
                       </button>
-                      </Link>
+                      //</Link>
                     ))}
                   </div>
+
                   <Link to={"/crearSucursal"} onClick={() => setSelectedOption('tienda')}>
                     <button
                       role="menuitem"
