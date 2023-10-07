@@ -1,3 +1,4 @@
+//Este lo voy a cambiar por un estado local
 import { createSlice } from "@reduxjs/toolkit";
 
 const isFavSlice = createSlice({

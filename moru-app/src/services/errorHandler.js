@@ -6,9 +6,9 @@ export const errorHandler = (error) => {
     console.log(store);
     store.dispatch(
       setErrors(
-        error.response.data.includes("<!DOCTYPE")
+        error?.response?.data?.includes("<!DOCTYPE")
           ? error.message
-          : error.response.data
+          : error.response.data.error
       )
     )
   }

@@ -16,7 +16,7 @@ const ShoppingCart = () => {
   }
 
   return (
-    <section className="flex flex-col  mx-4">
+    <section className="flex flex-col mx-4">
       {total === 0 
         ? (<div>
             <h1 className="text-4xl text-center text-purple-moru m-8"> Tu carrito está vacío </h1>
