@@ -16,7 +16,7 @@ const MiTienda = () => {
         console.log(await uploadImageClaudinary(event)); //url creada mostrada en consola
     }
 
-    const [loadingData, setLoadingData] = useState(true);
+    const [loadingData, setLoadingData] = useState(true)
 
     const image = backgroundDefault;
 

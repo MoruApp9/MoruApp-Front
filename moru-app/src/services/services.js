@@ -199,6 +199,6 @@ export const postSucursal = async(dataSucursal) => {
   } catch (error) {
     errorHandler(error);
   }
-};
+}
 
 

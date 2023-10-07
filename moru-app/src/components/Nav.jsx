@@ -53,7 +53,7 @@ const Nav = () => {
     // Aquí podrías redirigir a una nueva página o realizar otras acciones según la opción seleccionada
   };
 
-  const options = [{name: "mac"}];
+  const options = [{name: "mac"}]
 
 
   const handleOnClickMenu = () => {

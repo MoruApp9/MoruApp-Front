@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import imagen from "../images/Moru.jpeg";
 import { Formik, Form, ErrorMessage, Field } from 'formik';
 import { PostLocalStorage } from '../localStorage/PostLocalStorage';
-import { GetLocalStorage } from '../localStorage/GetLocalStorage';
+import { GetLocalStorage } from '../localStorage/GetLocalStorage'
 
 const CrearSede = () => {
     const navigate = useNavigate()

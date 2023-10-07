@@ -64,7 +64,7 @@ const RegisterTypeOfShop = () => {
                         console.log('valores: ', valores);
                         //PostLocalStorage({...dataUser, valores})
                         postCommerceRegister(valores);
-                        navigate('/');
+                        navigate('/')
                     }}
                 >
                     {({errors, isSubmitting}) => (

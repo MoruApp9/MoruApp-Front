@@ -49,7 +49,6 @@ const Home = () => {
   if (loadingData) {
     return <h1>Cargando...</h1>;
   }
-  //console.log(dataComplete);
   // Comprobación de userRole y autenticación
 
   if (localStorageData && localStorageData.error) navigate('/registration');
