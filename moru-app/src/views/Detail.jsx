@@ -15,7 +15,6 @@ const ProductDetail = () => {
     });
     const userRole = useSelector(state => state.userRole)
 
-
     if (!product) return <div>Producto no encontrado</div>;
 
     const dispatch = useDispatch();
@@ -42,7 +41,7 @@ const ProductDetail = () => {
     };
 
     return (
-        <div>
+        <div className="font-roboto-slab">
             <div className="bg-white border-2 pb-8 mx-auto xl:mx-28 mt-12 shadow-xl overflow-hidden sm:rounded-lg max-w-md sm:max-w-3xl md:max-w-4xl lg:max-w-5xl xl:max-w-7xl flex flex-col sm:flex-row">
                 <div className="sm:w-2/3 p-4 lg:pl-8 xl:pl-12">
                     <div className="">
@@ -99,7 +98,7 @@ const ProductDetail = () => {
                     </div>
                 </div>
             </div>
-            <h4 className="text-xl font-roboto-slab font-semibold mb-0 mt-8 lg:ml-28 ml-6 text-purple-moru">Seguir viendo</h4>
+            <h4 className="text-xl font-semibold mb-0 mt-8 lg:ml-28 ml-6 text-purple-moru">Seguir viendo</h4>
             <AllProducts currentProductId={id}/>
         </div>
     );

@@ -134,7 +134,7 @@ const Product = ({ product }) => {
 
   return (
     <Link to={`/producto/${productId}`}>
-      <div className="max-w-md mx-auto bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition duration-300">
+      <div className="max-w-md mx-auto bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition duration-300 font-roboto-slab">
         <img
           src={product.image}
           alt={product.name}

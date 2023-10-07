@@ -6,6 +6,7 @@ import {
   PostLocalStorageCommercesByOwner,
 } from "../localStorage/PostLocalStorage"
 import { errorHandler } from "./errorHandler"
+import { setAllProducts } from "../redux/allProductsSlice"
 import { addFav, removeFav } from "../redux/favoritesSlice"
 import { GetLocalStorageFav } from "../localStorage/GetLocalStorage"
 
@@ -17,6 +18,7 @@ export const getProducts = () => {
     try {
       const response = await axios.get(`${BASE_URL}/products/`)
       const data = response.data
+      dispatch(setAllProducts(data))
       dispatch(setProducts(data))
     } catch (error) {
       errorHandler(error)
@@ -71,13 +73,12 @@ export const getProductsByName = async (name) => {
   }
 }
 
-export const getCommercesByOwner = async (idUsuario) => {
+export const getCommercesByOwner = async(idUsuario) =>{
   try {
-    const { data } = await axios.get(
-      `${BASE_URL}/commerce/foradmincommerce/${idUsuario}`
-    )
-    PostLocalStorageCommercesByOwner(data)
-  } catch (error) {
+    const { data } = await axios.get(`${BASE_URL}/branchforcommerce/${idBrand}`);
+    PostLocalStorageCommercesByOwner(data);
+  } 
+  catch (error) {
     errorHandler(error)
   }
 }
@@ -141,7 +142,7 @@ export const getUser =  (emailUser) => async (dispatch) => {
     const response = await axios.post(`${BASE_URL}/users/findforemail`, {
       email: emailUser,
     })
-    const data = response.data
+    const data = response.data //deberia mandar los datos de la marca asociada
     PostLocalStorage(data)
     dispatch(setUser(true))
   } catch (error) {

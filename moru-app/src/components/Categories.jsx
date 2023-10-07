@@ -19,7 +19,7 @@ function Arrow(props) {
         alignItems: "center",
         background: "#280a50",
         boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
-        cursor: "pointer"    
+        cursor: "pointer"
     };
     return (
         <div
@@ -69,7 +69,7 @@ const Categories = ({ getProductsByCategory }) => {
           }
         };
         fetchData();
-      }, [dispatch])
+    }, [dispatch])
 
 
     const settings = {
@@ -126,11 +126,11 @@ const Categories = ({ getProductsByCategory }) => {
 
     return (
         <div className='font-roboto-slab'>
-            <h1 className=' text-purple-moru ml-4 lg:ml-28 py-4 text-2xl md:text-3xl   text-purple-moru'>¿Que estas buscando?</h1>
+            <h1 className=' text-purple-moru ml-4 lg:ml-28 py-4 text-2xl md:text-3xl'>¿Que estas buscando?</h1>
             <div className="w-full px-10 lg:px-36 py-2">
                 <Slider {...settings} >
                     {categorias.map((categoria) => (
-                        <div key={categoria.id} className=" cursor-pointer hover:shadow-xl flex flex-col items-center px-2">
+                        <div key={categoria.id} className=" cursor-pointer hover:shadow-xl flex flex-col items-center px-2" onClick={() => handleClickCategoria(categoria.id)}>
                             <img
                                 src={categoria.img}
                                 alt={categoria.category}
@@ -138,7 +138,6 @@ const Categories = ({ getProductsByCategory }) => {
                             />
                             <p
                                 className="text-center  md:text-xl text-base text-purple-moru "
-                                onClick={() => handleClickCategoria(categoria.id)}
                             >
                                 {categoria.name}
                             </p>

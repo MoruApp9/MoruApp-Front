@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom";
 import imagen from "../images/Moru.jpeg";
-import { getCommercesByOwner, getSpecificCategories, postProduct, uploadImageClaudinary } from "../services/services"
+import { getBrandByOwner, getSpecificCategories, postProduct, uploadImageClaudinary } from "../services/services"
 import { Formik, Form, ErrorMessage, Field } from 'formik';
 import axios from "axios";
 import { useDispatch } from "react-redux";
@@ -24,7 +24,7 @@ const PostProduct = () => {
   useEffect(() => {
     const fetchData = async () => {  //hace la funcion asincrona para poder esperar a que se resuelva la promesa de Categorias
       try {
-        const dataCommercesByOwner = await getCommercesByOwner(dataUser.id) //devuelve un array de objetos con todas las tiendas asociadas
+        const dataCommercesByOwner = await getBrandByOwner(dataUser.brand.id) //devuelve un array de objetos con todas las tiendas asociadas
         // const data = await getSpecificCategories(tienda.generalcategoryId)
         // setSpecificCategories(data)
         // console.log(data);
