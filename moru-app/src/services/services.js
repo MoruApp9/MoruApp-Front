@@ -1,14 +1,10 @@
 import { setProducts } from "../redux/productSlice"
 import { setUser } from "../redux/userSlice"
 import axios from "axios"
-import {
-  PostLocalStorage,
-  PostLocalStorageCommercesByOwner,
-} from "../localStorage/PostLocalStorage"
+import { PostLocalStorage,PostLocalStorageCommercesByOwner } from "../localStorage/PostLocalStorage"
 import { errorHandler } from "./errorHandler"
 import { setAllProducts } from "../redux/allProductsSlice"
 import { addFav, removeFav } from "../redux/favoritesSlice"
-import { GetLocalStorageFav } from "../localStorage/GetLocalStorage"
 
 const BASE_URL = "https://moruapp-back.up.railway.app"
 
@@ -73,7 +69,7 @@ export const getProductsByName = async (name) => {
   }
 }
 
-export const getCommercesByOwner = async(idUsuario) =>{
+export const getBrandByOwner = async(idBrand) =>{
   try {
     const { data } = await axios.get(`${BASE_URL}/branchforcommerce/${idBrand}`);
     PostLocalStorageCommercesByOwner(data);
@@ -82,6 +78,16 @@ export const getCommercesByOwner = async(idUsuario) =>{
     errorHandler(error)
   }
 }
+
+/* export const getCommercesByOwner = async(idUsuario) =>{
+  try {
+    const { data } = await axios.get(`${BASE_URL}/branchforcommerce/${idBrand}`);
+    PostLocalStorageCommercesByOwner(data);
+  } 
+  catch (error) {
+    errorHandler(error)
+  }
+} */
 
 export const uploadImageClaudinary = async (event) => {
   try {
