@@ -1,9 +1,10 @@
 import { setProducts } from "../redux/productSlice"
 import { setUser } from "../redux/userSlice"
 import axios from "axios"
-import { PostLocalStorage, PostLocalStorageCommercesByOwner } from "../localStorage/PostLocalStorage"
+import { PostLocalStorage,PostLocalStorageCommercesByOwner } from "../localStorage/PostLocalStorage"
 import { errorHandler } from "./errorHandler"
 import { setAllProducts } from "../redux/allProductsSlice"
+import { addFav, removeFav } from "../redux/favoritesSlice"
 
 const BASE_URL = "https://moruapp-back.up.railway.app"
 
@@ -35,35 +36,38 @@ export const getProductsByCategory = (categoryId) => {
   }
 }
 
-export const getCategorias = async() => {
+export const getCategorias = async () => {
   try {
-    const response = await axios.get(`${BASE_URL}/categories/allcategories`);
-    const data = response.data;
-    return (data);
+    const response = await axios.get(`${BASE_URL}/categories/allcategories`)
+    const data = response.data
+    return data
   } catch (error) {
     errorHandler(error)
   }
-};
+}
 
-export const getSpecificCategories = async(id) => {
+export const getSpecificCategories = async (id) => {
   try {
-    const response = await axios.get(`${BASE_URL}/categories/allspecificcategories/${id}`);
-    const data = response.data;
-    return (data);
+    const response = await axios.get(
+      `${BASE_URL}/categories/allspecificcategories/${id}`
+    )
+    const data = response.data
+    return data
   } catch (error) {
     errorHandler(error)
   }
-};
+}
 
 export const getProductsByName = async (name) => {
-    try {
-      const { data } = await axios.get(`${BASE_URL}/products/searchbyname?name=${name}`);
-      return data
-    } 
-    catch (error) {
-      errorHandler(error)
-    }
+  try {
+    const { data } = await axios.get(
+      `${BASE_URL}/products/searchbyname?name=${name}`
+    )
+    return data
+  } catch (error) {
+    errorHandler(error)
   }
+}
 
 export const getBrandByOwner = async(idBrand) =>{
   try {
@@ -75,6 +79,15 @@ export const getBrandByOwner = async(idBrand) =>{
   }
 }
 
+/* export const getCommercesByOwner = async(idUsuario) =>{
+  try {
+    const { data } = await axios.get(`${BASE_URL}/branchforcommerce/${idBrand}`);
+    PostLocalStorageCommercesByOwner(data);
+  } 
+  catch (error) {
+    errorHandler(error)
+  }
+} */
 
 export const uploadImageClaudinary = async (event) => {
   try {
@@ -82,7 +95,7 @@ export const uploadImageClaudinary = async (event) => {
     const data = new FormData()
     data.append("file", files[0])
     data.append("upload_preset", "storeImages")
-  
+
     const res = await fetch(
       "https://api.cloudinary.com/v1_1/dsgvvje7v/image/upload",
       {
@@ -92,10 +105,9 @@ export const uploadImageClaudinary = async (event) => {
     )
     const file = await res.json()
     //console.log(res)
-  
+
     //console.log(file.secure_url)
     return file.secure_url
-    
   } catch (error) {
     errorHandler(error)
   }
@@ -114,7 +126,7 @@ export const postClientRegister = async (dataClient) => {
 export const postAdmincommerceRegister = async (dataAdminCommerce) => {
   try {
     //console.log(dataAdminCommerce);
-    await axios.post(`${BASE_URL}/admincommerce/register`, dataAdminCommerce);
+    await axios.post(`${BASE_URL}/admincommerce/register`, dataAdminCommerce)
   } catch (error) {
     errorHandler(error)
   }
@@ -128,7 +140,7 @@ export const postProduct = async (productData) => {
   }
 }
 
-export const getUser = async (emailUser) => {
+export const getUser =  (emailUser) => async (dispatch) => {
   try {
     // const peticion = [axios.post(`${BASE_URL}/users/findforemail`, {email: emailUser})]
     // const response = await Promise.all(peticion) ;
@@ -138,19 +150,48 @@ export const getUser = async (emailUser) => {
     })
     const data = response.data //deberia mandar los datos de la marca asociada
     PostLocalStorage(data)
+    dispatch(setUser(true))
   } catch (error) {
-    errorHandler(error);
+    errorHandler(error)
   }
 }
 
-export const postCommerceRegister = async(dataCommerce) => {
+export const postCommerceRegister = async (dataCommerce) => {
   try {
-    await axios.post(`${BASE_URL}/commerce/register`, dataCommerce);
+    await axios.post(`${BASE_URL}/commerce/register`, dataCommerce)
   } catch (error) {
-    errorHandler(error);
+    errorHandler(error)
   }
-};
+}
 
+export const postFavorites = (clientId, productId) => async (dispatch) => {
+  try {
+    const { data } = await axios.post(`${BASE_URL}/client/favorites`, { clientId, productId })
+    dispatch(addFav(data))
+    console.log(data);
+  } catch (error) {
+    errorHandler(error)
+  }
+}
+
+export const getFavorites = async (clientId) =>{
+  try {
+    const { data } = await axios.get(`${BASE_URL}/client/favorites?clientId=${clientId}`)
+    return data
+  } catch (error) {
+    errorHandler(error)
+  }
+}
+
+export const deleteFavorite = (clientId, productId) => async (dispatch) => {
+  try {
+    const { data } = await axios.delete(`${BASE_URL}/client/favorites?clientId=${clientId}&favoriteId=${productId}`)
+    console.log(data);
+    dispatch(removeFav(productId))
+  } catch (error) {
+    errorHandler(error)
+  }
+}
 export const postSucursal = async(dataSucursal) => {
   try {
     await axios.post(`${BASE_URL}/commerce/createbranch`, dataSucursal);
