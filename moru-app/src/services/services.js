@@ -158,7 +158,8 @@ export const getUser =  (emailUser) => async (dispatch) => {
 
 export const postCommerceRegister = async (dataCommerce) => {
   try {
-    await axios.post(`${BASE_URL}/commerce/register`, dataCommerce)
+    const resp = (await axios.post(`${BASE_URL}/commerce/register`, dataCommerce)).data
+    console.log(resp);
   } catch (error) {
     errorHandler(error)
   }
