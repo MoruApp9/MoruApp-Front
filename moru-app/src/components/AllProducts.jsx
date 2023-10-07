@@ -5,7 +5,7 @@ import Product from "./Product";
 const AllProducts = ({ currentProductId }) => {
     const products = useSelector ((state) => state.products.products)
 
-    //feli, modifiqué el useSelector porque causaba un re-renderizado segun la consola 
+    //modifiqué el useSelector porque causaba un re-renderizado segun la consola 
     //Usé el useMemo para filtrar los products por id y guardarlos en una memoria caché
     /* const products = useSelector((state) => {
         return state.products.products.filter((product) => product.id !== currentProductId);

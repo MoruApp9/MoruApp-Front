@@ -6,7 +6,14 @@ const DeleteLocalStorageCommercesByOwner = () => {
     localStorage.removeItem("Commerces");
 };
 
+const deleteLocalStorageFavs = () => {
+    localStorage.removeItem('Fav')
+}
+
+
+
 export {
     DeleteLocalStorage,
-    DeleteLocalStorageCommercesByOwner
+    DeleteLocalStorageCommercesByOwner,
+    deleteLocalStorageFavs
 } 

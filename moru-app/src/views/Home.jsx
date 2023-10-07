@@ -1,10 +1,10 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Advertising from "../components/Advertising";
 import AllProducts from "../components/AllProducts";
 import Filters from "../components/Filters";
 import Categories from '../components/Categories';
 import { useAuth0 } from '@auth0/auth0-react';
-import { postAdmincommerceRegister, postClientRegister, getUser } from "../services/services";
+import { postAdmincommerceRegister, postClientRegister, getUser, getFavorites } from "../services/services";
 import { GetLocalStorage } from '../localStorage/GetLocalStorage';
 import ErrorMessage from "../components/ErrorMessage";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 
 const Home = () => {
   const productsFiltered = useSelector((state) => state.productsFiltered);
+  const dispatch = useDispatch()
   const { user, isAuthenticated } = useAuth0();
   const dataComplete = { ...GetLocalStorage(), ...user };
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ const Home = () => {
   const [localStorageData, setLocalStorageData] = useState(null);
 
   useEffect(() => {
+    
     const handleUserAuthentication = async () => {
       try {
         // Realizar las solicitudes para obtener datos y configurar localStorageData
@@ -29,7 +31,7 @@ const Home = () => {
             await postAdmincommerceRegister(dataComplete);
           }
         } else if (isAuthenticated) {
-          await getUser(dataComplete.email);
+          dispatch(await getUser(dataComplete.email));
           // Aquí configura localStorageData cuando los datos estén disponibles
           setLocalStorageData(dataComplete);
         }  

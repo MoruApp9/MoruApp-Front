@@ -8,7 +8,13 @@ const GetLocalStorageCommercesByOwner = () => {
     return commercesData;
 };
 
+const GetLocalStorageFav = () => {
+    const favData = JSON.parse(localStorage.getItem('Fav')) || []
+    return favData
+}
+
 export {
    GetLocalStorage,
    GetLocalStorageCommercesByOwner,
+   GetLocalStorageFav
 }
