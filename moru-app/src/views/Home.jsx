@@ -55,13 +55,13 @@ const Home = () => {
   if (localStorageData && localStorageData.error) navigate('/registration');
 
   if (dataComplete?.userRole === 'adminCommerce') {
-    console.log('a');
-    console.log(!dataComplete.brand || !dataComplete.brand.id);
-    if (!dataComplete.brand || !dataComplete.brand.id) {
+    //getUser(dataComplete.email)
+    console.log('dataComplete: ', dataComplete);
+    if (!dataComplete.nickname) {
       navigate('/registrar-empresa');
-    }else{
+    } /*  else {
       getBrandByOwner(dataComplete.brand.id);
-    }
+    } */
     
   }
 

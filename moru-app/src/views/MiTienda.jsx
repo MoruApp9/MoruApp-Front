@@ -6,6 +6,8 @@ import { HiPencil } from "react-icons/hi";
 import { GetLocalStorage, GetLocalStorageCommercesByOwner } from '../localStorage/GetLocalStorage';
 import { useEffect, useState } from "react";
 import { getBrandByOwner } from '../services/services';
+import { BiSolidCloudUpload } from 'react-icons/bi';
+import { Link } from 'react-router-dom';
 
 const MiTienda = () => {
 
@@ -18,6 +20,8 @@ const MiTienda = () => {
 
     const image = backgroundDefault;
 
+    
+    /*
     if (loadingData) {
         return <h1>Cargando...</h1>;
     }
@@ -29,7 +33,7 @@ const MiTienda = () => {
         if (id) {
             setLoadingData(false);
         }
-    },[])
+    },[]) */
 
     return(
         <div className='grid gap-4 max-w-7xl mx-auto font-roboto-slab'>
@@ -83,6 +87,8 @@ const MiTienda = () => {
             <div>{/*detalle de publicaciones*/}
                 <h1>Publicaciones</h1>
             </div>
+
+            {/* isAuthenticated && GetLocalStorage() && currentUser.userRole === 'adminCommerce' &&  */<ul onClick={() => { setOpenMenu(false) }} className="order-2 flex justify-start p-2 hover:bg-gray-200 rounded-md w-52 space-x-4 " ><BiSolidCloudUpload className="w-7 text-purple-moru text-3xl"></BiSolidCloudUpload><Link to="/publicar-producto">Publicar</Link></ul>}
         </div> 
     )
 }

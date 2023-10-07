@@ -12,13 +12,13 @@ const AllProducts = ({ currentProductId }) => {
     }); */
 
     /* const filteredProducts = useMemo(() => {
-        return products.filter((product) => product.id !== currentProductId)
-    }, [products, currentProductId]) */
+        return allProducts.filter((product) => product.id !== currentProductId)
+    }, [allProducts, currentProductId]) */
 
     return (
         <div className="font-roboto-slab">
             {
-                latest.length === allProducts.length ? null :
+                latest.length === allProducts.length || latest.length === 0 ? null :
                 <div className="p-6 lg:px-28">
                 <h1 className="text-2xl md:text-3xl text-purple-moru py-4">
                     Relacionados con tu última búsqueda
@@ -30,16 +30,16 @@ const AllProducts = ({ currentProductId }) => {
                 </div>
             </div>
             }    
-            <div className="p-6 lg:px-28">
+{/*             <div className="p-6 lg:px-28">
                 <h1 className="text-2xl md:text-3xl text-purple-moru py-4">
                     Todos los productos
                 </h1>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-                    {allProducts.map((product) => (
+                    {filteredProducts.map((product) => (
                         <Product key={product.id} product={product} />
                     ))}
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 };
