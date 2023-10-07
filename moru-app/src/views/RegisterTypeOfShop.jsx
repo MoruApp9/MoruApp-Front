@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form, ErrorMessage, Field } from 'formik';
 import { GetLocalStorage } from '../localStorage/GetLocalStorage';
 import { useSelector } from 'react-redux';
-import { postCommerceRegister, uploadImageClaudinary } from "../services/services";
+import { getUser, postCommerceRegister, uploadImageClaudinary } from "../services/services";
 import { useEffect } from "react";
 import { BsImageFill } from "react-icons/bs"
 import { PostLocalStorage } from "../localStorage/PostLocalStorage";
@@ -16,7 +16,6 @@ const RegisterTypeOfShop = () => {
         await uploadImageClaudinary(event) // esta función sube la imagen a claudinary y entrega la URL para mandarselo al back
         console.log(await uploadImageClaudinary(event)); //url creada mostrada en consola
     }
-    console.log(dataUser.id);
 
     return (
         <div className="min-h-screen flex flex-col justify-center items-center">
@@ -63,9 +62,9 @@ const RegisterTypeOfShop = () => {
 
                     onSubmit={(valores) => {
                         console.log('valores: ', valores);
-                        PostLocalStorage({...dataUser, valores})
+                        //PostLocalStorage({...dataUser, valores})
                         postCommerceRegister(valores);
-                        navigate('/');
+                        navigate('/')
                     }}
                 >
                     {({errors, isSubmitting}) => (

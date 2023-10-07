@@ -192,3 +192,13 @@ export const deleteFavorite = (clientId, productId) => async (dispatch) => {
     errorHandler(error)
   }
 }
+
+export const postSucursal = async(dataSucursal) => {
+  try {
+    await axios.post(`${BASE_URL}/commerce/createbranch`, dataSucursal);
+  } catch (error) {
+    errorHandler(error);
+  }
+}
+
+

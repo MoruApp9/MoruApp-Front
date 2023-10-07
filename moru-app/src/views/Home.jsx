@@ -30,40 +30,37 @@ const Home = () => {
           } else {
             await postAdmincommerceRegister(dataComplete);
           }
-        } else if (isAuthenticated) {
-          dispatch(await getUser(dataComplete.email));
-          // Aquí configura localStorageData cuando los datos estén disponibles
-          setLocalStorageData(dataComplete);
         }  
+        if (!dataComplete.id) {
+          await getUser(dataComplete.email);
+          setLocalStorageData(dataComplete);
+          } 
       } catch (error) {
         console.error(error);
       } finally {
         setLoadingData(false); // Marcar la carga de datos como completa
       }
     };
-
     handleUserAuthentication();
   }, [dataComplete, isAuthenticated]);
+
 
   // Si los datos aún se están cargando, muestra un mensaje de carga
   if (loadingData) {
     return <h1>Cargando...</h1>;
   }
-  //console.log(dataComplete);
   // Comprobación de userRole y autenticación
 
   if (localStorageData && localStorageData.error) navigate('/registration');
 
-  if (dataComplete?.userRole === 'adminCommerce') {
-    //getUser(dataComplete.email)
-    console.log('dataComplete: ', dataComplete);
-    if (!dataComplete.nickname) {
-      navigate('/registrar-empresa');
-    } /*  else {
+/*   if (dataComplete?.userRole === 'adminCommerce') { }
+ */    //getUser(dataComplete.email)
+    //console.log('dataComplete: ', dataComplete);
+  
+    /*  else {
       getBrandByOwner(dataComplete.brand.id);
     } */
     
-  }
 
   // Si no se cumple la condición, muestra los productos
   return (
@@ -74,8 +71,5 @@ const Home = () => {
       {productsFiltered.length !== 0 && <Filters />}
     </div>
   );
-  
-
 };
-
 export default Home;

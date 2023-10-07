@@ -53,7 +53,7 @@ const Nav = () => {
     // Aquí podrías redirigir a una nueva página o realizar otras acciones según la opción seleccionada
   };
 
-  const options = [{name: "mac"}];
+  const options = [{name: "mac"}]
 
 
   const handleOnClickMenu = () => {
@@ -121,6 +121,12 @@ const Nav = () => {
               (!isAuthenticated || GetLocalStorage() && currentUser.userRole === 'buyer' )&& <ul onClick={() => { setOpenMenu(false), setSelectedOption('favoritos') }} className={`order-2 flex justify-start p-2 hover:bg-gray-200 rounded-md w-52 ${selectedOption === "favoritos" ? 'bg-gray-200 ': ''}`} ><Link to="/fav" className="flex items-center space-x-4 mr-3"><MdFavorite className="w-7 text-purple-moru text-3xl"/><span>Favoritos</span></Link></ul>
             }
 
+              <ul className={`flex order-2 justify-start p-2 hover:bg-gray-200 rounded-md w-52`}>
+              {
+                <Link onClick={() =>{ setOpenMenu(false)} } className="flex items-center space-x-4 mr-3" to={`/registrar-empresa`}><AiOutlineUserAdd className="w-7 text-3xl text-purple-moru" /><span>Registrar marca</span></Link>
+              }
+              </ul>
+
             <div>
               {isAuthenticated && GetLocalStorage() && currentUser.userRole === 'adminCommerce' && <ul className="order-2 flex justify-start p-2 hover:bg-gray-200 rounded-md w-52 space-x-4" ><PiStorefrontDuotone className="w-7 text-purple-moru text-3xl"/>
                 <button
@@ -132,7 +138,6 @@ const Nav = () => {
                   <IoIosArrowDown className="w-7 text-3xl ml-3 text-purple-moru "/>
                 </button>
               </ul>}
-
 
               {isDropdownOpen && (
                 <div className="origin-top-right right-0 mt-2 w-52 whitespace-normal bg-gray-100 rounded-md">

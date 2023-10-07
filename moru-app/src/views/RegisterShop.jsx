@@ -53,7 +53,7 @@ const RegisterShop = () => {
                     }}
 
                     onSubmit={ (valores) => {
-                        PostLocalStorage(valores);
+                        PostLocalStorage(valores)
                         loginWithRedirect();
                     }}
                 >
