@@ -1,16 +1,40 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form, ErrorMessage, Field } from 'formik';
 import { GetLocalStorage } from '../localStorage/GetLocalStorage';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getUser, postCommerceRegister, uploadImageClaudinary } from "../services/services";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { BsImageFill } from "react-icons/bs"
 import { PostLocalStorage } from "../localStorage/PostLocalStorage";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const RegisterTypeOfShop = () => {
-    const dataUser = GetLocalStorage();
+    const { user, isAuthenticated } = useAuth0();
+    const dataUser = { ...GetLocalStorage(), ...user };
     const categories = useSelector((state) => state.categories.categorias);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const [estadoSubmit, setEstadoSubmit] = useState(false)
+
+    useEffect(() => {
+        const obtengoUsuario = async () => {
+            try {
+                dispatch(getUser(dataUser.email))
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        obtengoUsuario()
+    }, [])
+
+/*     useEffect(() => {
+        if (estadoSubmit) {
+            PostLocalStorage(dispatch(getUser(dataUser.email)))
+            console.log(GetLocalStorage());
+            setEstadoSubmit(false)
+        }
+    }, [estadoSubmit]) */
+
 
     const handleOnChange = async (event) => {
         await uploadImageClaudinary(event) // esta función sube la imagen a claudinary y entrega la URL para mandarselo al back
@@ -62,8 +86,8 @@ const RegisterTypeOfShop = () => {
 
                     onSubmit={(valores) => {
                         console.log('valores: ', valores);
-                        //PostLocalStorage({...dataUser, valores})
                         postCommerceRegister(valores);
+                        //setEstadoSubmit(true)
                         navigate('/')
                     }}
                 >

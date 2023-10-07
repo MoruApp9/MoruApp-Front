@@ -19,8 +19,8 @@ const Home = () => {
   const [loadingData, setLoadingData] = useState(true);
   const [localStorageData, setLocalStorageData] = useState(null);
 
+
   useEffect(() => {
-    
     const handleUserAuthentication = async () => {
       try {
         // Realizar las solicitudes para obtener datos y configurar localStorageData
@@ -29,27 +29,23 @@ const Home = () => {
             await postClientRegister(dataComplete);
           } else {
             await postAdmincommerceRegister(dataComplete);
+            dispatch(getUser(dataComplete.email))
           }
         }  
-        if (!dataComplete.id) {
-          await getUser(dataComplete.email);
-          setLocalStorageData(dataComplete);
-          } 
       } catch (error) {
         console.error(error);
       } finally {
-        setLoadingData(false); // Marcar la carga de datos como completa
+        setLoadingData(false); 
       }
     };
     handleUserAuthentication();
   }, [dataComplete, isAuthenticated]);
 
+  console.log(dataComplete);
 
-  // Si los datos aún se están cargando, muestra un mensaje de carga
   if (loadingData) {
     return <h1>Cargando...</h1>;
   }
-  // Comprobación de userRole y autenticación
 
   if (localStorageData && localStorageData.error) navigate('/registration');
 
