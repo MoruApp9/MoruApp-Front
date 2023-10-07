@@ -11,6 +11,9 @@ import { Link } from 'react-router-dom';
 
 const MiTienda = () => {
 
+    const sedes = GetLocalStorageCommercesByOwner()
+    console.log(sedes);
+
     const handleOnChange = async (event) => {
         await uploadImageClaudinary(event) // esta función sube la imagen a claudinary y entrega la URL para mandarselo al back
         console.log(await uploadImageClaudinary(event)); //url creada mostrada en consola

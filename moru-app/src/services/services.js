@@ -71,15 +71,16 @@ export const getProductsByName = async (name) => {
 
 export const getBrandByOwner = async(idBrand) =>{
   try {
-    const { data } = await axios.get(`${BASE_URL}/branchforcommerce/${idBrand}`);
+    const { data } = await axios.get(`${BASE_URL}/commerce/branchforcommerce/${idBrand}`);
     PostLocalStorageCommercesByOwner(data);
+    console.log(data);
   } 
   catch (error) {
     errorHandler(error)
   }
 }
 
-/* export const getCommercesByOwner = async(idUsuario) =>{
+/* export const getCommercesByOwner = async(idBrand) =>{
   try {
     const { data } = await axios.get(`${BASE_URL}/branchforcommerce/${idBrand}`);
     PostLocalStorageCommercesByOwner(data);
@@ -87,7 +88,7 @@ export const getBrandByOwner = async(idBrand) =>{
   catch (error) {
     errorHandler(error)
   }
-} */
+}  */
 
 export const uploadImageClaudinary = async (event) => {
   try {
@@ -196,7 +197,9 @@ export const deleteFavorite = (clientId, productId) => async (dispatch) => {
 
 export const postSucursal = async(dataSucursal) => {
   try {
-    await axios.post(`${BASE_URL}/commerce/createbranch`, dataSucursal);
+    console.log('data: ', dataSucursal);
+    const sede = (await axios.post(`${BASE_URL}/commerce/createbranch`, dataSucursal)).data
+    console.log('sede: ', sede);
   } catch (error) {
     errorHandler(error);
   }
