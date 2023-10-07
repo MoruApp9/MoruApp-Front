@@ -151,3 +151,12 @@ export const postCommerceRegister = async(dataCommerce) => {
   }
 };
 
+export const postSucursal = async(dataSucursal) => {
+  try {
+    await axios.post(`${BASE_URL}/commerce/createbranch`, dataSucursal);
+  } catch (error) {
+    errorHandler(error);
+  }
+};
+
+
