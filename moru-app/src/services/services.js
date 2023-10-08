@@ -203,9 +203,10 @@ export const postChart = async (clientId, productId, quantity) => {
   }
 }
 
-export const getchart = async () => {
+export const getChart = async (clientId) => {
   try {
-    const { data } = await axios.get(`${BASE_URL}/client/chart`)
+    const { data } = await axios.get(`${BASE_URL}/client/chartforclient/${clientId}`)
+    console.log(data);
   } catch (error) {
     errorHandler(error)
   }
@@ -220,3 +221,6 @@ export const removeChart = async (clientId, productId) => {
     errorHandler(error)
   }
 }
+
+
+

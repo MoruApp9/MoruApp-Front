@@ -6,7 +6,7 @@ import { addFav, removeFav } from "../redux/favoritesSlice"
 import { addToCart, removefromCart } from "../redux/cartSlice"
 import { setIsFav } from "../redux/isFavSlice"
 
-import { getFavorites, postFavorites, deleteFavorite, postChart, removeChart } from "../services/services"
+import { getFavorites, postFavorites, deleteFavorite, postChart, removeChart, getChart } from "../services/services"
 
 import { FiHeart } from "react-icons/fi"
 
@@ -38,6 +38,7 @@ const Product = ({ product }) => {
   
 
   useEffect(() => {
+
     if(!isAuthenticated && localStorageFavs.length) {
       localStorageFavs.forEach((fav) => {
         dispatch(addFav(fav)) // to local storage
@@ -54,7 +55,15 @@ const Product = ({ product }) => {
           fav?.id === productId && setIsFav(true)
         })
       }
+
+      /* const chartData = async () => {
+        const chart = await getChart(currentUser.id)
+        chart?.forEach(product => {
+          dispatch(addToCart(product))
+        })
+      }
     
+      chartData() */
       favoriteData()
       //console.log(dbFavs)
     }
