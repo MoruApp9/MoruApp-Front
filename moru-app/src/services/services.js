@@ -73,7 +73,6 @@ export const getBrandByOwner = async(idBrand) =>{
   try {
     const { data } = await axios.get(`${BASE_URL}/commerce/branchforcommerce/${idBrand}`);
     PostLocalStorageCommercesByOwner(data);
-    console.log(data);
   } 
   catch (error) {
     errorHandler(error)
@@ -134,8 +133,10 @@ export const postAdmincommerceRegister = async (dataAdminCommerce) => {
 }
 
 export const postProduct = async (productData) => {
-  try {
-    await axios.post(`${BASE_URL}/products/create`, productData)
+  try {    
+    console.log('pre axios: ', productData);
+    const product = (await axios.post(`${BASE_URL}/products/create`, productData)).data
+    console.log(product);
   } catch (error) {
     errorHandler(error)
   }
