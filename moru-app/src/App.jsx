@@ -24,7 +24,7 @@ import MiTienda from './views/MiTienda';
 import Account from "./views/Account"
 import RegisterTypeOfShop from './views/RegisterTypeOfShop';
 import { GetLocalStorageFav } from "./localStorage/GetLocalStorage";
-
+import CrearSede from "./views/CrearSucursal";
 
 function App() {
   const { pathname } = useLocation()
@@ -71,10 +71,10 @@ function App() {
         <Route path="/products/:id" element={<CategoryView />} />
         <Route path="/fav" element={<Favorites/>} />
         <Route path="/publicar-producto" element={<PostProduct/>} />
-        <Route path="/tienda" element={<MiTienda/>} />
+        <Route path="/tienda/:id" element={<MiTienda/>} />
         <Route path="/cuenta" element={<Account/>} />
         <Route path="/registrar-empresa" element={<RegisterTypeOfShop/>} />
-      
+        <Route path="/crearSucursal" element={<CrearSede/>} />
       </Routes>
     </div>
   )

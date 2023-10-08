@@ -1,12 +1,14 @@
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link, useNavigate } from "react-router-dom";
 import imagen from "../images/Moru.jpeg";
-import { useAuth0 } from '@auth0/auth0-react';
 import { Formik, Form, ErrorMessage, Field } from 'formik';
-import {PostLocalStorage} from "../localStorage/PostLocalStorage";
+import { PostLocalStorage } from '../localStorage/PostLocalStorage';
+import { GetLocalStorage } from '../localStorage/GetLocalStorage'
+import { postSucursal } from '../services/services';
 
-const RegisterShop = () => {
-
-    const {loginWithRedirect, isAuthenticated } = useAuth0();
+const CrearSede = () => {
+    const navigate = useNavigate()
+    const dataUser = GetLocalStorage()
 
     return (
         <div className="min-h-screen flex flex-col justify-center items-center">
@@ -15,66 +17,57 @@ const RegisterShop = () => {
                     <img
                         src={imagen}
                         alt="Imagen"
-                        className="w-32" />
-                    <h1 className="text-xs ml-2 mt-4 font-roboto-slab">Creando Cuenta Empresarial</h1>
+                        className="w-32"
+                    />
+                    <h1 className="text-xs ml-2 mt-4 font-roboto-slab">Creando Sede</h1>
                 </div>
                 <Formik
                     initialValues={{
-                        userRole:"adminCommerce",
-                        nameAdminCommerce: "",
-                        lastname: "",
+                        alias: "",
+                        address: "",
+                        schedule: "",
                         phone: "",
+                        commerceId: dataUser.brand.id
                     }}
 
                     validate={(values) => {
-                        let error = {};
+                        let errors = {};
 
-                        if (!values.nameAdminCommerce) {
-                            error.nameAdminCommerce = 'Por favor, ingresa el nombre de una tienda'
-                        }else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.nameAdminCommerce)) {
-                            error.nameAdminCommerce = 'El nombre solo puede contener letras y espacios'
+                        if (!values.alias) {
+                            errors.alias = 'Por favor, ingresa un alias característico de esa sede'
                         }
 
-                        if (!values.lastname) {
-                            error.lastname = 'Por favor, ingresa un apellido'
-                        }else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.lastname)) {
-                            error.lastname = 'El apellido solo puede contener letras y espacios'
+                        if (!values.address) {
+                            errors.address = 'Por favor, ingresa la dirección de la sede';
+                        }
+
+                        if (!values.schedule) {
+                            errors.schedule = 'Por favor, ingresa el horario de atención de la sede';
                         }
 
                         if (!values.phone) {
-                            error.phone = 'Por favor, ingresa un número de celular'
-                        }else if (!/^\d+$/.test(values.phone)) {
-                            error.phone = 'El celular debe contener solo números'
-                        }else if (values.phone.length !== 10) {
-                            error.phone = 'El celular debe contener 10 dígitos'
+                            errors.phone = 'Por favor, ingresa el teléfono de atención de la sede';
                         }
 
-                        return error
+                        return errors;
                     }}
 
-                    onSubmit={ (valores) => {
-                        PostLocalStorage(valores)
-                        loginWithRedirect();
+                    onSubmit={(values) => {
+                        postSucursal(values);
+                        navigate('/');
                     }}
                 >
-                    {({errors}) => (
-                        <Form  autoComplete="off" className="flex flex-col gap-6">
-                            <div className="hidden">
-                                <Field
-                                    type="text"
-                                    name="userRole"
-                                />
-                            </div>
-
+                    {({ errors }) => (
+                        <Form autoComplete="off" className="flex flex-col gap-6">
                             <div>
                                 <Field
                                     className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
                                     type="text"
-                                    name="nameAdminCommerce"
-                                    placeholder="Nombre"
+                                    name="alias"
+                                    placeholder="Alias de esta sede"
                                 />
-                                <ErrorMessage name="nameAdminCommerce" component={() => (
-                                    <div className="text-xs text-red-600">{errors.nameAdminCommerce}</div>
+                                <ErrorMessage name="alias" component={() => (
+                                    <div className="text-xs text-red-600">{errors.alias}</div>
                                 )}/>
                             </div>
 
@@ -82,24 +75,36 @@ const RegisterShop = () => {
                                 <Field
                                     className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
                                     type="text"
-                                    name="lastname"
-                                    placeholder="Apellido"
+                                    name="address"
+                                    placeholder="Dirección de la Sede"
                                 />
-                                <ErrorMessage name="lastname" component={() => (
-                                    <div className="text-xs text-red-600">{errors.lastname}</div>
-                                )}/>
+                                <ErrorMessage name="address" component={() => (
+                                    <div className="text-xs text-red-600">{errors.address}</div>
+                                )} />
                             </div>
-                            
+
+                            <div>
+                                <Field
+                                    className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
+                                    type="text"
+                                    name="schedule"
+                                    placeholder="Horario de Atención"
+                                />
+                                <ErrorMessage name="schedule" component={() => (
+                                    <div className="text-xs text-red-600">{errors.schedule}</div>
+                                )} />
+                            </div>
+
                             <div>
                                 <Field
                                     className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
                                     type="text"
                                     name="phone"
-                                    placeholder="Celular"
+                                    placeholder="Teléfono"
                                 />
                                 <ErrorMessage name="phone" component={() => (
                                     <div className="text-xs text-red-600">{errors.phone}</div>
-                                )}/>
+                                )} />
                             </div>
 
                             <div className="flex sm:justify-between flex-col sm:flex-row gap-2 justify-center items-center">
@@ -119,8 +124,8 @@ const RegisterShop = () => {
                     )}
                 </Formik>
             </div>
-        </div>  
+        </div>
     )
 }
 
-export default RegisterShop
+export default CrearSede;

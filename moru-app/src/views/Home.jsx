@@ -26,9 +26,9 @@ const Home = () => {
 
   const dataComplete = { ...GetLocalStorage(), ...user };
   //const currentUser = GetLocalStorage()
+  const [cargaSedes, setCargaSedes] = useState(false)
 
   useEffect(() => {
-    
     const handleUserAuthentication = async () => {
       try {
         // Realizar las solicitudes para obtener datos y configurar localStorageData
@@ -37,42 +37,38 @@ const Home = () => {
             await postClientRegister(dataComplete);
           } else {
             await postAdmincommerceRegister(dataComplete);
+            dispatch(getUser(dataComplete.email))
           }
-        } else if (isAuthenticated) {
-          dispatch( getUser(dataComplete.email));
-          // Aquí configura localStorageData cuando los datos estén disponibles
-          setLocalStorageData(dataComplete);
-          dispatch(user(true))
         }  
+        if (dataComplete.brand && !cargaSedes) {
+          console.log(dataComplete.brand.id);
+          getBrandByOwner(dataComplete.brand.id)
+          setCargaSedes(true)
+        }
       } catch (error) {
         console.error(error);
       } finally {
         dispatch(setUser(true))
-        setLoadingData(false); // Marcar la carga de datos como completa
+        setLoadingData(false); 
       }
     };
-
     handleUserAuthentication();
   }, [loadedUser, isAuthenticated, localStorageData]);
 
-  // Si los datos aún se están cargando, muestra un mensaje de carga
   if (loadingData) {
     return <h1>Cargando...</h1>;
   }
-  //console.log(dataComplete);
-  // Comprobación de userRole y autenticación
 
   if (localStorageData && localStorageData.error) navigate('/registration');
 
-  if (dataComplete?.userRole === 'adminCommerce') {
-    console.log('a');
-    console.log(!dataComplete.brand || !dataComplete.brand.id);
-    if (!dataComplete.brand || !dataComplete.brand.id) {
-      navigate('/registrar-empresa');
-    }else{
+/*   if (dataComplete?.userRole === 'adminCommerce') { }
+     //getUser(dataComplete.email)
+    //console.log('dataComplete: ', dataComplete);
+  
+      else {
       getBrandByOwner(dataComplete.brand.id);
     }
-  }
+  }  */
 
   if(loadedUser) {
     const handleChart = async () => {
@@ -100,8 +96,5 @@ const Home = () => {
       {productsFiltered.length !== 0 && <Filters />}
     </div>
   );
-  
-
 };
-
 export default Home;

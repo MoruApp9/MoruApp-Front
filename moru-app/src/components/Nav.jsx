@@ -9,12 +9,12 @@ import { FiMenu } from "react-icons/fi";
 import { MdFavorite } from "react-icons/md";
 import { MdAccountCircle } from "react-icons/md";
 import { BiSupport } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useAuth0 } from '@auth0/auth0-react';
 import { cleanProductsFiltered } from "../redux/productsFilteredSlice"
 import { useDispatch, useSelector } from "react-redux";
-import { GetLocalStorage } from '../localStorage/GetLocalStorage';
+import { GetLocalStorage, GetLocalStorageCommercesByOwner } from '../localStorage/GetLocalStorage';
 import { IoIosArrowDown } from "react-icons/io";
 import {DeleteLocalStorage} from '../localStorage/DeleteLocalStorage';
 import { MdLogout } from 'react-icons/md'
@@ -25,6 +25,8 @@ const Nav = () => {
   const dispatch = useDispatch()
   const currentUser = GetLocalStorage();
   const carrito = useSelector(((state) => state.cart.cart));
+  const navigate = useNavigate()
+  const sedes = GetLocalStorageCommercesByOwner()
 
   const [selectedOption, setSelectedOption] = useState(null);
 
@@ -42,17 +44,13 @@ const Nav = () => {
     setDropdownOpen(!isDropdownOpen);
   };
 
-  const handleOptionClick = (e, option) => {
+  const handleOptionClick = (e, option, id) => {
     e.preventDefault();
-    // Implementar la lógica cuando se hace clic en una opción
-    console.log(`Clic en la opción: ${option}`);
     setSelectedOption(option);
     setOpenMenu(false);
+    navigate(`/tienda/${id}`)
     // Aquí podrías redirigir a una nueva página o realizar otras acciones según la opción seleccionada
   };
-
-  const options = [{name: "mac"}];
-
 
   const handleOnClickMenu = () => {
     dispatch(cleanProductsFiltered()),
@@ -79,7 +77,7 @@ const Nav = () => {
             // ? <Link to="/tienda"><PiStorefrontDuotone className="w-7 text-purple-moru text-4xl"></PiStorefrontDuotone></Link>
             // : currentUser.userRole !== 'adminCommerce' && (<Link to="/carrito-de-compras"><img className="w-12" src={shoppingIcon} alt="shoppingIcon" /></Link>)
             isAuthenticated && GetLocalStorage() && currentUser.userRole === 'adminCommerce' 
-            ? <Link to="/tienda" onClick={() => setSelectedOption('tienda')} className={`hover:bg-gray-200 px-2 rounded-md ${selectedOption === 'tienda' ? 'bg-gray-200 ': ''}`}><PiStorefrontDuotone className="w-7 text-purple-moru text-4xl"></PiStorefrontDuotone></Link>
+            ? null
             : (
                 <Link  className={`flex items-center hover:bg-gray-200 px-2 rounded-md  ${selectedOption === 'carrito' ? 'bg-gray-200 ': ''}`} onClick={() => setSelectedOption('carrito')} to="/carrito-de-compras"><img className="w-12" src={shoppingIcon} alt="shoppingIcon" />
                 {carrito.length?<span className="mr-2 bg-purple-moru text-white rounded-full w-5 text-center">{carrito.length}</span> : null}
@@ -118,9 +116,12 @@ const Nav = () => {
             {/* currentUser.userRole !== 'adminCommerce' && <ul onClick={() => { setOpenMenu(false) }} className="  order-2 flex justify-center space-x-4 " ><MdFavorite className="w-7 text-purple-moru text-3xl"></MdFavorite><Link to="/fav">Favoritos</Link></ul> */
               (!isAuthenticated || GetLocalStorage() && currentUser.userRole === 'buyer' )&& <ul onClick={() => { setOpenMenu(false), setSelectedOption('favoritos') }} className={`order-2 flex justify-start p-2 hover:bg-gray-200 rounded-md w-52 ${selectedOption === "favoritos" ? 'bg-gray-200 ': ''}`} ><Link to="/fav" className="flex items-center space-x-4 mr-3"><MdFavorite className="w-7 text-purple-moru text-3xl"/><span>Favoritos</span></Link></ul>
             }
-        
 
-            {isAuthenticated && GetLocalStorage() && currentUser.userRole === 'adminCommerce' && <ul onClick={() => { setOpenMenu(false) }} className="order-2 flex justify-start p-2 hover:bg-gray-200 rounded-md w-52 space-x-4 " ><BiSolidCloudUpload className="w-7 text-purple-moru text-3xl"></BiSolidCloudUpload><Link to="/publicar-producto">Publicar</Link></ul>}
+              <ul className={`flex order-2 justify-start p-2 hover:bg-gray-200 rounded-md w-52`}>
+              {
+                <Link onClick={() =>{ setOpenMenu(false)} } className="flex items-center space-x-4 mr-3" to={`/registrar-empresa`}><AiOutlineUserAdd className="w-7 text-3xl text-purple-moru" /><span>Registrar marca</span></Link>
+              }
+              </ul>
 
             <div>
               {isAuthenticated && GetLocalStorage() && currentUser.userRole === 'adminCommerce' && <ul className="order-2 flex justify-start p-2 hover:bg-gray-200 rounded-md w-52 space-x-4" ><PiStorefrontDuotone className="w-7 text-purple-moru text-3xl"/>
@@ -137,24 +138,28 @@ const Nav = () => {
               {isDropdownOpen && (
                 <div className="origin-top-right right-0 mt-2 w-52 whitespace-normal bg-gray-100 rounded-md">
                   <div role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                    {options.map((option, index) => (
+                    {sedes.map((option, index) => (
+                      //<Link onClick={() => setSelectedOption('tienda') }>
                       <button
                         key={index}
-                        onClick={(e) => handleOptionClick(e, option.name)}
+                        onClick={(e) => handleOptionClick(e, option.alias, option.id)}
                         role="menuitem"
-                        className={`flex p-2 w-full text-left hover:bg-gray-200 rounded-md ${selectedOption === option.name ? 'bg-gray-200 ': ''}`}
+                        className={`flex p-2 w-full text-left hover:bg-gray-200 rounded-md ${selectedOption === option.alias ? 'bg-gray-200 ': ''}`}
                       >
-                        {option.name}
+                        {option.alias}
                       </button>
+                      //</Link>
                     ))}
+                  </div>
+
+                  <Link to={"/crearSucursal"} onClick={() => setSelectedOption('tienda')}>
                     <button
-                      onClick={(e) => handleOptionClick(e, 'crearSede')}
                       role="menuitem"
                       className={`flex p-2 w-full text-left hover:bg-gray-200 rounded-md ${selectedOption === 'crearSede' ? 'bg-gray-200 ': ''}`}
                     >
                       Crear nueva sede
                     </button>
-                  </div>
+                    </Link>
                 </div>
               )}
             </div>
