@@ -177,6 +177,7 @@ export const postFavorites = (clientId, productId) => async (dispatch) => {
 export const getFavorites = async (clientId) =>{
   try {
     const { data } = await axios.get(`${BASE_URL}/client/favorites?clientId=${clientId}`)
+    console.log(data);
     return data
   } catch (error) {
     errorHandler(error)
@@ -207,6 +208,7 @@ export const getChart = async (clientId) => {
   try {
     const { data } = await axios.get(`${BASE_URL}/client/chartforclient/${clientId}`)
     console.log(data);
+    return data
   } catch (error) {
     errorHandler(error)
   }

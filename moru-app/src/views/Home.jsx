@@ -4,20 +4,28 @@ import AllProducts from "../components/AllProducts";
 import Filters from "../components/Filters";
 import Categories from '../components/Categories';
 import { useAuth0 } from '@auth0/auth0-react';
-import { postAdmincommerceRegister, postClientRegister, getUser, getBrandByOwner } from "../services/services";
+import { postAdmincommerceRegister, postClientRegister, getUser, getBrandByOwner, getChart, getFavorites } from "../services/services";
 import { GetLocalStorage } from '../localStorage/GetLocalStorage';
 import ErrorMessage from "../components/ErrorMessage";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { addToCart } from "../redux/cartSlice";
+import { addFav } from "../redux/favoritesSlice";
+import { setUser } from "../redux/userSlice";
 
 const Home = () => {
   const productsFiltered = useSelector((state) => state.productsFiltered);
-  const dispatch = useDispatch()
-  const { user, isAuthenticated } = useAuth0();
-  const dataComplete = { ...GetLocalStorage(), ...user };
-  const navigate = useNavigate();
+  const loadedUser = useSelector(state => state.user)
+
   const [loadingData, setLoadingData] = useState(true);
   const [localStorageData, setLocalStorageData] = useState(null);
+  const { user, isAuthenticated } = useAuth0();
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate();
+
+  const dataComplete = { ...GetLocalStorage(), ...user };
+  //const currentUser = GetLocalStorage()
 
   useEffect(() => {
     
@@ -31,19 +39,21 @@ const Home = () => {
             await postAdmincommerceRegister(dataComplete);
           }
         } else if (isAuthenticated) {
-          dispatch(await getUser(dataComplete.email));
+          dispatch( getUser(dataComplete.email));
           // Aquí configura localStorageData cuando los datos estén disponibles
           setLocalStorageData(dataComplete);
+          dispatch(user(true))
         }  
       } catch (error) {
         console.error(error);
       } finally {
+        dispatch(setUser(true))
         setLoadingData(false); // Marcar la carga de datos como completa
       }
     };
 
     handleUserAuthentication();
-  }, [dataComplete, isAuthenticated]);
+  }, [loadedUser, isAuthenticated, localStorageData]);
 
   // Si los datos aún se están cargando, muestra un mensaje de carga
   if (loadingData) {
@@ -62,8 +72,24 @@ const Home = () => {
     }else{
       getBrandByOwner(dataComplete.brand.id);
     }
-    
   }
+
+  if(loadedUser) {
+    const handleChart = async () => {
+      const userChart = await getChart(dataComplete.id)
+      userChart.forEach(product => dispatch(addToCart(product)))
+    }
+
+    const handleFavs = async () => {
+      const userfavs = await getFavorites(dataComplete.id)
+      userfavs.forEach(fav => dispatch(addFav(fav)))
+    }
+    
+    handleChart()
+    handleFavs()
+  }
+
+
 
   // Si no se cumple la condición, muestra los productos
   return (

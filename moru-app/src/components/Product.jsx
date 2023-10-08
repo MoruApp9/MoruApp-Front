@@ -26,6 +26,8 @@ const Product = ({ product }) => {
   const location = useLocation()
   const [isFav, setIsFav] = useState(false)
   const loadedUser = useSelector(state => state.user)
+  const favorites = useSelector(state => state.favorites)
+  
   const { isAuthenticated } = useAuth0()
 
   const currentUser = GetLocalStorage()
@@ -47,27 +49,20 @@ const Product = ({ product }) => {
     } 
 
     if(isAuthenticated && currentUser?.id) {
-      dispatch(setUser(true))
-      const favoriteData = async() => {
+      //dispatch(setUser(true))
+      favorites.forEach(fav => {
+        dispatch(addFav(fav))
+        fav?.id === productId && setIsFav(true)
+      })
+      /* const favoriteData = async() => {
         const favs = await (getFavorites(currentUser.id))
         favs.forEach(fav => {
           dispatch(addFav(fav))
           fav?.id === productId && setIsFav(true)
         })
       }
-
-      const chartData = async () => {
-        const chart = await getChart(currentUser.id)
-        console.log('chart',chart);
-        chart?.forEach(product => {
-          dispatch(addToCart(product))
-        })
-      }
-    
-      chartData()
-      favoriteData()
-      //console.log(dbFavs)
-    }
+      favoriteData() */
+    } 
 
     if (isAuthenticated && localStorageFavs.length && loadedUser) {
       localStorageFavs.forEach((fav) => {
@@ -77,7 +72,7 @@ const Product = ({ product }) => {
       
       deleteLocalStorageFavs()
     }
-  }, [dispatch, isAuthenticated, loadedUser])
+  }, [dispatch, isAuthenticated, loadedUser, favorites])
 
   const handleFavorite = (event) => {
     event.stopPropagation()
