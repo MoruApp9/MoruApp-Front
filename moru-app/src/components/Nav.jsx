@@ -44,12 +44,11 @@ const Nav = () => {
     setDropdownOpen(!isDropdownOpen);
   };
 
-  const handleOptionClick = (e, option) => {
+  const handleOptionClick = (e, option, id) => {
     e.preventDefault();
-    console.log(`Clic en la opción: ${option}`);
     setSelectedOption(option);
     setOpenMenu(false);
-    navigate('/tienda')
+    navigate(`/tienda/${id}`)
     // Aquí podrías redirigir a una nueva página o realizar otras acciones según la opción seleccionada
   };
 
@@ -143,7 +142,7 @@ const Nav = () => {
                       //<Link onClick={() => setSelectedOption('tienda') }>
                       <button
                         key={index}
-                        onClick={(e) => handleOptionClick(e, option.alias)}
+                        onClick={(e) => handleOptionClick(e, option.alias, option.id)}
                         role="menuitem"
                         className={`flex p-2 w-full text-left hover:bg-gray-200 rounded-md ${selectedOption === option.alias ? 'bg-gray-200 ': ''}`}
                       >

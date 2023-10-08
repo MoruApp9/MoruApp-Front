@@ -72,7 +72,7 @@ function App() {
         <Route path="/products/:id" element={<CategoryView />} />
         <Route path="/fav" element={<Favorites/>} />
         <Route path="/publicar-producto" element={<PostProduct/>} />
-        <Route path="/tienda" element={<MiTienda/>} />
+        <Route path="/tienda/:id" element={<MiTienda/>} />
         <Route path="/cuenta" element={<Account/>} />
         <Route path="/registrar-empresa" element={<RegisterTypeOfShop/>} />
         <Route path="/crearSucursal" element={<CrearSede/>} />
