@@ -1,15 +1,18 @@
 import { useState, useEffect } from "react"
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import imagen from "../images/Moru.jpeg";
 import { getBrandByOwner, getSpecificCategories, postProduct, uploadImageClaudinary } from "../services/services"
 import { Formik, Form, ErrorMessage, Field } from 'formik';
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { BsImageFill } from "react-icons/bs"
-import { GetLocalStorage } from '../localStorage/GetLocalStorage';
+import { GetLocalStorage, GetLocalStorageCommercesByOwner } from '../localStorage/GetLocalStorage';
 
 const PostProduct = () => {
-
+  const sedes = GetLocalStorageCommercesByOwner()
+  const location = useLocation();
+  const id = location.search.slice(1)
+  
   const handleOnChange = async (event) => {
     await uploadImageClaudinary(event) // esta función sube la imagen a claudinary y entrega la URL para mandarselo al back
     console.log(await uploadImageClaudinary(event)); //url creada mostrada en consola
@@ -17,9 +20,8 @@ const PostProduct = () => {
 
   const [specificCategories, setSpecificCategories] = useState([]);
   const dispatch = useDispatch();
-  const dataUser = GetLocalStorage(); //data del usuario logueado
-
-
+  const dataUser = GetLocalStorage(); 
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchData = async () => {  //hace la funcion asincrona para poder esperar a que se resuelva la promesa de Categorias
@@ -28,13 +30,12 @@ const PostProduct = () => {
         // const data = await getSpecificCategories(tienda.generalcategoryId)
         // setSpecificCategories(data)
         // console.log(data);
-      } catch (error) {
+      } catch (error) { 
         console.log(error);
       }
     };
     fetchData();
   }, [dispatch])
-
 
   return (
     <div className="min-h-screen flex flex-col justify-center items-center">
@@ -51,13 +52,13 @@ const PostProduct = () => {
             name: "",
             price: "",
             description: "",
-            image: "",
+            image: "https://res.cloudinary.com/dsgvvje7v/image/upload/v1696725630/stores-images-front/l1bwv7gxysdwbnfnxd0f.jpg",
             event: "",
-            commerceId: "", //por defecto 
-            category: "", //por defecto
+            commerceId: dataUser.brand.id, 
+            generalcategoryId: dataUser.brand.generalcategoryId,
             specificCategory: "",
-            extraCategory: ""
-
+            extraCategory: "",
+            commercebranchId: id
           }}
 
           validate={(values) => {
@@ -91,11 +92,12 @@ const PostProduct = () => {
           }}
 
           onSubmit={(valores) => {
-            postProduct(valores)
+            postProduct(valores);
+            navigate('/');
           }}
         >
+
           {({ values, errors }) => (
-            console.log(values),
             <Form autoComplete="off" className="flex flex-col gap-6 ">
               <div>
                 <Field
@@ -199,14 +201,12 @@ const PostProduct = () => {
                     className="w-36 md:h-14 h-10 px-2 border-2 border-purple-moru rounded-lg bg-gray-200 text-sm font-roboto-slab">
                     Atrás
                   </button>
-                </Link>
-                <Link to="/tienda">
+                </Link>  
                   <button
                     className="w-36 h-10 md:h-14 px-2 border border-purple-moru rounded-lg bg-purple-moru text-white text-sm font-roboto-slab"
                     type="submit">
                     Siguiente
                   </button>
-                </Link>
               </div>
             </Form>
           )}

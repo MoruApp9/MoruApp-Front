@@ -46,8 +46,6 @@ const Home = () => {
     handleUserAuthentication();
   }, [dataComplete, isAuthenticated]);
 
-  console.log(dataComplete);
-
   if (loadingData) {
     return <h1>Cargando...</h1>;
   }
