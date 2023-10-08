@@ -185,9 +185,37 @@ export const getFavorites = async (clientId) =>{
 
 export const deleteFavorite = (clientId, productId) => async (dispatch) => {
   try {
-    const { data } = await axios.delete(`${BASE_URL}/client/favorites?clientId=${clientId}&favoriteId=${productId}`)
+    const { data } = await axios.delete(`${BASE_URL}/client/favorites?clientId=${clientId}&&productId=${productId}`)
     console.log(data);
     dispatch(removeFav(productId))
+  } catch (error) {
+    errorHandler(error)
+  }
+}
+
+export const postChart = async (clientId, productId, quantity) => {
+  //ssh
+  try {
+    const { data } = await axios.post(`${BASE_URL}/client/chart`, {clientId, productId, quantity })
+    console.log('agregado chart',data);
+  } catch (error) {
+    errorHandler(error)
+  }
+}
+
+export const getchart = async () => {
+  try {
+    const { data } = await axios.get(`${BASE_URL}/client/chart`)
+  } catch (error) {
+    errorHandler(error)
+  }
+}
+
+export const removeChart = async (clientId, productId) => {
+  try {
+    const { data } = await axios.delete(`${BASE_URL}/client/deleteoneinchart?clientId=${clientId}&&productId=${productId}`)
+    console.log('remove',data);
+
   } catch (error) {
     errorHandler(error)
   }
