@@ -56,14 +56,15 @@ const Product = ({ product }) => {
         })
       }
 
-      /* const chartData = async () => {
+      const chartData = async () => {
         const chart = await getChart(currentUser.id)
+        console.log('chart',chart);
         chart?.forEach(product => {
           dispatch(addToCart(product))
         })
       }
     
-      chartData() */
+      chartData()
       favoriteData()
       //console.log(dbFavs)
     }
