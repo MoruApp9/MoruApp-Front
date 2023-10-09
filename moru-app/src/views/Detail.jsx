@@ -5,6 +5,7 @@ import AllProducts from '../components/AllProducts';
 import { addFav, removeFav } from "../redux/favoritesSlice";
 import { addToCart } from '../redux/cartSlice'
 import { FiHeart } from 'react-icons/fi';
+import { GetLocalStorage } from "../localStorage/GetLocalStorage";
 
 const ProductDetail = () => {
     const { id } = useParams();
@@ -16,8 +17,9 @@ const ProductDetail = () => {
     const dispatch = useDispatch();
     const [isFav, setIsFav] = useState(false)
     const userRole = useSelector(state => state.userRole)
+    const currentUser = GetLocalStorage();
 
-    console.log(product);
+    console.log(currentUser);
 
     if (!product) return <div>Producto no encontrado</div>;
 
@@ -75,7 +77,7 @@ const ProductDetail = () => {
                                 </button>}
                             </div>
                             <div className="flex justify-end">
-                                {product.commercebranchId && (
+                                {product.commercebranchId && currentUser.userRole === 'adminCommerce' && (
                                     <Link to={`/tienda/${product.commercebranchId}`} className="bg-purple-moru text-white py-2 px-4 rounded hover:bg-purple-moru-dark">
                                         Ver tienda
                                     </Link>
