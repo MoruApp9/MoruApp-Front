@@ -1,14 +1,18 @@
 import 'leaflet/dist/leaflet.css';
 import { Formik, Form, ErrorMessage, Field } from 'formik';
 import { postRegisterAddress } from '../services/services';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+
 
 const SearchByLocation = () => {
 
     const categories = useSelector((state) => state.categories.categorias);
+    const locationsArray = useSelector((state) => state.ubication.ubiety);
     const [location, setLocation] = useState(null);
+
+    const dispatch = useDispatch();
 
     const initialValues = !location
     ? {
@@ -20,11 +24,11 @@ const SearchByLocation = () => {
         generalcategoryId: '',
         };
 
-    const locationsArray = [
-        { name: 'niji', location: [-11.99415645, -77.0611521221075] },
-        { name: 'suji', location: [-11.988889, -77.062778] },
-        // Otros puntos de ubicación
-    ];
+    // const locationsArray = [
+    //     { name: 'niji', location: [-11.99415645, -77.0611521221075] },
+    //     { name: 'suji', location: [-11.988889, -77.062778] },
+    //     // Otros puntos de ubicación
+    // ];
 
     useEffect(() => {
         if ('geolocation' in navigator) {
@@ -89,15 +93,19 @@ const SearchByLocation = () => {
                         }}
 
                         onSubmit={(valores, { resetForm }) => {
-                            if (location) {
-                                console.log({ generalcategoryId: valores.generalcategoryId});
-                            } else {
-                                console.log({
-                                    department: valores.department,
-                                    municipality: valores.municipality,
-                                    generalcategoryId: valores.generalcategoryId,
-                                });
-                            }
+                            // if (location) {
+                            //     postRegisterAddress(valores.generalcategoryId);
+                            // } else {
+                            //     console.log({
+                            //         department: valores.department,
+                            //         municipality: valores.municipality,
+                            //         generalcategoryId: valores.generalcategoryId,
+                            //     });
+                            // }
+                            
+                            const id= valores.generalcategoryId;
+                            console.log(id);
+                            dispatch(postRegisterAddress(id));
                             resetForm();
                         }}
                     >
