@@ -5,6 +5,7 @@ import { PostLocalStorage,PostLocalStorageCommercesByOwner } from "../localStora
 import { errorHandler } from "./errorHandler"
 import { setAllProducts } from "../redux/allProductsSlice"
 import { addFav, removeFav } from "../redux/favoritesSlice"
+import { setUbication } from "../redux/ubicationSlice"
 
 const BASE_URL = "https://moruapp-back.up.railway.app"
 
@@ -241,8 +242,9 @@ export const removeChart = async (clientId, productId) => {
 
 export const postRegisterAddress = async (dataUbication) => {
   try {
-    const resp = (await axios.post(`${BASE_URL}/user/location`, dataUbication)).data
+    const resp = (await axios.get(`${BASE_URL}/commerce/branches/${dataUbication}`)).data
     console.log(resp);
+    dispatch(setUbication(resp));
   } catch (error) {
     errorHandler(error)
   }

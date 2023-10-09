@@ -8,6 +8,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 const SearchByLocation = () => {
 
     const categories = useSelector((state) => state.categories.categorias);
+    const locationsArray = useSelector((state) => state.ubication.ubiety);
     const [location, setLocation] = useState(null);
 
     const initialValues = !location
@@ -20,11 +21,11 @@ const SearchByLocation = () => {
         generalcategoryId: '',
         };
 
-    const locationsArray = [
-        { name: 'niji', location: [-11.99415645, -77.0611521221075] },
-        { name: 'suji', location: [-11.988889, -77.062778] },
-        // Otros puntos de ubicación
-    ];
+    // const locationsArray = [
+    //     { name: 'niji', location: [-11.99415645, -77.0611521221075] },
+    //     { name: 'suji', location: [-11.988889, -77.062778] },
+    //     // Otros puntos de ubicación
+    // ];
 
     useEffect(() => {
         if ('geolocation' in navigator) {
@@ -91,6 +92,7 @@ const SearchByLocation = () => {
                         onSubmit={(valores, { resetForm }) => {
                             if (location) {
                                 console.log({ generalcategoryId: valores.generalcategoryId});
+                                postRegisterAddress(valores.generalcategoryId);
                             } else {
                                 console.log({
                                     department: valores.department,
