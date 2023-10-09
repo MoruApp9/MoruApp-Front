@@ -24,7 +24,7 @@ const CrearSede = () => {
                 <Formik
                     initialValues={{
                         alias: "",
-                        address: "",
+                        address: "",//departamento-municipio
                         schedule: "",
                         phone: "",
                         commerceId: dataUser.brand.id

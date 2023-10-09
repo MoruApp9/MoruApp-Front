@@ -25,7 +25,7 @@ import Account from "./views/Account"
 import RegisterTypeOfShop from './views/RegisterTypeOfShop';
 import { GetLocalStorageFav } from "./localStorage/GetLocalStorage";
 import CrearSede from "./views/CrearSucursal";
-import MapWithLocation from "./components/MapWithLocation";
+import SearchByLocation from "./views/SearchByLocation";
 
 function App() {
   const { pathname } = useLocation()
@@ -76,7 +76,7 @@ function App() {
         <Route path="/cuenta" element={<Account/>} />
         <Route path="/registrar-empresa" element={<RegisterTypeOfShop/>} />
         <Route path="/crearSucursal" element={<CrearSede/>} />
-        <Route path="/mapa" element={<MapWithLocation/>} />
+        <Route path="/mapa" element={<SearchByLocation/>} />
       </Routes>
     </div>
   )
