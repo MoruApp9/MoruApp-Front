@@ -180,6 +180,7 @@ export const postFavorites = (clientId, productId) => async (dispatch) => {
 export const getFavorites = async (clientId) =>{
   try {
     const { data } = await axios.get(`${BASE_URL}/client/favorites?clientId=${clientId}`)
+    console.log(data);
     return data
   } catch (error) {
     errorHandler(error)
@@ -188,7 +189,7 @@ export const getFavorites = async (clientId) =>{
 
 export const deleteFavorite = (clientId, productId) => async (dispatch) => {
   try {
-    const { data } = await axios.delete(`${BASE_URL}/client/favorites?clientId=${clientId}&favoriteId=${productId}`)
+    const { data } = await axios.delete(`${BASE_URL}/client/favorites?clientId=${clientId}&&productId=${productId}`)
     console.log(data);
     dispatch(removeFav(productId))
   } catch (error) {
@@ -207,6 +208,37 @@ export const postSucursal = async(dataSucursal) => {
 }
 
 
+
+export const postChart = async (clientId, productId, quantity) => {
+  //ssh
+  try {
+    const { data } = await axios.post(`${BASE_URL}/client/chart`, {clientId, productId, quantity })
+    console.log('agregado chart',data);
+  } catch (error) {
+    errorHandler(error)
+  }
+}
+
+export const getChart = async (clientId) => {
+  try {
+    const { data } = await axios.get(`${BASE_URL}/client/chartforclient/${clientId}`)
+    console.log(data);
+    return data
+  } catch (error) {
+    errorHandler(error)
+  }
+}
+
+export const removeChart = async (clientId, productId) => {
+  try {
+    const { data } = await axios.delete(`${BASE_URL}/client/deleteoneinchart?clientId=${clientId}&&productId=${productId}`)
+    console.log('remove',data);
+
+  } catch (error) {
+    errorHandler(error)
+  }
+}
+
 export const postRegisterAddress = async (dataUbication) => {
   try {
     const resp = (await axios.post(`${BASE_URL}/user/location`, dataUbication)).data
@@ -215,4 +247,5 @@ export const postRegisterAddress = async (dataUbication) => {
     errorHandler(error)
   }
 }
+
 

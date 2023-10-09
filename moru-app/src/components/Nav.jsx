@@ -10,7 +10,7 @@ import { MdFavorite } from "react-icons/md";
 import { MdAccountCircle } from "react-icons/md";
 import { BiSupport } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth0 } from '@auth0/auth0-react';
 import { cleanProductsFiltered } from "../redux/productsFilteredSlice"
 import { useDispatch, useSelector } from "react-redux";
@@ -19,6 +19,8 @@ import { IoIosArrowDown } from "react-icons/io";
 import {DeleteLocalStorage} from '../localStorage/DeleteLocalStorage';
 import { MdLogout } from 'react-icons/md';
 import { FaMapMarkerAlt } from "react-icons/fa";
+import { getBrandByOwner } from '../services/services';
+
 
 const Nav = () => {
   const [openMenu, setOpenMenu] = useState(false)
@@ -28,17 +30,20 @@ const Nav = () => {
   const carrito = useSelector(((state) => state.cart.cart));
   const navigate = useNavigate()
   const sedes = GetLocalStorageCommercesByOwner()
-
   const [selectedOption, setSelectedOption] = useState(null);
-
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
   const { logout } = useAuth0();
+
+  console.log(currentUser);
+  /* useEffect(() => {
+    dispatch(getBrandByOwner())
+  }, []) */
 
   const handleLogOut = () => {
     DeleteLocalStorage();
     logout({ returnTo: window.location.origin});
   }
 
-  const [isDropdownOpen, setDropdownOpen] = useState(false);
 
   const handleButtonClick = (e) => {
     e.preventDefault();
@@ -120,7 +125,7 @@ const Nav = () => {
             }
 
               <ul className={`flex order-2 justify-start p-2 hover:bg-gray-200 rounded-md w-52`}>
-              {
+              {!isAuthenticated || GetLocalStorage() && currentUser.userRole === 'adminCommerce' && 
                 <Link onClick={() =>{ setOpenMenu(false)} } className="flex items-center space-x-4 mr-3" to={`/registrar-empresa`}><AiOutlineUserAdd className="w-7 text-3xl text-purple-moru" /><span>Registrar marca</span></Link>
               }
               </ul>

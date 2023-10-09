@@ -6,7 +6,7 @@ import { addFav, removeFav } from "../redux/favoritesSlice"
 import { addToCart, removefromCart } from "../redux/cartSlice"
 import { setIsFav } from "../redux/isFavSlice"
 
-import { getFavorites, postFavorites, deleteFavorite } from "../services/services"
+import { getFavorites, postFavorites, deleteFavorite, postChart, removeChart, getChart } from "../services/services"
 
 import { FiHeart } from "react-icons/fi"
 
@@ -26,6 +26,8 @@ const Product = ({ product }) => {
   const location = useLocation()
   const [isFav, setIsFav] = useState(false)
   const loadedUser = useSelector(state => state.user)
+  const favorites = useSelector(state => state.favorites)
+  
   const { isAuthenticated } = useAuth0()
 
   const currentUser = GetLocalStorage()
@@ -38,6 +40,7 @@ const Product = ({ product }) => {
   
 
   useEffect(() => {
+
     if(!isAuthenticated && localStorageFavs.length) {
       localStorageFavs.forEach((fav) => {
         dispatch(addFav(fav)) // to local storage
@@ -45,21 +48,21 @@ const Product = ({ product }) => {
       })
     } 
 
-
-    
     if(isAuthenticated && currentUser?.id) {
-      dispatch(setUser(true))
-      const favoriteData = async() => {
+      //dispatch(setUser(true))
+      favorites.forEach(fav => {
+        dispatch(addFav(fav))
+        fav?.id === productId && setIsFav(true)
+      })
+      /* const favoriteData = async() => {
         const favs = await (getFavorites(currentUser.id))
         favs.forEach(fav => {
           dispatch(addFav(fav))
           fav?.id === productId && setIsFav(true)
         })
       }
-    
-      favoriteData()
-      //console.log(dbFavs)
-    }
+      favoriteData() */
+    } 
 
     if (isAuthenticated && localStorageFavs.length && loadedUser) {
       localStorageFavs.forEach((fav) => {
@@ -69,53 +72,32 @@ const Product = ({ product }) => {
       
       deleteLocalStorageFavs()
     }
-  }, [dispatch, isAuthenticated, loadedUser])
+  }, [dispatch, isAuthenticated, loadedUser, favorites])
 
   const handleFavorite = (event) => {
     event.stopPropagation()
     event.preventDefault()
-    // post favs
-    // Si el user no está autenticado, que los favs se guarden en el localeStorage y en el estado global para renderizarlos
-    //Cuando se autentifique, los favs del locale storage pasan a la base de datos y se borra el locale storage
-    // Si el User sí está autenticado, que los favs pasen directamente a la base de datos (llamar a funcion en services)
-
-    // get favs para renderizarlos
-    // Si el user no está autenticado, cuando se monte el componente, obtener favs desde el locale storage y llenar el estado global for render
-    // Si el user está autenticado, cuando se monte el componente, se borra el locale storage y el estado global y este se llena nuevamente con los favs del back para que se renderice.
 
     if (isAuthenticated) {
       if (isFav) {
-        // si el producto es fav
         setIsFav(false) //que deje de ser fav
-        //dispatch(removeFav(product)) // se borra el fav de la base de datos y del estado global
         dispatch(deleteFavorite(currentUser.id, productId))
-        //dispatch(setIsFav({ productId, isFav: false }));
-      } else {
-        // si el producto no es fav
+      } else { // si el producto no es fav
         setIsFav(true) // se vuelve fav
         dispatch(postFavorites(currentUser.id, productId)) // Se postea en la base de datos como fav y se actualiza el estado global
-        //dispatch(addFav(product))
-        //dispatch(setIsFav({ productId, isFav: true }));
       }
-    } else {
-      // si el user no está autenticado
+
+    } else { // si el user no está autentificado
       if (isFav) {
-        // si es fav
         setIsFav(false) // deja de ser fav
         const updatedFavs = localStorageFavs?.filter(
           (fav) => fav.id !== productId
-        ) //Se borra del local storage
-        //console.log("updatedfavs", updatedFavs)
-        //console.log('up',updatedFavs)
-        //dispatch(PostLocalStorageFav(product, productId))
-        //deleteLocalStorageFavs()
-        dispatch(putLocalStorageFavs(productId))
-        //PostLocalStorageFav(updatedFavs)
-        // se borra del estado global
+        ) 
+        dispatch(putLocalStorageFavs(productId)) //se borra del estado global
+
       } else {
         setIsFav(true) // Se vuelve fav
         dispatch(PostLocalStorageFav(product)) // Se postea en el localstorage para que persista la información
-        //dispatch(addFav(product)) // se llena el estado global también para que se renderice
       }
     }
   }
@@ -123,13 +105,17 @@ const Product = ({ product }) => {
   const handleAddToCart = (event) => {
     event.stopPropagation()
     event.preventDefault()
+    const quantity = 1
+    postChart(currentUser.id, productId, quantity)
+    // aquí tendría que haber un post
     dispatch(addToCart(product))
   }
 
-  const deleteToCart = (event) => {
+  const handleDeleteToCart = (event) => {
     event.stopPropagation()
     event.preventDefault()
     dispatch(removefromCart(product))
+    removeChart(currentUser.id, productId)
   }
 
   return (
@@ -141,8 +127,7 @@ const Product = ({ product }) => {
           className="w-full h-48 object-cover"
         />
         <div className="flex items-center justify-end px-4 pt-2">
-          {
-            //FAV BUTTON: se muestra si el usuario NO está autenticado (cualquier usuario) o es usuario vendedor
+          {//FAV BUTTON: se muestra si el usuario NO está autenticado (cualquier usuario) o es usuario vendedor
             (!isAuthenticated ||
               (GetLocalStorage() && currentUser.userRole === "buyer")) && (
               <button className="text-gray-500" onClick={handleFavorite}>
@@ -167,13 +152,12 @@ const Product = ({ product }) => {
               <button
                 className="bg-purple-moru text-white hover:bg-white hover:text-purple-moru  font-bold py-2 px-4 rounded-full"
                 onClick={handleAddToCart}>
-                {" "}
-                Agregar al carrito{" "}
+                Agregar al carrito
               </button>
             ) : (
               <button
                 className="bg-purple-moru text-white hover:bg-white hover:text-purple-moru  font-bold py-2 px-4 rounded-full"
-                onClick={deleteToCart}>
+                onClick={handleDeleteToCart}>
                 Eliminar
               </button>
             )
