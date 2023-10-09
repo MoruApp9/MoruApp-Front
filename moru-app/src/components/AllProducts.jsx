@@ -1,11 +1,12 @@
 import { useSelector } from "react-redux";
 import { useMemo } from "react";
 import Product from "./Product";
+import { useLocation } from "react-router-dom";
 
 const AllProducts = () => {
     const latest = useSelector((state) => state.products.products)
     const allProducts = useSelector((state) => state.allProducts.allProducts)
-
+    const location = useLocation();
 
     //feli, modifiqué el useSelector porque causaba un re-renderizado segun la consola 
     //Usé el useMemo para filtrar los products por id y guardarlos en una memoria caché
@@ -20,7 +21,7 @@ const AllProducts = () => {
     return (
         <div className="font-roboto-slab">
             {
-                latest.length === allProducts.length || latest.length === 0 ? null :
+                location.pathname !== '/' || latest.length === allProducts.length || latest.length === 0 ? null :
                 <div className="p-6 lg:px-28">
                 <h1 className="text-2xl md:text-3xl text-purple-moru py-4">
                     Relacionados con tu última búsqueda

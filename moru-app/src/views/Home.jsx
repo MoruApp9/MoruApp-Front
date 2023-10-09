@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { addToCart } from "../redux/cartSlice";
 import { addFav } from "../redux/favoritesSlice";
 import { setUser } from "../redux/userSlice";
+import Loader from "../components/Loader";
 
 const Home = () => {
   const productsFiltered = useSelector((state) => state.productsFiltered);
@@ -23,9 +24,7 @@ const Home = () => {
 
   const dispatch = useDispatch()
   const navigate = useNavigate();
-
   const dataComplete = { ...GetLocalStorage(), ...user };
-  //const currentUser = GetLocalStorage()
   const [cargaSedes, setCargaSedes] = useState(false)
 
   useEffect(() => {
@@ -55,9 +54,7 @@ const Home = () => {
     handleUserAuthentication();
   }, [loadedUser, isAuthenticated, localStorageData]);
 
-  if (loadingData) {
-    return <h1>Cargando...</h1>;
-  }
+  loadingData ? <Loader/> : null
 
   if (localStorageData && localStorageData.error) navigate('/registration');
 
