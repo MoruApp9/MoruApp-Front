@@ -12,10 +12,13 @@ const PostProduct = () => {
   const sedes = GetLocalStorageCommercesByOwner()
   const location = useLocation();
   const id = location.search.slice(1)
+  const [imageUpload, setImageUpload] = useState("")
   
   const handleOnChange = async (event) => {
-    await uploadImageClaudinary(event) // esta función sube la imagen a claudinary y entrega la URL para mandarselo al back
-    console.log(await uploadImageClaudinary(event)); //url creada mostrada en consola
+    const imagen = await uploadImageClaudinary(event)
+      setImageUpload(imagen) 
+    // esta función sube la imagen a claudinary y entrega la URL para mandarselo al back
+    //console.log(await uploadImageClaudinary(event)); //url creada mostrada en consola
   }
 
   const [specificCategories, setSpecificCategories] = useState([]);
@@ -26,10 +29,10 @@ const PostProduct = () => {
   useEffect(() => {
     const fetchData = async () => {  //hace la funcion asincrona para poder esperar a que se resuelva la promesa de Categorias
       try {
-        const dataCommercesByOwner = await getBrandByOwner(dataUser.brand.id) //devuelve un array de objetos con todas las tiendas asociadas
-        // const data = await getSpecificCategories(tienda.generalcategoryId)
-        // setSpecificCategories(data)
-        // console.log(data);
+        const categoriaId = dataUser.brand.generalcategoryId
+        const data = await getSpecificCategories(categoriaId)
+        setSpecificCategories(data)
+        console.log(data);
       } catch (error) { 
         console.log(error);
       }
@@ -52,7 +55,7 @@ const PostProduct = () => {
             name: "",
             price: "",
             description: "",
-            image: "https://res.cloudinary.com/dsgvvje7v/image/upload/v1696725630/stores-images-front/l1bwv7gxysdwbnfnxd0f.jpg",
+            image: imageUpload,
             event: "",
             commerceId: dataUser.brand.id, 
             generalcategoryId: dataUser.brand.generalcategoryId,
@@ -87,11 +90,15 @@ const PostProduct = () => {
             } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.event)) {
               error.event = 'El nombre solo puede contener letras y espacios'
             }
+            if (values.specificCategory === "") {
+              error.specificCategory = 'Por favor, ingresa una categoria especifica'
+            }
             return error
 
           }}
 
           onSubmit={(valores) => {
+            valores.image = imageUpload
             postProduct(valores);
             navigate('/');
           }}
@@ -141,7 +148,7 @@ const PostProduct = () => {
                   name="file"
                   id="fileInput"
                   className="hidden"
-                  onChange={handleOnChange}
+                  onChange= {handleOnChange}
                 />
 
                 <label htmlFor="fileInput" className="text-purple-moru w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-m font-roboto-slab flex items-center justify-center cursor-pointer">
@@ -166,7 +173,9 @@ const PostProduct = () => {
                 <Field
                   className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
                   as="select"
-                  name="category" >
+                  name="specificCategory" 
+                  defaultValue="">
+                    
                   <option value="" disabled>
                     Selecciona una categoría específica
                   </option>
@@ -174,7 +183,10 @@ const PostProduct = () => {
                     <option key={categoria.id} value={categoria.id}>{categoria.name}</option>))}
                     <option value="otra">Otra</option>
                 </Field>
-                { values.category === "otra" ?
+                <ErrorMessage name="specificCategory" component={() => (
+                  <div className="text-xs text-red-600">{errors.specificCategory}</div>
+                )} />
+                { values.specificCategory === "otra" ?
                 <div>
                   <Field
                   className="mt-6 w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
@@ -184,15 +196,7 @@ const PostProduct = () => {
                   >
                   </Field>
                 </div>: null}
-                
 
-                {/* <Field
-                  className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
-                  type="text"
-                  name="extraCategory"
-                  placeholder="Categoría extra (opcional)">
-
-                </Field> */}
               </div>
 
               <div className="flex sm:justify-between sm:flex-row gap-8 justify-center ">
