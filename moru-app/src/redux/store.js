@@ -9,6 +9,7 @@ import cartSlice from "./cartSlice";
 import categoriesReducer from './categoriesSlice';
 import errors from './errorsSlice'
 import allProducts from "./allProductsSlice";
+import ubication from "./ubicationSlice";
 
 
 export default configureStore({
@@ -21,7 +22,8 @@ export default configureStore({
         favorites: favorites,
         categories: categoriesReducer,
         isFav: isFav,
-        errors: errors
+        errors: errors,
+        ubication: ubication,
     },
     applyMiddleware: [thunk],
 })
