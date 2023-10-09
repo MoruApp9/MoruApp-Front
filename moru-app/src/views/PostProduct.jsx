@@ -32,7 +32,6 @@ const PostProduct = () => {
         const categoriaId = dataUser.brand.generalcategoryId
         const data = await getSpecificCategories(categoriaId)
         setSpecificCategories(data)
-        console.log(data);
       } catch (error) { 
         console.log(error);
       }
