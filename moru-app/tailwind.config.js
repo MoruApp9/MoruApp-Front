@@ -16,7 +16,12 @@ export default {
       },
       maxHeight: {
         '100': "400px"
-      }
+      },
+      width: {
+        '102': "450px",
+        '100': "400px",
+        '105': "550px"
+      },
     },
   },
   plugins: [],

@@ -239,5 +239,13 @@ export const removeChart = async (clientId, productId) => {
   }
 }
 
+export const postRegisterAddress = async (dataUbication) => {
+  try {
+    const resp = (await axios.post(`${BASE_URL}/user/location`, dataUbication)).data
+    console.log(resp);
+  } catch (error) {
+    errorHandler(error)
+  }
+}
 
 

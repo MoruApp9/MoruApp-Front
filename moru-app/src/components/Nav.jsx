@@ -1,9 +1,9 @@
 //TODO usar iconos de react
-import { AiFillHome } from "react-icons/ai"
-import { AiOutlineUserAdd } from "react-icons/ai"
+import { AiFillHome } from "react-icons/ai";
+import { AiOutlineUserAdd } from "react-icons/ai";
 import { BiSolidUser } from 'react-icons/bi';
-import { BiSolidCloudUpload } from 'react-icons/bi'
-import { PiStorefrontDuotone } from 'react-icons/pi'
+import { BiSolidCloudUpload } from 'react-icons/bi';
+import { PiStorefrontDuotone } from 'react-icons/pi';
 import shoppingIcon from "../images/icons/carrito-de-compras.png";
 import { FiMenu } from "react-icons/fi";
 import { MdFavorite } from "react-icons/md";
@@ -17,7 +17,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { GetLocalStorage, GetLocalStorageCommercesByOwner } from '../localStorage/GetLocalStorage';
 import { IoIosArrowDown } from "react-icons/io";
 import {DeleteLocalStorage} from '../localStorage/DeleteLocalStorage';
-import { MdLogout } from 'react-icons/md'
+import { MdLogout } from 'react-icons/md';
+import { FaMapMarkerAlt } from "react-icons/fa";
 import { getBrandByOwner } from '../services/services';
 
 
@@ -54,7 +55,6 @@ const Nav = () => {
     setSelectedOption(option);
     setOpenMenu(false);
     navigate(`/tienda/${id}`)
-    // Aquí podrías redirigir a una nueva página o realizar otras acciones según la opción seleccionada
   };
 
   const handleOnClickMenu = () => {
@@ -63,7 +63,7 @@ const Nav = () => {
   }
 
   return (
-    <nav className="flex flex-col sticky top-0 bg-white z-50 font-roboto-slab" >
+    <nav className="flex flex-col sticky top-0 bg-white z-40 font-roboto-slab" >
       <div className="flex justify-between w-full items-center px-6 py-2 shadow-lg rounded-bl-lg rounded-br-xl font-roboto-slab">
         <div className=" flex 1/3 items-center space-x-8">
           <button onClick={() => { setOpenMenu(true) }}><FiMenu className="text-4xl text-purple-moru"></FiMenu></button>
@@ -96,7 +96,7 @@ const Nav = () => {
       {/* Menú desplegable */}
       <div onClick={() => { setOpenMenu(false) }} className={`${!openMenu && 'hidden'} bg-gray-600/50 min-h-screen w-full fixed backdrop-blur-sm`}></div>
 
-      <div className={`${openMenu ? 'w-72' : 'w-0'} bg-white rounded-tr-xl rounded-br-xl min-h-screen fixed top-0 left-0 right-0 transition-all duration-300`}>
+      <div className={`${openMenu ? 'w-72' : 'w-0'} z-50 fixed bg-white rounded-tr-xl rounded-br-xl min-h-screen top-0 left-0 right-0 transition-all duration-300`}>
         <div className={`${!openMenu && 'hidden'} pt-4`}>
           <button onClick={() => { setOpenMenu(false) }}>
             <FiMenu className="text-4xl text-purple-moru ml-6 mb-5"></FiMenu>
@@ -119,7 +119,9 @@ const Nav = () => {
             </ul>
 
             {/* currentUser.userRole !== 'adminCommerce' && <ul onClick={() => { setOpenMenu(false) }} className="  order-2 flex justify-center space-x-4 " ><MdFavorite className="w-7 text-purple-moru text-3xl"></MdFavorite><Link to="/fav">Favoritos</Link></ul> */
-              (!isAuthenticated || GetLocalStorage() && currentUser.userRole === 'buyer' )&& <ul onClick={() => { setOpenMenu(false), setSelectedOption('favoritos') }} className={`order-2 flex justify-start p-2 hover:bg-gray-200 rounded-md w-52 ${selectedOption === "favoritos" ? 'bg-gray-200 ': ''}`} ><Link to="/fav" className="flex items-center space-x-4 mr-3"><MdFavorite className="w-7 text-purple-moru text-3xl"/><span>Favoritos</span></Link></ul>
+              (!isAuthenticated || GetLocalStorage() && currentUser.userRole === 'buyer' ) && 
+              
+              <ul onClick={() => { setOpenMenu(false), setSelectedOption('favoritos') }} className={`order-2 flex justify-start p-2 hover:bg-gray-200 rounded-md w-52 ${selectedOption === "favoritos" ? 'bg-gray-200 ': ''}`} ><Link to="/fav" className="flex items-center space-x-4 mr-3"><MdFavorite className="w-7 text-purple-moru text-3xl"/><span>Favoritos</span></Link></ul>
             }
 
               <ul className={`flex order-2 justify-start p-2 hover:bg-gray-200 rounded-md w-52`}>
@@ -129,7 +131,10 @@ const Nav = () => {
               </ul>
 
             <div>
-              {isAuthenticated && GetLocalStorage() && currentUser.userRole === 'adminCommerce' && <ul className="order-2 flex justify-start p-2 hover:bg-gray-200 rounded-md w-52 space-x-4" ><PiStorefrontDuotone className="w-7 text-purple-moru text-3xl"/>
+              {isAuthenticated && GetLocalStorage() && currentUser.userRole === 'adminCommerce' && 
+              <ul onClick={() => setSelectedOption('tienda') }
+              className={`order-2 flex justify-start p-2 hover:bg-gray-200 rounded-md w-52 space-x-4 ${selectedOption === 'tienda' ? 'bg-gray-200 ': ''}`} >
+                <PiStorefrontDuotone className="w-7 text-purple-moru text-3xl"/>
                 <button
                   type="button"
                   onClick={(e) => handleButtonClick(e)}
@@ -144,7 +149,6 @@ const Nav = () => {
                 <div className="origin-top-right right-0 mt-2 w-52 whitespace-normal bg-gray-100 rounded-md">
                   <div role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                     {sedes.map((option, index) => (
-                      //<Link onClick={() => setSelectedOption('tienda') }>
                       <button
                         key={index}
                         onClick={(e) => handleOptionClick(e, option.alias, option.id)}
@@ -153,25 +157,37 @@ const Nav = () => {
                       >
                         {option.alias}
                       </button>
-                      //</Link>
                     ))}
                   </div>
 
-                  <Link to={"/crearSucursal"} onClick={() => setSelectedOption('tienda')}>
+                  <Link to={"/crearSucursal"} onClick={() => {setSelectedOption('crearSede'), setOpenMenu(false) }}>
                     <button
                       role="menuitem"
                       className={`flex p-2 w-full text-left hover:bg-gray-200 rounded-md ${selectedOption === 'crearSede' ? 'bg-gray-200 ': ''}`}
                     >
                       Crear nueva sede
                     </button>
-                    </Link>
+                  </Link>
                 </div>
               )}
             </div>
 
             {/* {isAuthenticated && (
               <ul onClick={() => { setOpenMenu(false) }} className="order-3 flex justify-center space-x-4 mr-5" ><MdAccountCircle className="w-7 text-purple-moru text-3xl"></MdAccountCircle><Link to="/cuenta">Cuenta</Link></ul>)} */}
-            <ul onClick={() => { setOpenMenu(false), setSelectedOption('soporte') }} className={`order-4 flex justify-start p-2 hover:bg-gray-200 rounded-md w-52 ${selectedOption === 'soporte' ? 'bg-gray-200 ': ''}`} ><Link to="/support" className="flex items-center space-x-4 mr-3"><BiSupport className="w-7 text-purple-moru text-3xl"/><span>Soporte</span></Link></ul>
+            <Link to="/mapa">
+              <ul onClick={() => { setOpenMenu(false), setSelectedOption('ubication') }} className={`order-4 flex items-center space-x-4  mr-3 justify-start p-2 hover:bg-gray-200 rounded-md w-52  ${selectedOption === 'ubication' ? 'bg-gray-200 ': ''}`}>
+                <FaMapMarkerAlt className="w-7 text-purple-moru text-3xl"/>
+                <span className="whitespace-normal w-28">Buscar por ubicación</span>
+              </ul>
+            </Link>
+                    
+            <Link to="/support">
+              <ul onClick={() => { setOpenMenu(false), setSelectedOption('soporte') }} className={`order-4 flex items-center space-x-4 mr-3 justify-start p-2 hover:bg-gray-200 rounded-md w-52 ${selectedOption === 'soporte' ? 'bg-gray-200 ': ''}`} >
+                <BiSupport className="w-7 text-purple-moru text-3xl"/>
+                <span>Soporte</span>
+              </ul>
+            </Link>
+
           </li>
         </div>
       </div>
