@@ -2,4 +2,18 @@ const DeleteLocalStorage = () => {
     localStorage.removeItem("User");
 };
 
-export default DeleteLocalStorage;
+const DeleteLocalStorageCommercesByOwner = () => {
+    localStorage.removeItem("Commerces");
+};
+
+const deleteLocalStorageFavs = () => {
+    localStorage.removeItem('Fav')
+}
+
+
+
+export {
+    DeleteLocalStorage,
+    DeleteLocalStorageCommercesByOwner,
+    deleteLocalStorageFavs
+} 

@@ -1,7 +1,8 @@
 import { Route, Routes, useLocation } from "react-router-dom"
 import { useEffect } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { getProducts } from './services/services';
+import { cleanErrors } from "./redux/errorsSlice";
 
 import "./index.css"
 
@@ -21,15 +22,27 @@ import CategoryView from './views/CategoryView';
 import PostProduct from './views/PostProduct';
 import MiTienda from './views/MiTienda';
 import Account from "./views/Account"
-
+import RegisterTypeOfShop from './views/RegisterTypeOfShop';
+import { GetLocalStorageFav } from "./localStorage/GetLocalStorage";
+import CrearSede from "./views/CrearSucursal";
+import SearchByLocation from "./views/SearchByLocation";
 
 function App() {
   const { pathname } = useLocation()
   const dispatch = useDispatch();
+  const error = useSelector(state => state.errors)
+  const localStorageFavs = GetLocalStorageFav()
 
+  //error handler
+  //error.length && dispatch(cleanErrors()) && window.alert(error)
 
   useEffect(() => {
     dispatch(getProducts());
+    
+    if (error.length) {
+      dispatch(cleanErrors());
+      window.alert(error);
+    }
   }, [dispatch]);
 
   return (
@@ -59,9 +72,11 @@ function App() {
         <Route path="/products/:id" element={<CategoryView />} />
         <Route path="/fav" element={<Favorites/>} />
         <Route path="/publicar-producto" element={<PostProduct/>} />
-        <Route path="/tienda" element={<MiTienda/>} />
+        <Route path="/tienda/:id" element={<MiTienda/>} />
         <Route path="/cuenta" element={<Account/>} />
-      
+        <Route path="/registrar-empresa" element={<RegisterTypeOfShop/>} />
+        <Route path="/crearSucursal" element={<CrearSede/>} />
+        <Route path="/mapa" element={<SearchByLocation/>} />
       </Routes>
     </div>
   )
