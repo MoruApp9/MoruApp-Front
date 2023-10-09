@@ -85,7 +85,8 @@ const MiTienda = () => {
             </div>
 
             {/* Centrar el contenido de Productos de esta sede */}
-            <div className="p-6 lg:px-28 mx-auto">
+            {productsSede.length ? 
+                <div className="p-6 lg:px-28 mx-auto">
                 <h1 className="text-purple-moru py-4 font-bold">
                     Productos de esta sede
                 </h1>
@@ -94,7 +95,15 @@ const MiTienda = () => {
                         <Product key={product.id} product={product} />
                     ))}
                 </div>
+            </div> : 
+            <div>
+                <div className="p-6 lg:px-28 mx-auto">
+                <h1 className="text-purple-moru py-4 font-bold">
+                    No hay productos en esta sede
+                </h1>
+                </div>
             </div>
+            }
         </div>
     );
 

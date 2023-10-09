@@ -47,10 +47,10 @@ export const getCategorias = async () => {
   }
 }
 
-export const getSpecificCategories = async (id) => {
+export const getSpecificCategories = async (generalcategoryId) => {
   try {
     const response = await axios.get(
-      `${BASE_URL}/categories/allspecificcategories/${id}`
+      `${BASE_URL}/categories/allspecificcategories/${generalcategoryId}`
     )
     const data = response.data
     return data
@@ -158,6 +158,7 @@ export const getUser =  (emailUser) => async (dispatch) => {
     errorHandler(error)
   }
 }
+
 
 export const postCommerceRegister = async (dataCommerce) => {
   try {

@@ -125,13 +125,13 @@ const Nav = () => {
             }
 
               <ul className={`flex order-2 justify-start p-2 hover:bg-gray-200 rounded-md w-52`}>
-              {!isAuthenticated || GetLocalStorage() && currentUser.userRole === 'adminCommerce' && 
+              {!isAuthenticated || GetLocalStorage() && currentUser.userRole === 'adminCommerce' && !currentUser.brand &&
                 <Link onClick={() =>{ setOpenMenu(false)} } className="flex items-center space-x-4 mr-3" to={`/registrar-empresa`}><AiOutlineUserAdd className="w-7 text-3xl text-purple-moru" /><span>Registrar marca</span></Link>
               }
               </ul>
 
             <div>
-              {isAuthenticated && GetLocalStorage() && currentUser.userRole === 'adminCommerce' && 
+              {isAuthenticated && GetLocalStorage() && currentUser.userRole === 'adminCommerce' && currentUser.brand &&
               <ul onClick={() => setSelectedOption('tienda') }
               className={`order-2 flex justify-start p-2 hover:bg-gray-200 rounded-md w-52 space-x-4 ${selectedOption === 'tienda' ? 'bg-gray-200 ': ''}`} >
                 <PiStorefrontDuotone className="w-7 text-purple-moru text-3xl"/>
