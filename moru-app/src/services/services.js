@@ -1,30 +1,13 @@
-import {
-  setProducts
-} from "../redux/productSlice"
-import {
-  setUser
-} from "../redux/userSlice"
 import axios from "axios"
-import {
-  PostLocalStorage,
-  PostLocalStorageCommercesByOwner
-} from "../localStorage/PostLocalStorage"
-import {
-  errorHandler
-} from "./errorHandler"
-import {
-  setAllProducts
-} from "../redux/allProductsSlice"
-import {
-  addFav,
-  removeFav
-} from "../redux/favoritesSlice"
-import {
-  setUbication
-} from "../redux/ubicationSlice"
-import {
-  GetLocalStorageCommercesByOwner
-} from "../localStorage/GetLocalStorage"
+import { setProducts } from "../redux/productSlice"
+import { setUser } from "../redux/userSlice"
+import { PostLocalStorage, PostLocalStorageCommercesByOwner } from "../localStorage/PostLocalStorage"
+import { errorHandler} from "./errorHandler"
+import {setAllProducts} from "../redux/allProductsSlice"
+import {addFav,removeFav} from "../redux/favoritesSlice"
+import {setUbication} from "../redux/ubicationSlice"
+import {GetLocalStorageCommercesByOwner} from "../localStorage/GetLocalStorage"
+import { addToCart } from "../redux/cartSlice"
 
 const BASE_URL = "https://moruapp-back.up.railway.app"
 
@@ -176,13 +159,9 @@ export const postCommerceRegister = async (dataCommerce) => {
 
 export const postFavorites = (clientId, productId) => async (dispatch) => {
   try {
-    const {
-      data
-    } = await axios.post(`${BASE_URL}/client/favorites`, {
-      clientId,
-      productId
-    })
+    const { data } = await axios.post(`${BASE_URL}/client/favorites`, { clientId, productId })
     dispatch(addFav(data))
+    console.log(data);
   } catch (error) {
     errorHandler(error)
   }
@@ -191,18 +170,18 @@ export const postFavorites = (clientId, productId) => async (dispatch) => {
 export const getFavorites = async (clientId) => {
   try {
     const { data } = await axios.get(`${BASE_URL}/client/favorites?clientId=${clientId}`)
+    console.log(data);
     return data
   } catch (error) {
     errorHandler(error)
   }
 }
 
-export const deleteFavorite = (clientId, productId) => async (dispatch) => {
+export const deleteFavorite =  (clientId, productId) => async (dispatch) => {
   try {
-    const {
-      data
-    } = await axios.delete(`${BASE_URL}/client/favorites?clientId=${clientId}&&productId=${productId}`)
+    const { data } = await axios.delete(`${BASE_URL}/client/favorites?clientId=${clientId}&&productId=${productId}`)
     dispatch(removeFav(productId))
+    console.log(data);
   } catch (error) {
     errorHandler(error)
   }
@@ -216,19 +195,14 @@ export const postSucursal = async (dataSucursal) => {
   }
 }
 
-
-
-export const postChart = async (clientId, productId, quantity) => {
-  //ssh
+export const postChart =  async (clientId, productId, quantity) =>  {
   try {
-    const {
-      data
-    } = await axios.post(`${BASE_URL}/client/chart`, {
+    const { data } = await axios.post(`${BASE_URL}/client/chart`, {
       clientId,
       productId,
       quantity
     })
-    console.log('agregado chart', data);
+    console.log(data);
   } catch (error) {
     errorHandler(error)
   }
