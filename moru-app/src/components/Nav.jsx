@@ -16,11 +16,10 @@ import { cleanProductsFiltered } from "../redux/productsFilteredSlice"
 import { useDispatch, useSelector } from "react-redux";
 import { GetLocalStorage, GetLocalStorageCommercesByOwner } from '../localStorage/GetLocalStorage';
 import { IoIosArrowDown } from "react-icons/io";
-import {DeleteLocalStorage} from '../localStorage/DeleteLocalStorage';
+import {DeleteLocalStorage, DeleteLocalStorageCommercesByOwner} from '../localStorage/DeleteLocalStorage';
 import { MdLogout } from 'react-icons/md';
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { getBrandByOwner } from '../services/services';
-
 
 const Nav = () => {
   const [openMenu, setOpenMenu] = useState(false)
@@ -35,12 +34,10 @@ const Nav = () => {
   const { logout } = useAuth0();
 
   console.log(currentUser);
-  /* useEffect(() => {
-    dispatch(getBrandByOwner())
-  }, []) */
 
   const handleLogOut = () => {
     DeleteLocalStorage();
+    DeleteLocalStorageCommercesByOwner();
     logout({ returnTo: window.location.origin});
   }
 
@@ -148,7 +145,7 @@ const Nav = () => {
               {isDropdownOpen && (
                 <div className="origin-top-right right-0 mt-2 w-52 whitespace-normal bg-gray-100 rounded-md">
                   <div role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                    {sedes.map((option, index) => (
+                    {sedes?.map((option, index) => (
                       <button
                         key={index}
                         onClick={(e) => handleOptionClick(e, option.alias, option.id)}
