@@ -13,6 +13,10 @@ const PostProduct = () => {
   const location = useLocation();
   const id = location.search.slice(1)
   const [imageUpload, setImageUpload] = useState("")
+  const [specificCategories, setSpecificCategories] = useState([]);
+  const dispatch = useDispatch();
+  const dataUser = GetLocalStorage(); 
+  const navigate = useNavigate()
   
   const handleOnChange = async (event) => {
     const imagen = await uploadImageClaudinary(event)
@@ -21,10 +25,6 @@ const PostProduct = () => {
     //console.log(await uploadImageClaudinary(event)); //url creada mostrada en consola
   }
 
-  const [specificCategories, setSpecificCategories] = useState([]);
-  const dispatch = useDispatch();
-  const dataUser = GetLocalStorage(); 
-  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchData = async () => {  //hace la funcion asincrona para poder esperar a que se resuelva la promesa de Categorias
@@ -32,7 +32,6 @@ const PostProduct = () => {
         const categoriaId = dataUser.brand.generalcategoryId
         const data = await getSpecificCategories(categoriaId)
         setSpecificCategories(data)
-        console.log(data);
       } catch (error) { 
         console.log(error);
       }
@@ -97,9 +96,9 @@ const PostProduct = () => {
 
           }}
 
-          onSubmit={(valores) => {
+          onSubmit={async (valores) => {
             valores.image = imageUpload
-            postProduct(valores);
+            await postProduct(valores);
             navigate('/');
           }}
         >
