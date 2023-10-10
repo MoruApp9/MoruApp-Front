@@ -170,7 +170,7 @@ export const postFavorites = (clientId, productId) => async (dispatch) => {
 export const getFavorites = async (clientId) => {
   try {
     const { data } = await axios.get(`${BASE_URL}/client/favorites?clientId=${clientId}`)
-    console.log(data);
+    console.log('favs',data);
     return data
   } catch (error) {
     errorHandler(error)
@@ -210,8 +210,9 @@ export const postChart =  async (clientId, productId, quantity) =>  {
 
 export const getChart = async (clientId) => {
   try {
-    console.log('se hace');
+    //console.log('se hace');
     const { data } = await axios.get(`${BASE_URL}/client/chartforclient/${clientId}`)
+    console.log('carrito',data);
     return data
   } catch (error) {
     errorHandler(error)
@@ -220,9 +221,7 @@ export const getChart = async (clientId) => {
 
 export const removeChart = async (clientId, productId) => {
   try {
-    const {
-      data
-    } = await axios.delete(`${BASE_URL}/client/deleteoneinchart?clientId=${clientId}&&productId=${productId}`)
+    const { data } = await axios.delete(`${BASE_URL}/client/deleteoneinchart?clientId=${clientId}&&productId=${productId}`)
   } catch (error) {
     errorHandler(error)
   }

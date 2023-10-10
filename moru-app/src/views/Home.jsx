@@ -48,9 +48,12 @@ const Home = () => {
             setCargaSedes(true)
           }
   
-          if(user && dataUser.userRole === 'buyer') {
+          if(dataUser.userRole === 'buyer') {
               const userfavs = await getFavorites(dataUser.id)
               userfavs?.forEach(fav => dispatch(addFav(fav)))
+
+              /* const userChart = await getChart(dataUser.id)
+              userChart?.forEach(product => dispatch(addToCart(product.productId))) */
           }
         }     
       } catch (error) {
@@ -61,7 +64,7 @@ const Home = () => {
       }
     };
     handleUserAuthentication();
-  }, [ user, isAuthenticated, localStorageData, dataComplete]);
+  }, [ user, isAuthenticated, localStorageData, dataComplete ]);
 
   loadingData ? <Loader/> : null
 
