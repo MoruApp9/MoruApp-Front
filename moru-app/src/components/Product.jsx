@@ -6,11 +6,18 @@ import { addFav, removeFav } from "../redux/favoritesSlice"
 import { addToCart, removefromCart } from "../redux/cartSlice"
 import { setIsFav } from "../redux/isFavSlice"
 
-import { getFavorites, postFavorites, deleteFavorite, postChart, removeChart, getChart } from "../services/services"
+import {
+  getFavorites,
+  postFavorites,
+  deleteFavorite,
+  postChart,
+  removeChart,
+  getChart,
+} from "../services/services"
 
 import { FiHeart } from "react-icons/fi"
 
-import { GetLocalStorage, GetLocalStorageFav} from "../localStorage/GetLocalStorage"
+import { GetLocalStorage, GetLocalStorageFav } from "../localStorage/GetLocalStorage"
 import { PostLocalStorageFav } from "../localStorage/PostLocalStorage"
 import { putLocalStorageFavs } from "../localStorage/PutLocalStorage"
 import { deleteLocalStorageFavs } from "../localStorage/DeleteLocalStorage"
@@ -25,9 +32,9 @@ const Product = ({ product }) => {
   const dispatch = useDispatch()
   const location = useLocation()
   const [isFav, setIsFav] = useState(false)
-  const loadedUser = useSelector(state => state.user)
-  const favorites = useSelector(state => state.favorites)
-  
+  const loadedUser = useSelector((state) => state.user)
+  const favorites = useSelector((state) => state.favorites)
+
   const { isAuthenticated, user } = useAuth0()
 
   const currentUser = GetLocalStorage()
@@ -35,67 +42,69 @@ const Product = ({ product }) => {
 
   const mostrarBotonAgregar = location.pathname !== "/carrito-de-compras"
   //const isFav = useSelector((state) => state.isFav[productId] || false);
-  
+
   //console.log(dispatch(getFavorites("f4476200-8c67-4253-9561-f7a53f713f64")));
-  
 
   useEffect(() => {
-    if(!isAuthenticated && localStorageFavs.length) {
+    if(user && favorites.length) {
+      favorites.forEach(fav => fav.id === productId && setIsFav(true))
+    }
+    /* if (!isAuthenticated && localStorageFavs.length) {
       localStorageFavs.forEach((fav) => {
         dispatch(addFav(fav)) // to local storage
         fav.id === productId && setIsFav(true) // estado global for render
       })
-    } 
+    } */
 
-    if(isAuthenticated && currentUser?.id) {
+   /*  if (user && currentUser?.id) {
       //dispatch(setUser(true))
-      favorites.forEach(fav => {
+      favorites.forEach((fav) => {
         dispatch(addFav(fav))
         fav?.id === productId && setIsFav(true)
       })
-      /* const favoriteData = async() => {
-        const favs = await (getFavorites(currentUser.id))
-        favs.forEach(fav => {
-          dispatch(addFav(fav))
-          fav?.id === productId && setIsFav(true)
-        })
-      }
-      favoriteData() */
-    } 
+    } */
 
-    if (isAuthenticated && localStorageFavs?.length && loadedUser) {
+    /* if (isAuthenticated && localStorageFavs?.length && loadedUser) {
       localStorageFavs.forEach((fav) => {
         dispatch(postFavorites(currentUser?.id, fav.id)) // to database
         fav.id === productId && setIsFav(true)
       })
-      
+
       deleteLocalStorageFavs()
-    }
+    } */
   }, [dispatch, isAuthenticated, user, loadedUser, favorites])
+
+    
 
   const handleFavorite = (event) => {
     event.stopPropagation()
     event.preventDefault()
 
-    if (user) {
-      if (isFav) {
+    if (user) { // si el user está logged
+      
+      if (isFav) { 
         setIsFav(false) //que deje de ser fav
-        //dispatch(deleteFavorite(currentUser.id, productId))
-      } else { // si el producto no es fav?
+        dispatch(deleteFavorite(currentUser.id, productId)) // se elimina el fav y se actualiza el estado global de favs para renderizar
+      } 
+      else { // si no es fav
         setIsFav(true) // se vuelve fav
-        //dispatch(postFavorites(currentUser?.id, productId)) // Se postea en la base de datos como fav y se actualiza el estado global
+        dispatch(postFavorites(currentUser.id, productId)) // Se postea en la base de datos como fav y se actualiza el estado global
       }
     } 
-    else window.alert('Inicia sesión o regístrate para guardar tus favoritos')
+    else window.alert("Inicia sesión o regístrate para guardar tus favoritos") // si no está logged
   }
 
   const handleAddToCart = (event) => {
     event.stopPropagation()
     event.preventDefault()
     const quantity = 1
-    postChart(currentUser?.id, productId, quantity)
-    // aquí tendría que haber un post
-    dispatch(addToCart(product))
+    if (user) {
+      postChart(currentUser?.id, productId, quantity) // esto me debería devolver el objeto guardado, no un array con objetos repetidos
+      dispatch(addToCart(product))
+      // aquí tendría que haber un post
+      //
+    } else
+      window.alert("Inicia sesión o regístrate para guardar tu carrito de compras")
   }
 
   const handleDeleteToCart = (event) => {
@@ -114,9 +123,9 @@ const Product = ({ product }) => {
           className="w-full h-48 object-cover"
         />
         <div className="flex items-center justify-end px-4 pt-2">
-          {//FAV BUTTON: se muestra si el usuario NO está autenticado (cualquier usuario) o es usuario comprador
-            (
-                currentUser?.userRole !== "adminCommerce") && (
+          {
+            //FAV BUTTON: se muestra si el usuario NO está autenticado (cualquier usuario) o es usuario comprador
+            currentUser?.userRole !== "adminCommerce" && (
               <button className="text-gray-500" onClick={handleFavorite}>
                 <FiHeart
                   className={`text-purple-moru ${
@@ -133,7 +142,7 @@ const Product = ({ product }) => {
         </div>
 
         <div className="flex items-center justify-center py-2">
-          {currentUser?.userRole !== "adminCommerce" ? (
+          {currentUser?.userRole !== "adminCommerce" && (
             mostrarBotonAgregar ? (
               <button
                 className="bg-purple-moru text-white hover:bg-white hover:text-purple-moru  font-bold py-2 px-4 rounded-full"
@@ -147,7 +156,7 @@ const Product = ({ product }) => {
                 Eliminar
               </button>
             )
-          ) : null}
+          )}
         </div>
       </div>
     </Link>

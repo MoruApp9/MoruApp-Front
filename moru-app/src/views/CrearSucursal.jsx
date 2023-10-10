@@ -27,7 +27,7 @@ const CrearSede = () => {
                         address: "",//departamento-municipio
                         schedule: "",
                         phone: "",
-                        commerceId: dataUser.brand.id
+                        commerceId: dataUser.brand.id,
                     }}
 
                     validate={(values) => {
