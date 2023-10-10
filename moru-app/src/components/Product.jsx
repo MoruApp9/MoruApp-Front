@@ -127,9 +127,9 @@ const Product = ({ product }) => {
           className="w-full h-48 object-cover"
         />
         <div className="flex items-center justify-end px-4 pt-2">
-          {//FAV BUTTON: se muestra si el usuario NO está autenticado (cualquier usuario) o es usuario vendedor
-            (!isAuthenticated ||
-              (GetLocalStorage() && currentUser.userRole === "buyer")) && (
+          {//FAV BUTTON: se muestra si el usuario NO está autenticado (cualquier usuario) o es usuario comprador
+            (
+                currentUser?.userRole !== "adminCommerce") && (
               <button className="text-gray-500" onClick={handleFavorite}>
                 <FiHeart
                   className={`text-purple-moru ${
@@ -146,8 +146,7 @@ const Product = ({ product }) => {
         </div>
 
         <div className="flex items-center justify-center py-2">
-          {!isAuthenticated ||
-          (GetLocalStorage() && currentUser.userRole === "buyer") ? (
+          {currentUser?.userRole !== "adminCommerce" ? (
             mostrarBotonAgregar ? (
               <button
                 className="bg-purple-moru text-white hover:bg-white hover:text-purple-moru  font-bold py-2 px-4 rounded-full"

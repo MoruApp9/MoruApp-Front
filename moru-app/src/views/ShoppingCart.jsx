@@ -4,12 +4,11 @@ import Product from "../components/Product"
 import { Link } from "react-router-dom"
 
 const ShoppingCart = () => {
+  const dispatch = useDispatch()
   const cartItems = useSelector((state) => state.cart.cart)
   const total = cartItems.reduce((accumulator, product) => {
     return accumulator + parseFloat(product.price)
   }, 0)
-
-  const dispatch = useDispatch()
 
   const handleRemoveAllFromCart = () => {
     dispatch(removeAllFromCart())  
