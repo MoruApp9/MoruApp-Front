@@ -28,7 +28,7 @@ const Product = ({ product }) => {
   const loadedUser = useSelector(state => state.user)
   const favorites = useSelector(state => state.favorites)
   
-  const { isAuthenticated } = useAuth0()
+  const { isAuthenticated, user } = useAuth0()
 
   const currentUser = GetLocalStorage()
   const localStorageFavs = GetLocalStorageFav()
@@ -40,7 +40,6 @@ const Product = ({ product }) => {
   
 
   useEffect(() => {
-
     if(!isAuthenticated && localStorageFavs.length) {
       localStorageFavs.forEach((fav) => {
         dispatch(addFav(fav)) // to local storage
@@ -72,34 +71,22 @@ const Product = ({ product }) => {
       
       deleteLocalStorageFavs()
     }
-  }, [dispatch, isAuthenticated, loadedUser, favorites])
+  }, [dispatch, isAuthenticated, user, loadedUser, favorites])
 
   const handleFavorite = (event) => {
     event.stopPropagation()
     event.preventDefault()
 
-    if (isAuthenticated && currentUser.userRole === 'adminCommerce') {
+    if (user) {
       if (isFav) {
         setIsFav(false) //que deje de ser fav
-        dispatch(deleteFavorite(currentUser.id, productId))
+        //dispatch(deleteFavorite(currentUser.id, productId))
       } else { // si el producto no es fav?
         setIsFav(true) // se vuelve fav
-        dispatch(postFavorites(currentUser?.id, productId)) // Se postea en la base de datos como fav y se actualiza el estado global
+        //dispatch(postFavorites(currentUser?.id, productId)) // Se postea en la base de datos como fav y se actualiza el estado global
       }
-
-    } else { // si el user no está autentificado
-      if (isFav) {
-        setIsFav(false) // deja de ser fav
-        const updatedFavs = localStorageFavs?.filter(
-          (fav) => fav.id !== productId
-        ) 
-        dispatch(putLocalStorageFavs(productId)) //se borra del estado global
-
-      } else {
-        setIsFav(true) // Se vuelve fav
-        dispatch(PostLocalStorageFav(product)) // Se postea en el localstorage para que persista la información
-      }
-    }
+    } 
+    else window.alert('Inicia sesión o regístrate para guardar tus favoritos')
   }
 
   const handleAddToCart = (event) => {
