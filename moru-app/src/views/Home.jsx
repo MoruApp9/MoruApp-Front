@@ -16,7 +16,7 @@ import Loader from "../components/Loader";
 
 const Home = () => {
   const productsFiltered = useSelector((state) => state.productsFiltered);
-  const loadedUser = useSelector(state => state.user)
+  //const loadedUser = useSelector(state => state.user)
 
   const [loadingData, setLoadingData] = useState(true);
   const [localStorageData, setLocalStorageData] = useState(null);
@@ -39,32 +39,20 @@ const Home = () => {
           }
         }
 
-        await getUser(user.email);
-        const dataUser = GetLocalStorage()
-        console.log('dataUser: ', dataUser);
-        console.log('dataComplete: ', dataComplete);
+        if(user){
+          await getUser(user.email); // preguntar para qué sirve
+          const dataUser = GetLocalStorage()
 
-        if (dataUser.brand && !cargaSedes) {
-          await getBrandByOwner(dataUser.brand.id)
-          setCargaSedes(true)
-        }
-
-
-        if(loadedUser && dataUser.userRole === 'buyer') {
-          const handleChart = async () => {
-            const userChart = await getChart(dataComplete.id)
-            userChart.forEach(product => dispatch(addToCart(product)))
+          if (dataUser.brand && !cargaSedes) {
+            await getBrandByOwner(dataUser.brand.id)
+            setCargaSedes(true)
           }
-      
-          const handleFavs = async () => {
-            const userfavs = await getFavorites(dataComplete.id)
-            userfavs.forEach(fav => dispatch(addFav(fav)))
+  
+          if(user && dataUser.userRole === 'buyer') {
+              const userfavs = await getFavorites(dataUser.id)
+              userfavs?.forEach(fav => dispatch(addFav(fav)))
           }
-          
-          handleChart()
-          handleFavs()
-        }
-      
+        }     
       } catch (error) {
         console.error(error);
       } finally {
@@ -73,7 +61,7 @@ const Home = () => {
       }
     };
     handleUserAuthentication();
-  }, [loadedUser, isAuthenticated, localStorageData]);
+  }, [ user, isAuthenticated, localStorageData, dataComplete]);
 
   loadingData ? <Loader/> : null
 
