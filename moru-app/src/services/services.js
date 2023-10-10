@@ -30,7 +30,6 @@ const BASE_URL = "https://moruapp-back.up.railway.app"
 
 export const getProducts = () => {
   return async (dispatch) => {
-    // Usa async para permitir operaciones asincrónicas
     try {
       const response = await axios.get(`${BASE_URL}/products/`)
       const data = response.data
@@ -127,7 +126,6 @@ export const uploadImageClaudinary = async (event) => {
 
 export const postClientRegister = async (dataClient) => {
   try {
-
     await axios.post(`${BASE_URL}/client/register`, dataClient)
   } catch (error) {
     errorHandler(error)
@@ -158,7 +156,6 @@ export const getUser = async (emailUser) =>  {
       email: emailUser,
     })
     const data = response.data //deberia mandar los datos de la marca asociada
-    console.log(data);
     PostLocalStorage(data)
     return(dispatch) => {
       dispatch(setUser(true))
@@ -172,7 +169,6 @@ export const getUser = async (emailUser) =>  {
 export const postCommerceRegister = async (dataCommerce) => {
   try {
     const resp = (await axios.post(`${BASE_URL}/commerce/register`, dataCommerce)).data
-    console.log(resp);
   } catch (error) {
     errorHandler(error)
   }
@@ -187,7 +183,6 @@ export const postFavorites = (clientId, productId) => async (dispatch) => {
       productId
     })
     dispatch(addFav(data))
-    console.log(data);
   } catch (error) {
     errorHandler(error)
   }
@@ -207,7 +202,6 @@ export const deleteFavorite = (clientId, productId) => async (dispatch) => {
     const {
       data
     } = await axios.delete(`${BASE_URL}/client/favorites?clientId=${clientId}&&productId=${productId}`)
-    console.log(data);
     dispatch(removeFav(productId))
   } catch (error) {
     errorHandler(error)
@@ -242,6 +236,7 @@ export const postChart = async (clientId, productId, quantity) => {
 
 export const getChart = async (clientId) => {
   try {
+    console.log('se hace');
     const { data } = await axios.get(`${BASE_URL}/client/chartforclient/${clientId}`)
     return data
   } catch (error) {
@@ -254,8 +249,6 @@ export const removeChart = async (clientId, productId) => {
     const {
       data
     } = await axios.delete(`${BASE_URL}/client/deleteoneinchart?clientId=${clientId}&&productId=${productId}`)
-    console.log('remove', data);
-
   } catch (error) {
     errorHandler(error)
   }
@@ -264,11 +257,8 @@ export const removeChart = async (clientId, productId) => {
 export const postRegisterAddress = (id) => async (dispatch) => {
 
   try {
-    console.log(id);
     const resp = (await axios.get(`${BASE_URL}/commerce/branches/${id}`)).data
-    console.log(resp);
     dispatch(setUbication(resp));
-
   } catch (error) {
     errorHandler(error)
   }
