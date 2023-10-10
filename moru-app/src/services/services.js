@@ -1,11 +1,30 @@
-import { setProducts } from "../redux/productSlice"
-import { setUser } from "../redux/userSlice"
+import {
+  setProducts
+} from "../redux/productSlice"
+import {
+  setUser
+} from "../redux/userSlice"
 import axios from "axios"
-import { PostLocalStorage,PostLocalStorageCommercesByOwner } from "../localStorage/PostLocalStorage"
-import { errorHandler } from "./errorHandler"
-import { setAllProducts } from "../redux/allProductsSlice"
-import { addFav, removeFav } from "../redux/favoritesSlice"
-import { setUbication } from "../redux/ubicationSlice"
+import {
+  PostLocalStorage,
+  PostLocalStorageCommercesByOwner
+} from "../localStorage/PostLocalStorage"
+import {
+  errorHandler
+} from "./errorHandler"
+import {
+  setAllProducts
+} from "../redux/allProductsSlice"
+import {
+  addFav,
+  removeFav
+} from "../redux/favoritesSlice"
+import {
+  setUbication
+} from "../redux/ubicationSlice"
+import {
+  GetLocalStorageCommercesByOwner
+} from "../localStorage/GetLocalStorage"
 
 const BASE_URL = "https://moruapp-back.up.railway.app"
 
@@ -61,7 +80,9 @@ export const getSpecificCategories = async (generalcategoryId) => {
 
 export const getProductsByName = async (name) => {
   try {
-    const { data } = await axios.get(
+    const {
+      data
+    } = await axios.get(
       `${BASE_URL}/products/searchbyname?name=${name}`
     )
     return data
@@ -70,12 +91,15 @@ export const getProductsByName = async (name) => {
   }
 }
 
-export const getBrandByOwner = async(idBrand) =>{
+export const getBrandByOwner = async (idBrand) => {
   try {
-    const { data } = await axios.get(`${BASE_URL}/commerce/branchforcommerce/${idBrand}`);
+    console.log(idBrand);
+    const {
+      data
+    } = await axios.get(`${BASE_URL}/commerce/branchforcommerce/${idBrand}`);
     PostLocalStorageCommercesByOwner(data);
-  } 
-  catch (error) {
+    GetLocalStorageCommercesByOwner();
+  } catch (error) {
     errorHandler(error)
   }
 }
@@ -88,16 +112,13 @@ export const uploadImageClaudinary = async (event) => {
     data.append("upload_preset", "storeImages")
 
     const res = await fetch(
-      "https://api.cloudinary.com/v1_1/dsgvvje7v/image/upload",
-      {
+      "https://api.cloudinary.com/v1_1/dsgvvje7v/image/upload", {
         method: "POST",
         body: data,
       }
     )
     const file = await res.json()
-    //console.log(res)
 
-    //console.log(file.secure_url)
     return file.secure_url
   } catch (error) {
     errorHandler(error)
@@ -106,7 +127,6 @@ export const uploadImageClaudinary = async (event) => {
 
 export const postClientRegister = async (dataClient) => {
   try {
-    //console.log(dataClient);
 
     await axios.post(`${BASE_URL}/client/register`, dataClient)
   } catch (error) {
@@ -116,7 +136,6 @@ export const postClientRegister = async (dataClient) => {
 
 export const postAdmincommerceRegister = async (dataAdminCommerce) => {
   try {
-    //console.log(dataAdminCommerce);
     await axios.post(`${BASE_URL}/admincommerce/register`, dataAdminCommerce)
   } catch (error) {
     errorHandler(error)
@@ -124,16 +143,14 @@ export const postAdmincommerceRegister = async (dataAdminCommerce) => {
 }
 
 export const postProduct = async (productData) => {
-  try {    
-    console.log('pre axios: ', productData);
+  try {
     const product = (await axios.post(`${BASE_URL}/products/create`, productData)).data
-    console.log(product);
   } catch (error) {
     errorHandler(error)
   }
 }
 
-export const getUser =  (emailUser) => async (dispatch) => {
+export const getUser = (emailUser) => async (dispatch) => {
   try {
     // const peticion = [axios.post(`${BASE_URL}/users/findforemail`, {email: emailUser})]
     // const response = await Promise.all(peticion) ;
@@ -160,7 +177,12 @@ export const postCommerceRegister = async (dataCommerce) => {
 
 export const postFavorites = (clientId, productId) => async (dispatch) => {
   try {
-    const { data } = await axios.post(`${BASE_URL}/client/favorites`, { clientId, productId })
+    const {
+      data
+    } = await axios.post(`${BASE_URL}/client/favorites`, {
+      clientId,
+      productId
+    })
     dispatch(addFav(data))
     console.log(data);
   } catch (error) {
@@ -168,7 +190,7 @@ export const postFavorites = (clientId, productId) => async (dispatch) => {
   }
 }
 
-export const getFavorites = async (clientId) =>{
+export const getFavorites = async (clientId) => {
   try {
     const { data } = await axios.get(`${BASE_URL}/client/favorites?clientId=${clientId}`)
     return data
@@ -179,7 +201,9 @@ export const getFavorites = async (clientId) =>{
 
 export const deleteFavorite = (clientId, productId) => async (dispatch) => {
   try {
-    const { data } = await axios.delete(`${BASE_URL}/client/favorites?clientId=${clientId}&&productId=${productId}`)
+    const {
+      data
+    } = await axios.delete(`${BASE_URL}/client/favorites?clientId=${clientId}&&productId=${productId}`)
     console.log(data);
     dispatch(removeFav(productId))
   } catch (error) {
@@ -187,7 +211,7 @@ export const deleteFavorite = (clientId, productId) => async (dispatch) => {
   }
 }
 
-export const postSucursal = async(dataSucursal) => {
+export const postSucursal = async (dataSucursal) => {
   try {
     const sede = (await axios.post(`${BASE_URL}/commerce/createbranch`, dataSucursal)).data
   } catch (error) {
@@ -200,8 +224,14 @@ export const postSucursal = async(dataSucursal) => {
 export const postChart = async (clientId, productId, quantity) => {
   //ssh
   try {
-    const { data } = await axios.post(`${BASE_URL}/client/chart`, {clientId, productId, quantity })
-    console.log('agregado chart',data);
+    const {
+      data
+    } = await axios.post(`${BASE_URL}/client/chart`, {
+      clientId,
+      productId,
+      quantity
+    })
+    console.log('agregado chart', data);
   } catch (error) {
     errorHandler(error)
   }
@@ -218,8 +248,10 @@ export const getChart = async (clientId) => {
 
 export const removeChart = async (clientId, productId) => {
   try {
-    const { data } = await axios.delete(`${BASE_URL}/client/deleteoneinchart?clientId=${clientId}&&productId=${productId}`)
-    console.log('remove',data);
+    const {
+      data
+    } = await axios.delete(`${BASE_URL}/client/deleteoneinchart?clientId=${clientId}&&productId=${productId}`)
+    console.log('remove', data);
 
   } catch (error) {
     errorHandler(error)
@@ -227,29 +259,37 @@ export const removeChart = async (clientId, productId) => {
 }
 
 export const postRegisterAddress = (id) => async (dispatch) => {
-  
+
   try {
-      console.log(id);
-      const resp = (await axios.get(`${BASE_URL}/commerce/branches/${id}`)).data
-      console.log(resp);
-      dispatch(setUbication(resp));
-    
+    console.log(id);
+    const resp = (await axios.get(`${BASE_URL}/commerce/branches/${id}`)).data
+    console.log(resp);
+    dispatch(setUbication(resp));
+
   } catch (error) {
     errorHandler(error)
   }
+}
 
-  // console.log(id);
-  // return async (dispatch) => {
-  //   try {
-  //   console.log(id);
-  //   const resp = (await axios.get(`${BASE_URL}/commerce/branches/${id}`)).data
-  //   console.log(resp);
-  //   dispatch(setUbication(resp));
-  // } catch (error) {
-  //   errorHandler(error)
-  // }
-  // }
-  
+export const getInfoBranch = async (idBranch) => {
+  try {
+    const response = (await axios.get(`${BASE_URL}/commerce/infobranch/${idBranch}`)).data
+    return response;
+  } catch (error) {
+    errorHandler(error)
+  }
 }
 
 
+
+// console.log(id);
+// return async (dispatch) => {
+//   try {
+//   console.log(id);
+//   const resp = (await axios.get(`${BASE_URL}/commerce/branches/${id}`)).data
+//   console.log(resp);
+//   dispatch(setUbication(resp));
+// } catch (error) {
+//   errorHandler(error)
+// }
+// }

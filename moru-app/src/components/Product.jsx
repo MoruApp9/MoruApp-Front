@@ -64,7 +64,7 @@ const Product = ({ product }) => {
       favoriteData() */
     } 
 
-    if (isAuthenticated && localStorageFavs.length && loadedUser) {
+    if (isAuthenticated && localStorageFavs?.length && loadedUser) {
       localStorageFavs.forEach((fav) => {
         dispatch(postFavorites(currentUser?.id, fav.id)) // to database
         fav.id === productId && setIsFav(true)
@@ -78,13 +78,13 @@ const Product = ({ product }) => {
     event.stopPropagation()
     event.preventDefault()
 
-    if (isAuthenticated) {
+    if (isAuthenticated && currentUser.userRole === 'adminCommerce') {
       if (isFav) {
         setIsFav(false) //que deje de ser fav
         dispatch(deleteFavorite(currentUser.id, productId))
-      } else { // si el producto no es fav
+      } else { // si el producto no es fav?
         setIsFav(true) // se vuelve fav
-        dispatch(postFavorites(currentUser.id, productId)) // Se postea en la base de datos como fav y se actualiza el estado global
+        dispatch(postFavorites(currentUser?.id, productId)) // Se postea en la base de datos como fav y se actualiza el estado global
       }
 
     } else { // si el user no está autentificado
@@ -106,7 +106,7 @@ const Product = ({ product }) => {
     event.stopPropagation()
     event.preventDefault()
     const quantity = 1
-    postChart(currentUser.id, productId, quantity)
+    postChart(currentUser?.id, productId, quantity)
     // aquí tendría que haber un post
     dispatch(addToCart(product))
   }
@@ -115,7 +115,7 @@ const Product = ({ product }) => {
     event.stopPropagation()
     event.preventDefault()
     dispatch(removefromCart(product))
-    removeChart(currentUser.id, productId)
+    removeChart(currentUser?.id, productId)
   }
 
   return (
