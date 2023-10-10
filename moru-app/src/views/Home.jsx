@@ -37,10 +37,15 @@ const Home = () => {
           } else {
             await postAdmincommerceRegister(dataComplete);
           }
-        }  
-        dispatch(getUser(user.email))
-        if (dataComplete.brand && !cargaSedes) {
-          getBrandByOwner(dataComplete.brand.id)
+        }
+
+        await getUser(user.email);
+        const dataUser = GetLocalStorage()
+        console.log(GetLocalStorage());
+        console.log(dataUser.brand);
+
+        if (dataUser.brand && !cargaSedes) {
+          await getBrandByOwner(dataUser.brand.id)
           setCargaSedes(true)
         }
       } catch (error) {

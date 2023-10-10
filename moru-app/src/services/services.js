@@ -150,7 +150,7 @@ export const postProduct = async (productData) => {
   }
 }
 
-export const getUser = (emailUser) => async (dispatch) => {
+export const getUser = async (emailUser) =>  {
   try {
     // const peticion = [axios.post(`${BASE_URL}/users/findforemail`, {email: emailUser})]
     // const response = await Promise.all(peticion) ;
@@ -158,8 +158,11 @@ export const getUser = (emailUser) => async (dispatch) => {
       email: emailUser,
     })
     const data = response.data //deberia mandar los datos de la marca asociada
+    console.log(data);
     PostLocalStorage(data)
-    dispatch(setUser(true))
+    return(dispatch) => {
+      dispatch(setUser(true))
+    }
   } catch (error) {
     errorHandler(error)
   }
