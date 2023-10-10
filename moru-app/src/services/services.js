@@ -92,7 +92,6 @@ export const getProductsByName = async (name) => {
 
 export const getBrandByOwner = async (idBrand) => {
   try {
-    console.log(idBrand);
     const {
       data
     } = await axios.get(`${BASE_URL}/commerce/branchforcommerce/${idBrand}`);

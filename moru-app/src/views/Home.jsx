@@ -39,32 +39,30 @@ const Home = () => {
           }
         }
 
-        await getUser(user.email);
-        const dataUser = GetLocalStorage()
-        console.log('dataUser: ', dataUser);
-        console.log('dataComplete: ', dataComplete);
+        if (user) {
+          await getUser(user.email);
+          const dataUser = GetLocalStorage();
 
-        if (dataUser.brand && !cargaSedes) {
-          await getBrandByOwner(dataUser.brand.id)
-          setCargaSedes(true)
-        }
-
-
-        if(loadedUser && dataUser.userRole === 'buyer') {
-          const handleChart = async () => {
-            const userChart = await getChart(dataComplete.id)
-            userChart.forEach(product => dispatch(addToCart(product)))
+          if (dataUser.brand && !cargaSedes) {
+            await getBrandByOwner(dataUser.brand.id)
+            setCargaSedes(true)
           }
-      
-          const handleFavs = async () => {
-            const userfavs = await getFavorites(dataComplete.id)
-            userfavs.forEach(fav => dispatch(addFav(fav)))
+
+          if(loadedUser && dataUser.userRole === 'buyer') {
+            const handleChart = async () => {
+              const userChart = await getChart(dataComplete.id)
+              userChart.forEach(product => dispatch(addToCart(product)))
+            }
+        
+            const handleFavs = async () => {
+              const userfavs = await getFavorites(dataComplete.id)
+              userfavs.forEach(fav => dispatch(addFav(fav)))
+            }
+            
+            handleChart()
+            handleFavs()
           }
-          
-          handleChart()
-          handleFavs()
         }
-      
       } catch (error) {
         console.error(error);
       } finally {

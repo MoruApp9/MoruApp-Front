@@ -5,6 +5,7 @@ import { BiSolidUser } from 'react-icons/bi';
 import { BiSolidCloudUpload } from 'react-icons/bi';
 import { PiStorefrontDuotone } from 'react-icons/pi';
 import shoppingIcon from "../images/icons/carrito-de-compras.png";
+import logoMoru from "../images/logo-moruApp.png"
 import { FiMenu } from "react-icons/fi";
 import { MdFavorite } from "react-icons/md";
 import { MdAccountCircle } from "react-icons/md";
@@ -22,24 +23,21 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 import { getBrandByOwner } from '../services/services';
 
 const Nav = () => {
-  const [openMenu, setOpenMenu] = useState(false)
-  const { user, loginWithRedirect, isAuthenticated } = useAuth0();
-  const dispatch = useDispatch()
-  const currentUser = GetLocalStorage();
-  const carrito = useSelector(((state) => state.cart.cart));
-  const navigate = useNavigate()
-  const sedes = GetLocalStorageCommercesByOwner()
+  const [openMenu, setOpenMenu] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-  const { logout } = useAuth0();
-  console.log('sedes', sedes);
+  const { loginWithRedirect, logout } = useAuth0();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const currentUser = GetLocalStorage();
+  const carrito = useSelector(((state) => state.cart.cart));
+  const sedes = GetLocalStorageCommercesByOwner();
   
   const handleLogOut = () => {
     DeleteLocalStorage();
     DeleteLocalStorageCommercesByOwner();
     logout({ returnTo: window.location.origin});
   }
-
 
   const handleButtonClick = (e) => {
     e.preventDefault();
@@ -60,24 +58,32 @@ const Nav = () => {
 
   return (
     <nav className="flex flex-col sticky top-0 bg-white z-40 font-roboto-slab" >
-      <div className="flex justify-between w-full items-center px-6 py-2 shadow-lg rounded-bl-lg rounded-br-xl font-roboto-slab">
-        <div className=" flex 1/3 items-center space-x-8">
-          <button onClick={() => { setOpenMenu(true) }}><FiMenu className="text-4xl text-purple-moru"></FiMenu></button>
+      <div className="flex w-full absolute justify-center">
+        <Link onClick={handleOnClickMenu} to="/" className="w-28"><img src={logoMoru}/></Link>
+      </div>
 
-          {!isAuthenticated && <button className="hidden md:block text-purple-moru" onClick={() => loginWithRedirect()}>Iniciar Sesión</button>}
+      <div className="flex w-full items-center justify-between px-6 py-2 shadow-lg rounded-bl-lg rounded-br-xl font-roboto-slab">
+        <div className="flex items-center space-x-6">
+          <button onClick={() => { setOpenMenu(true) }} className="hover:bg-gray-200 rounded-md">
+            <FiMenu className="text-4xl text-purple-moru"/>
+          </button>
 
-          {!isAuthenticated && <Link  className='hidden md:block text-purple-moru' to={`/registration`}><p>Crear Cuenta</p></Link>}
+          {!currentUser && <button className="hidden md:block text-purple-moru hover:bg-gray-200 p-1 rounded-md" onClick={() => loginWithRedirect()}>
+            Iniciar Sesión
+          </button>}
+
+          {!currentUser && <Link  className='hidden md:block text-purple-moru hover:bg-gray-200 p-1 rounded-md' to={`/registration`}>
+            <p>Crear Cuenta</p>
+          </Link>}
         </div>
 
-        <div className="flex items-center w-1/2 justify-between">
-          <Link onClick={handleOnClickMenu} to="/"><AiFillHome className="transform translate-x-[-.9rem] text-3xl text-purple-moru" /></Link>
-
+        <div className="flex items-center ">
           {
 
             // isAuthenticated
             // ? <Link to="/tienda"><PiStorefrontDuotone className="w-7 text-purple-moru text-4xl"></PiStorefrontDuotone></Link>
             // : currentUser.userRole !== 'adminCommerce' && (<Link to="/carrito-de-compras"><img className="w-12" src={shoppingIcon} alt="shoppingIcon" /></Link>)
-            isAuthenticated && GetLocalStorage() && currentUser.userRole === 'adminCommerce' 
+            currentUser && GetLocalStorage() && currentUser.userRole === 'adminCommerce' 
             ? null
             : (
                 <Link  className={`flex items-center hover:bg-gray-200 px-2 rounded-md  ${selectedOption === 'carrito' ? 'bg-gray-200 ': ''}`} onClick={() => setSelectedOption('carrito')} to="/carrito-de-compras"><img className="w-12" src={shoppingIcon} alt="shoppingIcon" />
@@ -98,36 +104,36 @@ const Nav = () => {
             <FiMenu className="text-4xl text-purple-moru ml-6 mb-5"></FiMenu>
           </button>
 
-          <li className={`flex flex-col text-xl gap-10 items-start ml-12 whitespace-nowrap w-52 ${isAuthenticated ? 'mt-9' : 'mt-0'}`}>
-            <ul className={`flex ${isAuthenticated ? 'order-5' : 'order-1'}  justify-start p-2 hover:bg-gray-200 rounded-md w-52`}  >
+          <li className={`flex flex-col text-xl gap-10 items-start ml-12 whitespace-nowrap w-52 ${currentUser ? 'mt-9' : 'mt-0'}`}>
+            <ul className={`flex ${currentUser ? 'order-5' : 'order-1'}  justify-start p-2 hover:bg-gray-200 rounded-md w-52`}  >
               {
-                isAuthenticated
+                currentUser
                 ? <button className="flex items-center space-x-4 mr-3" onClick={handleLogOut}><MdLogout className="w-7 text-3xl text-purple-moru"/><span>Cerrar sesión</span></button>
                 : <button className="flex items-center space-x-4 mr-3" onClick={() => loginWithRedirect()}><BiSolidUser className="w-7 text-3xl text-purple-moru" /><span>Iniciar Sesión</span></button>
               }
             </ul >
 
-            <ul className={`flex ${isAuthenticated && 'hidden'} order-2 justify-start p-2 hover:bg-gray-200 rounded-md w-52`}>
+            <ul className={`flex ${currentUser && 'hidden'} order-2 justify-start p-2 hover:bg-gray-200 rounded-md w-52`}>
               {
-                !isAuthenticated
+                !currentUser
                 && <Link onClick={() =>{ setOpenMenu(false)} } className="flex items-center space-x-4 mr-3" to={`/registration`}><AiOutlineUserAdd className="w-7 text-3xl text-purple-moru" /><span>Crear Cuenta</span></Link>
               }
             </ul>
 
             {/* currentUser.userRole !== 'adminCommerce' && <ul onClick={() => { setOpenMenu(false) }} className="  order-2 flex justify-center space-x-4 " ><MdFavorite className="w-7 text-purple-moru text-3xl"></MdFavorite><Link to="/fav">Favoritos</Link></ul> */
-              (!isAuthenticated || GetLocalStorage() && currentUser.userRole === 'buyer' ) && 
+              (!currentUser || GetLocalStorage() && currentUser.userRole === 'buyer' ) && 
               
               <ul onClick={() => { setOpenMenu(false), setSelectedOption('favoritos') }} className={`order-2 flex justify-start p-2 hover:bg-gray-200 rounded-md w-52 ${selectedOption === "favoritos" ? 'bg-gray-200 ': ''}`} ><Link to="/fav" className="flex items-center space-x-4 mr-3"><MdFavorite className="w-7 text-purple-moru text-3xl"/><span>Favoritos</span></Link></ul>
             }
 
               <ul className={`flex order-2 justify-start p-2 hover:bg-gray-200 rounded-md w-52`}>
-              {!isAuthenticated || GetLocalStorage() && currentUser.userRole === 'adminCommerce' && !currentUser.brand &&
+              {!currentUser || GetLocalStorage() && currentUser.userRole === 'adminCommerce' && !currentUser.brand &&
                 <Link onClick={() =>{ setOpenMenu(false)} } className="flex items-center space-x-4 mr-3" to={`/registrar-empresa`}><AiOutlineUserAdd className="w-7 text-3xl text-purple-moru" /><span>Registrar marca</span></Link>
               }
               </ul>
 
             <div>
-              {isAuthenticated && GetLocalStorage() && currentUser.userRole === 'adminCommerce' && currentUser.brand &&
+              {currentUser && GetLocalStorage() && currentUser.userRole === 'adminCommerce' && currentUser.brand &&
               <ul onClick={() => setSelectedOption('tienda') }
               className={`order-2 flex justify-start p-2 hover:bg-gray-200 rounded-md w-52 space-x-4 ${selectedOption === 'tienda' ? 'bg-gray-200 ': ''}`} >
                 <PiStorefrontDuotone className="w-7 text-purple-moru text-3xl"/>
