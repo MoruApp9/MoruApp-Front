@@ -27,20 +27,19 @@ const Home = () => {
   const dataComplete = { ...GetLocalStorage(), ...user };
   const [cargaSedes, setCargaSedes] = useState(false)
 
+
   useEffect(() => {
     const handleUserAuthentication = async () => {
       try {
-        // Realizar las solicitudes para obtener datos y configurar localStorageData
         if (dataComplete.userRole && dataComplete.email) {
           if (dataComplete.userRole === "buyer") {
             await postClientRegister(dataComplete);
           } else {
             await postAdmincommerceRegister(dataComplete);
-            dispatch(getUser(dataComplete.email))
           }
         }  
+        dispatch(getUser(user.email))
         if (dataComplete.brand && !cargaSedes) {
-          console.log(dataComplete.brand.id);
           getBrandByOwner(dataComplete.brand.id)
           setCargaSedes(true)
         }

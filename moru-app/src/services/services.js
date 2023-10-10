@@ -154,7 +154,6 @@ export const getUser = (emailUser) => async (dispatch) => {
   try {
     // const peticion = [axios.post(`${BASE_URL}/users/findforemail`, {email: emailUser})]
     // const response = await Promise.all(peticion) ;
-
     const response = await axios.post(`${BASE_URL}/users/findforemail`, {
       email: emailUser,
     })
@@ -193,10 +192,7 @@ export const postFavorites = (clientId, productId) => async (dispatch) => {
 
 export const getFavorites = async (clientId) => {
   try {
-    const {
-      data
-    } = await axios.get(`${BASE_URL}/client/favorites?clientId=${clientId}`)
-    console.log(data);
+    const { data } = await axios.get(`${BASE_URL}/client/favorites?clientId=${clientId}`)
     return data
   } catch (error) {
     errorHandler(error)
@@ -217,9 +213,7 @@ export const deleteFavorite = (clientId, productId) => async (dispatch) => {
 
 export const postSucursal = async (dataSucursal) => {
   try {
-    console.log('data: ', dataSucursal);
     const sede = (await axios.post(`${BASE_URL}/commerce/createbranch`, dataSucursal)).data
-    console.log('sede: ', sede);
   } catch (error) {
     errorHandler(error);
   }
@@ -245,10 +239,7 @@ export const postChart = async (clientId, productId, quantity) => {
 
 export const getChart = async (clientId) => {
   try {
-    const {
-      data
-    } = await axios.get(`${BASE_URL}/client/chartforclient/${clientId}`)
-    console.log(data);
+    const { data } = await axios.get(`${BASE_URL}/client/chartforclient/${clientId}`)
     return data
   } catch (error) {
     errorHandler(error)
