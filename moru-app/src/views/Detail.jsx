@@ -19,7 +19,7 @@ const ProductDetail = () => {
     const userRole = useSelector(state => state.userRole)
     const currentUser = GetLocalStorage();
 
-    console.log(currentUser);
+    console.log(product);
 
     if (!product) return <div>Producto no encontrado</div>;
 
@@ -77,7 +77,7 @@ const ProductDetail = () => {
                                 </button>}
                             </div>
                             <div className="flex justify-end">
-                                {product.commercebranchId && currentUser.userRole === 'adminCommerce' && (
+                                {product.commercebranchId && (
                                     <Link to={`/tienda/${product.commercebranchId}`} className="bg-purple-moru text-white py-2 px-4 rounded hover:bg-purple-moru-dark">
                                         Ver tienda
                                     </Link>
