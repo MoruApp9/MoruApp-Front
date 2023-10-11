@@ -20,18 +20,44 @@ import { IoIosArrowDown } from "react-icons/io";
 import {DeleteLocalStorage, DeleteLocalStorageCommercesByOwner} from '../localStorage/DeleteLocalStorage';
 import { MdLogout } from 'react-icons/md';
 import { FaMapMarkerAlt } from "react-icons/fa";
-import { getBrandByOwner } from '../services/services';
+import { getBrandByOwner, getChart, getFavorites } from '../services/services';
+import { addFav } from "../redux/favoritesSlice";
+import { addToCart } from "../redux/cartSlice";
 
 const Nav = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [openMenu, setOpenMenu] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const { user, loginWithRedirect, logout } = useAuth0();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const currentUser = GetLocalStorage();
+
   const carrito = useSelector(((state) => state.cart.cart));
+  const favsStore = useSelector(state => state.favorites)
+  const chartStore = useSelector(state => state.cart.cart)
+
+  const currentUser = GetLocalStorage();
   const sedes = GetLocalStorageCommercesByOwner();
+  
+  useEffect(() => {
+    const handleFavsAndChart = async () => {
+      const dataUser = GetLocalStorage()
+
+      if(user && dataUser?.userRole === 'buyer' ){
+        if(!favsStore.length){
+          const userFavs = await getFavorites(dataUser.id)
+          userFavs?.forEach(fav => dispatch(addFav(fav)))
+        }
+        
+        if(!chartStore.length) {
+          const userChart = await getChart(dataUser.id)
+          userChart?.forEach(product => dispatch(addToCart(product)))
+        }
+      }
+    }
+    handleFavsAndChart()
+  }, [dispatch, user, favsStore, chartStore])
 
   
   const handleLogOut = () => {

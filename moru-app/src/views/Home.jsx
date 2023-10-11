@@ -52,22 +52,11 @@ const Home = () => {
           }
           
           const dataUser = GetLocalStorage()
-          console.log(dataUser);
+          //console.log(dataUser);
 
           if (dataUser.brand && !cargaSedes) {
             await getBrandByOwner(dataUser.brand.id)
             setCargaSedes(true)
-          }
-
-          if (dataUser.userRole === 'buyer') {
-            if (!favsGlobalState.length) {
-              const userfavs = await getFavorites(dataUser.id)
-              userfavs?.forEach(fav => dispatch(addFav(fav)))
-            }
-            if (!chartGlobalState.length) {
-              const userChart = await getChart(dataUser.id)
-              userChart?.forEach(product => dispatch(addToCart(product)))
-            }
           }
         }
       } catch (error) {
