@@ -11,11 +11,13 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { addToCart } from "../redux/cartSlice";
 import { addFav } from "../redux/favoritesSlice";
-import { setUser } from "../redux/userSlice";
+//import { setUser } from "../redux/userSlice";
 import Loader from "../components/Loader";
 
 const Home = () => {
   const productsFiltered = useSelector((state) => state.productsFiltered);
+  const favsLS = useSelector((state) => state.favorites)
+  const chartLS = useSelector(state => state.cart.cart)
   //const loadedUser = useSelector(state => state.user)
 
   const [loadingData, setLoadingData] = useState(true);
@@ -39,7 +41,7 @@ const Home = () => {
         }
 
         if(user){
-          await getUser(user.email); // preguntar para qué sirve
+          await getUser(user.email);
           const dataUser = GetLocalStorage()
 
           if (dataUser.brand && !cargaSedes) {
@@ -48,19 +50,25 @@ const Home = () => {
           }
   
           if(dataUser.userRole === 'buyer') {
+            if (!favsLS.length){
               const userfavs = await getFavorites(dataUser.id)
               userfavs?.forEach(fav => dispatch(addFav(fav)))
+            }
+            if (!chartLS.length){
+              const userChart = await getChart(dataUser.id)
+              userChart?.forEach(product => dispatch(addToCart(product)))
+            }
           }
         }     
       } catch (error) {
         console.error(error);
       } finally {
-        dispatch(setUser(true))
+        //dispatch(setUser(true))
         setLoadingData(false); 
       }
     };
     handleUserAuthentication();
-  }, [ user, isAuthenticated, localStorageData, dataComplete]);
+  }, [ user, isAuthenticated, localStorageData, dataComplete ]);
 
   loadingData ? <Loader/> : null
 
