@@ -66,13 +66,13 @@ const Nav = () => {
             <FiMenu className="text-4xl text-purple-moru"/>
           </button>
 
-          {!user && <button className="hidden md:block text-purple-moru hover:bg-gray-200 p-1 rounded-md" onClick={() => loginWithRedirect()}>
+          {/* {!user && <button className="hidden md:block text-purple-moru hover:bg-gray-200 p-1 rounded-md" onClick={() => loginWithRedirect()}>
             Iniciar Sesión
           </button>}
 
           {!user && <Link  className='hidden md:block text-purple-moru hover:bg-gray-200 p-1 rounded-md' to={`/registration`}>
             <p>Crear Cuenta</p>
-          </Link>}
+          </Link>} */}
         </div>
 
         <div className="flex w-full justify-center">
