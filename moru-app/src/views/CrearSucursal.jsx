@@ -69,9 +69,10 @@ const CrearSede = () => {
                             console.log(values);
                             const response = await postSucursal(values);
                             console.log(response);
-                            if (response.message === 'Ya existe la sucursal con esa direccion') {
-                                window.alert('Ya existe la sucursal con esa dirección');
-                            } else {
+                            // if (response.message === 'Ya existe la sucursal con esa direccion') {
+                            //     window.alert('Ya existe la sucursal con esa dirección');
+                            // } else 
+                            {
                                 window.alert('Sucursal creada correctamente');
                                 navigate('/');
                             }
