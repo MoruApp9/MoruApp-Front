@@ -54,19 +54,30 @@ const CrearSede = () => {
                         }
 
                         if (values.phone.length !== 10) {
-                            errors.phone = 'El número de teléfono debe tener 10 caracteres';
+                            errors.phone = 'El número de teléfono debe tener 10 dígitos';
                         }
 
                         if (!/^\d+$/.test(values.phone)) {
-                            errors.phone = 'El número de teléfono solo debe contener dígitos.';
+                            errors.phone = 'El número de teléfono solo debe contener letras.';
                         }
 
                         return errors;
                     }}
 
-                    onSubmit={(values) => {
-                        postSucursal(values);
-                        navigate('/');
+                    onSubmit={async (values) => {
+                        try {
+                            console.log(values);
+                            const response = await postSucursal(values);
+                            console.log(response);
+                            if (response.message === 'Ya existe la sucursal con esa direccion') {
+                                window.alert('Ya existe la sucursal con esa dirección');
+                            } else {
+                                window.alert('Sucursal creada correctamente');
+                                navigate('/');
+                            }
+                        } catch (error) {
+                            console.error('Error al realizar la operación:', error);
+                        }
                     }}
                 >
                     {({ errors }) => (
@@ -80,7 +91,7 @@ const CrearSede = () => {
                                 />
                                 <ErrorMessage name="alias" component={() => (
                                     <div className="text-xs text-red-600">{errors.alias}</div>
-                                )}/>
+                                )} />
                             </div>
 
                             <div>

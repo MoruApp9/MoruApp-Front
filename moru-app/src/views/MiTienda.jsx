@@ -14,7 +14,6 @@ import { createSelector } from 'reselect';
 
 const MiTienda = () => {
     const { id } = useParams();
-    const sedes = GetLocalStorageCommercesByOwner();
     const [branchData, setBranchData] = useState(null);
     const currentUser = GetLocalStorage();
 
@@ -27,13 +26,18 @@ const MiTienda = () => {
     const productsSede = useSelector((state) => selectProductsSede(state, id));
 
 
-    const idBrand =
+    const idBrandCommerce =
         productsSede[productsSede.length - 1]?.commerceId
             ? productsSede[productsSede.length - 1]?.commerceId
             : null
 
-    const esDueño = (currentUser?.brand.id === idBrand) || (null === idBrand)
+    const idBrandUser =
+        currentUser.brand 
+            ? currentUser.brand.id
+            : null
 
+
+    const esDueño = (idBrandUser === idBrandCommerce || null  === idBrandCommerce)
 
     useEffect(() => {
         const fetchData = async () => {

@@ -171,7 +171,6 @@ export const postFavorites = (clientId, productId) => async (dispatch) => {
 export const getFavorites = async (clientId) => {
   try {
     const { data } = await axios.get(`${BASE_URL}/client/favorites?clientId=${clientId}`)
-    console.log(data);
     return data
   } catch (error) {
     errorHandler(error)
@@ -191,6 +190,7 @@ export const deleteFavorite =  (clientId, productId) => async (dispatch) => {
 export const postSucursal = async (dataSucursal) => {
   try {
     const sede = (await axios.post(`${BASE_URL}/commerce/createbranch`, dataSucursal)).data
+    return sede
   } catch (error) {
     errorHandler(error);
   }
