@@ -53,6 +53,8 @@ const Home = () => {
           
           const dataUser = GetLocalStorage()
           //console.log(dataUser);
+          if (dataUser && dataUser.error) navigate('/registration');
+
 
           if (dataUser.brand && !cargaSedes) {
             await getBrandByOwner(dataUser.brand.id)
@@ -71,7 +73,6 @@ const Home = () => {
 
   loadingData ? <Loader /> : null
 
-  if (dataComplete && dataComplete.error) navigate('/registration');
 
   /*   if (dataComplete?.userRole === 'adminCommerce') { }
        //getUser(dataComplete.email)

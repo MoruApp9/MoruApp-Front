@@ -59,8 +59,7 @@ const CrearSede = () => {
                     onSubmit={async (values) => {
                         try {
                             console.log(values);
-                            const response = await postSucursal(values);
-                            console.log(response);
+                            await postSucursal(values);
                             // if (response.message === 'Ya existe la sucursal con esa direccion') {
                             //     window.alert('Ya existe la sucursal con esa dirección');
                             // } else 
