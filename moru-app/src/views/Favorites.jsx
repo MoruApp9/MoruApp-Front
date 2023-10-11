@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 const Favorites = () => {
     const favorites = useSelector(state => state.favorites)
-    console.log(favorites.length);
+
     return (
         <section className="flex flex-col mx-4 font-roboto-slab">
         {

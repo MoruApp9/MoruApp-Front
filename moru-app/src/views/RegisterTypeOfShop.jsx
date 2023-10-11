@@ -27,13 +27,13 @@ const RegisterTypeOfShop = () => {
         obtengoUsuario()
     }, [])
 
-/*     useEffect(() => {
-        if (estadoSubmit) {
-            PostLocalStorage(dispatch(getUser(dataUser.email)))
-            console.log(GetLocalStorage());
-            setEstadoSubmit(false)
-        }
-    }, [estadoSubmit]) */
+    /*     useEffect(() => {
+            if (estadoSubmit) {
+                PostLocalStorage(dispatch(getUser(dataUser.email)))
+                console.log(GetLocalStorage());
+                setEstadoSubmit(false)
+            }
+        }, [estadoSubmit]) */
 
 
     const handleOnChange = async (event) => {
@@ -52,7 +52,7 @@ const RegisterTypeOfShop = () => {
                         admincommerceId: dataUser.id,
                         name: '',
                         rut: '',
-                        description: "", 
+                        description: "",
                         image: '',
                         generalcategoryId: '',
                     }}
@@ -66,9 +66,9 @@ const RegisterTypeOfShop = () => {
 
                         if (!values.rut) {
                             error.rut = 'Por favor, ingresa un número de RUT'
-                        }else if (!/^\d+(?:-\d+)?$/.test(values.rut)) {
+                        } else if (!/^\d+(?:-\d+)?$/.test(values.rut)) {
                             error.rut = 'El celular debe contener solo números y "-"'
-                        }else if (values.rut.length !== 10) {
+                        } else if (values.rut.length !== 10) {
                             error.rut = 'El RUT debe contener 9 dígitos, el último separado por un "-"'
                         }
 
@@ -84,15 +84,18 @@ const RegisterTypeOfShop = () => {
                         return error
                     }}
 
-                    onSubmit={(valores) => {
-                        console.log('valores: ', valores);
-                        postCommerceRegister(valores);
-                        //setEstadoSubmit(true)
-                        navigate('/')
+                    onSubmit={async (valores) => {
+                        try {
+                            await postCommerceRegister(valores);
+                            window.alert('Comercio registrado correctamente');
+                            navigate('/');
+                        } catch (error) {
+                            console.error('Error al registrar el comercio:', error);
+                        }
                     }}
                 >
-                    {({errors, isSubmitting}) => (
-                        <Form  autoComplete="off" className="flex flex-col gap-6">
+                    {({ errors, isSubmitting }) => (
+                        <Form autoComplete="off" className="flex flex-col gap-6">
                             <div>
                                 <Field
                                     className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
@@ -102,19 +105,19 @@ const RegisterTypeOfShop = () => {
                                 />
                                 <ErrorMessage name="name" component={() => (
                                     <div className="text-xs text-red-600">{errors.name}</div>
-                                )}/>
+                                )} />
                             </div>
 
                             <div>
                                 <Field
                                     className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
-                                    type="text" 
+                                    type="text"
                                     name="rut"
                                     placeholder="RUT ejm. 12345678-9"
                                 />
                                 <ErrorMessage name="rut" component={() => (
                                     <div className="text-xs text-red-600">{errors.rut}</div>
-                                )}/>
+                                )} />
                             </div>
 
                             <div>
@@ -143,16 +146,16 @@ const RegisterTypeOfShop = () => {
                                     <BsImageFill className="text-xl ml-2"></BsImageFill>
                                 </label>
                             </div>
-                            {/* Div con el field de tipo file para agregar el pdf del Rut (Cloudinary)*/ }
+                            {/* Div con el field de tipo file para agregar el pdf del Rut (Cloudinary)*/}
 
                             <div>
                                 <Field name="generalcategoryId" as="select" className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab">
                                     <option value="" disabled hidden>Selecciona categoría</option>
-                                    {categories.map((category)=>(<option key={category.id} value={category.id}>{category.name}</option>))}
+                                    {categories.map((category) => (<option key={category.id} value={category.id}>{category.name}</option>))}
                                 </Field>
                                 <ErrorMessage name="generalcategoryId" component={() => (
                                     <div className="text-xs text-red-600">{errors.generalcategoryId}</div>
-                                )}/>
+                                )} />
                             </div>
 
                             <div className="flex justify-center items-center">

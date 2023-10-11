@@ -55,7 +55,7 @@ const PostProduct = () => {
             price: "",
             description: "",
             image: imageUpload,
-            event: "",
+            stock: "",
             commerceId: dataUser.brand.id,
             generalcategoryId: dataUser.brand.generalcategoryId,
             specificCategory: "",
@@ -84,11 +84,10 @@ const PostProduct = () => {
               error.description = 'La descripción no debe superar los 300 carácteres'
             }
 
-            if (!values.event) {
+            if (!values.stock) {
               error.event = 'Por favor, ingresa un evento'
-            } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.event)) {
-              error.event = 'El nombre solo puede contener letras y espacios'
             }
+
             if (values.specificCategory === "") {
               error.specificCategory = 'Por favor, ingresa una categoria especifica'
             }
@@ -97,14 +96,18 @@ const PostProduct = () => {
           }}
 
           onSubmit={async (values) => {
-            if (values.specificCategory === "otra") {
+            if (values.specificCategory === "otra")
               values.specificCategory = values.extraCategory;
+            values.image = imageUpload;
+            try {
+              await postProduct(values);
+              window.alert('Producto creado correctamente');
+              navigate('/');
+            } catch (error) {
+              console.error('Error al crear el producto:', error);
             }
-            values.image = imageUpload
-            console.log(values);
-            await postProduct(values);
-            navigate('/');
           }}
+
         >
 
           {({ values, errors, handleChange }) => (
@@ -163,12 +166,12 @@ const PostProduct = () => {
               <div>
                 <Field
                   className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
-                  type="text"
-                  name="event"
-                  placeholder="Evento"
+                  type="number"
+                  name="stock"
+                  placeholder="Cantidad de productos en stock"
                 />
-                <ErrorMessage name="event" component={() => (
-                  <div className="text-xs text-red-600">{errors.event}</div>
+                <ErrorMessage name="stock" component={() => (
+                  <div className="text-xs text-red-600">{errors.stock}</div>
                 )} />
               </div>
 
