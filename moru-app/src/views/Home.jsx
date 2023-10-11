@@ -27,7 +27,7 @@ const Home = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate();
   const dataComplete = { ...GetLocalStorage(), ...user };
-  const [cargaSedes, setCargaSedes] = useState(false)
+  const [cargaSedes, setCargaSedes] = useState(false);
 
   useEffect(() => {
     const handleUserAuthentication = async () => {
@@ -50,7 +50,6 @@ const Home = () => {
           }
           
           const dataUser = GetLocalStorage()
-          console.log(dataUser);
 
           if (dataUser.brand && !cargaSedes) {
             await getBrandByOwner(dataUser.brand.id)
@@ -58,11 +57,13 @@ const Home = () => {
           }
 
           if (dataUser.userRole === 'buyer') {
-            if (!favsLS.length) {
+            if (!user && !favsLS.length) {
+              console.log("favoritos");
               const userfavs = await getFavorites(dataUser.id)
               userfavs?.forEach(fav => dispatch(addFav(fav)))
             }
             if (!chartLS.length) {
+              console.log("carrito");
               const userChart = await getChart(dataUser.id)
               userChart?.forEach(product => dispatch(addToCart(product)))
             }
