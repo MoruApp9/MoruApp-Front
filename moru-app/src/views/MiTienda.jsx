@@ -10,6 +10,7 @@ import { BiSolidCloudUpload } from 'react-icons/bi';
 import { Link, useParams } from 'react-router-dom';
 import Product from '../components/Product';
 import { createSelector } from 'reselect';
+import Loader from '../components/Loader'
 
 
 const MiTienda = () => {
@@ -32,7 +33,7 @@ const MiTienda = () => {
             : null
 
     const idBrandUser =
-        currentUser.brand 
+        currentUser?.brand 
             ? currentUser.brand.id
             : null
 
@@ -61,22 +62,6 @@ const MiTienda = () => {
     const [loadingData, setLoadingData] = useState(true)
 
     const image = backgroundDefault;
-
-
-    /*
-    if (loadingData) {
-        return <h1>Cargando...</h1>;
-    }
-
-    useEffect(() => {
-        //getBrandByOwner(id);
-        //const {id} = GetLocalStorage();
-        const {id} = GetLocalStorageCommercesByOwner();
-        if (id) {
-            setLoadingData(false);
-        }
-    },[]) */
-
 
     return (
         <div className='grid gap-4 max-w-7xl mx-auto font-roboto-slab'>
@@ -118,7 +103,7 @@ const MiTienda = () => {
                         </ul>
                     )}
                 </div>) : (
-                <p>Cargando...</p>
+                <Loader />
             )}
 
             {/* Centrar el contenido de Productos de esta sede */}
