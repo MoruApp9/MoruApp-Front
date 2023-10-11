@@ -49,29 +49,6 @@ const Product = ({ product }) => {
     if(user && favorites.length) {
       favorites.forEach(fav => fav.id === productId && setIsFav(true))
     }
-    /* if (!isAuthenticated && localStorageFavs.length) {
-      localStorageFavs.forEach((fav) => {
-        dispatch(addFav(fav)) // to local storage
-        fav.id === productId && setIsFav(true) // estado global for render
-      })
-    } */
-
-   /*  if (user && currentUser?.id) {
-      //dispatch(setUser(true))
-      favorites.forEach((fav) => {
-        dispatch(addFav(fav))
-        fav?.id === productId && setIsFav(true)
-      })
-    } */
-
-    /* if (isAuthenticated && localStorageFavs?.length && loadedUser) {
-      localStorageFavs.forEach((fav) => {
-        dispatch(postFavorites(currentUser?.id, fav.id)) // to database
-        fav.id === productId && setIsFav(true)
-      })
-
-      deleteLocalStorageFavs()
-    } */
   }, [dispatch, isAuthenticated, user, loadedUser, favorites])
 
     
@@ -81,7 +58,6 @@ const Product = ({ product }) => {
     event.preventDefault()
 
     if (user) { // si el user está logged
-      
       if (isFav) { 
         setIsFav(false) //que deje de ser fav
         dispatch(deleteFavorite(currentUser.id, productId)) // se elimina el fav y se actualiza el estado global de favs para renderizar
@@ -101,8 +77,6 @@ const Product = ({ product }) => {
     if (user) {
       postChart(currentUser?.id, productId, quantity) // esto me debería devolver el objeto guardado, no un array con objetos repetidos
       dispatch(addToCart(product))
-      // aquí tendría que haber un post
-      //
     } else
       window.alert("Inicia sesión o regístrate para guardar tu carrito de compras")
   }
@@ -110,8 +84,8 @@ const Product = ({ product }) => {
   const handleDeleteToCart = (event) => {
     event.stopPropagation()
     event.preventDefault()
-    dispatch(removefromCart(product))
     removeChart(currentUser?.id, productId)
+    dispatch(removefromCart(product))
   }
 
   return (

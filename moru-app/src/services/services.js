@@ -228,7 +228,6 @@ export const removeChart = async (clientId, productId) => {
 }
 
 export const postRegisterAddress = (id) => async (dispatch) => {
-
   try {
     const resp = (await axios.get(`${BASE_URL}/commerce/branches/${id}`)).data
     dispatch(setUbication(resp));
@@ -245,17 +244,3 @@ export const getInfoBranch = async (idBranch) => {
     errorHandler(error)
   }
 }
-
-
-
-// console.log(id);
-// return async (dispatch) => {
-//   try {
-//   console.log(id);
-//   const resp = (await axios.get(`${BASE_URL}/commerce/branches/${id}`)).data
-//   console.log(resp);
-//   dispatch(setUbication(resp));
-// } catch (error) {
-//   errorHandler(error)
-// }
-// }
