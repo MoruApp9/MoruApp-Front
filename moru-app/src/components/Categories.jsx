@@ -36,30 +36,8 @@ const Categories = ({ getProductsByCategory }) => {
     const dispatch = useDispatch();
     const categorias = useSelector((state) => state.categories.categorias)
 
-    // useEffect(() => {
-    //     // Cuando el componente se monta, obtén las categorías y almacénalas en el estado global
-    //     const fetchCategorias = async () => {
-    //         try {
-    //             // Realiza la solicitud para obtener categorías
-    //             const response = await fetch('https://moruapp-back.up.railway.app/categories/allCategories');
-    //             if (response.ok) {
-    //                 const data = await response.json();
-    //                 // Dispatch de la acción para establecer las categorías en el estado global
-    //                 dispatch(setCategorias(data));
-    //             } else {
-    //                 console.error('Error al obtener categorías');
-    //             }
-    //         } catch (error) {
-    //             console.error(error);
-    //         }
-    //     };
-
-    //     fetchCategorias();
-    // }, [dispatch]);
-
-
     useEffect(() => {
-        const fetchData = async () => {  //hace la funcion asincrona para poder esperar a que se resuelva la promesa de Categorias
+        const fetchData = async () => {  
             try {
                 const data = await getCategorias()
                 dispatch(setCategorias(data));
