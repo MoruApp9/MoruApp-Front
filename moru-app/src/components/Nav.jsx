@@ -32,6 +32,7 @@ const Nav = () => {
   const currentUser = GetLocalStorage();
   const carrito = useSelector(((state) => state.cart.cart));
   const sedes = GetLocalStorageCommercesByOwner();
+
   
   const handleLogOut = () => {
     DeleteLocalStorage();
