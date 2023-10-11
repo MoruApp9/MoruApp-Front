@@ -49,6 +49,18 @@ const CrearSede = () => {
                             errors.phone = 'Por favor, ingresa el teléfono de atención de la sede';
                         }
 
+                        if (values.phone.length !== 10) {
+                            errors.phone = 'El número de teléfono debe tener 10 caracteres';
+                        }
+
+                        if (values.phone.length !== 10) {
+                            errors.phone = 'El número de teléfono debe tener 10 caracteres';
+                        }
+
+                        if (!/^\d+$/.test(values.phone)) {
+                            errors.phone = 'El número de teléfono solo debe contener dígitos.';
+                        }
+
                         return errors;
                     }}
 
