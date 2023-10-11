@@ -33,15 +33,18 @@ const Home = () => {
   useEffect(() => {
     const handleUserAuthentication = async () => {
       try {
-        if (dataComplete.userRole && dataComplete.email) {
-          if (dataComplete.userRole === "buyer") {
-            await postClientRegister(dataComplete);
-          } else {
-            await postAdmincommerceRegister(dataComplete);
+        if(!Object.keys(dataComplete).length){
+          if (dataComplete.userRole && dataComplete.email) {
+            if (dataComplete.userRole === "buyer") {
+              await postClientRegister(dataComplete);
+            } else {
+              await postAdmincommerceRegister(dataComplete);
+            }
           }
         }
 
-        if(user){
+        const localStorageState = GetLocalStorage()
+        if(user && !localStorageState){
           await getUser(user.email);
           const dataUser = GetLocalStorage()
 
