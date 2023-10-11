@@ -23,7 +23,6 @@ import PostProduct from './views/PostProduct';
 import MiTienda from './views/MiTienda';
 import Account from "./views/Account"
 import RegisterTypeOfShop from './views/RegisterTypeOfShop';
-import { GetLocalStorageFav } from "./localStorage/GetLocalStorage";
 import CrearSede from "./views/CrearSucursal";
 import SearchByLocation from "./views/SearchByLocation";
 
@@ -31,7 +30,6 @@ function App() {
   const { pathname } = useLocation()
   const dispatch = useDispatch();
   const error = useSelector(state => state.errors)
-  const localStorageFavs = GetLocalStorageFav()
 
   //error handler
   //error.length && dispatch(cleanErrors()) && window.alert(error)

@@ -10,5 +10,5 @@ export const errorHandler = (error) => {
           ? error.message
           : error.response.data.error
       )
-    )
+    ) 
   }

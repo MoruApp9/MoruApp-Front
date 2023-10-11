@@ -15,12 +15,12 @@ const PostProduct = () => {
   const [imageUpload, setImageUpload] = useState("")
   const [specificCategories, setSpecificCategories] = useState([]);
   const dispatch = useDispatch();
-  const dataUser = GetLocalStorage(); 
+  const dataUser = GetLocalStorage();
   const navigate = useNavigate()
-  
+
   const handleOnChange = async (event) => {
     const imagen = await uploadImageClaudinary(event)
-      setImageUpload(imagen) 
+    setImageUpload(imagen)
     // esta función sube la imagen a claudinary y entrega la URL para mandarselo al back
     //console.log(await uploadImageClaudinary(event)); //url creada mostrada en consola
   }
@@ -32,7 +32,7 @@ const PostProduct = () => {
         const categoriaId = dataUser.brand.generalcategoryId
         const data = await getSpecificCategories(categoriaId)
         setSpecificCategories(data)
-      } catch (error) { 
+      } catch (error) {
         console.log(error);
       }
     };
@@ -55,8 +55,8 @@ const PostProduct = () => {
             price: "",
             description: "",
             image: imageUpload,
-            event: "",
-            commerceId: dataUser.brand.id, 
+            stock: "",
+            commerceId: dataUser.brand.id,
             generalcategoryId: dataUser.brand.generalcategoryId,
             specificCategory: "",
             extraCategory: "",
@@ -84,11 +84,10 @@ const PostProduct = () => {
               error.description = 'La descripción no debe superar los 300 carácteres'
             }
 
-            if (!values.event) {
+            if (!values.stock) {
               error.event = 'Por favor, ingresa un evento'
-            } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.event)) {
-              error.event = 'El nombre solo puede contener letras y espacios'
             }
+
             if (values.specificCategory === "") {
               error.specificCategory = 'Por favor, ingresa una categoria especifica'
             }
@@ -96,14 +95,23 @@ const PostProduct = () => {
 
           }}
 
-          onSubmit={async (valores) => {
-            valores.image = imageUpload
-            await postProduct(valores);
-            navigate('/');
+          onSubmit={async (values) => {
+            if (values.specificCategory === "otra")
+              values.specificCategory = values.extraCategory;
+            values.image = imageUpload;
+            try {
+              await postProduct(values);
+              window.alert('Producto creado correctamente');
+              navigate('/');
+              window.location.reload()
+            } catch (error) {
+              console.error('Error al crear el producto:', error);
+            }
           }}
+
         >
 
-          {({ values, errors }) => (
+          {({ values, errors, handleChange }) => (
             <Form autoComplete="off" className="flex flex-col gap-6 ">
               <div>
                 <Field
@@ -147,7 +155,7 @@ const PostProduct = () => {
                   name="file"
                   id="fileInput"
                   className="hidden"
-                  onChange= {handleOnChange}
+                  onChange={handleOnChange}
                 />
 
                 <label htmlFor="fileInput" className="text-purple-moru w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-m font-roboto-slab flex items-center justify-center cursor-pointer">
@@ -159,12 +167,12 @@ const PostProduct = () => {
               <div>
                 <Field
                   className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
-                  type="text"
-                  name="event"
-                  placeholder="Evento"
+                  type="number"
+                  name="stock"
+                  placeholder="Cantidad de productos en stock"
                 />
-                <ErrorMessage name="event" component={() => (
-                  <div className="text-xs text-red-600">{errors.event}</div>
+                <ErrorMessage name="stock" component={() => (
+                  <div className="text-xs text-red-600">{errors.stock}</div>
                 )} />
               </div>
 
@@ -172,29 +180,30 @@ const PostProduct = () => {
                 <Field
                   className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
                   as="select"
-                  name="specificCategory" 
+                  name="specificCategory"
                   defaultValue="">
-                    
+
                   <option value="" disabled>
                     Selecciona una categoría específica
                   </option>
                   {specificCategories.map((categoria) => (
                     <option key={categoria.id} value={categoria.id}>{categoria.name}</option>))}
-                    <option value="otra">Otra</option>
+                  <option value="otra">Otra</option>
                 </Field>
                 <ErrorMessage name="specificCategory" component={() => (
                   <div className="text-xs text-red-600">{errors.specificCategory}</div>
                 )} />
-                { values.specificCategory === "otra" ?
-                <div>
-                  <Field
-                  className="mt-6 w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
-                  type="text"
-                  name="extraCategory"
-                  placeholder="Ingresa tu categoría personal"
-                  >
-                  </Field>
-                </div>: null}
+                {values.specificCategory === "otra" ?
+                  <div>
+                    <Field
+                      className="mt-6 w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
+                      type="text"
+                      name="extraCategory"
+                      placeholder="Ingresa tu categoría personal"
+                      onChange={handleChange}
+                      value={values.extraCategory}
+                    />
+                  </div> : null}
 
               </div>
 
@@ -204,12 +213,12 @@ const PostProduct = () => {
                     className="w-36 md:h-14 h-10 px-2 border-2 border-purple-moru rounded-lg bg-gray-200 text-sm font-roboto-slab">
                     Atrás
                   </button>
-                </Link>  
-                  <button
-                    className="w-36 h-10 md:h-14 px-2 border border-purple-moru rounded-lg bg-purple-moru text-white text-sm font-roboto-slab"
-                    type="submit">
-                    Siguiente
-                  </button>
+                </Link>
+                <button
+                  className="w-36 h-10 md:h-14 px-2 border border-purple-moru rounded-lg bg-purple-moru text-white text-sm font-roboto-slab"
+                  type="submit">
+                  Siguiente
+                </button>
               </div>
             </Form>
           )}

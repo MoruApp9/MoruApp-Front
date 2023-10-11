@@ -27,7 +27,7 @@ const AllProducts = () => {
                     Relacionados con tu última búsqueda
                 </h1>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-                    {latest.map((product) => (
+                    {latest?.map((product) => (
                         <Product key={product.id} product={product} />
                     ))}
                 </div>
@@ -38,7 +38,7 @@ const AllProducts = () => {
                     Todos los productos
                 </h1>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-                    {allProducts.map((product) => (
+                    {allProducts?.map((product) => (
                         <Product key={product.id} product={product} />
                     ))}
                 </div>

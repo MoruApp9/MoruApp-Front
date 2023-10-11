@@ -8,14 +8,36 @@ import { useEffect, useState } from "react";
 import { getBrandByOwner, getInfoBranch } from '../services/services';
 import { BiSolidCloudUpload } from 'react-icons/bi';
 import { Link, useParams } from 'react-router-dom';
-import AllProducts from '../components/AllProducts';
 import Product from '../components/Product';
-import { useAuth0 } from '@auth0/auth0-react';
+import { createSelector } from 'reselect';
+
 
 const MiTienda = () => {
     const { id } = useParams();
-    const sedes = GetLocalStorageCommercesByOwner();
     const [branchData, setBranchData] = useState(null);
+    const currentUser = GetLocalStorage();
+
+    const selectProductsSede = createSelector(
+        (state) => state.allProducts.allProducts,
+        (_, id) => id,
+        (allProducts, id) =>
+            allProducts.filter((p) => p.commercebranchId === id)
+    );
+    const productsSede = useSelector((state) => selectProductsSede(state, id));
+
+
+    const idBrandCommerce =
+        productsSede[productsSede.length - 1]?.commerceId
+            ? productsSede[productsSede.length - 1]?.commerceId
+            : null
+
+    const idBrandUser =
+        currentUser.brand 
+            ? currentUser.brand.id
+            : null
+
+
+    const esDueño = (idBrandUser === idBrandCommerce || null  === idBrandCommerce)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -30,12 +52,6 @@ const MiTienda = () => {
         fetchData();
     }, [id]);
 
-    const sucursal = sedes?.find((product) => product.id === id);
-    const productsSede = useSelector((state) => state.allProducts.allProducts.filter((p) => p.commercebranchId === id)) //VA A FUNCIONAR CUANDO CREEN PROP EN EL BACK
-    const { isAuthenticated } = useAuth0();
-    const currentUser = GetLocalStorage();
-
-    console.log('products: ', productsSede);
 
     const handleOnChange = async (event) => {
         await uploadImageClaudinary(event) // esta función sube la imagen a claudinary y entrega la URL para mandarselo al back
@@ -87,7 +103,8 @@ const MiTienda = () => {
                     <div>
                         <h1 className='text-xl md:text-2xl text-gray-800'>Teléfono: {branchData.phone}</h1>
                     </div>
-                    {isAuthenticated && GetLocalStorage() && currentUser.userRole === 'adminCommerce' && (
+
+                    {esDueño && (
                         <ul className="order-2 flex justify-start p-2 hover:bg-gray-200 rounded-md w-52 space-x-4">
                             <BiSolidCloudUpload className="w-7 text-purple-moru text-3xl" />
                             <Link

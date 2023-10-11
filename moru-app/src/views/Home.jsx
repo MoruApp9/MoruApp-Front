@@ -11,12 +11,14 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { addToCart } from "../redux/cartSlice";
 import { addFav } from "../redux/favoritesSlice";
-import { setUser } from "../redux/userSlice";
+//import { setUser } from "../redux/userSlice";
 import Loader from "../components/Loader";
 
 const Home = () => {
   const productsFiltered = useSelector((state) => state.productsFiltered);
-  const loadedUser = useSelector(state => state.user)
+  const favsLS = useSelector((state) => state.favorites)
+  const chartLS = useSelector(state => state.cart.cart)
+  //const loadedUser = useSelector(state => state.user)
 
   const [loadingData, setLoadingData] = useState(true);
   const [localStorageData, setLocalStorageData] = useState(null);
@@ -30,57 +32,58 @@ const Home = () => {
   useEffect(() => {
     const handleUserAuthentication = async () => {
       try {
-        // Realizar las solicitudes para obtener datos y configurar localStorageData
         if (dataComplete.userRole && dataComplete.email) {
           if (dataComplete.userRole === "buyer") {
             await postClientRegister(dataComplete);
           } else {
             await postAdmincommerceRegister(dataComplete);
-            dispatch(getUser(dataComplete.email))
           }
-        }  
-        if (dataComplete.brand && !cargaSedes) {
-          console.log(dataComplete.brand.id);
-          getBrandByOwner(dataComplete.brand.id)
-          setCargaSedes(true)
+        }
+
+        // const localStorageState = GetLocalStorage()
+        if (user) {
+          await getUser(user.email);
+          const dataUser = GetLocalStorage()
+
+          if (dataUser.brand && !cargaSedes) {
+            await getBrandByOwner(dataUser.brand.id)
+            setCargaSedes(true)
+          }
+
+          if (dataUser.userRole === 'buyer') {
+            if (!favsLS.length) {
+              const userfavs = await getFavorites(dataUser.id)
+              userfavs?.forEach(fav => dispatch(addFav(fav)))
+            }
+            if (!chartLS.length) {
+              const userChart = await getChart(dataUser.id)
+              userChart?.forEach(product => dispatch(addToCart(product)))
+            }
+          }
         }
       } catch (error) {
         console.error(error);
       } finally {
-        dispatch(setUser(true))
-        setLoadingData(false); 
+        //dispatch(setUser(true))
+        setLoadingData(false);
       }
     };
     handleUserAuthentication();
-  }, [loadedUser, isAuthenticated, localStorageData]);
+  }, [user, isAuthenticated, localStorageData, dataComplete]);
 
-  loadingData ? <Loader/> : null
+  loadingData ? <Loader /> : null
 
   if (localStorageData && localStorageData.error) navigate('/registration');
 
-/*   if (dataComplete?.userRole === 'adminCommerce') { }
-     //getUser(dataComplete.email)
-    //console.log('dataComplete: ', dataComplete);
-  
-      else {
-      getBrandByOwner(dataComplete.brand.id);
-    }
-  }  */
-
-  if(loadedUser) {
-    const handleChart = async () => {
-      const userChart = await getChart(dataComplete.id)
-      userChart.forEach(product => dispatch(addToCart(product)))
-    }
-
-    const handleFavs = async () => {
-      const userfavs = await getFavorites(dataComplete.id)
-      userfavs.forEach(fav => dispatch(addFav(fav)))
-    }
+  /*   if (dataComplete?.userRole === 'adminCommerce') { }
+       //getUser(dataComplete.email)
+      //console.log('dataComplete: ', dataComplete);
     
-    handleChart()
-    handleFavs()
-  }
+        else {
+        getBrandByOwner(dataComplete.brand.id);
+      }
+    }  */
+
 
 
 
