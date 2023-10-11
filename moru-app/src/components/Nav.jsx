@@ -26,7 +26,7 @@ const Nav = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-  const { loginWithRedirect, logout } = useAuth0();
+  const { user, loginWithRedirect, logout } = useAuth0();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currentUser = GetLocalStorage();
@@ -66,11 +66,11 @@ const Nav = () => {
             <FiMenu className="text-4xl text-purple-moru"/>
           </button>
 
-          {!currentUser && <button className="hidden md:block text-purple-moru hover:bg-gray-200 p-1 rounded-md" onClick={() => loginWithRedirect()}>
+          {!user && <button className="hidden md:block text-purple-moru hover:bg-gray-200 p-1 rounded-md" onClick={() => loginWithRedirect()}>
             Iniciar Sesión
           </button>}
 
-          {!currentUser && <Link  className='hidden md:block text-purple-moru hover:bg-gray-200 p-1 rounded-md' to={`/registration`}>
+          {!user && <Link  className='hidden md:block text-purple-moru hover:bg-gray-200 p-1 rounded-md' to={`/registration`}>
             <p>Crear Cuenta</p>
           </Link>}
         </div>

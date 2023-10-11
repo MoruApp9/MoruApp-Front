@@ -32,18 +32,25 @@ const Home = () => {
   useEffect(() => {
     const handleUserAuthentication = async () => {
       try {
-        if (dataComplete.userRole && dataComplete.email) {
-          if (dataComplete.userRole === "buyer") {
-            await postClientRegister(dataComplete);
-          } else {
-            await postAdmincommerceRegister(dataComplete);
+        if (!dataComplete.id) {
+          if (dataComplete.userRole && dataComplete.email) {
+            if (dataComplete.userRole === "buyer") {
+              await postClientRegister(dataComplete);
+            } else {
+              await postAdmincommerceRegister(dataComplete);
+            }
           }
         }
-
-        // const localStorageState = GetLocalStorage()
+          
         if (user) {
-          await getUser(user.email);
+          if (dataComplete.userRole === "adminCommerce" && !dataComplete.brand) {
+            await getUser(user.email);
+          }else if(!dataComplete.id){
+            await getUser(user.email);
+          }
+          
           const dataUser = GetLocalStorage()
+          console.log(dataUser);
 
           if (dataUser.brand && !cargaSedes) {
             await getBrandByOwner(dataUser.brand.id)
