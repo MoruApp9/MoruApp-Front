@@ -35,6 +35,7 @@ const Home = () => {
         if (!dataComplete.id) {
           if (dataComplete.userRole && dataComplete.email) {
             if (dataComplete.userRole === "buyer") {
+              console.log("register cliente");
               await postClientRegister(dataComplete);
             } else {
               await postAdmincommerceRegister(dataComplete);
@@ -46,10 +47,12 @@ const Home = () => {
           if (dataComplete.userRole === "adminCommerce" && !dataComplete.brand) {
             await getUser(user.email);
           }else if(!dataComplete.id){
+            console.log("data");
             await getUser(user.email);
           }
           
           const dataUser = GetLocalStorage()
+          console.log(dataUser);
 
           if (dataUser.brand && !cargaSedes) {
             await getBrandByOwner(dataUser.brand.id)
