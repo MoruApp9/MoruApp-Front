@@ -17,14 +17,17 @@ import {
 
 import { FiHeart } from "react-icons/fi"
 
-import { GetLocalStorage, GetLocalStorageFav } from "../localStorage/GetLocalStorage"
+import {
+  GetLocalStorage,
+  GetLocalStorageFav,
+} from "../localStorage/GetLocalStorage"
 import { PostLocalStorageFav } from "../localStorage/PostLocalStorage"
 import { putLocalStorageFavs } from "../localStorage/PutLocalStorage"
 import { deleteLocalStorageFavs } from "../localStorage/DeleteLocalStorage"
 
 import { useAuth0 } from "@auth0/auth0-react"
 import { current } from "@reduxjs/toolkit"
-import { setUser } from "../redux/userSlice"
+import { setUserIsLoaded } from "../redux/userIsLoadedSlice"
 
 const Product = ({ product }) => {
   const productId = product.id
@@ -46,28 +49,26 @@ const Product = ({ product }) => {
   //console.log(dispatch(getFavorites("f4476200-8c67-4253-9561-f7a53f713f64")));
 
   useEffect(() => {
-    if(user && favorites.length) {
-      favorites.forEach(fav => fav.id === productId && setIsFav(true))
+    if (user && favorites.length) {
+      favorites.forEach((fav) => fav.id === productId && setIsFav(true))
     }
   }, [dispatch, isAuthenticated, user, loadedUser, favorites])
-
-    
 
   const handleFavorite = (event) => {
     event.stopPropagation()
     event.preventDefault()
 
-    if (user) { // si el user está logged
-      if (isFav) { 
+    if (user) {
+      // si el user está logged
+      if (isFav) {
         setIsFav(false) //que deje de ser fav
         dispatch(deleteFavorite(currentUser.id, productId)) // se elimina el fav y se actualiza el estado global de favs para renderizar
-      } 
-      else { // si no es fav
+      } else {
+        // si no es fav
         setIsFav(true) // se vuelve fav
         dispatch(postFavorites(currentUser.id, productId)) // Se postea en la base de datos como fav y se actualiza el estado global
       }
-    } 
-    else window.alert("Inicia sesión o regístrate para guardar tus favoritos") // si no está logged
+    } else window.alert("Inicia sesión o regístrate para guardar tus favoritos") // si no está logged
   }
 
   const handleAddToCart = (event) => {
@@ -78,7 +79,9 @@ const Product = ({ product }) => {
       postChart(currentUser?.id, productId, quantity) // esto me debería devolver el objeto guardado, no un array con objetos repetidos
       dispatch(addToCart(product))
     } else
-      window.alert("Inicia sesión o regístrate para guardar tu carrito de compras")
+      window.alert(
+        "Inicia sesión o regístrate para guardar tu carrito de compras"
+      )
   }
 
   const handleDeleteToCart = (event) => {
@@ -116,8 +119,8 @@ const Product = ({ product }) => {
         </div>
 
         <div className="flex items-center justify-center py-2">
-          {currentUser?.userRole !== "adminCommerce" && (
-            mostrarBotonAgregar ? (
+          {currentUser?.userRole !== "adminCommerce" &&
+            (mostrarBotonAgregar ? (
               <button
                 className="bg-purple-moru text-white hover:bg-white hover:text-purple-moru  font-bold py-2 px-4 rounded-full"
                 onClick={handleAddToCart}>
@@ -129,8 +132,7 @@ const Product = ({ product }) => {
                 onClick={handleDeleteToCart}>
                 Eliminar
               </button>
-            )
-          )}
+            ))}
         </div>
       </div>
     </Link>

@@ -32,7 +32,7 @@ const Nav = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const { logout } = useAuth0();
-  console.log('sedes', sedes);
+  //console.log('sedes', sedes);
   
   const handleLogOut = () => {
     DeleteLocalStorage();
