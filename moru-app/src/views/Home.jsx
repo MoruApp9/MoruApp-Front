@@ -52,8 +52,8 @@ const Home = () => {
               const userfavs = await getFavorites(dataUser.id)
               userfavs?.forEach(fav => dispatch(addFav(fav)))
 
-              /* const userChart = await getChart(dataUser.id)
-              userChart?.forEach(product => dispatch(addToCart(product.productId))) */
+              const userChart = await getChart(dataUser.id)
+              userChart?.forEach(product => dispatch(addToCart(product.productId)))
           }
         }     
       } catch (error) {
