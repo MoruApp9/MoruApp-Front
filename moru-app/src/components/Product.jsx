@@ -59,24 +59,28 @@ const Product = ({ product }) => {
     event.preventDefault()
 
     if (user) {
+      const userUpdate = GetLocalStorage()
       // si el user está logged
       if (isFav) {
         setIsFav(false) //que deje de ser fav
-        dispatch(deleteFavorite(currentUser.id, productId)) // se elimina el fav y se actualiza el estado global de favs para renderizar
+        dispatch(deleteFavorite(userUpdate.id, productId)) // se elimina el fav y se actualiza el estado global de favs para renderizar
       } else {
         // si no es fav
         setIsFav(true) // se vuelve fav
-        dispatch(postFavorites(currentUser.id, productId)) // Se postea en la base de datos como fav y se actualiza el estado global
+        console.log(userUpdate);
+        dispatch(postFavorites(userUpdate.id, productId)) // Se postea en la base de datos como fav y se actualiza el estado global
       }
     } else window.alert("Inicia sesión o regístrate para guardar tus favoritos") // si no está logged
   }
 
   const handleAddToCart = (event) => {
+    
     event.stopPropagation()
     event.preventDefault()
     const quantity = 1
     if (user) {
-      postChart(currentUser?.id, productId, quantity) // esto me debería devolver el objeto guardado, no un array con objetos repetidos
+      const userUpdate = GetLocalStorage()
+      postChart(userUpdate?.id, productId, quantity) // esto me debería devolver el objeto guardado, no un array con objetos repetidos
       dispatch(addToCart(product))
     } else
       window.alert(
