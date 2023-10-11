@@ -1,11 +1,29 @@
 import { useSelector, useDispatch } from "react-redux"
-import { removeAllFromCart } from "../redux/cartSlice"  // Asegúrate de importar la acción adecuada
+import { addToCart, removeAllFromCart } from "../redux/cartSlice"  // Asegúrate de importar la acción adecuada
 import Product from "../components/Product"
 import { Link } from "react-router-dom"
+import { useEffect } from "react"
+import { GetLocalStorage } from "../localStorage/GetLocalStorage"
+import { useAuth0 } from "@auth0/auth0-react"
+import { getChart } from "../services/services"
 
 const ShoppingCart = () => {
-  const dispatch = useDispatch()
   const cartItems = useSelector((state) => state.cart.cart)
+  const dispatch = useDispatch()
+  const { user } = useAuth0()
+  
+  useEffect(()=> {
+    const reloadChart = async() => {
+      const dataUser = GetLocalStorage()
+
+      if(user && dataUser.userRole === 'buyer' && !cartItems.length){
+        const userChart = await getChart(dataUser.id)
+        userChart?.forEach(product => dispatch(addToCart(product)))
+      }
+    }
+    reloadChart()
+  }, [dispatch, user, cartItems])
+  
   const total = cartItems.reduce((accumulator, product) => {
     return accumulator + parseFloat(product?.price)
   }, 0)

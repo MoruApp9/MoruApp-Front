@@ -16,8 +16,8 @@ import Loader from "../components/Loader";
 
 const Home = () => {
   const productsFiltered = useSelector((state) => state.productsFiltered);
-  const favsLS = useSelector((state) => state.favorites)
-  const chartLS = useSelector(state => state.cart.cart)
+  const favsGlobalState = useSelector((state) => state.favorites)
+  const chartGlobalState = useSelector(state => state.cart.cart)
   //const loadedUser = useSelector(state => state.user)
 
   const [loadingData, setLoadingData] = useState(true);
@@ -57,11 +57,11 @@ const Home = () => {
           }
 
           if (dataUser.userRole === 'buyer') {
-            if (!favsLS.length) {
+            if (!favsGlobalState.length) {
               const userfavs = await getFavorites(dataUser.id)
               userfavs?.forEach(fav => dispatch(addFav(fav)))
             }
-            if (!chartLS.length) {
+            if (!chartGlobalState.length) {
               const userChart = await getChart(dataUser.id)
               userChart?.forEach(product => dispatch(addToCart(product)))
             }
