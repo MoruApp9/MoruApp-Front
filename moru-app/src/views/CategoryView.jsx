@@ -4,20 +4,28 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getProductsByCategory } from '../services/services';
 import Product from '../components/Product'
 import Categories from '../components/Categories';
+import { createSelector } from 'reselect';
 
 const CategoryView = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
     const [sortOrder, setSortOrder] = useState('asc');
-    const productos = useSelector((state) => state.products.products.filter(producto => producto.generalcategoryId === +id));
 
-    const handleSortChange = (e) => {
-        setSortOrder(e.target.value);
-    };
+    const selectFilteredProducts = createSelector(
+        (state) => state.products.products,
+        (_, id) => id,
+        (products, id) =>
+            products.filter((producto) => producto.generalcategoryId === +id)
+    );
+    const productos = useSelector((state) => selectFilteredProducts(state, id));
 
     useEffect(() => {
         dispatch(getProductsByCategory(id));
     }, [dispatch, id]);
+
+    const handleSortChange = (e) => {
+        setSortOrder(e.target.value);
+    };
 
     const sortedProductos = [...productos].sort((a, b) => {
         if (sortOrder === 'asc') {
@@ -46,7 +54,7 @@ const CategoryView = () => {
                     <h1 className="text-4xl text-center text-purple-moru m-8"> Aún no hay productos de esa categoría </h1>
                     <Link to={'/'}> <h2 className="text-4xl font-bold text-center text-purple-moru-dark m-8">Ver todos </h2></Link>
                 </div>)}
-                <div className="p-6 lg:px-28 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            <div className="p-6 lg:px-28 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
                 {sortedProductos.map((producto, index) => (
                     <Product key={producto.id} product={producto} />
                 ))}

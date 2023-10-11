@@ -8,26 +8,31 @@ import { useEffect, useState } from "react";
 import { getBrandByOwner, getInfoBranch } from '../services/services';
 import { BiSolidCloudUpload } from 'react-icons/bi';
 import { Link, useParams } from 'react-router-dom';
-import AllProducts from '../components/AllProducts';
 import Product from '../components/Product';
-import { useAuth0 } from '@auth0/auth0-react';
+import { createSelector } from 'reselect';
+
 
 const MiTienda = () => {
     const { id } = useParams();
     const sedes = GetLocalStorageCommercesByOwner();
     const [branchData, setBranchData] = useState(null);
-    const sucursal = sedes?.find((product) => product.id === id);
-    const productsSede = useSelector((state) => state.allProducts.allProducts.filter((p) => p.commercebranchId === id)) //VA A FUNCIONAR CUANDO CREEN PROP EN EL BACK
-    const { isAuthenticated } = useAuth0();
     const currentUser = GetLocalStorage();
 
-    const idBrand = 
-        productsSede[productsSede.length-1]?.commerceId 
-            ? productsSede[productsSede.length-1]?.commerceId
+    const selectProductsSede = createSelector(
+        (state) => state.allProducts.allProducts,
+        (_, id) => id,
+        (allProducts, id) =>
+            allProducts.filter((p) => p.commercebranchId === id)
+    );
+    const productsSede = useSelector((state) => selectProductsSede(state, id));
+
+
+    const idBrand =
+        productsSede[productsSede.length - 1]?.commerceId
+            ? productsSede[productsSede.length - 1]?.commerceId
             : null
 
     const esDueño = (currentUser?.brand.id === idBrand) || (null === idBrand)
-    console.log(esDueño);
 
 
     useEffect(() => {
@@ -94,7 +99,7 @@ const MiTienda = () => {
                     <div>
                         <h1 className='text-xl md:text-2xl text-gray-800'>Teléfono: {branchData.phone}</h1>
                     </div>
-                    
+
                     {esDueño && (
                         <ul className="order-2 flex justify-start p-2 hover:bg-gray-200 rounded-md w-52 space-x-4">
                             <BiSolidCloudUpload className="w-7 text-purple-moru text-3xl" />
