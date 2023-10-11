@@ -25,7 +25,7 @@ const ShoppingCart = () => {
   }, [dispatch, user, cartItems])
   
   const total = cartItems.reduce((accumulator, product) => {
-    return accumulator + parseFloat(product.price)
+    return accumulator + parseFloat(product?.price)
   }, 0)
 
   const handleRemoveAllFromCart = () => {
