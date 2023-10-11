@@ -1,10 +1,21 @@
 import { Link } from "react-router-dom";
 import Product from "../components/Product";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 
 const Favorites = () => {
     const favorites = useSelector(state => state.favorites)
+    const { user } = useAuth0()
+
+    useEffect(() => {
+        const handleFavs = () => {
+            if(user) {
+    
+            }
+        }
+    }, [])
 
     return (
         <section className="flex flex-col mx-4 font-roboto-slab">
