@@ -14,15 +14,7 @@ const Favorites = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        const reloadFavs = async() => {
-            const dataUser = GetLocalStorage()
-
-            if(user && dataUser.userRole === 'buyer' && !favorites.length) {
-                const userFavs = await getFavorites(dataUser.id)
-                userFavs?.forEach(fav => dispatch(addFav(fav)))
-            }
-        }
-        reloadFavs()
+        
     }, [dispatch, user, favorites])
 
     return (

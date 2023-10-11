@@ -13,15 +13,7 @@ const ShoppingCart = () => {
   const { user } = useAuth0()
   
   useEffect(()=> {
-    const reloadChart = async() => {
-      const dataUser = GetLocalStorage()
-
-      if(user && dataUser.userRole === 'buyer' && !cartItems.length){
-        const userChart = await getChart(dataUser.id)
-        userChart?.forEach(product => dispatch(addToCart(product)))
-      }
-    }
-    reloadChart()
+  
   }, [dispatch, user, cartItems])
   
   const total = cartItems.reduce((accumulator, product) => {
@@ -56,7 +48,7 @@ const ShoppingCart = () => {
 
       <div className="p-6 lg:px-28 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         {cartItems.map((product) => (
-          <Product key={product.id} product={product} />
+          <Product key={product?.id} product={product} />
         ))}
       </div>
     </section>
