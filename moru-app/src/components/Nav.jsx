@@ -41,6 +41,7 @@ const Nav = () => {
 
   const handleButtonClick = (e) => {
     e.preventDefault();
+    setSelectedOption('tienda')
     setDropdownOpen(!isDropdownOpen);
   };
 
@@ -57,13 +58,9 @@ const Nav = () => {
   }
 
   return (
-    <nav className="flex flex-col sticky top-0 bg-white z-40 font-roboto-slab" >
-      <div className="flex w-full absolute justify-center">
-        <Link onClick={handleOnClickMenu} to="/" className="w-28"><img src={logoMoru}/></Link>
-      </div>
-
-      <div className="flex w-full items-center justify-between px-6 py-2 shadow-lg rounded-bl-lg rounded-br-xl font-roboto-slab">
-        <div className="flex items-center space-x-6">
+    <nav className="flex flex-col sticky top-0 bg-white z-40 rounded-b-xl font-roboto-slab">
+      <div className="flex w-full px-2 sm:px-6 py-2 shadow-lg rounded-b-xl font-roboto-slab z-10">
+        <div className="flex w-full justify-start items-center space-x-6 whitespace-nowrap">
           <button onClick={() => { setOpenMenu(true) }} className="hover:bg-gray-200 rounded-md">
             <FiMenu className="text-4xl text-purple-moru"/>
           </button>
@@ -77,7 +74,11 @@ const Nav = () => {
           </Link>}
         </div>
 
-        <div className="flex items-center ">
+        <div className="flex w-full justify-center">
+          <Link onClick={handleOnClickMenu} to="/" className="w-28"><img src={logoMoru}/></Link>
+        </div>
+        
+        <div className="flex w-full justify-end">
           {
 
             // isAuthenticated
@@ -94,7 +95,6 @@ const Nav = () => {
         </div>
       </div>
 
-
       {/* Menú desplegable */}
       <div onClick={() => { setOpenMenu(false) }} className={`${!openMenu && 'hidden'} bg-gray-600/50 min-h-screen w-full fixed backdrop-blur-sm`}></div>
 
@@ -104,92 +104,104 @@ const Nav = () => {
             <FiMenu className="text-4xl text-purple-moru ml-6 mb-5"></FiMenu>
           </button>
 
-          <li className={`flex flex-col text-xl gap-10 items-start ml-12 whitespace-nowrap w-52 ${currentUser ? 'mt-9' : 'mt-0'}`}>
-            <ul className={`flex ${currentUser ? 'order-5' : 'order-1'}  justify-start p-2 hover:bg-gray-200 rounded-md w-52`}  >
-              {
-                currentUser
-                ? <button className="flex items-center space-x-4 mr-3" onClick={handleLogOut}><MdLogout className="w-7 text-3xl text-purple-moru"/><span>Cerrar sesión</span></button>
-                : <button className="flex items-center space-x-4 mr-3" onClick={() => loginWithRedirect()}><BiSolidUser className="w-7 text-3xl text-purple-moru" /><span>Iniciar Sesión</span></button>
-              }
-            </ul >
-
-            <ul className={`flex ${currentUser && 'hidden'} order-2 justify-start p-2 hover:bg-gray-200 rounded-md w-52`}>
-              {
-                !currentUser
-                && <Link onClick={() =>{ setOpenMenu(false)} } className="flex items-center space-x-4 mr-3" to={`/registration`}><AiOutlineUserAdd className="w-7 text-3xl text-purple-moru" /><span>Crear Cuenta</span></Link>
-              }
-            </ul>
-
-            {/* currentUser.userRole !== 'adminCommerce' && <ul onClick={() => { setOpenMenu(false) }} className="  order-2 flex justify-center space-x-4 " ><MdFavorite className="w-7 text-purple-moru text-3xl"></MdFavorite><Link to="/fav">Favoritos</Link></ul> */
-              (!currentUser || GetLocalStorage() && currentUser.userRole === 'buyer' ) && 
-              
-              <ul onClick={() => { setOpenMenu(false), setSelectedOption('favoritos') }} className={`order-2 flex justify-start p-2 hover:bg-gray-200 rounded-md w-52 ${selectedOption === "favoritos" ? 'bg-gray-200 ': ''}`} ><Link to="/fav" className="flex items-center space-x-4 mr-3"><MdFavorite className="w-7 text-purple-moru text-3xl"/><span>Favoritos</span></Link></ul>
+          <li className="flex flex-col text-xl gap-10 items-start ml-12 mt-9 whitespace-nowrap w-52">
+            {!currentUser &&
+              <ul>
+                <button className="flex items-center space-x-4 mr-3 p-2 hover:bg-gray-200 rounded-md w-52" onClick={() => loginWithRedirect()}>
+                  <BiSolidUser className="w-7 text-3xl text-purple-moru" /><span>Iniciar Sesión</span>
+                </button>
+              </ul >
             }
 
-              <ul className={`flex order-2 justify-start p-2 hover:bg-gray-200 rounded-md w-52`}>
-              {!currentUser || GetLocalStorage() && currentUser.userRole === 'adminCommerce' && !currentUser.brand &&
-                <Link onClick={() =>{ setOpenMenu(false)} } className="flex items-center space-x-4 mr-3" to={`/registrar-empresa`}><AiOutlineUserAdd className="w-7 text-3xl text-purple-moru" /><span>Registrar marca</span></Link>
-              }
+            {!currentUser && 
+            <Link to={`/registration`}>
+              <ul className={`flex ${currentUser && 'hidden'} p-2 hover:bg-gray-200 rounded-md w-52 items-center space-x-4 mr-3 ${selectedOption === "crearCuenta" ? 'bg-gray-200 ': ''}`}
+              onClick={() =>{ setOpenMenu(false), setSelectedOption('crearCuenta')} }>
+                <AiOutlineUserAdd className="w-7 text-3xl text-purple-moru" /><span>Crear Cuenta</span>
               </ul>
+            </Link>
+            }
 
-            <div>
-              {currentUser && GetLocalStorage() && currentUser.userRole === 'adminCommerce' && currentUser.brand &&
-              <ul onClick={() => setSelectedOption('tienda') }
-              className={`order-2 flex justify-start p-2 hover:bg-gray-200 rounded-md w-52 space-x-4 ${selectedOption === 'tienda' ? 'bg-gray-200 ': ''}`} >
-                <PiStorefrontDuotone className="w-7 text-purple-moru text-3xl"/>
-                <button
-                  type="button"
-                  onClick={(e) => handleButtonClick(e)}
-                  className="flex"
-                >
-                  Mis tiendas
-                  <IoIosArrowDown className="w-7 text-3xl ml-3 text-purple-moru "/>
+            {/* currentUser.userRole !== 'adminCommerce' && <ul onClick={() => { setOpenMenu(false) }} className="  order-2 flex justify-center space-x-4 " ><MdFavorite className="w-7 text-purple-moru text-3xl"></MdFavorite><Link to="/fav">Favoritos</Link></ul> */
+            (!currentUser || GetLocalStorage() && currentUser.userRole === 'buyer' ) && 
+              <Link to="/fav" >
+                <ul onClick={() => { setOpenMenu(false), setSelectedOption('favoritos') }} className={`flex p-2 hover:bg-gray-200 rounded-md w-52 items-center space-x-4 mr-3 ${selectedOption === "favoritos" ? 'bg-gray-200 ': ''}`} >
+                  <MdFavorite className="w-7 text-purple-moru text-3xl"/><span>Favoritos</span>
+                </ul>
+              </Link>
+            }
+
+            {!currentUser || GetLocalStorage() && currentUser.userRole === 'adminCommerce' && !currentUser.brand &&
+              <Link  to={`/registrar-empresa`}>
+                <ul className={`flex items-center space-x-4 mr-3 p-2 hover:bg-gray-200 rounded-md w-52 ${selectedOption === "registrarMarca" ? 'bg-gray-200 ': ''}`}
+                  onClick={() =>{ setOpenMenu(false), setSelectedOption('registrarMarca')} }>
+                  <AiOutlineUserAdd className="w-7 text-3xl text-purple-moru" /><span className="w-28">Registrar marca</span>
+                </ul>
+              </Link>
+            }
+            {currentUser && GetLocalStorage() && currentUser.userRole === 'adminCommerce' && currentUser.brand &&
+              <div>
+                <button>
+                  <ul onClick={(e) => handleButtonClick(e) }
+                  className={`flex p-2 hover:bg-gray-200 rounded-md w-52  ${selectedOption === 'tienda' ? 'bg-gray-200 ': ''}`} >
+                    <PiStorefrontDuotone className="w-7 text-purple-moru text-3xl"/>
+                    <span className="w-28 ml-4">Mis tiendas</span>  
+                    <IoIosArrowDown className="w-7 ml-2 text-3xl text-purple-moru "/>
+                  </ul>
                 </button>
-              </ul>}
 
-              {isDropdownOpen && (
-                <div className="origin-top-right right-0 mt-2 w-52 whitespace-normal bg-gray-100 rounded-md">
-                  <div role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                    {sedes?.map((option, index) => (
+                {isDropdownOpen && (
+                  <div className="origin-top-right right-0 mt-2 w-52 whitespace-normal bg-gray-100 rounded-md">
+                    <div role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                      {sedes?.map((option, index) => (
+                        <button
+                          key={index}
+                          onClick={(e) => handleOptionClick(e, option.alias, option.id)}
+                          role="menuitem"
+                          className={`flex p-2 w-full text-left hover:bg-gray-200 rounded-md ${selectedOption === option.alias ? 'bg-gray-200 ': ''}`}
+                        >
+                          {option.alias}
+                        </button>
+                      ))}
+                    </div>
+
+                    <Link to={"/crearSucursal"} onClick={() => {setSelectedOption('crearSede'), setOpenMenu(false) }}>
                       <button
-                        key={index}
-                        onClick={(e) => handleOptionClick(e, option.alias, option.id)}
                         role="menuitem"
-                        className={`flex p-2 w-full text-left hover:bg-gray-200 rounded-md ${selectedOption === option.alias ? 'bg-gray-200 ': ''}`}
+                        className={`flex p-2 w-full text-left hover:bg-gray-200 rounded-md ${selectedOption === 'crearSede' ? 'bg-gray-200 ': ''}`}
                       >
-                        {option.alias}
+                        Crear nueva sede
                       </button>
-                    ))}
+                    </Link>
                   </div>
-
-                  <Link to={"/crearSucursal"} onClick={() => {setSelectedOption('crearSede'), setOpenMenu(false) }}>
-                    <button
-                      role="menuitem"
-                      className={`flex p-2 w-full text-left hover:bg-gray-200 rounded-md ${selectedOption === 'crearSede' ? 'bg-gray-200 ': ''}`}
-                    >
-                      Crear nueva sede
-                    </button>
-                  </Link>
-                </div>
-              )}
-            </div>
+                )}
+              </div>
+            }
 
             {/* {isAuthenticated && (
               <ul onClick={() => { setOpenMenu(false) }} className="order-3 flex justify-center space-x-4 mr-5" ><MdAccountCircle className="w-7 text-purple-moru text-3xl"></MdAccountCircle><Link to="/cuenta">Cuenta</Link></ul>)} */}
             <Link to="/mapa">
-              <ul onClick={() => { setOpenMenu(false), setSelectedOption('ubication') }} className={`order-4 flex items-center space-x-4  mr-3 justify-start p-2 hover:bg-gray-200 rounded-md w-52  ${selectedOption === 'ubication' ? 'bg-gray-200 ': ''}`}>
+              <ul onClick={() => { setOpenMenu(false), setSelectedOption('ubication') }} className={`flex items-center space-x-4  mr-3 justify-start p-2 hover:bg-gray-200 rounded-md w-52  ${selectedOption === 'ubication' ? 'bg-gray-200 ': ''}`}>
                 <FaMapMarkerAlt className="w-7 text-purple-moru text-3xl"/>
                 <span className="whitespace-normal w-28">Buscar por ubicación</span>
               </ul>
             </Link>
                     
             <Link to="/support">
-              <ul onClick={() => { setOpenMenu(false), setSelectedOption('soporte') }} className={`order-4 flex items-center space-x-4 mr-3 justify-start p-2 hover:bg-gray-200 rounded-md w-52 ${selectedOption === 'soporte' ? 'bg-gray-200 ': ''}`} >
+              <ul onClick={() => { setOpenMenu(false), setSelectedOption('soporte') }} className={`flex items-center space-x-4 mr-3 justify-start p-2 hover:bg-gray-200 rounded-md w-52 ${selectedOption === 'soporte' ? 'bg-gray-200 ': ''}`} >
                 <BiSupport className="w-7 text-purple-moru text-3xl"/>
                 <span>Soporte</span>
               </ul>
             </Link>
 
+            
+            {currentUser &&
+              <ul>
+                <button className="flex items-center space-x-4 mr-3 p-2 hover:bg-gray-200 rounded-md w-52" onClick={handleLogOut}>
+                  <MdLogout className="w-7 text-3xl text-purple-moru"/><span>Cerrar sesión</span>
+                </button>
+              </ul> 
+            }
           </li>
         </div>
       </div>
