@@ -27,7 +27,7 @@ const Home = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate();
   const dataComplete = { ...GetLocalStorage(), ...user };
-  const [cargaSedes, setCargaSedes] = useState(false)
+  const [cargaSedes, setCargaSedes] = useState(false);
 
   useEffect(() => {
     const handleUserAuthentication = async () => {

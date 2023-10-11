@@ -54,7 +54,7 @@ const Product = ({ product }) => {
     }
   }, [dispatch, isAuthenticated, user, loadedUser, favorites])
 
-  const handleFavorite = (event) => {
+  const handleFavorite = async(event) => {
     event.stopPropagation()
     event.preventDefault()
 
