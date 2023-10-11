@@ -75,7 +75,6 @@ export const getProductsByName = async (name) => {
 
 export const getBrandByOwner = async (idBrand) => {
   try {
-    console.log(idBrand);
     const {
       data
     } = await axios.get(`${BASE_URL}/commerce/branchforcommerce/${idBrand}`);
@@ -126,6 +125,8 @@ export const postAdmincommerceRegister = async (dataAdminCommerce) => {
 export const postProduct = async (productData) => {
   try {
     const product = (await axios.post(`${BASE_URL}/products/create`, productData)).data
+    console.log(productData);
+    return product
   } catch (error) {
     errorHandler(error)
   }

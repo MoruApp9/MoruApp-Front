@@ -19,8 +19,6 @@ const ProductDetail = () => {
     const userRole = useSelector(state => state.userRole)
     const currentUser = GetLocalStorage();
 
-    console.log(product);
-
     if (!product) return <div>Producto no encontrado</div>;
 
     const handleFavorite = (event) => {
