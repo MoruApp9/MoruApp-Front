@@ -103,6 +103,7 @@ const PostProduct = () => {
               await postProduct(values);
               window.alert('Producto creado correctamente');
               navigate('/');
+              window.location.reload()
             } catch (error) {
               console.error('Error al crear el producto:', error);
             }

@@ -32,59 +32,57 @@ const Home = () => {
   useEffect(() => {
     const handleUserAuthentication = async () => {
       try {
-        if(!Object.keys(dataComplete).length){
-          if (dataComplete.userRole && dataComplete.email) {
-            if (dataComplete.userRole === "buyer") {
-              await postClientRegister(dataComplete);
-            } else {
-              await postAdmincommerceRegister(dataComplete);
-            }
+        if (dataComplete.userRole && dataComplete.email) {
+          if (dataComplete.userRole === "buyer") {
+            await postClientRegister(dataComplete);
+          } else {
+            await postAdmincommerceRegister(dataComplete);
           }
         }
 
-        const localStorageState = GetLocalStorage()
-        if(user){
-          !localStorageState && await getUser(user.email);
+        // const localStorageState = GetLocalStorage()
+        if (user) {
+          await getUser(user.email);
           const dataUser = GetLocalStorage()
 
           if (dataUser.brand && !cargaSedes) {
             await getBrandByOwner(dataUser.brand.id)
             setCargaSedes(true)
           }
-  
-          if(dataUser.userRole === 'buyer') {
-            if (!favsLS.length){
+
+          if (dataUser.userRole === 'buyer') {
+            if (!favsLS.length) {
               const userfavs = await getFavorites(dataUser.id)
               userfavs?.forEach(fav => dispatch(addFav(fav)))
             }
-            if (!chartLS.length){
+            if (!chartLS.length) {
               const userChart = await getChart(dataUser.id)
               userChart?.forEach(product => dispatch(addToCart(product)))
             }
           }
-        }     
+        }
       } catch (error) {
         console.error(error);
       } finally {
         //dispatch(setUser(true))
-        setLoadingData(false); 
+        setLoadingData(false);
       }
     };
     handleUserAuthentication();
-  }, [ user, isAuthenticated, localStorageData, dataComplete ]);
+  }, [user, isAuthenticated, localStorageData, dataComplete]);
 
-  loadingData ? <Loader/> : null
+  loadingData ? <Loader /> : null
 
   if (localStorageData && localStorageData.error) navigate('/registration');
 
-/*   if (dataComplete?.userRole === 'adminCommerce') { }
-     //getUser(dataComplete.email)
-    //console.log('dataComplete: ', dataComplete);
-  
-      else {
-      getBrandByOwner(dataComplete.brand.id);
-    }
-  }  */
+  /*   if (dataComplete?.userRole === 'adminCommerce') { }
+       //getUser(dataComplete.email)
+      //console.log('dataComplete: ', dataComplete);
+    
+        else {
+        getBrandByOwner(dataComplete.brand.id);
+      }
+    }  */
 
 
 
