@@ -44,8 +44,8 @@ const Home = () => {
         }
 
         const localStorageState = GetLocalStorage()
-        if(user && !localStorageState){
-          await getUser(user.email);
+        if(user){
+          !localStorageState && await getUser(user.email);
           const dataUser = GetLocalStorage()
 
           if (dataUser.brand && !cargaSedes) {
