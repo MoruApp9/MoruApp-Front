@@ -186,6 +186,7 @@ const PostProduct = () => {
                   <option value="" disabled>
                     Selecciona una categoría específica
                   </option>
+                  
                   {specificCategories.map((categoria) => (
                     <option key={categoria.id} value={categoria.id}>{categoria.name}</option>))}
                   <option value="otra">Otra</option>
