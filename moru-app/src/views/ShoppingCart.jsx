@@ -33,7 +33,6 @@ const ShoppingCart = () => {
     // }).then(response => {
     //   if (response.isConfirmed) { 
     //       Swal.fire('Éxito', 'Se vació el carrito correctamente', 'success');
-
     //       dispatch(removeAllFromCart())
     //   }else if(response.isDenied){
     //       Swal.fire('Información', 'No se eliminaron tus productos', 'info');
