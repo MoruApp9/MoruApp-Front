@@ -11,6 +11,7 @@ import { addFav, removeFav } from "../redux/favoritesSlice"
 import { setUbication } from "../redux/ubicationSlice"
 import { GetLocalStorageCommercesByOwner } from "../localStorage/GetLocalStorage"
 import { addToCart } from "../redux/cartSlice"
+import Swal from 'sweetalert2';
 
 const BASE_URL = "https://moruapp-back.up.railway.app"
 
@@ -70,6 +71,7 @@ export const getProductsByName = async (name) => {
     )
     return data
   } catch (error) {
+    Swal.fire('Oops...', error.response.data, 'error');
     errorHandler(error)
   }
 }
@@ -211,13 +213,29 @@ export const postChart = async (clientId, productId, quantity) => {
       quantity,
     })
     console.log(data)
+    return data
   } catch (error) {
     errorHandler(error)
   }
 }
 
+export const postOneQuantityOfProduct = async (clientId, productId) => {
+try {
+  console.log(clientId, productId);
+  const { data } = await axios.post(`${BASE_URL}/client/oneproductmore`, {
+    clientId,
+    productId
+  })
+  console.log(data);
+  return data
+} catch (error) {
+  errorHandler(error)
+}
+}
+
 export const getChart = async (clientId) => {
   try {
+    //console.log(clientId);
     const { data } = await axios.get(
       `${BASE_URL}/client/chartforclient/${clientId}`
     )
@@ -234,11 +252,31 @@ export const removeChart = async (clientId, productId) => {
       `${BASE_URL}/client/deleteoneinchart?clientId=${clientId}&&productId=${productId}`
     )
     console.log(data);
+    return data
   } catch (error) {
     errorHandler(error)
   }
 }
 
+export const deleteAllCart = async (clientId) => {
+  try {
+    const { data } = await axios.delete(`${BASE_URL}/client/emptychart?clientId=${clientId}`)
+    console.log(data);
+  } catch (error) {
+    errorHandler(error)
+  }
+}
+
+export const deleteAllQuantityOfProductFromCart = async (clientId, productId, quantity) => {
+  try {
+    console.log('clientID', clientId, 'productId', productId, 'quantity', quantity);
+    const { data } = await axios.delete(`${BASE_URL}/client/deleteproductinchart?clientId=${clientId}&&productId=${productId}&&quantity=${quantity}`)
+    console.log(data);
+    //return data
+  } catch (error) {
+    errorHandler(error)
+  }
+}
 export const postRegisterAddress = (id) => async (dispatch) => {
   try {
     const resp = (await axios.get(`${BASE_URL}/commerce/branches/${id}`)).data

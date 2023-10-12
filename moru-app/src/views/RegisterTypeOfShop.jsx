@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { BsImageFill } from "react-icons/bs"
 import { PostLocalStorage } from "../localStorage/PostLocalStorage";
 import { useAuth0 } from "@auth0/auth0-react";
+import Swal from 'sweetalert2';
 
 const RegisterTypeOfShop = () => {
     //const { user, isAuthenticated } = useAuth0();
@@ -89,10 +90,10 @@ const RegisterTypeOfShop = () => {
                     onSubmit={async (valores) => {
                         try {
                             await postCommerceRegister(valores);
-                            window.alert('Comercio registrado correctamente');
+                            Swal.fire('Éxito', 'Comercio registrado correctamente', 'success');
                             navigate('/');
                         } catch (error) {
-                            console.error('Error al registrar el comercio:', error);
+                            Swal.fire('Oops...', 'Error al registrar el comercio', 'error');
                         }
                     }}
                 >
@@ -153,7 +154,7 @@ const RegisterTypeOfShop = () => {
                             <div>
                                 <Field name="generalcategoryId" as="select" className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab">
                                     <option value="" disabled hidden>Selecciona categoría</option>
-                                    {categories.map((category) => (<option key={category.id} value={category.id}>{category.name}</option>))}
+                                    {categories?.map((category) => (<option key={category.id} value={category.id}>{category.name}</option>))}
                                 </Field>
                                 <ErrorMessage name="generalcategoryId" component={() => (
                                     <div className="text-xs text-red-600">{errors.generalcategoryId}</div>
