@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { BsImageFill } from "react-icons/bs"
 import { PostLocalStorage } from "../localStorage/PostLocalStorage";
 import { useAuth0 } from "@auth0/auth0-react";
+import Swal from 'sweetalert2';
 
 const RegisterTypeOfShop = () => {
     //const { user, isAuthenticated } = useAuth0();
@@ -89,10 +90,10 @@ const RegisterTypeOfShop = () => {
                     onSubmit={async (valores) => {
                         try {
                             await postCommerceRegister(valores);
-                            window.alert('Comercio registrado correctamente');
+                            Swal.fire('Éxito', 'Comercio registrado correctamente', 'success');
                             navigate('/');
                         } catch (error) {
-                            console.error('Error al registrar el comercio:', error);
+                            Swal.fire('Oops...', 'Error al registrar el comercio', 'error');
                         }
                     }}
                 >

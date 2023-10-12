@@ -6,6 +6,7 @@ import { useEffect } from "react"
 import { GetLocalStorage } from "../localStorage/GetLocalStorage"
 import { useAuth0 } from "@auth0/auth0-react"
 import { getChart } from "../services/services"
+import Swal from 'sweetalert2';
 
 const ShoppingCart = () => {
   const cartItems = useSelector((state) => state.cart.cart)
@@ -21,7 +22,24 @@ const ShoppingCart = () => {
   }, 0)
 
   const handleRemoveAllFromCart = () => {
-    dispatch(removeAllFromCart())  
+    // Swal.fire({
+    //   title: 'Advertencia',
+    //   text: '¿Deseas vaciar el carrito?',
+    //   icon: 'question',
+    //   showDenyButton: true,
+    //   denyButtonText: 'No',
+    //   confirmButtonText: 'Sí',
+    //   confirmButtonColor: '#280a50',
+    // }).then(response => {
+    //   if (response.isConfirmed) { 
+    //       Swal.fire('Éxito', 'Se vació el carrito correctamente', 'success');
+
+    //       dispatch(removeAllFromCart())
+    //   }else if(response.isDenied){
+    //       Swal.fire('Información', 'No se eliminaron tus productos', 'info');
+    //   }
+    // })
+    dispatch(removeAllFromCart())
   }
 
   return (
