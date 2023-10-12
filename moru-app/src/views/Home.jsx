@@ -47,7 +47,6 @@ const Home = () => {
           if (dataComplete.userRole === "adminCommerce" && !dataComplete.brand) {
             await getUser(user.email);
           }else if(!dataComplete.id){
-            console.log("data");
             await getUser(user.email);
           }
           

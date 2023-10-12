@@ -20,32 +20,32 @@ import { IoIosArrowDown } from "react-icons/io";
 import {DeleteLocalStorage, DeleteLocalStorageCommercesByOwner} from '../localStorage/DeleteLocalStorage';
 import { MdLogout } from 'react-icons/md';
 import { FaMapMarkerAlt } from "react-icons/fa";
-import { getBrandByOwner, getChart, getFavorites } from '../services/services';
+import { getBrandByOwner, getChart, getFavorites, getUser } from '../services/services';
 import { addFav } from "../redux/favoritesSlice";
 import { addToCart } from "../redux/cartSlice";
 
-const Nav = () => {
+const Nav = ({user}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const [openMenu, setOpenMenu] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-  const { user, loginWithRedirect, logout } = useAuth0();
+  const {loginWithRedirect, logout } = useAuth0();
 
-  const carrito = useSelector(((state) => state.cart.cart));
   const favsStore = useSelector(state => state.favorites)
   const chartStore = useSelector(state => state.cart.cart)
 
   const currentUser = GetLocalStorage();
   const sedes = GetLocalStorageCommercesByOwner();
-  
+
   useEffect(() => {
     const handleFavsAndChart = async () => {
+      if (user) {
+      await getUser(user.email)
       const dataUser = GetLocalStorage()
 
       if(user && dataUser?.userRole === 'buyer' ){
-        if(!favsStore.length){
+        if (!favsStore.length) {
           const userFavs = await getFavorites(dataUser.id)
           userFavs?.forEach(fav => dispatch(addFav(fav)))
         }
@@ -56,6 +56,7 @@ const Nav = () => {
         }
       }
     }
+  }
     handleFavsAndChart()
   }, [dispatch, user, favsStore, chartStore])
 
@@ -115,7 +116,7 @@ const Nav = () => {
             ? null
             : (
                 <Link  className={`flex items-center hover:bg-gray-200 px-2 rounded-md  ${selectedOption === 'carrito' ? 'bg-gray-200 ': ''}`} onClick={() => setSelectedOption('carrito')} to="/carrito-de-compras"><img className="w-12" src={shoppingIcon} alt="shoppingIcon" />
-                {carrito.length?<span className="mr-2 bg-purple-moru text-white rounded-full w-5 text-center">{carrito.length}</span> : null}
+                {chartStore.length?<span className="mr-2 bg-purple-moru text-white rounded-full w-5 text-center">{chartStore.length}</span> : null}
                 </Link>
             )
           }

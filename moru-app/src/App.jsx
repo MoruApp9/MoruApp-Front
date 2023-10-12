@@ -25,11 +25,14 @@ import Account from "./views/Account"
 import RegisterTypeOfShop from './views/RegisterTypeOfShop';
 import CrearSede from "./views/CrearSucursal";
 import SearchByLocation from "./views/SearchByLocation";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function App() {
   const { pathname } = useLocation()
   const dispatch = useDispatch();
   const error = useSelector(state => state.errors)
+  const { user, loginWithRedirect, logout } = useAuth0();
+
 
   //error handler
   //error.length && dispatch(cleanErrors()) && window.alert(error)
@@ -50,7 +53,7 @@ function App() {
         pathname !== "/registeruser" &&
         pathname !== "/registershop" &&
         /* pathname !== "/landing" && */
-        <Nav />
+        <Nav user={user}/>
       }
       {
         pathname === "/" &&
