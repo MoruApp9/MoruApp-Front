@@ -1,17 +1,44 @@
 import { useSelector, useDispatch } from "react-redux"
-import { removeAllFromCart } from "../redux/cartSlice"  // Asegúrate de importar la acción adecuada
+import { addToCart, removeAllFromCart } from "../redux/cartSlice"  // Asegúrate de importar la acción adecuada
 import Product from "../components/Product"
 import { Link } from "react-router-dom"
+import { useEffect } from "react"
+import { GetLocalStorage } from "../localStorage/GetLocalStorage"
+import { useAuth0 } from "@auth0/auth0-react"
+import { getChart } from "../services/services"
+import Swal from 'sweetalert2';
 
 const ShoppingCart = () => {
-  const dispatch = useDispatch()
   const cartItems = useSelector((state) => state.cart.cart)
+  const dispatch = useDispatch()
+  const { user } = useAuth0()
+  
+  useEffect(()=> {
+  
+  }, [dispatch, user, cartItems])
+  
   const total = cartItems.reduce((accumulator, product) => {
-    return accumulator + parseFloat(product.price)
+    return accumulator + parseFloat(product?.price)
   }, 0)
 
   const handleRemoveAllFromCart = () => {
-    dispatch(removeAllFromCart())  
+    // Swal.fire({
+    //   title: 'Advertencia',
+    //   text: '¿Deseas vaciar el carrito?',
+    //   icon: 'question',
+    //   showDenyButton: true,
+    //   denyButtonText: 'No',
+    //   confirmButtonText: 'Sí',
+    //   confirmButtonColor: '#280a50',
+    // }).then(response => {
+    //   if (response.isConfirmed) { 
+    //       Swal.fire('Éxito', 'Se vació el carrito correctamente', 'success');
+    //       dispatch(removeAllFromCart())
+    //   }else if(response.isDenied){
+    //       Swal.fire('Información', 'No se eliminaron tus productos', 'info');
+    //   }
+    // })
+    dispatch(removeAllFromCart())
   }
 
   return (
@@ -38,7 +65,7 @@ const ShoppingCart = () => {
 
       <div className="p-6 lg:px-28 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         {cartItems.map((product) => (
-          <Product key={product.id} product={product} />
+          <Product key={product?.id} product={product} />
         ))}
       </div>
     </section>

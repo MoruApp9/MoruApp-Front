@@ -7,6 +7,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { BsImageFill } from "react-icons/bs"
 import { GetLocalStorage, GetLocalStorageCommercesByOwner } from '../localStorage/GetLocalStorage';
+import Swal from 'sweetalert2';
 
 const PostProduct = () => {
   const sedes = GetLocalStorageCommercesByOwner()
@@ -101,11 +102,11 @@ const PostProduct = () => {
             values.image = imageUpload;
             try {
               await postProduct(values);
-              window.alert('Producto creado correctamente');
+              Swal.fire('Éxito', 'Producto creado correctamente', 'success');
               navigate('/');
               window.location.reload()
             } catch (error) {
-              console.error('Error al crear el producto:', error);
+              Swal.fire('Oops...', 'Error al crear el producto', 'error');
             }
           }}
 
@@ -158,8 +159,8 @@ const PostProduct = () => {
                   onChange={handleOnChange}
                 />
 
-                <label htmlFor="fileInput" className="text-purple-moru w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-m font-roboto-slab flex items-center justify-center cursor-pointer">
-                  <span>Upload image</span>
+                <label htmlFor="fileInput" className={` w-80 h-12 px-2 border-2 rounded-lg border-purple-moru ${!imageUpload.length ? 'text-purple-moru' : 'border-lime-600 text-lime-600'} bg-gray-100 text-m font-roboto-slab flex items-center justify-center cursor-pointer`}>
+                  <span>{!imageUpload.length ? 'Subir imagen' : 'Imagen subida'}</span>
                   <BsImageFill className="text-xl ml-2"></BsImageFill>
                 </label>
               </div>
@@ -186,6 +187,7 @@ const PostProduct = () => {
                   <option value="" disabled>
                     Selecciona una categoría específica
                   </option>
+                  
                   {specificCategories.map((categoria) => (
                     <option key={categoria.id} value={categoria.id}>{categoria.name}</option>))}
                   <option value="otra">Otra</option>

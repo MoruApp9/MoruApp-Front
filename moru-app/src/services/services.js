@@ -11,6 +11,7 @@ import { addFav, removeFav } from "../redux/favoritesSlice"
 import { setUbication } from "../redux/ubicationSlice"
 import { GetLocalStorageCommercesByOwner } from "../localStorage/GetLocalStorage"
 import { addToCart } from "../redux/cartSlice"
+import Swal from 'sweetalert2';
 
 const BASE_URL = "https://moruapp-back.up.railway.app"
 
@@ -70,6 +71,7 @@ export const getProductsByName = async (name) => {
     )
     return data
   } catch (error) {
+    Swal.fire('Oops...', error.response.data, 'error');
     errorHandler(error)
   }
 }

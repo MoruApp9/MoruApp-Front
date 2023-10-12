@@ -5,6 +5,7 @@ import { Formik, Form, ErrorMessage, Field } from 'formik';
 import { PostLocalStorage, PostLocalStorageCommercesByOwner } from '../localStorage/PostLocalStorage';
 import { GetLocalStorage } from '../localStorage/GetLocalStorage'
 import { getBrandByOwner, postSucursal } from '../services/services';
+import Swal from 'sweetalert2';
 
 const CrearSede = () => {
     const navigate = useNavigate()
@@ -47,18 +48,10 @@ const CrearSede = () => {
 
                         if (!values.phone) {
                             errors.phone = 'Por favor, ingresa el teléfono de atención de la sede';
-                        }
-
-                        if (values.phone.length !== 10) {
-                            errors.phone = 'El número de teléfono debe tener 10 caracteres';
-                        }
-
-                        if (values.phone.length !== 10) {
+                        }else if (values.phone.length !== 10) {
                             errors.phone = 'El número de teléfono debe tener 10 dígitos';
-                        }
-
-                        if (!/^\d+$/.test(values.phone)) {
-                            errors.phone = 'El número de teléfono solo debe contener letras.';
+                        }else if (!/^\d+$/.test(values.phone)) {
+                            errors.phone = 'El número de teléfono solo debe contener números.';
                         }
 
                         return errors;
@@ -67,17 +60,15 @@ const CrearSede = () => {
                     onSubmit={async (values) => {
                         try {
                             console.log(values);
-                            const response = await postSucursal(values);
-                            console.log(response);
+                            await postSucursal(values);
                             // if (response.message === 'Ya existe la sucursal con esa direccion') {
                             //     window.alert('Ya existe la sucursal con esa dirección');
                             // } else 
-                            {
-                                window.alert('Sucursal creada correctamente');
-                                navigate('/');
-                            }
+                            Swal.fire('Éxito', 'Sucursal creada correctamente', 'success');
+                            navigate('/');
+
                         } catch (error) {
-                            console.error('Error al realizar la operación:', error);
+                            Swal.fire('Oops...', 'Error al realizar la operación', 'error');
                         }
                     }}
                 >
@@ -132,7 +123,7 @@ const CrearSede = () => {
                             </div>
 
                             <div className="flex sm:justify-between flex-col sm:flex-row gap-2 justify-center items-center">
-                                <Link to="/registration">
+                                <Link to="/">
                                     <button
                                         className="w-36 md:h-14 h-10 px-2 border-2 border-purple-moru rounded-lg bg-gray-200 text-sm font-roboto-slab">
                                         Atrás

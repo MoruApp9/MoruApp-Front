@@ -16,8 +16,8 @@ import Loader from "../components/Loader";
 
 const Home = () => {
   const productsFiltered = useSelector((state) => state.productsFiltered);
-  const favsLS = useSelector((state) => state.favorites)
-  const chartLS = useSelector(state => state.cart.cart)
+  const favsGlobalState = useSelector((state) => state.favorites)
+  const chartGlobalState = useSelector(state => state.cart.cart)
   //const loadedUser = useSelector(state => state.user)
 
   const [loadingData, setLoadingData] = useState(true);
@@ -27,38 +27,37 @@ const Home = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate();
   const dataComplete = { ...GetLocalStorage(), ...user };
-  const [cargaSedes, setCargaSedes] = useState(false)
+  const [cargaSedes, setCargaSedes] = useState(false);
 
   useEffect(() => {
     const handleUserAuthentication = async () => {
       try {
-        if (dataComplete.userRole && dataComplete.email) {
-          if (dataComplete.userRole === "buyer") {
-            await postClientRegister(dataComplete);
-          } else {
-            await postAdmincommerceRegister(dataComplete);
+        if (!dataComplete.id) {
+          if (dataComplete.userRole && dataComplete.email) {
+            if (dataComplete.userRole === "buyer") {
+              console.log("register cliente");
+              await postClientRegister(dataComplete);
+            } else {
+              await postAdmincommerceRegister(dataComplete);
+            }
           }
         }
-
-        // const localStorageState = GetLocalStorage()
+          
         if (user) {
-          await getUser(user.email);
+          if (dataComplete.userRole === "adminCommerce" && !dataComplete.brand) {
+            await getUser(user.email);
+          }else if(!dataComplete.id){
+            await getUser(user.email);
+          }
+          
           const dataUser = GetLocalStorage()
+          //console.log(dataUser);
+          if (dataUser && dataUser.error) navigate('/registration');
+
 
           if (dataUser.brand && !cargaSedes) {
             await getBrandByOwner(dataUser.brand.id)
             setCargaSedes(true)
-          }
-
-          if (dataUser.userRole === 'buyer') {
-            if (!favsLS.length) {
-              const userfavs = await getFavorites(dataUser.id)
-              userfavs?.forEach(fav => dispatch(addFav(fav)))
-            }
-            if (!chartLS.length) {
-              const userChart = await getChart(dataUser.id)
-              userChart?.forEach(product => dispatch(addToCart(product)))
-            }
           }
         }
       } catch (error) {
@@ -73,7 +72,6 @@ const Home = () => {
 
   loadingData ? <Loader /> : null
 
-  if (localStorageData && localStorageData.error) navigate('/registration');
 
   /*   if (dataComplete?.userRole === 'adminCommerce') { }
        //getUser(dataComplete.email)

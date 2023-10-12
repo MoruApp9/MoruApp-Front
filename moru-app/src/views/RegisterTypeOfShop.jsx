@@ -7,25 +7,28 @@ import { useEffect, useState } from "react";
 import { BsImageFill } from "react-icons/bs"
 import { PostLocalStorage } from "../localStorage/PostLocalStorage";
 import { useAuth0 } from "@auth0/auth0-react";
+import Swal from 'sweetalert2';
 
 const RegisterTypeOfShop = () => {
-    const { user, isAuthenticated } = useAuth0();
-    const dataUser = { ...GetLocalStorage(), ...user };
+    //const { user, isAuthenticated } = useAuth0();
+    //const dataUser = { ...GetLocalStorage(), ...user };
+    const dataUser = GetLocalStorage();
+    console.log("infoRegist", dataUser);
     const categories = useSelector((state) => state.categories.categorias);
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    //const dispatch = useDispatch();
     const [estadoSubmit, setEstadoSubmit] = useState(false)
 
-    useEffect(() => {
-        const obtengoUsuario = async () => {
-            try {
-                dispatch(getUser(dataUser.email))
-            } catch (error) {
-                console.log(error);
-            }
-        }
-        obtengoUsuario()
-    }, [])
+    // useEffect(() => {
+    //     const obtengoUsuario = async () => {
+    //         try {
+    //             await getUser(dataUser.email)
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //     }
+    //     obtengoUsuario()
+    // }, [])
 
     /*     useEffect(() => {
             if (estadoSubmit) {
@@ -87,10 +90,10 @@ const RegisterTypeOfShop = () => {
                     onSubmit={async (valores) => {
                         try {
                             await postCommerceRegister(valores);
-                            window.alert('Comercio registrado correctamente');
+                            Swal.fire('Éxito', 'Comercio registrado correctamente', 'success');
                             navigate('/');
                         } catch (error) {
-                            console.error('Error al registrar el comercio:', error);
+                            Swal.fire('Oops...', 'Error al registrar el comercio', 'error');
                         }
                     }}
                 >

@@ -20,18 +20,45 @@ import { IoIosArrowDown } from "react-icons/io";
 import {DeleteLocalStorage, DeleteLocalStorageCommercesByOwner} from '../localStorage/DeleteLocalStorage';
 import { MdLogout } from 'react-icons/md';
 import { FaMapMarkerAlt } from "react-icons/fa";
-import { getBrandByOwner } from '../services/services';
+import { getBrandByOwner, getChart, getFavorites, getUser } from '../services/services';
+import { addFav } from "../redux/favoritesSlice";
+import { addToCart } from "../redux/cartSlice";
 
-const Nav = () => {
+const Nav = ({user}) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [openMenu, setOpenMenu] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-  const { loginWithRedirect, logout } = useAuth0();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const {loginWithRedirect, logout } = useAuth0();
+
+  const favsStore = useSelector(state => state.favorites)
+  const chartStore = useSelector(state => state.cart.cart)
+
   const currentUser = GetLocalStorage();
-  const carrito = useSelector(((state) => state.cart.cart));
   const sedes = GetLocalStorageCommercesByOwner();
+
+  useEffect(() => {
+    const handleFavsAndChart = async () => {
+      if (user) {
+      await getUser(user.email)
+      const dataUser = GetLocalStorage()
+
+      if(user && dataUser?.userRole === 'buyer' ){
+        if (!favsStore.length) {
+          const userFavs = await getFavorites(dataUser.id)
+          userFavs?.forEach(fav => dispatch(addFav(fav)))
+        }
+        
+        if(!chartStore.length) {
+          const userChart = await getChart(dataUser.id)
+          userChart?.forEach(product => dispatch(addToCart(product)))
+        }
+      }
+    }
+  }
+    handleFavsAndChart()
+  }, [dispatch, user, favsStore, chartStore])
 
   
   const handleLogOut = () => {
@@ -66,13 +93,13 @@ const Nav = () => {
             <FiMenu className="text-4xl text-purple-moru"/>
           </button>
 
-          {!currentUser && <button className="hidden md:block text-purple-moru hover:bg-gray-200 p-1 rounded-md" onClick={() => loginWithRedirect()}>
+          {/* {!user && <button className="hidden md:block text-purple-moru hover:bg-gray-200 p-1 rounded-md" onClick={() => loginWithRedirect()}>
             Iniciar Sesión
           </button>}
 
-          {!currentUser && <Link  className='hidden md:block text-purple-moru hover:bg-gray-200 p-1 rounded-md' to={`/registration`}>
+          {!user && <Link  className='hidden md:block text-purple-moru hover:bg-gray-200 p-1 rounded-md' to={`/registration`}>
             <p>Crear Cuenta</p>
-          </Link>}
+          </Link>} */}
         </div>
 
         <div className="flex w-full justify-center">
@@ -89,7 +116,7 @@ const Nav = () => {
             ? null
             : (
                 <Link  className={`flex items-center hover:bg-gray-200 px-2 rounded-md  ${selectedOption === 'carrito' ? 'bg-gray-200 ': ''}`} onClick={() => setSelectedOption('carrito')} to="/carrito-de-compras"><img className="w-12" src={shoppingIcon} alt="shoppingIcon" />
-                {carrito.length?<span className="mr-2 bg-purple-moru text-white rounded-full w-5 text-center">{carrito.length}</span> : null}
+                {chartStore.length?<span className="mr-2 bg-purple-moru text-white rounded-full w-5 text-center">{chartStore.length}</span> : null}
                 </Link>
             )
           }
