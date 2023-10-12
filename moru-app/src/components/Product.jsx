@@ -130,8 +130,10 @@ const Product = ({ product }) => {
     if (response.allProductsInChart !== undefined) {
       const productUpdated = response.allProductsInChart.find(product => product.productId === productId)
       dispatch(uploadQuantity(productUpdated))
+      console.log(response);
     }
-    else window.alert(response.message)
+    else Swal.fire('No hay stock', response.message , 'info');
+    
  
   }
 

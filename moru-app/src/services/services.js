@@ -229,6 +229,7 @@ try {
   console.log(data);
   return data
 } catch (error) {
+  //Swal.fire('No hay stock', error.response.data.error , 'info');
   errorHandler(error)
 }
 }

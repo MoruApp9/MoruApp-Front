@@ -31,7 +31,8 @@ function App() {
   const { pathname } = useLocation()
   const dispatch = useDispatch();
   const error = useSelector(state => state.errors)
-  const { user, loginWithRedirect, logout } = useAuth0();
+  const productsStore = useSelector(state => state.allProducts.allProducts)
+  const { user } = useAuth0();
 
 
   //error handler
@@ -44,7 +45,7 @@ function App() {
       dispatch(cleanErrors());
       window.alert(error);
     }
-  }, [dispatch]);
+  }, [dispatch, productsStore]);
 
   return (
     <div>
