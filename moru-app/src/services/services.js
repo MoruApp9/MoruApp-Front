@@ -258,3 +258,23 @@ export const getInfoBranch = async (idBranch) => {
     errorHandler(error)
   }
 }
+
+export const postReview = async (reviewData) => {
+    try {
+        console.log(reviewData);
+        const response = (await axios.post(`${BASE_URL}/rating/`, reviewData)).data;
+        return response;
+    } catch (error) {
+      errorHandler(error)
+    }
+};
+
+export const getReviews = async (idSucursal) => {
+    try {
+        const response = (await axios.get(`${BASE_URL}/rating?idSucursal=${idSucursal}`)).data;
+        console.log(response)
+        return response;
+    } catch (error) {
+      errorHandler(error)
+    }
+};
