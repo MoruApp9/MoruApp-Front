@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 import { useEffect } from "react"
 import { GetLocalStorage } from "../localStorage/GetLocalStorage"
 import { useAuth0 } from "@auth0/auth0-react"
-import { getChart } from "../services/services"
+import { deleteAllCart, getChart } from "../services/services"
 import Swal from 'sweetalert2';
 
 const ShoppingCart = () => {
@@ -22,6 +22,10 @@ const ShoppingCart = () => {
   }, 0)
 
   const handleRemoveAllFromCart = () => {
+    const userData = GetLocalStorage()
+    console.log('id',userData.id);
+    deleteAllCart(userData.id)
+    dispatch(removeAllFromCart())
     // Swal.fire({
     //   title: 'Advertencia',
     //   text: '¿Deseas vaciar el carrito?',
@@ -38,7 +42,6 @@ const ShoppingCart = () => {
     //       Swal.fire('Información', 'No se eliminaron tus productos', 'info');
     //   }
     // })
-    dispatch(removeAllFromCart())
   }
 
   return (

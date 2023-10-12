@@ -154,7 +154,7 @@ const RegisterTypeOfShop = () => {
                             <div>
                                 <Field name="generalcategoryId" as="select" className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab">
                                     <option value="" disabled hidden>Selecciona categoría</option>
-                                    {categories.map((category) => (<option key={category.id} value={category.id}>{category.name}</option>))}
+                                    {categories?.map((category) => (<option key={category.id} value={category.id}>{category.name}</option>))}
                                 </Field>
                                 <ErrorMessage name="generalcategoryId" component={() => (
                                     <div className="text-xs text-red-600">{errors.generalcategoryId}</div>

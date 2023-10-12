@@ -220,6 +220,7 @@ export const postChart = async (clientId, productId, quantity) => {
 
 export const getChart = async (clientId) => {
   try {
+    console.log(clientId);
     const { data } = await axios.get(
       `${BASE_URL}/client/chartforclient/${clientId}`
     )
@@ -235,6 +236,15 @@ export const removeChart = async (clientId, productId) => {
     const { data } = await axios.delete(
       `${BASE_URL}/client/deleteoneinchart?clientId=${clientId}&&productId=${productId}`
     )
+    console.log(data);
+  } catch (error) {
+    errorHandler(error)
+  }
+}
+
+export const deleteAllCart = async (clientId) => {
+  try {
+    const { data } = await axios.delete(`${BASE_URL}/client/emptychart?clientId=${clientId}`)
     console.log(data);
   } catch (error) {
     errorHandler(error)
