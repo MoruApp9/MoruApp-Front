@@ -5,7 +5,8 @@ import { Link, useLocation } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { addFav, removeFav } from "../redux/favoritesSlice"
 import { addToCart, removefromCart } from "../redux/cartSlice"
-import { setIsFav } from "../redux/isFavSlice"
+import { setIsFav } from "../redux/isFavSlice";
+import Swal from 'sweetalert2';
 
 import {
   getFavorites,
@@ -82,7 +83,7 @@ const Product = ({ product }) => {
         console.log(userUpdate);
         dispatch(postFavorites(userUpdate.id, productId)) // Se postea en la base de datos como fav y se actualiza el estado global
       }
-    } else window.alert("Inicia sesión o regístrate para guardar tus favoritos") // si no está logged
+    } else Swal.fire('Oops...', 'Inicia sesión o regístrate para guardar tus favoritos', 'warning'); // si no está logged
   }
 
   const handleAddToCart = (event) => {
@@ -95,10 +96,7 @@ const Product = ({ product }) => {
       postChart(userUpdate?.id, productId, quantity) // esto me debería devolver el objeto guardado, no un array con objetos repetidos
       dispatch(addToCart(product))
       setAddedToCart(true)
-    } else
-      window.alert(
-        "Inicia sesión o regístrate para guardar tu carrito de compras"
-      )
+    } else Swal.fire('Oops...', 'Inicia sesión o regístrate para guardar tu carrito de compras', 'warning');
   }
 
   const handleDeleteToCart = (event) => {
