@@ -34,12 +34,13 @@ const Nav = ({user}) => {
 
   const favsStore = useSelector(state => state.favorites)
   const chartStore = useSelector(state => state.cart.cart)
+  const allproductsStore = useSelector(state => state.allProducts.allProducts)
 
   const currentUser = GetLocalStorage();
   const sedes = GetLocalStorageCommercesByOwner();
 
   useEffect(() => {
-    //dispatch(getProducts())
+    !allproductsStore.length && dispatch(getProducts())
     
     const handleFavsAndChart = async () => {
       if (user) {
