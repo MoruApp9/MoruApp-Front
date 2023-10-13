@@ -24,13 +24,7 @@ import { AiOutlinePlus } from "react-icons/ai"
 import { AiOutlineMinus } from "react-icons/ai"
 import { BsTrash3Fill } from "react-icons/bs"
 
-import {
-  GetLocalStorage,
-  GetLocalStorageFav,
-} from "../localStorage/GetLocalStorage"
-import { PostLocalStorageFav } from "../localStorage/PostLocalStorage"
-import { putLocalStorageFavs } from "../localStorage/PutLocalStorage"
-import { deleteLocalStorageFavs } from "../localStorage/DeleteLocalStorage"
+import { GetLocalStorage } from "../localStorage/GetLocalStorage"
 
 import { useAuth0 } from "@auth0/auth0-react"
 import { current } from "@reduxjs/toolkit"
@@ -51,14 +45,10 @@ const Product = ({ product }) => {
   const { isAuthenticated, user } = useAuth0()
 
   const currentUser = GetLocalStorage()
-  //const localStorageFavs = GetLocalStorageFav()
 
   const carritoView = location.pathname === "/carrito-de-compras"
 
-  //const response = cartStore.find(product => product.id === productId)
-
   const index = cartStore.findIndex(product => product.id === productId)
-
 
   useEffect(() => {
     if(user) {
@@ -185,12 +175,13 @@ const Product = ({ product }) => {
                 ))}
             </div>
           ) : (
-           <div className="flex justify-between items-center ml-8 mr-8 mb-4">
-            <button onClick={handleTrashButton} className="text-2xl"><BsTrash3Fill/></button>
-            <div className="flex items-center">
-              <button onClick={handleDeleteToCart} className="text-2xl"><AiOutlineMinus/></button>
+           <div className=" flex justify-between items-center ml-8 mr-8 mb-4">
+            <button onClick={handleTrashButton} className="text-purple-moru text-2xl"><BsTrash3Fill/></button>
+
+            <div className="flex items-center border-[1.5px] border-purple-moru rounded-full ">
+              <button onClick={handleDeleteToCart} className="bg-purple-moru rounded-tl-full  rounded-tr-full rounded-bl-full pl-1 pr-1 text-white text-2xl"><AiOutlineMinus/></button>
               <span className="ml-3 mr-3">{cartStore[index].quantity}</span>
-              <button onClick={handlePlusButton} className="text-2xl"><AiOutlinePlus/></button>
+              <button onClick={handlePlusButton} className="bg-purple-moru rounded-tr-full  rounded-br-full rounded-bl-full pr-1 pl-1 text-white text-2xl"><AiOutlinePlus/></button>
             </div>
            </div>
           )}

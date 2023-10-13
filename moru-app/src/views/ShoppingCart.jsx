@@ -107,7 +107,7 @@ const ShoppingCart = () => {
         ))}
       </div>
 
-      {cartItems.length && (
+      {cartItems.length > 0 && (
         <button
           onClick={comprarButton}
           className="sticky bottom-6 w-15 mx-auto mt-6 bg-purple-moru text-white hover:bg-white hover:text-purple-moru  font-bold py-3 px-8 rounded-full border-[1.6px] border-white text-lg">
