@@ -31,11 +31,8 @@ function App() {
   const { pathname } = useLocation()
   const dispatch = useDispatch();
   const error = useSelector(state => state.errors)
-  const { user, loginWithRedirect, logout } = useAuth0();
-
-
-  //error handler
-  //error.length && dispatch(cleanErrors()) && window.alert(error)
+  const productsStore = useSelector(state => state.allProducts.allProducts)
+  const { user } = useAuth0();
 
   useEffect(() => {
     dispatch(getProducts());
@@ -44,7 +41,7 @@ function App() {
       dispatch(cleanErrors());
       window.alert(error);
     }
-  }, [dispatch]);
+  }, [dispatch, productsStore]);
 
   return (
     <div>

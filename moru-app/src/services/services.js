@@ -213,13 +213,30 @@ export const postChart = async (clientId, productId, quantity) => {
       quantity,
     })
     console.log(data)
+    return data
   } catch (error) {
     errorHandler(error)
   }
 }
 
+export const postOneQuantityOfProduct = async (clientId, productId) => {
+try {
+  console.log(clientId, productId);
+  const { data } = await axios.post(`${BASE_URL}/client/oneproductmore`, {
+    clientId,
+    productId
+  })
+  console.log(data);
+  return data
+} catch (error) {
+  //Swal.fire('No hay stock', error.response.data.error , 'info');
+  errorHandler(error)
+}
+}
+
 export const getChart = async (clientId) => {
   try {
+    //console.log(clientId);
     const { data } = await axios.get(
       `${BASE_URL}/client/chartforclient/${clientId}`
     )
@@ -236,11 +253,31 @@ export const removeChart = async (clientId, productId) => {
       `${BASE_URL}/client/deleteoneinchart?clientId=${clientId}&&productId=${productId}`
     )
     console.log(data);
+    return data
   } catch (error) {
     errorHandler(error)
   }
 }
 
+export const deleteAllCart = async (clientId) => {
+  try {
+    const { data } = await axios.delete(`${BASE_URL}/client/emptychart?clientId=${clientId}`)
+    console.log(data);
+  } catch (error) {
+    errorHandler(error)
+  }
+}
+
+export const deleteAllQuantityOfProductFromCart = async (clientId, productId, quantity) => {
+  try {
+    console.log('clientID', clientId, 'productId', productId, 'quantity', quantity);
+    const { data } = await axios.delete(`${BASE_URL}/client/deleteproductinchart?clientId=${clientId}&&productId=${productId}&&quantity=${quantity}`)
+    console.log(data);
+    //return data
+  } catch (error) {
+    errorHandler(error)
+  }
+}
 export const postRegisterAddress = (id) => async (dispatch) => {
   try {
     const resp = (await axios.get(`${BASE_URL}/commerce/branches/${id}`)).data
@@ -256,6 +293,36 @@ export const getInfoBranch = async (idBranch) => {
       await axios.get(`${BASE_URL}/commerce/infobranch/${idBranch}`)
     ).data
     return response
+  } catch (error) {
+    errorHandler(error)
+  }
+}
+
+export const postReview = async (reviewData) => {
+    try {
+        console.log(reviewData);
+        const response = (await axios.post(`${BASE_URL}/rating/`, reviewData)).data;
+        return response;
+    } catch (error) {
+      errorHandler(error)
+    }
+};
+
+export const getReviews = async (idSucursal) => {
+    try {
+        const response = (await axios.get(`${BASE_URL}/rating?idSucursal=${idSucursal}`)).data;
+        console.log(response)
+        return response;
+    } catch (error) {
+      errorHandler(error)
+    }
+};
+
+export const postBuy = async (clientId) => {
+  try {
+    //console.log(clientId);
+    const response = await axios.post(`${BASE_URL}/client/buy`, {clientId})
+    console.log(response);
   } catch (error) {
     errorHandler(error)
   }

@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom"
 
 import { useDispatch, useSelector } from "react-redux"
 import { addFav, removeFav } from "../redux/favoritesSlice"
-import { addToCart, removefromCart } from "../redux/cartSlice"
+import { addToCart, removefromCart, uploadQuantity } from "../redux/cartSlice"
 import { setIsFav } from "../redux/isFavSlice";
 import Swal from 'sweetalert2';
 
@@ -15,6 +15,8 @@ import {
   postChart,
   removeChart,
   getChart,
+  deleteAllQuantityOfProductFromCart,
+  postOneQuantityOfProduct,
 } from "../services/services"
 
 import { FiHeart } from "react-icons/fi"
@@ -39,11 +41,13 @@ import { setUserIsLoaded } from "../redux/userIsLoadedSlice"
 
 const Product = ({ product }) => {
   const productId = product.id
+  
 
   const dispatch = useDispatch()
   const location = useLocation()
   const [isFav, setIsFav] = useState(false)
   const [ addedToCart, setAddedToCart] = useState(false)
+  const [ quantityOfProducts, setQuantityOfProducts ] = useState(1)
   const loadedUser = useSelector((state) => state.user)
   const favorites = useSelector((state) => state.favorites)
   const cartStore = useSelector(state => state.cart.cart)
@@ -54,16 +58,16 @@ const Product = ({ product }) => {
   const localStorageFavs = GetLocalStorageFav()
 
   const carritoView = location.pathname === "/carrito-de-compras"
-  //const isFav = useSelector((state) => state.isFav[productId] || false);
 
-  //console.log(dispatch(getFavorites("f4476200-8c67-4253-9561-f7a53f713f64")));
+  const response = cartStore.find(product => product.id === productId)
+
+  const index = cartStore.findIndex(product => product.id === productId)
+
 
   useEffect(() => {
-    if (user && favorites.length) {
-      favorites.forEach((fav) => fav.id === productId && setIsFav(true))
-    }
     if(user && cartStore.length) {
       cartStore.forEach(product => product.id === productId && setAddedToCart(true))
+      //cartStore.forEach(product => product.id === productId && setQuantityOfProducts(product.quantity))
     }
   }, [dispatch, isAuthenticated, user, loadedUser, favorites, cartStore])
 
@@ -86,26 +90,51 @@ const Product = ({ product }) => {
     } else Swal.fire('Oops...', 'Inicia sesión o regístrate para guardar tus favoritos', 'warning'); // si no está logged
   }
 
-  const handleAddToCart = (event) => {
+  const handleAddToCart = async (event) => {
     event.stopPropagation()
     event.preventDefault()
 
     const quantity = 1
     if (user) {
       const userUpdate = GetLocalStorage()
-      postChart(userUpdate?.id, productId, quantity) // esto me debería devolver el objeto guardado, no un array con objetos repetidos
-      dispatch(addToCart(product))
+      const response = await postChart(userUpdate?.id, productId, quantity) // esto me debería devolver el objeto guardado, no un array con objetos repetidos
+      dispatch(addToCart(response))
       setAddedToCart(true)
     } else Swal.fire('Oops...', 'Inicia sesión o regístrate para guardar tu carrito de compras', 'warning');
   }
 
-  const handleDeleteToCart = (event) => {
+  const handleDeleteToCart = async (event) => {
     event.stopPropagation()
     event.preventDefault()
-    removeChart(currentUser?.id, productId)
-    dispatch(removefromCart(product))
+    const response = await removeChart(currentUser?.id, productId)
     setAddedToCart(false)
+    if(response.quantity > 0) {
+      dispatch(uploadQuantity(response))
+    }
+    else dispatch(removefromCart(product))
 
+  }
+
+  const handleTrashButton =  async (event) => {
+    event.stopPropagation()
+    event.preventDefault()
+    await deleteAllQuantityOfProductFromCart(currentUser.id, productId, cartStore[index].quantity)
+    dispatch(removefromCart(product))
+  }
+
+  const handlePlusButton = async (event) => {
+    event.stopPropagation()
+    event.preventDefault()
+
+    const response = await postOneQuantityOfProduct(currentUser.id, productId)
+    if (response.allProductsInChart !== undefined) {
+      const productUpdated = response.allProductsInChart.find(product => product.productId === productId)
+      dispatch(uploadQuantity(productUpdated))
+      console.log(response);
+    }
+    else Swal.fire('No hay stock', response.message , 'info');
+    
+ 
   }
 
   return (
@@ -143,7 +172,7 @@ const Product = ({ product }) => {
                   <button
                     className="bg-purple-moru text-white hover:bg-white hover:text-purple-moru  font-bold py-2 px-4 rounded-full"
                     onClick={handleDeleteToCart}>
-                    {'Eliminar'}
+                    Eliminar
                   </button>
                 ) : (
                   <button
@@ -155,11 +184,11 @@ const Product = ({ product }) => {
             </div>
           ) : (
            <div className="flex justify-between items-center ml-8 mr-8 mb-4">
-            <button className="text-2xl"><BsTrash3Fill/></button>
+            <button onClick={handleTrashButton} className="text-2xl"><BsTrash3Fill/></button>
             <div className="flex items-center">
               <button onClick={handleDeleteToCart} className="text-2xl"><AiOutlineMinus/></button>
-              <span className="ml-3 mr-3">1</span>
-              <button className="text-2xl"><AiOutlinePlus/></button>
+              <span className="ml-3 mr-3">{cartStore[index].quantity}</span>
+              <button onClick={handlePlusButton} className="text-2xl"><AiOutlinePlus/></button>
             </div>
            </div>
           )}
