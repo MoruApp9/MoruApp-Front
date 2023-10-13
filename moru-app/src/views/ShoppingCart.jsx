@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux"
 import { addToCart, removeAllFromCart } from "../redux/cartSlice" // Asegúrate de importar la acción adecuada
 import Product from "../components/Product"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useEffect } from "react"
 import { GetLocalStorage } from "../localStorage/GetLocalStorage"
 import { useAuth0 } from "@auth0/auth0-react"
@@ -11,6 +11,7 @@ import Swal from "sweetalert2"
 const ShoppingCart = () => {
   const cartItems = useSelector((state) => state.cart.cart)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const { user } = useAuth0()
 
   useEffect(() => {}, [dispatch, user, cartItems])
@@ -43,6 +44,7 @@ const ShoppingCart = () => {
         postBuy(userData.id)
         deleteAllCart(userData.id)
         dispatch(removeAllFromCart())
+        navigate('/estado-productos')
       }
     })
   }

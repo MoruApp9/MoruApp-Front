@@ -3,6 +3,7 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getProducts } from './services/services';
 import { cleanErrors } from "./redux/errorsSlice";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import "./index.css"
 
@@ -25,7 +26,7 @@ import Account from "./views/Account"
 import RegisterTypeOfShop from './views/RegisterTypeOfShop';
 import CrearSede from "./views/CrearSucursal";
 import SearchByLocation from "./views/SearchByLocation";
-import { useAuth0 } from "@auth0/auth0-react";
+import PorductsStateClient from "./views/PorductsStateClient";
 
 function App() {
   const { pathname } = useLocation()
@@ -75,6 +76,7 @@ function App() {
         <Route path="/registrar-empresa" element={<RegisterTypeOfShop/>} />
         <Route path="/crearSucursal" element={<CrearSede/>} />
         <Route path="/mapa" element={<SearchByLocation/>} />
+        <Route path="/estado-productos" element={<PorductsStateClient/>}/>
       </Routes>
     </div>
   )
