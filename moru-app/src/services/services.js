@@ -317,3 +317,13 @@ export const getReviews = async (idSucursal) => {
       errorHandler(error)
     }
 };
+
+export const postBuy = async (clientId) => {
+  try {
+    //console.log(clientId);
+    const response = await axios.post(`${BASE_URL}/client/buy`, {clientId})
+    console.log(response);
+  } catch (error) {
+    errorHandler(error)
+  }
+}
