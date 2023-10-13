@@ -143,57 +143,58 @@ const MiTienda = () => {
                 </div>
 
                 <div className='w-full'>
-                    <div className="w-8/12 float-left">
-                        {/* Centrar el contenido de Productos de esta sede */}
-                        {productsSede.length ?
-                            <div className="p-6 lg:px-28 mx-auto">
-                                <h1 className="text-purple-moru py-4 font-bold text-2xl">
-                                    Productos de esta sede
-                                </h1>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
-                                    {productsSede.map((product) => (
-                                        <Product key={product.id} product={product} />
-                                    ))}
-                                </div>
-                            </div> :
-                            <div>
-                                <div className="p-6 lg:px-28 mx-auto">
-                                    <h1 className="text-purple-moru py-4 font-bold">
-                                        No hay productos en esta sede
-                                    </h1>
-                                </div>
-                            </div>
-                        }
-                    </div>
-                </div>
 
-                <div className="w-4/12 float-left">
-                    <ReseñasContainer reviews={reviews} />
-                    {currentUser?.userRole === 'buyer' && 
-                    <button className="order-2 flex justify-start p-2 hover:bg-gray-200 rounded-md w-52 space-x-4" onClick={handleReviewClick}>
-                        <BiSolidCloudUpload className="w-7 text-purple-moru text-3xl" />
-                        Dejar una reseña
-                    </button>
-                    }
-                    {isReviewInputVisible && (
-                        <div className="mt-4 flex justify-center items-center">
-                            <form onSubmit={handleReviewSubmit}>
-                                <Stars score={starRating} onChange={handleRatingChange} />
-                                <textarea
-                                    className="w-1/2 p-2 border rounded-md"
-                                    placeholder="Escribe tu reseña aquí"
-                                    value={reviewText}
-                                    onChange={(e) => setReviewText(e.target.value)}
-                                />
-                                <button
-                                    type="submit"
-                                    className="ml-2 bg-purple-moru text-white px-4 py-2 rounded"
-                                >
-                                    Enviar
-                                </button>
-                            </form>
+                        <div className="w-full lg:w-8/12 float-left">
+                            {/* Centrar el contenido de Productos de esta sede */}
+                            {productsSede.length ?
+                                <div className="p-6 lg:px-28 mx-auto">
+                                    <h1 className="text-purple-moru py-4 font-bold text-2xl">
+                                        Productos de esta sede
+                                    </h1>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
+                                        {productsSede.map((product) => (
+                                            <Product key={product.id} product={product} />
+                                        ))}
+                                    </div>
+                                </div> :
+                                <div>
+                                    <div className="p-6 lg:px-28 mx-auto">
+                                        <h1 className="text-purple-moru py-4 font-bold">
+                                            No hay productos en esta sede
+                                        </h1>
+                                    </div>
+                                </div>
+                            }
                         </div>
-                    )}
+                    </div>
+
+                    <div className="w-full lg:w-4/12 float-left">
+                        <ReseñasContainer reviews={reviews} />
+                        {currentUser?.userRole === 'buyer' &&
+                            <button className="order-2 flex justify-start p-2 hover:bg-gray-200 rounded-md w-52 space-x-4" onClick={handleReviewClick}>
+                                <BiSolidCloudUpload className="w-7 text-purple-moru text-3xl" />
+                                Dejar una reseña
+                            </button>
+                        }
+                        {isReviewInputVisible && (
+                            <div className="mt-4 flex justify-center items-center">
+                                <form onSubmit={handleReviewSubmit}>
+                                    <Stars score={starRating} onChange={handleRatingChange} />
+                                    <textarea
+                                        className="w-1/2 p-2 border rounded-md"
+                                        placeholder="Escribe tu reseña aquí"
+                                        value={reviewText}
+                                        onChange={(e) => setReviewText(e.target.value)}
+                                    />
+                                    <button
+                                        type="submit"
+                                        className="ml-2 bg-purple-moru text-white px-4 py-2 rounded"
+                                    >
+                                        Enviar
+                                    </button>
+                                </form>
+                            </div>
+                        )}
                 </div>
             </div>
         </div >

@@ -97,8 +97,9 @@ const PostProduct = () => {
           }}
 
           onSubmit={async (values) => {
-            if (values.specificCategory === "otra")
-              values.specificCategory = values.extraCategory;
+            values.specificCategory === "otra" 
+              ? values.specificCategory = values.extraCategory
+              : values.specificCategory = values.specificCategory
             values.image = imageUpload;
             try {
               await postProduct(values);
@@ -189,7 +190,7 @@ const PostProduct = () => {
                   </option>
                   
                   {specificCategories.map((categoria) => (
-                    <option key={categoria.id} value={categoria.id}>{categoria.name}</option>))}
+                    <option key={categoria.id} value={categoria.name}>{categoria.name}</option>))}
                   <option value="otra">Otra</option>
                 </Field>
                 <ErrorMessage name="specificCategory" component={() => (

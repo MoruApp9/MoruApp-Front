@@ -5,8 +5,8 @@ export const Stars = ({ score, onChange }) => {
     const [userScore, setUserScore] = useState(score);
 
     const handleStarClick = (index) => {
-        setUserScore(index + 1); // calificación comienza en 1
-        onChange(index + 1); // Llama a la función de devolución de llamada para actualizar el estado de la calificación en el componente principal
+        setUserScore(index + 1); 
+        onChange(index + 1); 
     };
 
     return (
