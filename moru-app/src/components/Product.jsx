@@ -24,9 +24,6 @@ import { AiOutlinePlus } from "react-icons/ai"
 import { AiOutlineMinus } from "react-icons/ai"
 import { BsTrash3Fill } from "react-icons/bs"
 
-
-
-
 import {
   GetLocalStorage,
   GetLocalStorageFav,
@@ -47,7 +44,6 @@ const Product = ({ product }) => {
   const location = useLocation()
   const [isFav, setIsFav] = useState(false)
   const [ addedToCart, setAddedToCart] = useState(false)
-  const [ quantityOfProducts, setQuantityOfProducts ] = useState(1)
   const loadedUser = useSelector((state) => state.user)
   const favorites = useSelector((state) => state.favorites)
   const cartStore = useSelector(state => state.cart.cart)
@@ -55,18 +51,24 @@ const Product = ({ product }) => {
   const { isAuthenticated, user } = useAuth0()
 
   const currentUser = GetLocalStorage()
-  const localStorageFavs = GetLocalStorageFav()
+  //const localStorageFavs = GetLocalStorageFav()
 
   const carritoView = location.pathname === "/carrito-de-compras"
 
-  const response = cartStore.find(product => product.id === productId)
+  //const response = cartStore.find(product => product.id === productId)
 
   const index = cartStore.findIndex(product => product.id === productId)
 
 
   useEffect(() => {
-    if(user && cartStore.length) {
-      cartStore.forEach(product => product.id === productId && setAddedToCart(true))
+    if(user) {
+      if(cartStore.length) {
+        cartStore.forEach(product => product.id === productId && setAddedToCart(true))
+      }
+      if (favorites.length) {
+        favorites.forEach(fav => fav.id === productId && setIsFav(true))
+      }
+    
       //cartStore.forEach(product => product.id === productId && setQuantityOfProducts(product.quantity))
     }
   }, [dispatch, isAuthenticated, user, loadedUser, favorites, cartStore])
