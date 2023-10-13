@@ -60,7 +60,10 @@ const ProductDetail = () => {
                             </h2>
                             <p className="text-xl text-green-800">Precio: ${product.price}</p>
                         </div>
-                        <div className="px-4 py-5 sm:px-6">
+                        <div className="px-2 py-3 sm:px-4">
+                            <p>Cantidad en stock: {product.stock}</p>
+                        </div>
+                        <div className="px-2 py-3 sm:px-4">
                             <p className="text-gray-700">{product.description}</p>
                         </div>
                         <div className="border-t border-gray-200">
@@ -70,7 +73,6 @@ const ProductDetail = () => {
                                 className="w-full h-auto"
                             />
                         </div>
-
                     </div>
                 </div>
 
@@ -90,21 +92,7 @@ const ProductDetail = () => {
                                     </Link>
                                 )}
                             </div>
-                            <div className="px-4 sm:px-6">
-                                <h3 className="text-lg font-semibold text-gray-800">Detalles adicionales</h3>
-                            </div>
-                            <div className="px-4 py-2 sm:px-6">
-                                {/* <h4 className="text-gray-700 font-semibold">Stock por Talla:</h4> */}
-                                <ul className="list-disc list-inside">
-                                    {/* {product.stock.map((item) => (
-                                        <li key={item.id} className="text-gray-700">
-                                            {item.size}: {item.stock}
-                                        </li>))} */}
-                                    <h2>{`Este producto es ideal para ${product.event}`}</h2>
-                                    <h2>{product.gender ? `género: ${product.gender}` : null}</h2>
-
-                                </ul>
-                            </div>
+                            
                         </div>
                     </div>
 
