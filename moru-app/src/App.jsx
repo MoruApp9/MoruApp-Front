@@ -34,10 +34,6 @@ function App() {
   const productsStore = useSelector(state => state.allProducts.allProducts)
   const { user } = useAuth0();
 
-
-  //error handler
-  //error.length && dispatch(cleanErrors()) && window.alert(error)
-
   useEffect(() => {
     dispatch(getProducts());
     
