@@ -182,7 +182,7 @@ const Nav = ({user}) => {
                 </button>
 
                 {isDropdownOpen && (
-                  <div className="origin-top-right right-0 mt-2 w-52 whitespace-normal bg-gray-100 rounded-md">
+                  <div className="right-0 mt-2 w-52 max-h-48 overflow-y-auto whitespace-normal bg-gray-100 rounded-md">
                     <div role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                       {sedes?.map((option, index) => (
                         <button
