@@ -161,7 +161,13 @@ const RegisterTypeOfShop = () => {
                                 )} />
                             </div>
 
-                            <div className="flex justify-center items-center">
+                            <div className="flex justify-between flex-row gap-2 items-center">
+                                <Link to="/registration">
+                                    <button
+                                        className="w-36 md:h-14 h-10 px-2 border-2 border-purple-moru rounded-lg bg-gray-200 text-sm font-roboto-slab">
+                                        Atras
+                                    </button>
+                                </Link>
                                 <button
                                     className="w-36 h-10 md:h-14 px-2 border border-purple-moru rounded-lg bg-purple-moru text-white text-sm font-roboto-slab"
                                     type="submit"

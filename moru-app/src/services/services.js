@@ -22,6 +22,7 @@ export const getProducts = () => {
       const data = response.data
       dispatch(setAllProducts(data))
       dispatch(setProducts(data))
+      console.log(data);
     } catch (error) {
       errorHandler(error)
     }
@@ -200,6 +201,15 @@ export const deleteFavorite = (clientId, productId) => async (dispatch) => {
 export const postSucursal = async (dataSucursal) => {
   try {
     const sede = (await axios.post(`${BASE_URL}/commerce/createbranch`, dataSucursal)).data
+    return sede
+  } catch (error) {
+    errorHandler(error)
+  }
+}
+
+export const putSucursal = async (dataSucursal) => {
+  try {
+    const sede = (await axios.put(`${BASE_URL}/commerce/addcoords/`, dataSucursal)).data
   } catch (error) {
     errorHandler(error)
   }
