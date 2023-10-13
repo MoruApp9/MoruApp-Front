@@ -22,7 +22,6 @@ export const getProducts = () => {
       const data = response.data
       dispatch(setAllProducts(data))
       dispatch(setProducts(data))
-      console.log(data);
     } catch (error) {
       errorHandler(error)
     }
