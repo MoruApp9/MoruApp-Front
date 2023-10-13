@@ -20,7 +20,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import {DeleteLocalStorage, DeleteLocalStorageCommercesByOwner} from '../localStorage/DeleteLocalStorage';
 import { MdLogout } from 'react-icons/md';
 import { FaMapMarkerAlt } from "react-icons/fa";
-import { getBrandByOwner, getChart, getFavorites, getUser } from '../services/services';
+import { getBrandByOwner, getChart, getFavorites, getProducts, getUser } from '../services/services';
 import { addFav } from "../redux/favoritesSlice";
 import { addToCart } from "../redux/cartSlice";
 
@@ -39,6 +39,8 @@ const Nav = ({user}) => {
   const sedes = GetLocalStorageCommercesByOwner();
 
   useEffect(() => {
+    //dispatch(getProducts())
+    
     const handleFavsAndChart = async () => {
       if (user) {
       await getUser(user.email)
