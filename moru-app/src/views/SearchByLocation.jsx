@@ -27,7 +27,7 @@ const SearchByLocation = () => {
     // const locationsArray = [
     //     { name: 'niji', location: [-11.99415645, -77.0611521221075] },
     //     { name: 'suji', location: [-11.988889, -77.062778] },
-    //     // Otros puntos de ubicación
+    //     Otros puntos de ubicación
     // ];
 
     useEffect(() => {

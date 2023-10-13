@@ -7,7 +7,7 @@ export const ReseñasContainer = ({ reviews }) => {
                 reviews?.length > 0
                     ?
                     (<div>
-                        <h1 className="text-purple-moru py-4 font-bold">Reseñas de otros usuarios</h1>
+                        <h1 className="text-purple-moru py-4 font-bold">Reseñas de clientes</h1>
                         {reviews?.map((r) => {
                             return (
                                 <div key={r.id} className="border p-4 mb-4 rounded-lg bg-white">
@@ -21,7 +21,6 @@ export const ReseñasContainer = ({ reviews }) => {
                     :
                     (<div>
                         <h1 className="text-purple-moru py-4">Aún no hay reseñas</h1>
-                        <h3 className="text-purple-moru font-bold">¡Sé el primero!</h3>
                     </div>)
             } 
         </div>
