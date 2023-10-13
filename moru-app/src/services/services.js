@@ -71,7 +71,7 @@ export const getProductsByName = async (name) => {
     )
     return data
   } catch (error) {
-    Swal.fire('Oops...', error.response.data, 'error');
+    Swal.fire('Oops...', error.response.data, 'info');
     errorHandler(error)
   }
 }
