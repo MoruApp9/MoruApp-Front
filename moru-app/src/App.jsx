@@ -35,8 +35,8 @@ function App() {
   const { user } = useAuth0();
 
   useEffect(() => {
-    dispatch(getProducts());
-    
+    //dispatch(getProducts());
+
     if (error.length) {
       dispatch(cleanErrors());
       window.alert(error);

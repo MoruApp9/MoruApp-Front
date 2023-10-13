@@ -35,7 +35,11 @@ const ShoppingCart = () => {
       confirmButtonColor: "#280a50",
     }).then((response) => {
       if (response.isConfirmed) {
-        Swal.fire("Pedido realizado", "En breve se comunicarán contigo", "success")
+        Swal.fire(
+          "Pedido realizado",
+          "En breve se comunicarán contigo",
+          "success"
+        )
         postBuy(userData.id)
         deleteAllCart(userData.id)
         dispatch(removeAllFromCart())
@@ -103,9 +107,13 @@ const ShoppingCart = () => {
         ))}
       </div>
 
-      <button onClick={comprarButton} className="sticky bottom-6 w-15 mx-auto mt-6 bg-purple-moru text-white hover:bg-white hover:text-purple-moru  font-bold py-3 px-8 rounded-full border-[1.6px] border-white text-lg">
-        Comprar
-      </button>
+      {cartItems.length > 0 && (
+        <button
+          onClick={comprarButton}
+          className="sticky bottom-6 w-15 mx-auto mt-6 bg-purple-moru text-white hover:bg-white hover:text-purple-moru  font-bold py-3 px-8 rounded-full border-[1.6px] border-white text-lg">
+          Comprar
+        </button>
+      )}
     </section>
   )
 }

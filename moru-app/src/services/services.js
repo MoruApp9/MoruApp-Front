@@ -22,6 +22,7 @@ export const getProducts = () => {
       const data = response.data
       dispatch(setAllProducts(data))
       dispatch(setProducts(data))
+      console.log('getProducts',data);
     } catch (error) {
       errorHandler(error)
     }
@@ -71,7 +72,7 @@ export const getProductsByName = async (name) => {
     )
     return data
   } catch (error) {
-    Swal.fire('Oops...', error.response.data, 'error');
+    Swal.fire('Oops...', error.response.data, 'info');
     errorHandler(error)
   }
 }

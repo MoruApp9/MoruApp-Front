@@ -13,9 +13,7 @@ const Favorites = () => {
     const { user } = useAuth0()
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        
-    }, [dispatch, user, favorites])
+    useEffect(() => {}, [dispatch, user, favorites])
 
     return (
         <section className="flex flex-col mx-4 font-roboto-slab">
