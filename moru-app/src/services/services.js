@@ -22,7 +22,7 @@ export const getProducts = () => {
       const data = response.data
       dispatch(setAllProducts(data))
       dispatch(setProducts(data))
-      console.log('getProducts',data);
+      console.log('getProducts', data);
     } catch (error) {
       errorHandler(error)
     }
@@ -230,18 +230,18 @@ export const postChart = async (clientId, productId, quantity) => {
 }
 
 export const postOneQuantityOfProduct = async (clientId, productId) => {
-try {
-  console.log(clientId, productId);
-  const { data } = await axios.post(`${BASE_URL}/client/oneproductmore`, {
-    clientId,
-    productId
-  })
-  console.log(data);
-  return data
-} catch (error) {
-  //Swal.fire('No hay stock', error.response.data.error , 'info');
-  errorHandler(error)
-}
+  try {
+    console.log(clientId, productId);
+    const { data } = await axios.post(`${BASE_URL}/client/oneproductmore`, {
+      clientId,
+      productId
+    })
+    console.log(data);
+    return data
+  } catch (error) {
+    //Swal.fire('No hay stock', error.response.data.error , 'info');
+    errorHandler(error)
+  }
 }
 
 export const getChart = async (clientId) => {
@@ -321,30 +321,61 @@ export const getInfoBranch = async (idBranch) => {
 }
 
 export const postReview = async (reviewData) => {
-    try {
-        console.log(reviewData);
-        const response = (await axios.post(`${BASE_URL}/rating/`, reviewData)).data;
-        return response;
-    } catch (error) {
-      errorHandler(error)
-    }
+  try {
+    console.log(reviewData);
+    const response = (await axios.post(`${BASE_URL}/rating/`, reviewData)).data;
+    return response;
+  } catch (error) {
+    errorHandler(error)
+  }
 };
 
 export const getReviews = async (idSucursal) => {
-    try {
-        const response = (await axios.get(`${BASE_URL}/rating?idSucursal=${idSucursal}`)).data;
-        console.log(response)
-        return response;
-    } catch (error) {
-      errorHandler(error)
-    }
+  try {
+    const response = (await axios.get(`${BASE_URL}/rating?idSucursal=${idSucursal}`)).data;
+    console.log(response)
+    return response;
+  } catch (error) {
+    errorHandler(error)
+  }
 };
 
 export const postBuy = async (clientId) => {
   try {
     //console.log(clientId);
-    const response = await axios.post(`${BASE_URL}/client/buy`, {clientId})
+    const response = await axios.post(`${BASE_URL}/client/buy`, { clientId })
     console.log(response);
+  } catch (error) {
+    errorHandler(error)
+  }
+}
+
+export const putBrand = async (id, obj) => {
+  try {
+    console.log(obj);
+    console.log(id, obj);
+    const response = await axios.put(`${BASE_URL}/commerce/approvecommerce/${id}`, obj)
+    console.log(response);
+  } catch (error) {
+    errorHandler(error)
+  }
+}
+
+export const getAllCommerces = async () => {
+  try {
+    const response = (await axios.get(`${BASE_URL}/allcommerces`)).data
+    console.log(response);
+    return response;
+  } catch (error) {
+    errorHandler(error)
+  }
+}
+
+export const getPendingCommerces = async () => {
+  try {
+    const response = (await axios.get(`${BASE_URL}/commerce/pendingcommerces`)).data
+    console.log(response);
+    return response;
   } catch (error) {
     errorHandler(error)
   }

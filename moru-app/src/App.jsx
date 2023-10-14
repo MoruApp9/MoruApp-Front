@@ -26,6 +26,7 @@ import Account from "./views/Account"
 import RegisterTypeOfShop from './views/RegisterTypeOfShop';
 import CrearSede from "./views/CrearSucursal";
 import SearchByLocation from "./views/SearchByLocation";
+import Dashboard from "./views/Dashboard";
 import ProductsStateClient from "./views/ProductsStateClient";
 
 function App() {
@@ -37,7 +38,7 @@ function App() {
 
   useEffect(() => {
     //dispatch(getProducts());
-
+    console.log(user);
     if (error.length) {
       dispatch(cleanErrors());
       window.alert(error);
@@ -51,10 +52,12 @@ function App() {
         pathname !== "/registeruser" &&
         pathname !== "/registershop" &&
         /* pathname !== "/landing" && */
+        user?.name !== "Moru APP" &&
         <Nav user={user}/>
       }
       {
         pathname === "/" &&
+        user?.name !== "Moru APP" &&
         <SearchBar/>
       }
 
@@ -76,6 +79,7 @@ function App() {
         <Route path="/registrar-empresa" element={<RegisterTypeOfShop/>} />
         <Route path="/crearSucursal" element={<CrearSede/>} />
         <Route path="/mapa" element={<SearchByLocation/>} />
+        <Route path="/dashboard" element={<Dashboard/>} />
         <Route path="/estado-productos" element={<ProductsStateClient/>}/>
       </Routes>
     </div>
