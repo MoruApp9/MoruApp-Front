@@ -3,6 +3,7 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getProducts } from './services/services';
 import { cleanErrors } from "./redux/errorsSlice";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import "./index.css"
 
@@ -27,6 +28,7 @@ import CrearSede from "./views/CrearSucursal";
 import SearchByLocation from "./views/SearchByLocation";
 import { useAuth0 } from "@auth0/auth0-react";
 import Dashboard from "./views/Dashboard";
+import ProductsStateClient from "./views/ProductsStateClient";
 
 function App() {
   const { pathname } = useLocation()
@@ -79,6 +81,7 @@ function App() {
         <Route path="/crearSucursal" element={<CrearSede/>} />
         <Route path="/mapa" element={<SearchByLocation/>} />
         <Route path="/dashboard" element={<Dashboard/>} />
+        <Route path="/estado-productos" element={<ProductsStateClient/>}/>
       </Routes>
     </div>
   )

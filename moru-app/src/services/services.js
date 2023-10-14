@@ -288,12 +288,24 @@ export const deleteAllQuantityOfProductFromCart = async (clientId, productId, qu
     errorHandler(error)
   }
 }
-export const postRegisterAddress = (id) => async (dispatch) => {
+
+export const postUbicationUser = async(dataUbication) => {
   try {
-    const resp = (await axios.get(`${BASE_URL}/commerce/branches/${id}`)).data
-    dispatch(setUbication(resp))
+    const resp = (await axios.post(`${BASE_URL}/commerce/municipalitycoords`, dataUbication)).data
+    return resp;
   } catch (error) {
     errorHandler(error)
+  }
+}
+
+
+export const postUbicationSucursales = async(dataCategory) => {
+  try {
+    const resp = (await axios.post(`${BASE_URL}/commerce/branches`, dataCategory)).data
+    return resp;
+  } catch (error) {
+    errorHandler(error)
+    Swal.fire('Oops...', error.response.data.error , 'error');
   }
 }
 
@@ -364,5 +376,12 @@ export const getPendingCommerces = async () => {
     return response;
   } catch (error) {
     errorHandler(error)
+export const getHistoryOfOrderedProducts = async (clientId) => {
+  try {
+    const response = await axios(`${BASE_URL}/client/history/${clientId}`)
+    console.log('get history',response);
+    return response.data
+  } catch (error) {
+    console.error(error);
   }
 }
