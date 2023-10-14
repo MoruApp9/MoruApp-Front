@@ -359,3 +359,13 @@ export const getHistoryOfOrderedProducts = async (clientId) => {
     console.error(error);
   }
 }
+
+export const getBranchOrders = async (branchId) => {
+  try {
+    const response = await axios(`${BASE_URL}/commerce/allordersforbranch/${branchId}`)
+    console.log('getBranchOrders', response);
+    return response.data
+  } catch (error) {
+    console.error(error);
+  }
+}
