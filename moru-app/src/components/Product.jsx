@@ -35,12 +35,12 @@ const Product = ({ product }) => {
   const loadedUser = useSelector((state) => state.user)
   const favorites = useSelector((state) => state.favorites)
   const cartStore = useSelector((state) => state.cart.cart)
-  const productsState = useSelector(state => state.productsState)
+  const productsOrdered = useSelector(state => state.productsOrdered)
 
   const { isAuthenticated, user } = useAuth0()
 
   const currentUser = GetLocalStorage()
-  const currentProductState = productsState.find(product => product.id === productId)
+  const currentProductState = productsOrdered.find(product => product.id === productId)
 
   const carritoView = location.pathname === "/carrito-de-compras"
   const productStateView = location.pathname === "/estado-productos"
