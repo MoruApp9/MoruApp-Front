@@ -3,12 +3,10 @@ import React from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import imagen from "../images/Moru.jpeg";
 import { Formik, Form, ErrorMessage, Field } from 'formik';
-import { PostLocalStorage, PostLocalStorageCommercesByOwner } from '../localStorage/PostLocalStorage';
 import { GetLocalStorage } from '../localStorage/GetLocalStorage'
-import { getBrandByOwner, postSucursal, putSucursal } from '../services/services';
+import { postSucursal, putSucursal } from '../services/services';
 import Swal from 'sweetalert2';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 
 const CrearSede = () => {
@@ -21,38 +19,23 @@ const CrearSede = () => {
     const [dataSucursal, setDataSucursal] = useState(null);
 
     useEffect(() => {
-        // if ('geolocation' in navigator) {
-        //   navigator.geolocation.getCurrentPosition(
-        //     (position) => {
-        //       const { latitude, longitude } = position.coords;
-        //       setLocation([ latitude, longitude ]);
-        //     },
-        //     (error) => {
-        //       console.error('Error obteniendo ubicación:', error);
-        //     }
-        //   );
-        // } else {
-        //   console.error('Geolocalización no está disponible en este navegador.');
-        // }
         dataSucursal && setLocation(dataSucursal.coords);
+        if (dataSucursal && dataSucursal.message) {
+            Swal.fire('Oops...', dataSucursal.message, 'error');
+        }
     }, [dataSucursal]);
-
-    //const mapCenter = location || [7.88333, -76.6333];
-
-
 
     const handleMarkerDragend = (e) => {
         const marker = e.target;
         const position = marker.getLatLng(); 
         setLocation([position.lat, position.lng]);
-        console.log(location);
     };
 
     const handleUpdata = async(e) => {
         e.preventDefault();
-        console.log(dataSucursal.newBranch.branchId);
-        await putSucursal({branchId: dataSucursal.newBranch.branchId, coords: location});
+        await putSucursal({branchId: dataSucursal.branchId, coords: location});
         Swal.fire('Éxito', 'Sucursal creada correctamente', 'success');
+        navigate('/');
     }
 
     return (
@@ -114,15 +97,9 @@ const CrearSede = () => {
 
                     onSubmit={async (values) => {
                         try {
-                            console.log(values);
                             setDataSucursal(await postSucursal(values))
-                            
-                            // if (response.message === 'Ya existe la sucursal con esa direccion') {
-                            //     window.alert('Ya existe la sucursal con esa dirección');
-                            // } else 
                         } catch (error) {
-                            console.log(error);
-                            Swal.fire('Oops...', 'Error al realizar la operación', 'error');
+                            Swal.fire('Oops...', "Ocurrio un problema en el proceso", 'error');
                         }
                     }}
                 >
