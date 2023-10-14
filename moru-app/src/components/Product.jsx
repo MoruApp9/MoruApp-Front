@@ -160,7 +160,7 @@ const Product = ({ product }) => {
         </div>
 
         <div className="px-4 pb-2">
-          <h2 className="text-sm font-semibold overflow-hidden overflow-ellipsis line-clamp-2 h-10">{product.name}</h2>
+          <h2 className="text-base font-semibold overflow-hidden overflow-ellipsis line-clamp-2 h-12">{product.name}</h2>
           <p className="text-gray-500">${product.price}</p>
         </div>
 
@@ -169,13 +169,13 @@ const Product = ({ product }) => {
             {currentUser?.userRole !== "adminCommerce" &&
               (addedToCart ? (
                 <button
-                  className="bg-purple-moru text-white hover:bg-white hover:text-purple-moru  font-bold py-2 px-4 rounded-full"
+                  className="bg-purple-moru text-white hover:bg-white hover:text-purple-moru hover:border-purple-moru font-bold py-2 px-4 rounded-full"
                   onClick={handleDeleteToCart}>
                   Eliminar
                 </button>
               ) : (
                 <button
-                  className="bg-purple-moru text-white hover:bg-white hover:text-purple-moru  font-bold py-2 px-4 rounded-full"
+                  className="bg-purple-moru text-white hover:bg-white hover:text-purple-moru hover:border-purple-moru font-bold py-2 px-4 rounded-full"
                   onClick={handleAddToCart}>
                   Agregar al carrito
                 </button>
