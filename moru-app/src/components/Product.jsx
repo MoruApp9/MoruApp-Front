@@ -35,12 +35,17 @@ const Product = ({ product }) => {
   const loadedUser = useSelector((state) => state.user)
   const favorites = useSelector((state) => state.favorites)
   const cartStore = useSelector((state) => state.cart.cart)
+  const productsOrdered = useSelector((state) => state.productsOrdered)
 
   const { isAuthenticated, user } = useAuth0()
 
   const currentUser = GetLocalStorage()
+  const currentProductState = productsOrdered.find(
+    (product) => product.id === productId
+  )
 
   const carritoView = location.pathname === "/carrito-de-compras"
+  const productStateView = location.pathname === "/estado-productos"
 
   const index = cartStore.findIndex((product) => product.id === productId)
 
@@ -67,7 +72,8 @@ const Product = ({ product }) => {
       if (isFav) {
         setIsFav(false) //que deje de ser fav
         dispatch(deleteFavorite(userUpdate.id, productId)) // se elimina el fav y se actualiza el estado global de favs para renderizar
-      } else {// si no es fav
+      } else {
+        // si no es fav
         setIsFav(true) // se vuelve fav
         console.log(userUpdate)
         dispatch(postFavorites(userUpdate.id, productId)) // Se postea en la base de datos como fav y se actualiza el estado global
@@ -150,10 +156,15 @@ const Product = ({ product }) => {
         />
 
         <div className="flex items-center justify-end px-4 pt-2">
-          {//FAV BUTTON: se muestra si el usuario NO está autenticado (cualquier usuario) o es usuario comprador
+          {
+            //FAV BUTTON: se muestra si el usuario NO está autenticado (cualquier usuario) o es usuario comprador
             currentUser?.userRole !== "adminCommerce" && (
               <button className="text-gray-500" onClick={handleFavorite}>
-                <FiHeart className={`text-purple-moru ${isFav ? "fill-current" : "stroke-current"}`}/>
+                <FiHeart
+                  className={`text-purple-moru ${
+                    isFav ? "fill-current" : "stroke-current"
+                  }`}
+                />
               </button>
             )
           }
@@ -161,51 +172,62 @@ const Product = ({ product }) => {
 
         <div className="px-4 pb-2">
           <h2 className="text-base font-semibold overflow-hidden overflow-ellipsis line-clamp-2 h-12">{product.name}</h2>
-          <p className="text-gray-500">${product.price}</p>
+
+          <div className="flex justify-between ml-2 mr-2 mb-3">
+            <p className="text-gray-500">$ {product.price}</p>
+            {productStateView && (
+              <p className="text-gray-500">Cantidad: <span className="font-bold">{currentProductState.quantity}</span></p>
+            )}
+          </div>
+
+          {productStateView && (
+            <p className="text-gray-500 w-fit mx-auto p-2 px-4 text-center border rounded-full">{currentProductState.status}</p>
+          )}
         </div>
 
-        {!carritoView ? (
-          <div className="flex items-center justify-center py-2">
-            {currentUser?.userRole !== "adminCommerce" &&
-              (addedToCart ? (
-                <button
-                  className="bg-purple-moru text-white hover:bg-white hover:text-purple-moru hover:border-purple-moru font-bold py-2 px-4 rounded-full"
-                  onClick={handleDeleteToCart}>
-                  Eliminar
-                </button>
-              ) : (
-                <button
-                  className="bg-purple-moru text-white hover:bg-white hover:text-purple-moru hover:border-purple-moru font-bold py-2 px-4 rounded-full"
-                  onClick={handleAddToCart}>
-                  Agregar al carrito
-                </button>
-              ))}
-          </div>
-        ) : (
-          <div className=" flex justify-between items-center ml-8 mr-8 mb-4">
-            <button
-              onClick={handleTrashButton}
-              className="text-purple-moru text-2xl">
-              <BsTrash3Fill />
-            </button>
-
-            <div className="flex items-center border-[1.5px] border-purple-moru rounded-full ">
-              <button
-                onClick={handleDeleteToCart}
-                className="bg-purple-moru rounded-tl-full  rounded-tr-full rounded-bl-full pl-1 pr-1 text-white text-2xl">
-                <AiOutlineMinus />
-              </button>
-
-              <span className="ml-3 mr-3">{cartStore[index].quantity}</span>
-              
-              <button
-                onClick={handlePlusButton}
-                className="bg-purple-moru rounded-tr-full  rounded-br-full rounded-bl-full pr-1 pl-1 text-white text-2xl">
-                <AiOutlinePlus />
-              </button>
+        {!productStateView &&
+          (!carritoView ? (
+            <div className="flex items-center justify-center py-2">
+              {currentUser?.userRole !== "adminCommerce" &&
+                (addedToCart ? (
+                  <button
+                    className="bg-purple-moru text-white hover:bg-white hover:text-purple-moru hover:border-purple-moru font-bold py-2 px-4 rounded-full"
+                    onClick={handleDeleteToCart}>
+                    Eliminar
+                  </button>
+                ) : (
+                  <button
+                    className="bg-purple-moru text-white hover:bg-white hover:text-purple-moru hover:border-purple-moru font-bold py-2 px-4 rounded-full"
+                    onClick={handleAddToCart}>
+                    Agregar al carrito
+                  </button>
+                ))}
             </div>
-          </div>
-        )}
+          ) : (
+            <div className=" flex justify-between items-center ml-8 mr-8 mb-4">
+              <button
+                onClick={handleTrashButton}
+                className="text-purple-moru text-2xl">
+                <BsTrash3Fill />
+              </button>
+
+              <div className="flex items-center border-[1.5px] border-purple-moru rounded-full ">
+                <button
+                  onClick={handleDeleteToCart}
+                  className="bg-purple-moru rounded-tl-full  rounded-tr-full rounded-bl-full pl-1 pr-1 text-white text-2xl">
+                  <AiOutlineMinus />
+                </button>
+
+                <span className="ml-3 mr-3">{cartStore[index].quantity}</span>
+
+                <button
+                  onClick={handlePlusButton}
+                  className="bg-purple-moru rounded-tr-full  rounded-br-full rounded-bl-full pr-1 pl-1 text-white text-2xl">
+                  <AiOutlinePlus />
+                </button>
+              </div>
+            </div>
+          ))}
       </div>
     </Link>
   )

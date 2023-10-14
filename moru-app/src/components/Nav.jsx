@@ -1,6 +1,8 @@
+/* eslint-disable react/prop-types */
 //TODO usar iconos de react
 import { AiFillHome } from "react-icons/ai";
 import { AiOutlineUserAdd } from "react-icons/ai";
+import { BsFillSendFill } from "react-icons/bs";
 import { BiSolidUser } from 'react-icons/bi';
 import { BiSolidCloudUpload } from 'react-icons/bi';
 import { PiStorefrontDuotone } from 'react-icons/pi';
@@ -158,6 +160,15 @@ const Nav = ({user}) => {
               <Link to="/fav" >
                 <ul onClick={() => { setOpenMenu(false), setSelectedOption('favoritos') }} className={`flex p-2 hover:bg-gray-200 rounded-md w-52 items-center space-x-4 mr-3 ${selectedOption === "favoritos" ? 'bg-gray-200 ': ''}`} >
                   <MdFavorite className="w-7 text-purple-moru text-3xl"/><span>Favoritos</span>
+                </ul>
+              </Link>
+              
+            }
+            {
+              (!currentUser || GetLocalStorage() && currentUser.userRole === 'buyer' ) && 
+              <Link to='/estado-productos'>
+                <ul onClick={() => { setOpenMenu(false), setSelectedOption('pedidos')}} className={`flex p-2 hover:bg-gray-200 rounded-md w-52 items-center space-x-4 mr-3 ${selectedOption === "pedidos" ? 'bg-gray-200 ': ''}`}>
+                  <BsFillSendFill className="w-7 text-3xl text-purple-moru"/><span>Pedidos</span>
                 </ul>
               </Link>
             }

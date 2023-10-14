@@ -349,3 +349,13 @@ export const postBuy = async (clientId) => {
     errorHandler(error)
   }
 }
+
+export const getHistoryOfOrderedProducts = async (clientId) => {
+  try {
+    const response = await axios(`${BASE_URL}/client/history/${clientId}`)
+    console.log('get history',response);
+    return response.data
+  } catch (error) {
+    console.error(error);
+  }
+}
