@@ -350,9 +350,11 @@ export const postBuy = async (clientId) => {
   }
 }
 
-export const putBrand = async (id, status) => {
+export const putBrand = async (id, obj) => {
   try {
-    const response = await axios.put(`${BASE_URL}/approvecommerce/${id}`, {status} )
+    console.log(obj);
+    console.log(id, obj);
+    const response = await axios.put(`${BASE_URL}/commerce/approvecommerce/${id}`, obj)
     console.log(response);
   } catch (error) {
     errorHandler(error)
@@ -371,11 +373,14 @@ export const getAllCommerces = async () => {
 
 export const getPendingCommerces = async () => {
   try {
-    const response = (await axios.get(`${BASE_URL}/pendingcommerces`)).data
+    const response = (await axios.get(`${BASE_URL}/commerce/pendingcommerces`)).data
     console.log(response);
     return response;
   } catch (error) {
     errorHandler(error)
+  }
+}
+
 export const getHistoryOfOrderedProducts = async (clientId) => {
   try {
     const response = await axios(`${BASE_URL}/client/history/${clientId}`)

@@ -26,7 +26,6 @@ import Account from "./views/Account"
 import RegisterTypeOfShop from './views/RegisterTypeOfShop';
 import CrearSede from "./views/CrearSucursal";
 import SearchByLocation from "./views/SearchByLocation";
-import { useAuth0 } from "@auth0/auth0-react";
 import Dashboard from "./views/Dashboard";
 import ProductsStateClient from "./views/ProductsStateClient";
 
