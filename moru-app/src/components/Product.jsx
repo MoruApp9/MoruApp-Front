@@ -35,12 +35,14 @@ const Product = ({ product }) => {
   const loadedUser = useSelector((state) => state.user)
   const favorites = useSelector((state) => state.favorites)
   const cartStore = useSelector((state) => state.cart.cart)
-  const productsOrdered = useSelector(state => state.productsOrdered)
+  const productsOrdered = useSelector((state) => state.productsOrdered)
 
   const { isAuthenticated, user } = useAuth0()
 
   const currentUser = GetLocalStorage()
-  const currentProductState = productsOrdered.find(product => product.id === productId)
+  const currentProductState = productsOrdered.find(
+    (product) => product.id === productId
+  )
 
   const carritoView = location.pathname === "/carrito-de-compras"
   const productStateView = location.pathname === "/estado-productos"
@@ -172,11 +174,17 @@ const Product = ({ product }) => {
           <h2 className="text-sm font-semibold overflow-hidden overflow-ellipsis line-clamp-2 h-10">
             {product.name}
           </h2>
+
           <div className="flex justify-between ml-2 mr-2 mb-3">
             <p className="text-gray-500">$ {product.price}</p>
-            {productStateView && (<p className="text-gray-500">Cantidad: <span className="font-bold">{currentProductState.quantity}</span></p>)}
-
+            {productStateView && (
+              <p className="text-gray-500">Cantidad: <span className="font-bold">{currentProductState.quantity}</span></p>
+            )}
           </div>
+
+          {productStateView && (
+            <p className="text-gray-500 w-fit mx-auto p-2 px-4 text-center border rounded-full">{currentProductState.status}</p>
+          )}
         </div>
 
         {!productStateView &&
