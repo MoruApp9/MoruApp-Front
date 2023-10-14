@@ -26,7 +26,7 @@ import Account from "./views/Account"
 import RegisterTypeOfShop from './views/RegisterTypeOfShop';
 import CrearSede from "./views/CrearSucursal";
 import SearchByLocation from "./views/SearchByLocation";
-import PorductsStateClient from "./views/PorductsStateClient";
+import ProductsStateClient from "./views/ProductsStateClient";
 
 function App() {
   const { pathname } = useLocation()
@@ -76,7 +76,7 @@ function App() {
         <Route path="/registrar-empresa" element={<RegisterTypeOfShop/>} />
         <Route path="/crearSucursal" element={<CrearSede/>} />
         <Route path="/mapa" element={<SearchByLocation/>} />
-        <Route path="/estado-productos" element={<PorductsStateClient/>}/>
+        <Route path="/estado-productos" element={<ProductsStateClient/>}/>
       </Routes>
     </div>
   )

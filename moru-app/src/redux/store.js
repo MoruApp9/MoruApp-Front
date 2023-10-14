@@ -10,6 +10,7 @@ import categoriesReducer from "./categoriesSlice"
 import errors from "./errorsSlice"
 import allProducts from "./allProductsSlice"
 import ubication from "./ubicationSlice"
+import productsState from "./productsStateSlice"
 
 export default configureStore({
   reducer: {
@@ -23,6 +24,7 @@ export default configureStore({
     isFav: isFav,
     errors: errors,
     ubication: ubication,
+    productsState: productsState,
   },
   applyMiddleware: [thunk],
 })
