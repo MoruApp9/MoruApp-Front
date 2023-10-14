@@ -13,6 +13,7 @@ import { addToCart } from "../redux/cartSlice";
 import { addFav } from "../redux/favoritesSlice";
 //import { setUser } from "../redux/userSlice";
 import Loader from "../components/Loader";
+import Dashboard from "./Dashboard";
 
 const Home = () => {
   const productsFiltered = useSelector((state) => state.productsFiltered);
@@ -42,14 +43,14 @@ const Home = () => {
             }
           }
         }
-          
+
         if (user) {
           if (dataComplete.userRole === "adminCommerce" && !dataComplete.brand) {
             await getUser(user.email);
-          }else if(!dataComplete.id){
+          } else if (!dataComplete.id) {
             await getUser(user.email);
           }
-          
+
           const dataUser = GetLocalStorage()
           //console.log(dataUser);
           if (dataUser && dataUser.error) navigate('/registration');
@@ -88,11 +89,18 @@ const Home = () => {
   // Si no se cumple la condición, muestra los productos
   return (
     <div>
-      {!productsFiltered.length && <Advertising />}
-      {!productsFiltered.length && <Categories />}
-      {!productsFiltered.length && <AllProducts />}
-      {productsFiltered.length !== 0 && <Filters />}
+      {dataComplete?.userRole === "SuperAdmin" ? <Dashboard /> :
+        (dataComplete?.userRole !== "SuperAdmin" ? 
+          <div>
+            {!productsFiltered.length && <Advertising />}
+            {!productsFiltered.length && <Categories />}
+            {!productsFiltered.length && <AllProducts />}
+            {productsFiltered.length !== 0 && <Filters />}
+          </div>
+        : null)
+      }
     </div>
+
   );
 };
 export default Home;

@@ -26,6 +26,7 @@ import RegisterTypeOfShop from './views/RegisterTypeOfShop';
 import CrearSede from "./views/CrearSucursal";
 import SearchByLocation from "./views/SearchByLocation";
 import { useAuth0 } from "@auth0/auth0-react";
+import Dashboard from "./views/Dashboard";
 
 function App() {
   const { pathname } = useLocation()
@@ -36,7 +37,7 @@ function App() {
 
   useEffect(() => {
     //dispatch(getProducts());
-
+    console.log(user);
     if (error.length) {
       dispatch(cleanErrors());
       window.alert(error);
@@ -50,10 +51,12 @@ function App() {
         pathname !== "/registeruser" &&
         pathname !== "/registershop" &&
         /* pathname !== "/landing" && */
+        user?.name !== "Moru APP" &&
         <Nav user={user}/>
       }
       {
         pathname === "/" &&
+        user?.name !== "Moru APP" &&
         <SearchBar/>
       }
 
@@ -75,6 +78,7 @@ function App() {
         <Route path="/registrar-empresa" element={<RegisterTypeOfShop/>} />
         <Route path="/crearSucursal" element={<CrearSede/>} />
         <Route path="/mapa" element={<SearchByLocation/>} />
+        <Route path="/dashboard" element={<Dashboard/>} />
       </Routes>
     </div>
   )
