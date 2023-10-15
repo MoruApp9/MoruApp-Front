@@ -27,6 +27,7 @@ const ProductsStateClient = () => {
 
   useEffect(() => {
     updateStore()
+    window.scrollTo(0, 0)
   }, [dispatch])
 
   const handleTodosButton = async (event) => {
@@ -77,7 +78,7 @@ const ProductsStateClient = () => {
   }
 
   return (
-    <section className="flex flex-col ">
+    <section className="min-h-screen flex flex-col ">
       <div className=" bg-white flex justify-center mx-auto w-fit my-6 space-x-4 p-4 font-roboto-slab border rounded-full sticky top-24 ">
         <button
           onClick={handleTodosButton}

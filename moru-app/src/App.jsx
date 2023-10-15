@@ -27,6 +27,7 @@ import RegisterTypeOfShop from './views/RegisterTypeOfShop';
 import CrearSede from "./views/CrearSucursal";
 import SearchByLocation from "./views/SearchByLocation";
 import ProductsStateClient from "./views/ProductsStateClient";
+import Footer from "./components/Footer";
 
 function App() {
   const { pathname } = useLocation()
@@ -58,6 +59,8 @@ function App() {
         <SearchBar/>
       }
 
+      
+
       <Routes>
         <Route exact path="/" element={<Home />}></Route>
         <Route path="/login" element={<Login />}></Route>
@@ -78,6 +81,9 @@ function App() {
         <Route path="/mapa" element={<SearchByLocation/>} />
         <Route path="/estado-productos" element={<ProductsStateClient/>}/>
       </Routes>
+      {
+        <Footer/>
+      }
     </div>
   )
 }

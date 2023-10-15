@@ -2,7 +2,7 @@ import { Stars } from "./Stars"
 
 export const ReseñasContainer = ({ reviews }) => {
     return (
-        <div className="p-4 bg-gray-100">
+        <div className="p-4 bg-gray-100 rounded-md">
             {
                 reviews?.length > 0
                     ?

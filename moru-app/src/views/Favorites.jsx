@@ -13,10 +13,10 @@ const Favorites = () => {
     const { user } = useAuth0()
     const dispatch = useDispatch()
 
-    useEffect(() => {}, [dispatch, user, favorites])
+    useEffect(() => {window.scrollTo(0, 0)}, [dispatch, user, favorites])
 
     return (
-        <section className="flex flex-col mx-4 font-roboto-slab">
+        <div className="min-h-screen flex flex-col mx-4 font-roboto-slab">
         {
             favorites.length > 0
                 ? <h1 className="text-4xl font-bold text-center text-purple-moru-dark mt-8">¡Estos son tus favoritos!</h1>
@@ -33,7 +33,7 @@ const Favorites = () => {
             ))
         }
         </div >
-        </section>
+        </div>
     )
 }
 

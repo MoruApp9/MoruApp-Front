@@ -13,7 +13,7 @@ import { createSelector } from 'reselect';
 import Loader from '../components/Loader'
 import { Stars } from '../components/Stars';
 import { ReseñasContainer } from '../components/ReseñasContainer';
-import { FaMapMarker, FaClock, FaPhone } from "react-icons/fa"; // Importa los íconos necesarios
+import { FaMapMarker, FaClock, FaPhoneAlt } from "react-icons/fa"; // Importa los íconos necesarios
 
 
 const MiTienda = () => {
@@ -117,7 +117,7 @@ const MiTienda = () => {
                                 </div>
 
                                 <div className="flex items-center">
-                                    <FaPhone className="text-purple-moru" />
+                                    <FaPhoneAlt className="text-purple-moru" />
                                     <p className="ml-2 text-purple-moru">{branchData.phone}</p>
                                 </div>
                             </div>

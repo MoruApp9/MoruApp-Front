@@ -107,7 +107,7 @@ const Categories = ({ getProductsByCategory }) => {
             <div className="w-full px-10 lg:px-36 py-2">
                 <Slider {...settings} >
                     {categorias?.map((categoria) => (
-                        <div key={categoria.id} className=" cursor-pointer hover:shadow-xl flex flex-col items-center px-2" onClick={() => handleClickCategoria(categoria.id)}>
+                        <div key={categoria.id} className="h-28 sm:h-36 xl:h-28 hover:border-2 hover:rounded-xl cursor-pointer hover:shadow-xl flex flex-col items-center px-0" onClick={() => handleClickCategoria(categoria.id)}>
                             <img
                                 src={categoria.img}
                                 alt={categoria.category}

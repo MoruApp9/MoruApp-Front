@@ -14,7 +14,7 @@ const ShoppingCart = () => {
   const navigate = useNavigate()
   const { user } = useAuth0()
 
-  useEffect(() => {}, [dispatch, user, cartItems])
+  useEffect(() => {window.scrollTo(0, 0)}, [dispatch, user, cartItems])
 
   const total = cartItems.reduce((accumulator, product) => {
     return accumulator + parseFloat(product?.price)
@@ -72,7 +72,7 @@ const ShoppingCart = () => {
   }
 
   return (
-    <section className="flex flex-col mx-4">
+    <div className="min-h-screen flex flex-col mx-4">
       {total === 0 ? (
         <div>
           <h1 className="text-4xl text-center text-purple-moru m-8">
@@ -116,7 +116,7 @@ const ShoppingCart = () => {
           Comprar
         </button>
       )}
-    </section>
+    </div>
   )
 }
 
