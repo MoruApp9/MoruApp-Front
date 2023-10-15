@@ -148,11 +148,11 @@ const Product = ({ product }) => {
 
   return (
     <Link to={`/producto/${productId}`}>
-      <div className="max-w-md mx-auto bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition duration-300 font-roboto-slab">
+      <div className="max-w-sm mx-auto border-2 border-gray-200 bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition duration-300 font-roboto-slab">
         <img
           src={product.image}
           alt={product.name}
-          className="w-full h-48 object-cover"
+          className="w-full h-60"
         />
 
         <div className="flex items-center justify-end px-4 pt-2">
@@ -191,13 +191,13 @@ const Product = ({ product }) => {
               {currentUser?.userRole !== "adminCommerce" &&
                 (addedToCart ? (
                   <button
-                    className="bg-purple-moru text-white hover:bg-white hover:text-purple-moru hover:border-purple-moru font-bold py-2 px-4 rounded-full"
+                  className="bg-purple-moru text-white hover:bg-gray-300 hover:text-purple-moru hover:border-purple-moru font-bold py-2 px-4 rounded-full"
                     onClick={handleDeleteToCart}>
                     Eliminar
                   </button>
                 ) : (
                   <button
-                    className="bg-purple-moru text-white hover:bg-white hover:text-purple-moru hover:border-purple-moru font-bold py-2 px-4 rounded-full"
+                  className="bg-purple-moru text-white hover:bg-gray-300 hover:text-purple-moru hover:border-purple-moru font-bold py-2 px-4 rounded-full"
                     onClick={handleAddToCart}>
                     Agregar al carrito
                   </button>
