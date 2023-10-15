@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react"
 import { Link, useLocation } from "react-router-dom"
-
 import { useDispatch, useSelector } from "react-redux"
+import { useAuth0 } from "@auth0/auth0-react"
+
 import { addToCart, removefromCart, uploadQuantity } from "../redux/cartSlice"
-import Swal from "sweetalert2"
 
 import {
   postFavorites,
@@ -14,16 +14,21 @@ import {
   deleteAllQuantityOfProductFromCart,
   postOneQuantityOfProduct,
   getProducts,
+  putOrderStatus,
 } from "../services/services"
 
 import { FiHeart } from "react-icons/fi"
 import { AiOutlinePlus } from "react-icons/ai"
 import { AiOutlineMinus } from "react-icons/ai"
 import { BsTrash3Fill } from "react-icons/bs"
+import { BiSend } from "react-icons/bi"
+import { IoMdDoneAll } from "react-icons/io"
+
+import Swal from "sweetalert2"
 
 import { GetLocalStorage } from "../localStorage/GetLocalStorage"
-
-import { useAuth0 } from "@auth0/auth0-react"
+import { updateStatus } from "../redux/productsOrderedSlice"
+import { updateStatusFiltered } from "../redux/productsOrderedFilteredSlice"
 
 const Product = ({ product }) => {
   const productId = product.id
@@ -48,6 +53,8 @@ const Product = ({ product }) => {
   const productStateView = location.pathname === "/estado-productos"
 
   const index = cartStore.findIndex((product) => product.id === productId)
+
+  
 
   useEffect(() => {
     if (user) {
@@ -146,9 +153,119 @@ const Product = ({ product }) => {
     } else Swal.fire("No hay stock", response.message, "info")
   }
 
+  /* Swal.fire({
+    title: "Confirmación",
+    text: "¿Deseas confirmar el pedido?",
+    icon: "question",
+    showDenyButton: true,
+    denyButtonText: "No",
+    confirmButtonText: "Sí",
+    confirmButtonColor: "#280a50",
+  }).then((response) => {
+    if (response.isConfirmed) {
+      Swal.fire(
+        "Pedido realizado",
+        "En breve se comunicarán contigo",
+        "success"
+      )
+      postBuy(userData.id)
+      deleteAllCart(userData.id)
+      dispatch(removeAllFromCart())
+      navigate('/estado-productos')
+    }
+  })
+} */
+
+  const changePendingStatusToSend = () => {
+    Swal.fire({
+      title: "Confirmación",
+      text: "¿Deseas enviar el pedido?",
+      icon: "question",
+      showDenyButton: true,
+      denyButtonText: "No",
+      confirmButtonText: "Sí",
+      confirmButtonColor: "#280a50",
+    }).then(async (response) => {
+      if (response.isConfirmed) {
+        try {
+          const response = await putOrderStatus(currentProductState.orderId, "send")
+          if(response.status === 200) {
+            Swal.fire("Pedido enviado", response.data.message, "success")
+            dispatch(updateStatus({productId: currentProductState.id, status: response.data.order.status}))
+            dispatch(updateStatusFiltered(currentProductState.id))
+          }
+        } catch (error) {
+          Swal.fire("Oops", "Hubo un problema", "info")
+        }
+      }
+    })
+  }
+
+  const changeSendStatusToFinish = () => {
+    Swal.fire({
+      title: "Confirmación",
+      text: "¿Deseas finalizar el pedido?",
+      icon: "question",
+      showDenyButton: true,
+      denyButtonText: "No",
+      confirmButtonText: "Sí",
+      confirmButtonColor: "#280a50",
+    }).then(async (response) => {
+      if (response.isConfirmed) {
+        try {
+          const response = await putOrderStatus(currentProductState.orderId, "finish")
+          if(response.status === 200) {
+            Swal.fire("Pedido enviado", response.data.message, "success")
+            dispatch(updateStatus({productId: currentProductState.id, status: response.data.order.status}))
+            dispatch(updateStatusFiltered(currentProductState.id))
+          }
+          Swal.fire("Pedido finalizado", response.data.message, "success")
+        } catch (error) {
+          Swal.fire("Oops", "Hubo un problema", "info")
+        }
+      }
+    })
+  }
+
+  const changeStatusToPending = async () => { // comentar esta función
+    const response = await putOrderStatus(currentProductState.orderId, "pending")
+
+  }
+
+  const changeStatusButton = () => {
+    switch (currentProductState?.status) {
+      case "pending":
+        return (
+          <button
+            onClick={changePendingStatusToSend}
+            className=" flex items-center space-x-2 text-purple-moru font-bold p-2 px-3  border-2 border-purple-moru rounded-full ">
+            <BiSend />
+            <span>Enviar</span>
+          </button>
+        )
+
+      case "send":
+        return (
+          <button
+            onClick={changeSendStatusToFinish}
+            className=" flex items-center space-x-2 text-purple-moru font-bold p-2 px-3  border-2 border-purple-moru rounded-full ">
+            <IoMdDoneAll className="text-xl" />
+            <span>Terminar</span>
+          </button>
+        )
+
+      /* case 'finish': 
+        return (
+          <button onClick={changeStatusToPending}>
+            <span> enviar a pendiente</span>
+          </button>
+        ) */
+    }
+  }
+
   return (
-    <Link to={`/producto/${productId}`}>
-      <div className="max-w-md mx-auto bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition duration-300 font-roboto-slab">
+    <div className="max-w-md  bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition duration-300 font-roboto-slab">
+      <Link to={`/producto/${productId}`}>
         <img
           src={product.image}
           alt={product.name}
@@ -156,80 +273,90 @@ const Product = ({ product }) => {
         />
 
         <div className="flex items-center justify-end px-4 pt-2">
-          {
-            //FAV BUTTON: se muestra si el usuario NO está autenticado (cualquier usuario) o es usuario comprador
-            currentUser?.userRole !== "adminCommerce" && (
-              <button className="text-gray-500" onClick={handleFavorite}>
-                <FiHeart
-                  className={`text-purple-moru ${
-                    isFav ? "fill-current" : "stroke-current"
-                  }`}
-                />
-              </button>
-            )
-          }
-        </div>
-
-        <div className="px-4 pb-2">
-          <h2 className="text-base font-semibold overflow-hidden overflow-ellipsis line-clamp-2 h-12">{product.name}</h2>
-
-          <div className="flex justify-between ml-2 mr-2 mb-3">
-            <p className="text-gray-500">$ {product.price}</p>
-            {productStateView && (
-              <p className="text-gray-500">Cantidad: <span className="font-bold">{currentProductState.quantity}</span></p>
-            )}
-          </div>
-
-          {productStateView && (
-            <p className="text-gray-500 w-fit mx-auto p-2 px-4 text-center border rounded-full">{currentProductState.status}</p>
+          {currentUser?.userRole !== "adminCommerce" && (
+            <button className="text-gray-500" onClick={handleFavorite}>
+              <FiHeart
+                className={`text-purple-moru ${
+                  isFav ? "fill-current" : "stroke-current"
+                }`}
+              />
+            </button>
           )}
         </div>
 
-        {!productStateView &&
-          (!carritoView ? (
-            <div className="flex items-center justify-center py-2">
-              {currentUser?.userRole !== "adminCommerce" &&
-                (addedToCart ? (
-                  <button
-                    className="bg-purple-moru text-white hover:bg-white hover:text-purple-moru hover:border-purple-moru font-bold py-2 px-4 rounded-full"
-                    onClick={handleDeleteToCart}>
-                    Eliminar
-                  </button>
-                ) : (
-                  <button
-                    className="bg-purple-moru text-white hover:bg-white hover:text-purple-moru hover:border-purple-moru font-bold py-2 px-4 rounded-full"
-                    onClick={handleAddToCart}>
-                    Agregar al carrito
-                  </button>
-                ))}
-            </div>
-          ) : (
-            <div className=" flex justify-between items-center ml-8 mr-8 mb-4">
+        <h2 className="text-base font-semibold overflow-hidden overflow-ellipsis line-clamp-2 h-12">
+          {product.name}
+        </h2>
+      </Link>
+
+      <div className="px-4 pb-2">
+        <div className="flex justify-between mx-2">
+          <p className="text-gray-500">$ {product.price}</p>
+          {productStateView && (
+            <p className="text-gray-500">
+              Cantidad:{" "}
+              <span className="font-bold">{currentProductState?.quantity}</span>
+            </p>
+          )}
+        </div>
+
+        <div className="flex items-center justify-between my-5">
+          {productStateView && (
+            <p className="text-gray-500  p-2 px-4  border rounded-full">
+              {currentProductState?.status}
+            </p>
+          )}
+
+          {productStateView &&
+            currentUser.userRole === "adminCommerce" &&
+            changeStatusButton()}
+        </div>
+      </div>
+
+      {!productStateView &&
+        (!carritoView ? (
+          <div className="flex items-center justify-center py-2">
+            {currentUser?.userRole !== "adminCommerce" &&
+              (addedToCart ? (
+                <button
+                  className="bg-purple-moru text-white hover:bg-white hover:text-purple-moru hover:border-purple-moru font-bold py-2 px-4 rounded-full"
+                  onClick={handleDeleteToCart}>
+                  Eliminar
+                </button>
+              ) : (
+                <button
+                  className="bg-purple-moru text-white hover:bg-white hover:text-purple-moru hover:border-purple-moru font-bold py-2 px-4 rounded-full"
+                  onClick={handleAddToCart}>
+                  Agregar al carrito
+                </button>
+              ))}
+          </div>
+        ) : (
+          <div className=" flex justify-between items-center ml-8 mr-8 mb-4">
+            <button
+              onClick={handleTrashButton}
+              className="text-purple-moru text-2xl">
+              <BsTrash3Fill />
+            </button>
+
+            <div className="flex items-center border-[1.5px] border-purple-moru rounded-full ">
               <button
-                onClick={handleTrashButton}
-                className="text-purple-moru text-2xl">
-                <BsTrash3Fill />
+                onClick={handleDeleteToCart}
+                className="bg-purple-moru rounded-tl-full  rounded-tr-full rounded-bl-full pl-1 pr-1 text-white text-2xl">
+                <AiOutlineMinus />
               </button>
 
-              <div className="flex items-center border-[1.5px] border-purple-moru rounded-full ">
-                <button
-                  onClick={handleDeleteToCart}
-                  className="bg-purple-moru rounded-tl-full  rounded-tr-full rounded-bl-full pl-1 pr-1 text-white text-2xl">
-                  <AiOutlineMinus />
-                </button>
+              <span className="ml-3 mr-3">{cartStore[index].quantity}</span>
 
-                <span className="ml-3 mr-3">{cartStore[index].quantity}</span>
-
-                <button
-                  onClick={handlePlusButton}
-                  className="bg-purple-moru rounded-tr-full  rounded-br-full rounded-bl-full pr-1 pl-1 text-white text-2xl">
-                  <AiOutlinePlus />
-                </button>
-              </div>
+              <button
+                onClick={handlePlusButton}
+                className="bg-purple-moru rounded-tr-full  rounded-br-full rounded-bl-full pr-1 pl-1 text-white text-2xl">
+                <AiOutlinePlus />
+              </button>
             </div>
-          ))}
-      </div>
-    </Link>
+          </div>
+        ))}
+    </div>
   )
 }
 

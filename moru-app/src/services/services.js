@@ -22,7 +22,7 @@ export const getProducts = () => {
       const data = response.data
       dispatch(setAllProducts(data))
       dispatch(setProducts(data))
-      console.log('getProducts',data);
+      //console.log('getProducts',data);
     } catch (error) {
       errorHandler(error)
     }
@@ -363,9 +363,19 @@ export const getHistoryOfOrderedProducts = async (clientId) => {
 export const getBranchOrders = async (branchId) => {
   try {
     const response = await axios(`${BASE_URL}/commerce/allordersforbranch/${branchId}`)
-    console.log('getBranchOrders', response);
+    //console.log('getBranchOrders', response.data);
     return response.data
   } catch (error) {
     console.error(error);
+  }
+}
+
+export const putOrderStatus = async (orderId, status) => {
+  try {
+    const response = await axios.put(`${BASE_URL}/commerce/putproductstatus/${orderId}`, {status: status})
+    console.log('putOrderStatus',response);
+    return response
+  } catch (error) {
+    console.error(error)
   }
 }

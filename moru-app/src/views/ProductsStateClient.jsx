@@ -22,24 +22,39 @@ const ProductsStateClient = () => {
     (state) => state.productsOrderedFiltered
   )
 
-  const [selectedState, setSelectedState] = useState("Todos")
-
+  
   const dispatch = useDispatch()
   const location = useLocation()
-
+  
   const idBranch = location.search.slice(1)
+
+  const [selectedState, setSelectedState] = useState("Todos")
+
+ /*  switch (productsOrderedFilteredFromStore.length === 0) {
+    case selectedState === 'Pendiente':
+      setSelectedState('Enviado')
+      break
+
+    case selectedState === 'Enviado':
+      setSelectedState('Finalizado')
+      break
+  } */
+  
+
+  
   //console.log(idBranch);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const updateStore = async () => {
     if (idBranch.length) {
       const response = await getBranchOrders(idBranch)
-      console.log('response', response)
+      console.log('getBranchOrdersResponse', response)
       response?.forEach((product) =>
         dispatch(setProductsOrderedToStore(product))
       )
       
     } else {
-      const response = await getHistoryOfOrderedProducts(currentUser.id)
+      const response = await getHistoryOfOrderedProducts(currentUser.id) // user client
       console.log(response)
       response?.forEach((product) =>
         dispatch(setProductsOrderedToStore(product))
@@ -49,7 +64,15 @@ const ProductsStateClient = () => {
 
   useEffect(() => {
     updateStore()
-  }, [dispatch])
+
+    if (selectedState === 'Pendiente' && productsOrderedFilteredFromStore.length === 0 ) {
+      setSelectedState('Todos')
+    }
+  
+    if (selectedState === 'Enviado' && productsOrderedFilteredFromStore.length === 0 ) {
+      setSelectedState('Todos')
+    }
+  }, [dispatch, productsOrderedFilteredFromStore])
 
   const handleTodosButton = async (event) => {
     event.stopPropagation()
