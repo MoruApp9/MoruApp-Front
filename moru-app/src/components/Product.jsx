@@ -269,7 +269,7 @@ const Product = ({ product }) => {
         <img
           src={product.image}
           alt={product.name}
-          className="w-full h-48 object-cover"
+          className="w-full h-60"
         />
 
         <div className="flex items-center justify-end px-4 pt-2">
@@ -313,31 +313,31 @@ const Product = ({ product }) => {
         </div>
       </div>
 
-      {!productStateView &&
-        (!carritoView ? (
-          <div className="flex items-center justify-center py-2">
-            {currentUser?.userRole !== "adminCommerce" &&
-              (addedToCart ? (
-                <button
-                  className="bg-purple-moru text-white hover:bg-white hover:text-purple-moru hover:border-purple-moru font-bold py-2 px-4 rounded-full"
-                  onClick={handleDeleteToCart}>
-                  Eliminar
-                </button>
-              ) : (
-                <button
-                  className="bg-purple-moru text-white hover:bg-white hover:text-purple-moru hover:border-purple-moru font-bold py-2 px-4 rounded-full"
-                  onClick={handleAddToCart}>
-                  Agregar al carrito
-                </button>
-              ))}
-          </div>
-        ) : (
-          <div className=" flex justify-between items-center ml-8 mr-8 mb-4">
-            <button
-              onClick={handleTrashButton}
-              className="text-purple-moru text-2xl">
-              <BsTrash3Fill />
-            </button>
+        {!productStateView &&
+          (!carritoView ? (
+            <div className="flex items-center justify-center py-2">
+              {currentUser?.userRole !== "adminCommerce" &&
+                (addedToCart ? (
+                  <button
+                  className="bg-purple-moru text-white hover:bg-gray-300 hover:text-purple-moru hover:border-purple-moru font-bold py-2 px-4 rounded-full"
+                    onClick={handleDeleteToCart}>
+                    Eliminar
+                  </button>
+                ) : (
+                  <button
+                  className="bg-purple-moru text-white hover:bg-gray-300 hover:text-purple-moru hover:border-purple-moru font-bold py-2 px-4 rounded-full"
+                    onClick={handleAddToCart}>
+                    Agregar al carrito
+                  </button>
+                ))}
+            </div>
+          ) : (
+            <div className=" flex justify-between items-center ml-8 mr-8 mb-4">
+              <button
+                onClick={handleTrashButton}
+                className="text-purple-moru text-2xl">
+                <BsTrash3Fill />
+              </button>
 
             <div className="flex items-center border-[1.5px] border-purple-moru rounded-full ">
               <button

@@ -11,6 +11,7 @@ export default {
         'purple-moru-dark': "#1F0638",
       },
       height: {
+        'min1': '1px',
         '102': "450px",
         '100': "400px",
       },

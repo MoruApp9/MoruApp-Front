@@ -22,7 +22,7 @@ import { createSelector } from "reselect"
 import Loader from "../components/Loader"
 import { Stars } from "../components/Stars"
 import { ReseñasContainer } from "../components/ReseñasContainer"
-import { FaMapMarker, FaClock, FaPhone } from "react-icons/fa" // Importa los íconos necesarios
+import { FaMapMarker, FaClock, FaPhoneAlt } from "react-icons/fa" // Importa los íconos necesarios
 
 const MiTienda = () => {
   const { id } = useParams()
@@ -117,11 +117,11 @@ const MiTienda = () => {
                   <p className="ml-2 text-purple-moru">{branchData.schedule}</p>
                 </div>
 
-                <div className="flex items-center">
-                  <FaPhone className="text-purple-moru" />
-                  <p className="ml-2 text-purple-moru">{branchData.phone}</p>
-                </div>
-              </div>
+                                <div className="flex items-center">
+                                    <FaPhoneAlt className="text-purple-moru" />
+                                    <p className="ml-2 text-purple-moru">{branchData.phone}</p>
+                                </div>
+                            </div>
 
               {esDueño && (
                 <div className="flex justify-center items-center space-x-2 mt-2">
