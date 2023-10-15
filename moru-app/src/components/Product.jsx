@@ -269,7 +269,7 @@ const Product = ({ product }) => {
         <img
           src={product.image}
           alt={product.name}
-          className="w-full h-60"
+          className="w-full h-60 object-cover"
         />
 
         <div className="flex items-center justify-end px-4 pt-2">
@@ -284,7 +284,7 @@ const Product = ({ product }) => {
           )}
         </div>
 
-        <h2 className="text-base font-semibold overflow-hidden overflow-ellipsis line-clamp-2 h-12">
+        <h2 className="ml-4 text-lg font-semibold overflow-hidden overflow-ellipsis line-clamp-2 h-12">
           {product.name}
         </h2>
       </Link>
