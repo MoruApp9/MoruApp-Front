@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react"
-import { getHistoryOfOrderedProducts } from "../services/services"
+import {
+  getBranchOrders,
+  getHistoryOfOrderedProducts,
+} from "../services/services"
 import { GetLocalStorage } from "../localStorage/GetLocalStorage"
 import { useDispatch, useSelector } from "react-redux"
 import Product from "../components/Product"
@@ -8,27 +11,69 @@ import {
   cleanProductsOrderedFilteredFromStore,
   setProductsOrderedFilteredToStore,
 } from "../redux/productsOrderedFilteredSlice"
+import Swal from "sweetalert2"
+import { useLocation } from "react-router-dom"
 
 const ProductsStateClient = () => {
   const currentUser = GetLocalStorage()
+
   const productsOrderedFromStore = useSelector((state) => state.productsOrdered)
   const productsOrderedFilteredFromStore = useSelector(
     (state) => state.productsOrderedFiltered
   )
+
+  
+  const dispatch = useDispatch()
+  const location = useLocation()
+  
+  const idBranch = location.search.slice(1)
+
   const [selectedState, setSelectedState] = useState("Todos")
 
-  const dispatch = useDispatch()
+ /*  switch (productsOrderedFilteredFromStore.length === 0) {
+    case selectedState === 'Pendiente':
+      setSelectedState('Enviado')
+      break
 
+    case selectedState === 'Enviado':
+      setSelectedState('Finalizado')
+      break
+  } */
+  
+
+  
+  //console.log(idBranch);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const updateStore = async () => {
-    const response = await getHistoryOfOrderedProducts(currentUser.id)
-    console.log(response)
-    response?.forEach((product) => dispatch(setProductsOrderedToStore(product)))
+    if (idBranch.length) {
+      const response = await getBranchOrders(idBranch)
+      console.log('getBranchOrdersResponse', response)
+      response?.forEach((product) =>
+        dispatch(setProductsOrderedToStore(product))
+      )
+      
+    } else {
+      const response = await getHistoryOfOrderedProducts(currentUser.id) // user client
+      console.log(response)
+      response?.forEach((product) =>
+        dispatch(setProductsOrderedToStore(product))
+      )
+    }
   }
 
   useEffect(() => {
     updateStore()
     window.scrollTo(0, 0)
-  }, [dispatch])
+
+    if (selectedState === 'Pendiente' && productsOrderedFilteredFromStore.length === 0 ) {
+      setSelectedState('Todos')
+    }
+  
+    if (selectedState === 'Enviado' && productsOrderedFilteredFromStore.length === 0 ) {
+      setSelectedState('Todos')
+    }
+  }, [dispatch, productsOrderedFilteredFromStore])
 
   const handleTodosButton = async (event) => {
     event.stopPropagation()
@@ -48,7 +93,7 @@ const ProductsStateClient = () => {
     pendingsProducts.length
       ? (dispatch(setProductsOrderedFilteredToStore(pendingsProducts)),
         setSelectedState("Pendiente"))
-      : window.alert("No hay productos pendientes")
+      : Swal.fire("Oops...", "No hay productos pendientes", "info")
   }
 
   const handleEnviadoButton = async (event) => {
@@ -61,7 +106,7 @@ const ProductsStateClient = () => {
     sentProducts.length
       ? (dispatch(setProductsOrderedFilteredToStore(sentProducts)),
         setSelectedState("Enviado"))
-      : window.alert("No hay productos enviados")
+      : Swal.fire("Oops...", "No hay productos enviados", "info")
   }
 
   const handleFinalizadoButton = (event) => {
@@ -74,7 +119,7 @@ const ProductsStateClient = () => {
     finishedProducts.length
       ? (dispatch(setProductsOrderedFilteredToStore(finishedProducts)),
         setSelectedState("Finalizado"))
-      : window.alert("No hay productos finalizados")
+      : Swal.fire("Oops...", "No hay productos finalizados", "info")
   }
 
   return (

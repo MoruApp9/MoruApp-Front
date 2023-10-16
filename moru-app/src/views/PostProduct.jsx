@@ -19,6 +19,8 @@ const PostProduct = () => {
   const dataUser = GetLocalStorage();
   const navigate = useNavigate()
 
+
+
   const handleOnChange = async (event) => {
     const imagen = await uploadImageClaudinary(event)
     setImageUpload(imagen)
