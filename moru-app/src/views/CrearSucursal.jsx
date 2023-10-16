@@ -34,7 +34,6 @@ const CrearSede = () => {
     const handleUpdata = async(e) => {
         e.preventDefault();
         await putSucursal({branchId: dataSucursal.branchId, coords: location});
-        Swal.fire('Éxito', 'Sucursal creada correctamente', 'success');
         navigate('/');
     }
 

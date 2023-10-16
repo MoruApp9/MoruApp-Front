@@ -210,6 +210,7 @@ export const postSucursal = async (dataSucursal) => {
 export const putSucursal = async (dataSucursal) => {
   try {
     const sede = (await axios.put(`${BASE_URL}/commerce/addcoords/`, dataSucursal)).data
+    Swal.fire('Solicitud enviada', sede.message, 'info');
   } catch (error) {
     errorHandler(error)
   }
