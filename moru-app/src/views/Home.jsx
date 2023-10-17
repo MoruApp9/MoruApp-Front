@@ -71,7 +71,7 @@ const Home = () => {
     };
     handleUserAuthentication();
     //window.scrollTo(0, 0);
-  }, [user, isAuthenticated, localStorageData, dataComplete]);
+  }, [user, /* isAuthenticated, localStorageData, dataComplete */]);
 
   
   return (
