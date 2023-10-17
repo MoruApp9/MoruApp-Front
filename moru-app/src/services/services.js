@@ -112,7 +112,7 @@ export const uploadImageClaudinary = async (event) => {
 
 export const postClientRegister = async (dataClient) => {
   try {
-    console.log('entré a postclientregister');
+    //console.log('entré a postclientregister');
     await axios.post(`${BASE_URL}/client/register`, dataClient)
     //console.log(response);
   } catch (error) {
