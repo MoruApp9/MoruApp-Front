@@ -42,8 +42,8 @@ const ShoppingCart = () => {
           "success"
         )
         postBuy(userData.id)
-        deleteAllCart(userData.id)
-        dispatch(removeAllFromCart())
+        //deleteAllCart(userData.id)
+        dispatch(removeAllFromCart()) // store
         navigate('/estado-productos')
       }
     })

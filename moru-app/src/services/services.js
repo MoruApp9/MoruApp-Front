@@ -22,7 +22,7 @@ export const getProducts = () => {
       const data = response.data
       dispatch(setAllProducts(data))
       dispatch(setProducts(data))
-      //console.log('getProducts',data);
+      console.log('getProducts',data);
     } catch (error) {
       errorHandler(error)
     }
@@ -218,6 +218,10 @@ export const putSucursal = async (dataSucursal) => {
 
 export const postChart = async (clientId, productId, quantity) => {
   try {
+    console.log('clientId', clientId);
+    console.log('productId', productId);
+    console.log('quantity', quantity);
+
     const { data } = await axios.post(`${BASE_URL}/client/chart`, {
       clientId,
       productId,
