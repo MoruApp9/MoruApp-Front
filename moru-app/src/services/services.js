@@ -129,8 +129,9 @@ export const postAdmincommerceRegister = async (dataAdminCommerce) => {
 
 export const postProduct = async (productData) => {
   try {
-    const product = (await axios.post(`${BASE_URL}/products/create`, productData)).data
     console.log(productData);
+    const product = (await axios.post(`${BASE_URL}/products/create`, productData)).data
+    console.log(product);
     return product
   } catch (error) {
     errorHandler(error)
@@ -362,6 +363,27 @@ export const putBrand = async (id, obj) => {
   }
 }
 
+export const putBranch = async (id, obj) => {
+  try {
+    console.log(obj);
+    console.log(id, obj);
+    const response = await axios.put(`${BASE_URL}/commerce/putbranchstatus/${id}`, obj)
+    console.log(response);
+  } catch (error) {
+    errorHandler(error)
+  }
+}
+
+export const putProduct = async (id, obj) => {
+  try {
+    console.log(obj);
+    console.log(id, obj);
+    const response = await axios.put(`${BASE_URL}/products/confirmproductcreated/${id}`, obj)
+    console.log(response);
+  } catch (error) {
+    errorHandler(error)
+  }
+}
 export const getAllCommerces = async () => {
   try {
     const response = (await axios.get(`${BASE_URL}/allcommerces`)).data
@@ -375,6 +397,26 @@ export const getAllCommerces = async () => {
 export const getPendingCommerces = async () => {
   try {
     const response = (await axios.get(`${BASE_URL}/commerce/pendingcommerces`)).data
+    console.log(response);
+    return response;
+  } catch (error) {
+    errorHandler(error)
+  }
+}
+
+export const getPendingBranches = async () => {
+  try {
+    const response = (await axios.get(`${BASE_URL}/commerce/pendingbranches`)).data
+    console.log(response);
+    return response;
+  } catch (error) {
+    errorHandler(error)
+  }
+}
+
+export const getPendingProducts = async () => {
+  try {
+    const response = (await axios.get(`${BASE_URL}/products/productspending`)).data
     console.log(response);
     return response;
   } catch (error) {
