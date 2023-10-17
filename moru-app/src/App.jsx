@@ -3,6 +3,7 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getProducts } from './services/services';
 import { cleanErrors } from "./redux/errorsSlice";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import "./index.css"
 
@@ -25,7 +26,12 @@ import Account from "./views/Account"
 import RegisterTypeOfShop from './views/RegisterTypeOfShop';
 import CrearSede from "./views/CrearSucursal";
 import SearchByLocation from "./views/SearchByLocation";
-import { useAuth0 } from "@auth0/auth0-react";
+import Dashboard from "./views/Dashboard";
+import ProductsStateClient from "./views/ProductsStateClient";
+import Footer from "./components/Footer";
+import PoliciesPrivacy from "./views/PoliciesPrivacy";
+import TermsConditions from "./views/TermsConditions";
+
 
 function App() {
   const { pathname } = useLocation()
@@ -35,8 +41,6 @@ function App() {
   const { user } = useAuth0();
 
   useEffect(() => {
-    //dispatch(getProducts());
-
     if (error.length) {
       dispatch(cleanErrors());
       window.alert(error);
@@ -50,12 +54,16 @@ function App() {
         pathname !== "/registeruser" &&
         pathname !== "/registershop" &&
         /* pathname !== "/landing" && */
+        user?.name !== "Moru APP" &&
         <Nav user={user}/>
       }
       {
         pathname === "/" &&
+        user?.name !== "Moru APP" &&
         <SearchBar/>
       }
+
+      
 
       <Routes>
         <Route exact path="/" element={<Home />}></Route>
@@ -75,7 +83,14 @@ function App() {
         <Route path="/registrar-empresa" element={<RegisterTypeOfShop/>} />
         <Route path="/crearSucursal" element={<CrearSede/>} />
         <Route path="/mapa" element={<SearchByLocation/>} />
+        <Route path="/dashboard" element={<Dashboard/>} />
+        <Route path="/estado-productos" element={<ProductsStateClient/>}/>
+        <Route path="/politicas-privacidad" element={<PoliciesPrivacy/>}/>
+        <Route path="/terminos-condiciones" element={<TermsConditions/>}/>
       </Routes>
+      {
+        <Footer/>
+      }
     </div>
   )
 }

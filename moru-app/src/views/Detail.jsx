@@ -26,6 +26,7 @@ const ProductDetail = () => {
             // Cuando el componente se monta y recibe un ID válido, desplaza la vista al componente de detalle
             detailRef.current.scrollIntoView({ behavior: 'smooth' });
         }
+        window.scrollTo(0, 0);
     }, [id]);
 
     if (!product) return <div>Producto no encontrado</div>;
@@ -66,11 +67,11 @@ const ProductDetail = () => {
                         <div className="px-2 py-3 sm:px-4">
                             <p className="text-gray-700">{product.description}</p>
                         </div>
-                        <div className="border-t border-gray-200">
+                        <div className="border-t border-gray-200 w-102">
                             <img
                                 src={product.image}
                                 alt=""
-                                className="w-full h-auto"
+                                className="w-full h-102"
                             />
                         </div>
                     </div>
@@ -102,7 +103,7 @@ const ProductDetail = () => {
                         </button>}
                     </div>
                 </div>
-            </div>
+            </div>            
             <AllProducts currentProductId={id} />
         </div>
     );

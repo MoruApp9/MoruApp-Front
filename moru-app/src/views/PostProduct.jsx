@@ -19,6 +19,8 @@ const PostProduct = () => {
   const dataUser = GetLocalStorage();
   const navigate = useNavigate()
 
+
+
   const handleOnChange = async (event) => {
     const imagen = await uploadImageClaudinary(event)
     setImageUpload(imagen)
@@ -102,10 +104,11 @@ const PostProduct = () => {
               : values.specificCategory = values.specificCategory
             values.image = imageUpload;
             try {
+              console.log(values);
               await postProduct(values);
               Swal.fire('Éxito', 'Producto creado correctamente', 'success');
               navigate('/');
-              window.location.reload()
+              //window.location.reload()
             } catch (error) {
               Swal.fire('Oops...', 'Error al crear el producto', 'error');
             }

@@ -3,18 +3,28 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-import slide1 from '../images/slide.jpeg';
-import slide2 from '../images/slide2.jpeg';
-import slide3 from '../images/slide3.jpeg';
-import slide4 from '../images/slide4.jpeg';
-import slide5 from '../images/slide5.jpeg';
-import slide6 from '../images/slide6.jpeg';
-import slide7 from '../images/slide7.jpeg';
+import slide1 from '../images/banners/desk/banner1.png';
+import slide2 from '../images/banners/desk/banner2.png';
+import slide3 from '../images/banners/desk/banner3.png';
+import slide4 from '../images/banners/desk/banner4.png';
+import slide5 from '../images/banners/desk/banner5.png';
+import slide6 from '../images/banners/desk/banner6.png';
+import slide7 from '../images/banners/desk/banner7.png';
+
+import slide8 from '../images/banners/mobile/banner7.png'
+import slide9 from '../images/banners/mobile/banner8.png'
+import slide10 from '../images/banners/mobile/banner9.png'
+import slide11 from '../images/banners/mobile/banner10.png'
+import slide12 from '../images/banners/mobile/banner11.png'
+import slide13 from '../images/banners/mobile/banner12.png'
+
 
 const Advertising = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [autoplay, setAutoplay] = useState(true);
   const sliderRef = useRef(null);
+
+  const isDesktopOrLaptop = window.matchMedia('(min-width: 768px)').matches;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -26,17 +36,9 @@ const Advertising = () => {
     return () => clearInterval(interval);
   }, [autoplay]);
 
-  const slides = [
-    slide1,
-    slide2,
-    slide3,
-    slide4,
-    slide5,
-    slide6,
-    slide7
-
-    // Agrega más imágenes si es necesario
-  ];
+  const slides = isDesktopOrLaptop 
+  ? [slide1, slide2, slide3, slide4, slide5, slide6, slide7]
+  : [slide8, slide9, slide10, slide11, slide6, slide12]
 
   const settings = {
     dots: false,

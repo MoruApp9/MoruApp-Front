@@ -25,6 +25,7 @@ const CategoryView = () => {
         setLoading(true);
         dispatch(getProductsByCategory(id))
             .then(() => { setLoading(false) });
+        window.scrollTo(0, 0);
     }, [dispatch, id]);
 
     const handleSortChange = (e) => {
@@ -40,7 +41,7 @@ const CategoryView = () => {
     });
 
     return (
-        <section className="flex flex-col  mx-4">
+        <section className="min-h-screen flex flex-col  mx-4">
             <Categories />
             {loading ? (
                 <Loader />
@@ -48,7 +49,7 @@ const CategoryView = () => {
                 ? (<>
                         <div>
                             <select
-                                className="bg-white text-purple-moru border border-purple-moru p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                                className="bg-white text-purple-moru border border-purple-moru p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 ml-4 lg:ml-20"
                                 value={sortOrder}
                                 onChange={handleSortChange}
                             >
