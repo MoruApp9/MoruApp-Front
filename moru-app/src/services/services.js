@@ -22,7 +22,6 @@ export const getProducts = () => {
       const data = response.data
       dispatch(setAllProducts(data))
       dispatch(setProducts(data))
-      console.log('getProducts',data);
     } catch (error) {
       errorHandler(error)
     }
@@ -388,10 +387,30 @@ export const putProduct = async (id, obj) => {
     errorHandler(error)
   }
 }
+
+
+
 export const getAllCommerces = async () => {
   try {
-    const response = (await axios.get(`${BASE_URL}/allcommerces`)).data
-    console.log(response);
+    const response = (await axios.get(`${BASE_URL}/commerce/allcommerces`)).data
+    return response;
+  } catch (error) {
+    errorHandler(error)
+  }
+}
+
+export const getAllBranches = async () => {
+  try {
+    const response = (await axios.get(`${BASE_URL}/commerce/allbranches`)).data
+    return response;
+  } catch (error) {
+    errorHandler(error)
+  }
+}
+
+export const getAllProducts = async () => {
+  try {
+    const response = (await axios.get(`${BASE_URL}/products/productsallsuperadmin`)).data
     return response;
   } catch (error) {
     errorHandler(error)
