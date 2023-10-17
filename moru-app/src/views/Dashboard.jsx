@@ -62,7 +62,7 @@ function Dashboard() {
     };
 
     return (
-        <div className="container mx-auto p-4">
+        <div className="min-h-screen container mx-auto p-4">
             <h1 className="text-2xl font-bold mb-4">Panel de Administración</h1>
             <select value={opcion} onChange={(event) => setOpcion(event.target.value)}>
                 <option value="" disabled>Filtrar</option>
