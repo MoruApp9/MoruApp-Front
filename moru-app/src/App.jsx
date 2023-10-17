@@ -88,6 +88,7 @@ function App() {
         <Route path="/estado-productos" element={<ProductsStateClient/>}/>
         <Route path="/politicas-privacidad" element={<PoliciesPrivacy/>}/>
         <Route path="/terminos-condiciones" element={<TermsConditions/>}/>
+        <Route path="/account" element={<Account/>}/>
       </Routes>
       {
         <Footer/>

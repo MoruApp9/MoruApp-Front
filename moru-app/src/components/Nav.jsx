@@ -20,20 +20,20 @@ import { cleanProductsFiltered } from "../redux/productsFilteredSlice"
 import { useDispatch, useSelector } from "react-redux";
 import { GetLocalStorage, GetLocalStorageCommercesByOwner } from '../localStorage/GetLocalStorage';
 import { IoIosArrowDown } from "react-icons/io";
-import {DeleteLocalStorage, DeleteLocalStorageCommercesByOwner} from '../localStorage/DeleteLocalStorage';
+import { DeleteLocalStorage, DeleteLocalStorageCommercesByOwner } from '../localStorage/DeleteLocalStorage';
 import { MdLogout } from 'react-icons/md';
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { getBrandByOwner, getChart, getFavorites, getProducts, getUser } from '../services/services';
 import { addFav } from "../redux/favoritesSlice";
 import { addToCart } from "../redux/cartSlice";
 
-const Nav = ({user}) => {
+const Nav = ({ user }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [openMenu, setOpenMenu] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-  const {loginWithRedirect, logout } = useAuth0();
+  const { loginWithRedirect, logout } = useAuth0();
 
   const favsStore = useSelector(state => state.favorites)
   const chartStore = useSelector(state => state.cart.cart)
@@ -44,33 +44,33 @@ const Nav = ({user}) => {
 
   useEffect(() => {
     !allProductsStore.length && dispatch(getProducts())
-    
+
     const handleFavsAndChart = async () => {
       if (user) {
-      await getUser(user.email)
-      const dataUser = GetLocalStorage()
+        await getUser(user.email)
+        const dataUser = GetLocalStorage()
 
-      if(user && dataUser?.userRole === 'buyer' ){
-        if (!favsStore.length) {
-          const userFavs = await getFavorites(dataUser.id)
-          userFavs?.forEach(fav => dispatch(addFav(fav)))
-        }
-        
-        if(!chartStore.length) {
-          const userChart = await getChart(dataUser.id)
-          userChart?.forEach(product => dispatch(addToCart(product)))
+        if (user && dataUser?.userRole === 'buyer') {
+          if (!favsStore.length) {
+            const userFavs = await getFavorites(dataUser.id)
+            userFavs?.forEach(fav => dispatch(addFav(fav)))
+          }
+
+          if (!chartStore.length) {
+            const userChart = await getChart(dataUser.id)
+            userChart?.forEach(product => dispatch(addToCart(product)))
+          }
         }
       }
     }
-  }
     handleFavsAndChart()
   }, [dispatch, user, favsStore, chartStore])
 
-  
+
   const handleLogOut = () => {
     DeleteLocalStorage();
     DeleteLocalStorageCommercesByOwner();
-    logout({ returnTo: window.location.origin});
+    logout({ returnTo: window.location.origin });
   }
 
   const handleButtonClick = (e) => {
@@ -88,7 +88,7 @@ const Nav = ({user}) => {
 
   const handleOnClickMenu = () => {
     dispatch(cleanProductsFiltered()),
-    setSelectedOption('');
+      setSelectedOption('');
   }
 
   return (
@@ -96,7 +96,7 @@ const Nav = ({user}) => {
       <div className="flex w-full px-2 sm:px-6 py-2 shadow-lg rounded-b-xl font-roboto-slab z-10">
         <div className="flex w-full justify-start items-center space-x-6 whitespace-nowrap">
           <button onClick={() => { setOpenMenu(true) }} className="hover:bg-gray-200 rounded-md">
-            <FiMenu className="text-4xl text-purple-moru"/>
+            <FiMenu className="text-4xl text-purple-moru" />
           </button>
 
           {/* {!user && <button className="hidden md:block text-purple-moru hover:bg-gray-200 p-1 rounded-md" onClick={() => loginWithRedirect()}>
@@ -109,22 +109,22 @@ const Nav = ({user}) => {
         </div>
 
         <div className="flex w-full justify-center">
-          <Link onClick={handleOnClickMenu} to="/" className="w-28"><img src={logoMoru}/></Link>
+          <Link onClick={handleOnClickMenu} to="/" className="w-28"><img src={logoMoru} /></Link>
         </div>
-        
+
         <div className="flex w-full justify-end">
           {
 
             // isAuthenticated
             // ? <Link to="/tienda"><PiStorefrontDuotone className="w-7 text-purple-moru text-4xl"></PiStorefrontDuotone></Link>
             // : currentUser.userRole !== 'adminCommerce' && (<Link to="/carrito-de-compras"><img className="w-12" src={shoppingIcon} alt="shoppingIcon" /></Link>)
-            currentUser && GetLocalStorage() && currentUser.userRole === 'adminCommerce' 
-            ? null
-            : (
-                <Link  className={`flex items-center hover:bg-gray-200 px-2 rounded-md  ${selectedOption === 'carrito' ? 'bg-gray-200 ': ''}`} onClick={() => setSelectedOption('carrito')} to="/carrito-de-compras"><img className="w-12" src={shoppingIcon} alt="shoppingIcon" />
-                {chartStore.length?<span className="mr-2 bg-purple-moru text-white rounded-full w-5 text-center">{chartStore.length}</span> : null}
+            currentUser && GetLocalStorage() && currentUser.userRole === 'adminCommerce'
+              ? null
+              : (
+                <Link className={`flex items-center hover:bg-gray-200 px-2 rounded-md  ${selectedOption === 'carrito' ? 'bg-gray-200 ' : ''}`} onClick={() => setSelectedOption('carrito')} to="/carrito-de-compras"><img className="w-12" src={shoppingIcon} alt="shoppingIcon" />
+                  {chartStore.length ? <span className="mr-2 bg-purple-moru text-white rounded-full w-5 text-center">{chartStore.length}</span> : null}
                 </Link>
-            )
+              )
           }
         </div>
       </div>
@@ -147,37 +147,37 @@ const Nav = ({user}) => {
               </ul >
             }
 
-            {!currentUser && 
-            <Link to={`/registration`}>
-              <ul className={`flex ${currentUser && 'hidden'} p-2 hover:bg-gray-200 rounded-md w-52 items-center space-x-4 mr-3 ${selectedOption === "crearCuenta" ? 'bg-gray-200 ': ''}`}
-              onClick={() =>{ setOpenMenu(false), setSelectedOption('crearCuenta')} }>
-                <AiOutlineUserAdd className="w-7 text-3xl text-purple-moru" /><span>Crear Cuenta</span>
-              </ul>
-            </Link>
+            {!currentUser &&
+              <Link to={`/registration`}>
+                <ul className={`flex ${currentUser && 'hidden'} p-2 hover:bg-gray-200 rounded-md w-52 items-center space-x-4 mr-3 ${selectedOption === "crearCuenta" ? 'bg-gray-200 ' : ''}`}
+                  onClick={() => { setOpenMenu(false), setSelectedOption('crearCuenta') }}>
+                  <AiOutlineUserAdd className="w-7 text-3xl text-purple-moru" /><span>Crear Cuenta</span>
+                </ul>
+              </Link>
             }
 
             {/* currentUser.userRole !== 'adminCommerce' && <ul onClick={() => { setOpenMenu(false) }} className="  order-2 flex justify-center space-x-4 " ><MdFavorite className="w-7 text-purple-moru text-3xl"></MdFavorite><Link to="/fav">Favoritos</Link></ul> */
-            (!currentUser || GetLocalStorage() && currentUser.userRole === 'buyer' ) && 
+              (!currentUser || GetLocalStorage() && currentUser.userRole === 'buyer') &&
               <Link to="/fav" >
-                <ul onClick={() => { setOpenMenu(false), setSelectedOption('favoritos') }} className={`flex p-2 hover:bg-gray-200 rounded-md w-52 items-center space-x-4 mr-3 ${selectedOption === "favoritos" ? 'bg-gray-200 ': ''}`} >
-                  <MdFavorite className="w-7 text-purple-moru text-3xl"/><span>Favoritos</span>
+                <ul onClick={() => { setOpenMenu(false), setSelectedOption('favoritos') }} className={`flex p-2 hover:bg-gray-200 rounded-md w-52 items-center space-x-4 mr-3 ${selectedOption === "favoritos" ? 'bg-gray-200 ' : ''}`} >
+                  <MdFavorite className="w-7 text-purple-moru text-3xl" /><span>Favoritos</span>
                 </ul>
               </Link>
-              
+
             }
             {
-              (!currentUser || GetLocalStorage() && currentUser.userRole === 'buyer' ) && 
+              (!currentUser || GetLocalStorage() && currentUser.userRole === 'buyer') &&
               <Link to='/estado-productos'>
-                <ul onClick={() => { setOpenMenu(false), setSelectedOption('pedidos')}} className={`flex p-2 hover:bg-gray-200 rounded-md w-52 items-center space-x-4 mr-3 ${selectedOption === "pedidos" ? 'bg-gray-200 ': ''}`}>
-                  <BsFillSendFill className="w-7 text-3xl text-purple-moru"/><span>Pedidos</span>
+                <ul onClick={() => { setOpenMenu(false), setSelectedOption('pedidos') }} className={`flex p-2 hover:bg-gray-200 rounded-md w-52 items-center space-x-4 mr-3 ${selectedOption === "pedidos" ? 'bg-gray-200 ' : ''}`}>
+                  <BsFillSendFill className="w-7 text-3xl text-purple-moru" /><span>Pedidos</span>
                 </ul>
               </Link>
             }
 
             {!currentUser || GetLocalStorage() && currentUser.userRole === 'adminCommerce' && !currentUser.brand &&
-              <Link  to={`/registrar-empresa`}>
-                <ul className={`flex items-center space-x-4 mr-3 p-2 hover:bg-gray-200 rounded-md w-52 ${selectedOption === "registrarMarca" ? 'bg-gray-200 ': ''}`}
-                  onClick={() =>{ setOpenMenu(false), setSelectedOption('registrarMarca')} }>
+              <Link to={`/registrar-empresa`}>
+                <ul className={`flex items-center space-x-4 mr-3 p-2 hover:bg-gray-200 rounded-md w-52 ${selectedOption === "registrarMarca" ? 'bg-gray-200 ' : ''}`}
+                  onClick={() => { setOpenMenu(false), setSelectedOption('registrarMarca') }}>
                   <AiOutlineUserAdd className="w-7 text-3xl text-purple-moru" /><span className="w-28">Registrar marca</span>
                 </ul>
               </Link>
@@ -185,11 +185,11 @@ const Nav = ({user}) => {
             {currentUser && GetLocalStorage() && currentUser.userRole === 'adminCommerce' && currentUser.brand &&
               <div>
                 <button>
-                  <ul onClick={(e) => handleButtonClick(e) }
-                  className={`flex p-2 hover:bg-gray-200 rounded-md w-52  ${selectedOption === 'tienda' ? 'bg-gray-200 ': ''}`} >
-                    <PiStorefrontDuotone className="w-7 text-purple-moru text-3xl"/>
-                    <span className="w-28 ml-4">Mis tiendas</span>  
-                    <IoIosArrowDown className="w-7 ml-2 text-3xl text-purple-moru "/>
+                  <ul onClick={(e) => handleButtonClick(e)}
+                    className={`flex p-2 hover:bg-gray-200 rounded-md w-52  ${selectedOption === 'tienda' ? 'bg-gray-200 ' : ''}`} >
+                    <PiStorefrontDuotone className="w-7 text-purple-moru text-3xl" />
+                    <span className="w-28 ml-4">Mis tiendas</span>
+                    <IoIosArrowDown className="w-7 ml-2 text-3xl text-purple-moru " />
                   </ul>
                 </button>
 
@@ -201,17 +201,17 @@ const Nav = ({user}) => {
                           key={index}
                           onClick={(e) => handleOptionClick(e, option.alias, option.id)}
                           role="menuitem"
-                          className={`flex p-2 w-full text-left hover:bg-gray-200 rounded-md ${selectedOption === option.alias ? 'bg-gray-200 ': ''}`}
+                          className={`flex p-2 w-full text-left hover:bg-gray-200 rounded-md ${selectedOption === option.alias ? 'bg-gray-200 ' : ''}`}
                         >
                           {option.alias}
                         </button>
                       ))}
                     </div>
 
-                    <Link to={"/crearSucursal"} onClick={() => {setSelectedOption('crearSede'), setOpenMenu(false) }}>
+                    <Link to={"/crearSucursal"} onClick={() => { setSelectedOption('crearSede'), setOpenMenu(false) }}>
                       <button
                         role="menuitem"
-                        className={`flex p-2 w-full text-left hover:bg-gray-200 rounded-md ${selectedOption === 'crearSede' ? 'bg-gray-200 ': ''}`}
+                        className={`flex p-2 w-full text-left hover:bg-gray-200 rounded-md ${selectedOption === 'crearSede' ? 'bg-gray-200 ' : ''}`}
                       >
                         Crear nueva sede
                       </button>
@@ -221,8 +221,8 @@ const Nav = ({user}) => {
               </div>
             }
 
-            {/* {isAuthenticated && (
-              <ul onClick={() => { setOpenMenu(false) }} className="order-3 flex justify-center space-x-4 mr-5" ><MdAccountCircle className="w-7 text-purple-moru text-3xl"></MdAccountCircle><Link to="/cuenta">Cuenta</Link></ul>)} */}
+            {currentUser &&
+              <ul onClick={() => { setOpenMenu(false) }} className="ml-3 flex justify-center space-x-4 mr-5" ><MdAccountCircle className="w-7 text-purple-moru text-3xl"></MdAccountCircle><Link to="/cuenta">Cuenta</Link></ul>}
             <Link to="/mapa">
               <ul onClick={() => { setOpenMenu(false), setSelectedOption('ubication') }} className={`flex items-center space-x-4  mr-3 justify-start p-2 hover:bg-gray-200 rounded-md w-52  ${selectedOption === 'ubication' ? 'bg-gray-200 ': ''}`}>
                 <FaMapMarkerAlt className="w-7 text-purple-moru text-3xl"/>
@@ -241,9 +241,9 @@ const Nav = ({user}) => {
             {currentUser &&
               <ul>
                 <button className="flex items-center space-x-4 mr-3 p-2 hover:bg-gray-200 rounded-md w-52" onClick={handleLogOut}>
-                  <MdLogout className="w-7 text-3xl text-purple-moru"/><span>Cerrar sesión</span>
+                  <MdLogout className="w-7 text-3xl text-purple-moru" /><span>Cerrar sesión</span>
                 </button>
-              </ul> 
+              </ul>
             }
           </li>
         </div>
