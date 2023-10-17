@@ -33,6 +33,7 @@ const Home = () => {
   useEffect(() => {
     const handleUserAuthentication = async () => {
       try {
+        setLoadingData(true);
         if (!dataComplete.id) {
           if (dataComplete.userRole && dataComplete.email) {
             if (dataComplete.userRole === "buyer") {
@@ -69,36 +70,22 @@ const Home = () => {
       }
     };
     handleUserAuthentication();
-    window.scrollTo(0, 0);
+    //window.scrollTo(0, 0);
   }, [user, isAuthenticated, localStorageData, dataComplete]);
 
-  loadingData ? <Loader /> : null
-
-
-  /*   if (dataComplete?.userRole === 'adminCommerce') { }
-       //getUser(dataComplete.email)
-      //console.log('dataComplete: ', dataComplete);
-    
-        else {
-        getBrandByOwner(dataComplete.brand.id);
-      }
-    }  */
-
-
-
-
-  // Si no se cumple la condición, muestra los productos
+  
   return (
     <div>
+      {loadingData ? <Loader /> : null}
       {dataComplete?.userRole === "SuperAdmin" ? <Dashboard /> :
-        (dataComplete?.userRole !== "SuperAdmin" ? 
+        (
           <div>
             {!productsFiltered.length && <Advertising />}
             {!productsFiltered.length && <Categories />}
             {!productsFiltered.length && <AllProducts />}
             {productsFiltered.length !== 0 && <Filters />}
           </div>
-        : null)
+        )
       }
     </div>
 
