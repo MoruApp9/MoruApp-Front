@@ -106,43 +106,46 @@ const MiTienda = () => {
                 {branchData.alias}
               </h1>
 
-              <div className="flex flex-row space-x-7 mt-2 justify-center">
-                <div className="flex items-center">
-                  <FaMapMarker className="text-purple-moru" />
+              <div className="flex mx-3 flex-wrap justify-center">
+                <div className="flex mt-4 items-center">
+                  <FaMapMarker className="text-purple-moru justify-center" />
                   <p className="ml-2 text-purple-moru">{branchData.address}</p>
                 </div>
 
-                <div className="flex items-center">
+                <div className="flex mt-4 mr-5 ml-5  items-center justify-center ">
                   <FaClock className="text-purple-moru" />
                   <p className="ml-2 text-purple-moru">{branchData.schedule}</p>
                 </div>
 
-                                <div className="flex items-center">
-                                    <FaPhoneAlt className="text-purple-moru" />
-                                    <p className="ml-2 text-purple-moru">{branchData.phone}</p>
-                                </div>
-                            </div>
+                <div className="flex mt-4 items-center justify-center">
+                  <FaPhoneAlt className="text-purple-moru" />
+                  <p className="ml-2 text-purple-moru">{branchData.phone}</p>
+                </div>
+              </div>
 
               {esDueño && (
-                <div className="flex justify-center items-center space-x-2 mt-2">
-                  <ul className="flex justify-start p-2  hover:bg-gray-200 rounded-md w-52 space-x-4">
-                    <Link className="flex items-center space-x-3"
+                <div className="flex justify-center items-center space-x-2 mt-2 flex-wrap">
+                  <ul className="">
+                    <Link
+                      className="m-3 flex items-center space-x-3 bg-purple-moru text-white hover:bg-gray-300 hover:text-purple-moru hover:border-purple-moru font-bold py-2 px-4 rounded-full"
                       to={{
                         pathname: "/publicar-producto",
                         search: id,
                       }}>
-                          <BiSolidCloudUpload className="w-7  text-purple-moru text-3xl" />
-                      <span className="flex flex-col"> <span>Publicar</span> <span>producto</span></span>
+                      <BiSolidCloudUpload className="   text-2xl" />
+                      <span>Publicar producto</span>
                     </Link>
                   </ul>
 
                   <ul className="">
-                    <Link className="text-purple-moru flex items-center space-x-3"
-                        to={{
-                            pathname: '/estado-productos',
-                            search: branchData.id
-                        }}>
-                      <BsFillSendFill className="text-xl" /> <span>Pedidos</span>
+                    <Link
+                      className=" flex items-center space-x-3 bg-purple-moru text-white hover:bg-gray-300 hover:text-purple-moru hover:border-purple-moru font-bold py-2 px-4 rounded-full"
+                      to={{
+                        pathname: "/estado-productos",
+                        search: branchData.id,
+                      }}>
+                      <BsFillSendFill className="text-xl " />{" "}
+                      <span>Productos pedidos</span>
                     </Link>
                   </ul>
                 </div>
