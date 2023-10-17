@@ -29,6 +29,9 @@ import SearchByLocation from "./views/SearchByLocation";
 import Dashboard from "./views/Dashboard";
 import ProductsStateClient from "./views/ProductsStateClient";
 import Footer from "./components/Footer";
+import PoliciesPrivacy from "./views/PoliciesPrivacy";
+import TermsConditions from "./views/TermsConditions";
+
 
 function App() {
   const { pathname } = useLocation()
@@ -84,6 +87,8 @@ function App() {
         <Route path="/mapa" element={<SearchByLocation/>} />
         <Route path="/dashboard" element={<Dashboard/>} />
         <Route path="/estado-productos" element={<ProductsStateClient/>}/>
+        <Route path="/politicas-privacidad" element={<PoliciesPrivacy/>}/>
+        <Route path="/terminos-condiciones" element={<TermsConditions/>}/>
       </Routes>
       {
         <Footer/>

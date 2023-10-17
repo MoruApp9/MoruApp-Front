@@ -11,17 +11,20 @@ import slide5 from '../images/banners/desk/banner5.png';
 import slide6 from '../images/banners/desk/banner6.png';
 import slide7 from '../images/banners/desk/banner7.png';
 
-import slide8 from '../images/banners/mobile/banner8.png'
-import slide9 from '../images/banners/mobile/banner9.png'
-import slide10 from '../images/banners/mobile/banner10.png'
-import slide11 from '../images/banners/mobile/banner11.png'
-import slide12 from '../images/banners/mobile/banner12.png'
+import slide8 from '../images/banners/mobile/banner7.png'
+import slide9 from '../images/banners/mobile/banner8.png'
+import slide10 from '../images/banners/mobile/banner9.png'
+import slide11 from '../images/banners/mobile/banner10.png'
+import slide12 from '../images/banners/mobile/banner11.png'
+import slide13 from '../images/banners/mobile/banner12.png'
 
 
 const Advertising = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [autoplay, setAutoplay] = useState(true);
   const sliderRef = useRef(null);
+
+  const isDesktopOrLaptop = window.matchMedia('(min-width: 768px)').matches;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -33,23 +36,9 @@ const Advertising = () => {
     return () => clearInterval(interval);
   }, [autoplay]);
 
-  const slides = [
-    slide1,
-    slide2,
-    slide3,
-    slide4,
-    slide5,
-    slide6,
-    slide7,
-    /* slide8,
-    slide9,
-    slide10,
-    slide11,
-    slide12, */
-
-
-    // Agrega más imágenes si es necesario
-  ];
+  const slides = isDesktopOrLaptop 
+  ? [slide1, slide2, slide3, slide4, slide5, slide6, slide7]
+  : [slide8, slide9, slide10, slide11, slide6, slide12]
 
   const settings = {
     dots: false,

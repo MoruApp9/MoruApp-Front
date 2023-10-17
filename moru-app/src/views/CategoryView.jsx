@@ -25,6 +25,7 @@ const CategoryView = () => {
         setLoading(true);
         dispatch(getProductsByCategory(id))
             .then(() => { setLoading(false) });
+        window.scrollTo(0, 0);
     }, [dispatch, id]);
 
     const handleSortChange = (e) => {
@@ -40,7 +41,7 @@ const CategoryView = () => {
     });
 
     return (
-        <section className="flex flex-col  mx-4">
+        <section className="min-h-screen flex flex-col  mx-4">
             <Categories />
             {loading ? (
                 <Loader />
