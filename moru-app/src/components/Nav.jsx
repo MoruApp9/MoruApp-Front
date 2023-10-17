@@ -12,6 +12,7 @@ import { FiMenu } from "react-icons/fi";
 import { MdFavorite } from "react-icons/md";
 import { MdAccountCircle } from "react-icons/md";
 import { BiSupport } from "react-icons/bi";
+import { BsFillPeopleFill } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth0 } from '@auth0/auth0-react';
@@ -231,8 +232,8 @@ const Nav = ({user}) => {
                     
             <Link to="/support">
               <ul onClick={() => { setOpenMenu(false), setSelectedOption('soporte') }} className={`flex items-center space-x-4 mr-3 justify-start p-2 hover:bg-gray-200 rounded-md w-52 ${selectedOption === 'soporte' ? 'bg-gray-200 ': ''}`} >
-                <BiSupport className="w-7 text-purple-moru text-3xl"/>
-                <span>Soporte</span>
+                <BsFillPeopleFill className="w-7 text-purple-moru text-3xl"/>
+                <span>Nosotros</span>
               </ul>
             </Link>
 

@@ -1,7 +1,7 @@
 const FAQ = () => {
     return (
-        <div>
-            <h1 className="text-decoration: underline text-center text-xl italic mt-2 mb-7">PREGUNTAS FRECUENTES</h1>
+        <div className="min-h-screen">
+            <h1 className="text-decoration: underline text-center text-xl italic mt-2 mb-7">NOSOTROS</h1>
             <div className="ml-5 mr-5">
             <div className="mt-4 mb-8">
                 <h1 className="italic bg-gray-100">¿Quiénes somos?</h1>
