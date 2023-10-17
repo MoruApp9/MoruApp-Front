@@ -225,7 +225,7 @@ const Product = ({ product }) => {
             onClick={changeSendStatusToFinish}
             className=" flex items-center space-x-2 text-purple-moru font-bold p-2 px-3  border-2 border-purple-moru rounded-full ">
             <IoMdDoneAll className="text-xl" />
-            <span>Terminar</span>
+            <span>Finalizar</span>
           </button>
         )
 
@@ -235,6 +235,19 @@ const Product = ({ product }) => {
             <span> enviar a pendiente</span>
           </button>
         ) */
+    }
+  }
+
+  const traductState = () => {
+    switch (currentProductState?.status) {
+      case 'pending':
+        return 'Pendiente'
+
+      case 'send':
+        return 'Enviado'
+
+      case 'finish':
+        return 'Finalizado'
     }
   }
 
@@ -278,7 +291,7 @@ const Product = ({ product }) => {
         <div className="flex items-center justify-between my-5">
           {productStateView && (
             <p className="text-gray-500  p-2 px-4  border rounded-full">
-              {currentProductState?.status}
+              {traductState()}
             </p>
           )}
 
