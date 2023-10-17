@@ -14,7 +14,9 @@ const ShoppingCart = () => {
   const navigate = useNavigate()
   const { user } = useAuth0()
 
-  useEffect(() => {window.scrollTo(0, 0)}, [dispatch, user, cartItems])
+  useEffect(() => {
+    //window.scrollTo(0, 0)
+  }, [dispatch, user, cartItems])
 
   const total = cartItems.reduce((accumulator, product) => {
     return accumulator + parseFloat(product?.price)
@@ -34,15 +36,15 @@ const ShoppingCart = () => {
       denyButtonText: "No",
       confirmButtonText: "Sí",
       confirmButtonColor: "#280a50",
-    }).then((response) => {
+    }).then(async(response) => {
       if (response.isConfirmed) {
         Swal.fire(
           "Pedido realizado",
           "En breve se comunicarán contigo",
           "success"
         )
-        postBuy(userData.id)
-        //deleteAllCart(userData.id)
+        await postBuy(userData.id)
+
         dispatch(removeAllFromCart()) // store
         navigate('/estado-productos')
       }

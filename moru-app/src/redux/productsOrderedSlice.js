@@ -4,10 +4,8 @@ const productsOrderedSlice = createSlice({
   name: "productsOrdered",
   initialState: [],
   reducers: {
-    setProductsOrderedToStore: (state, action) => {
-      console.log(action.payload);
-      return action.payload
-    },
+    setProductsOrderedToStore: (state, action) => action.payload
+   ,
        /* return action.payload */
       //state.push(newItem);
       /* console.log('newItem', newItem.orderId);

@@ -6,13 +6,14 @@ import {
 import { GetLocalStorage } from "../localStorage/GetLocalStorage"
 import { useDispatch, useSelector } from "react-redux"
 import Product from "../components/Product"
-import { setProductsOrderedToStore } from "../redux/productsOrderedSlice"
+import { cleanProductsOrderedFromStore, setProductsOrderedToStore } from "../redux/productsOrderedSlice"
 import {
   cleanProductsOrderedFilteredFromStore,
   setProductsOrderedFilteredToStore,
 } from "../redux/productsOrderedFilteredSlice"
 import Swal from "sweetalert2"
 import { useLocation } from "react-router-dom"
+import { cleanProductsFiltered } from "../redux/productsFilteredSlice"
 
 const ProductsStateClient = () => {
   const currentUser = GetLocalStorage()
@@ -30,19 +31,8 @@ const ProductsStateClient = () => {
 
   const [selectedState, setSelectedState] = useState("Todos")
 
- /*  switch (productsOrderedFilteredFromStore.length === 0) {
-    case selectedState === 'Pendiente':
-      setSelectedState('Enviado')
-      break
-
-    case selectedState === 'Enviado':
-      setSelectedState('Finalizado')
-      break
-  } */
-  
 
   
-  //console.log(idBranch);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const updateStore = async () => {
@@ -57,16 +47,16 @@ const ProductsStateClient = () => {
     } else {
       const response = await getHistoryOfOrderedProducts(currentUser.id) // user client
       console.log(response)
-      dispatch(setProductsOrderedFilteredToStore(response))
+      dispatch(setProductsOrderedToStore(response))
       /* response?.forEach((product) =>
         dispatch(setProductsOrderedToStore(product))
       ) */
     }
   }
-
+  
   useEffect(() => {
     updateStore()
-    window.scrollTo(0, 0)
+    //window.scrollTo(0, 0)
 
     if (selectedState === 'Pendiente' && productsOrderedFilteredFromStore.length === 0 ) {
       setSelectedState('Todos')
@@ -75,7 +65,10 @@ const ProductsStateClient = () => {
     if (selectedState === 'Enviado' && productsOrderedFilteredFromStore.length === 0 ) {
       setSelectedState('Todos')
     }
-  }, [dispatch])
+    return () => {
+      console.log('hola'); 
+      dispatch(cleanProductsOrderedFromStore())}
+  }, [])
 
   const handleTodosButton = async (event) => {
     event.stopPropagation()
@@ -158,13 +151,13 @@ const ProductsStateClient = () => {
       {productsOrderedFilteredFromStore.length > 0 ? (
         <div className="p-6 lg:px-28 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
           {productsOrderedFilteredFromStore?.map((product) => (
-            <Product key={product.id} product={product} />
+            <Product key={product.orderId} product={product} />
           ))}
         </div>
       ) : (
         <div className="p-6 lg:px-28 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
           {productsOrderedFromStore?.map((product) => (
-            <Product key={product.id} product={product} />
+            <Product key={product.orderId} product={product} />
           ))}
         </div>
       )}
