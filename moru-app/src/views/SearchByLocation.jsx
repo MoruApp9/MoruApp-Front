@@ -1,5 +1,5 @@
 import 'leaflet/dist/leaflet.css';
-import { Formik, Form, ErrorMessage, Field } from 'formik';
+import { Formik, Form, ErrorMessage, Field, useFormikContext } from 'formik';
 import { postUbicationUser, postUbicationSucursales } from '../services/services';
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
@@ -17,8 +17,8 @@ const SearchByLocation = () => {
     const [locationsArray, setLocationsArray] = useState(null);
 
     const dataDepartment = ['Choco', 'Antioquia'];
-    const dataMunicipality = {Choco: ['Acandí', 'Riosucio', 'Unguia'],
-    Antioquia: ['Apartado', 'Carepa', 'Chigorodo', 'Mutata', 'Necocli', 'San juan de Uraba', 'Turbo']};
+    const dataMunicipality = {Choco: ['Acandí', 'Riosucio', 'Unguía'],
+    Antioquia: ['Apartadó', 'Carepa', 'Chigorodó', 'Mutatá', 'Necoclí', 'San Juan de Urabá', 'Turbo', 'Arboletes', 'Murindó', 'San Pedro de Urabá', 'Vigia del Fuerte']};
 
     useEffect(() => {
         if ('geolocation' in navigator) {
@@ -41,18 +41,24 @@ const SearchByLocation = () => {
         window.scrollTo(0, 0);
     }, [dataLocationUser, locationsArray, location]);
 
+    const mapCenter = locationsArray ? currentLocation ? currentLocation : location : location;
 
-    
-    //const mapCenter = locationsArray ? currentLocation ? currentLocation : location : location;
-    const mapCenter = location;
+    const blueIcon = new L.Icon({
+        iconUrl: 'https://unpkg.com/leaflet/dist/images/marker-icon.png',
+        shadowUrl: 'https://unpkg.com/leaflet/dist/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41],
+      });
 
     const redIcon = new L.Icon({
-    iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
-    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-    shadowSize: [41, 41],
+        iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41],
     });
 
     return(
@@ -85,6 +91,7 @@ const SearchByLocation = () => {
 
                         onSubmit={ async (valores) => {
                             try {
+                                setLocationsArray(null)
                                 setMunicipality(valores.municipality);
                                 setDataLocationUser(await postUbicationUser(valores));
                                 if (location) {
@@ -95,7 +102,7 @@ const SearchByLocation = () => {
                             } 
                         }}
                     >
-                        {({values, errors, isSubmitting }) => (
+                        {({values, errors, isSubmitting, setFieldValue }) => (
                             <Form  autoComplete="off" className="flex flex-col gap-6">
                                 <div className="hidden">
                                     <Field
@@ -109,6 +116,10 @@ const SearchByLocation = () => {
                                         className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
                                         as="select"
                                         name="department"
+                                        onChange={(e) => {
+                                            setFieldValue('department', e.target.value);
+                                            setFieldValue('municipality', '');  
+                                        }}
                                     >
                                         <option value="" disabled hidden>Selecciona un departamento</option>
                                         {dataDepartment.map((department)=>(<option key={department} value={department}>{department}</option>))}
@@ -214,7 +225,7 @@ const SearchByLocation = () => {
                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                         />
-                        <Marker position={mapCenter}>
+                        <Marker position={mapCenter} icon={blueIcon}>
                             <Popup>
                                 <span className='text-center'>Usted esta <br /> aquí</span>
                             </Popup>
