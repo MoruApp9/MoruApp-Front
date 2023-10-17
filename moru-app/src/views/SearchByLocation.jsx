@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import Swal from 'sweetalert2';
+import { Link } from "react-router-dom";
 
 const SearchByLocation = () => {
 
@@ -16,7 +17,7 @@ const SearchByLocation = () => {
     const [locationsArray, setLocationsArray] = useState(null);
 
     const dataDepartment = ['Choco', 'Antioquia'];
-    const dataMunicipality = {Choco: ['Arcadi', 'Riosucio', 'Unguia'],
+    const dataMunicipality = {Choco: ['Acandí', 'Riosucio', 'Unguia'],
     Antioquia: ['Apartado', 'Carepa', 'Chigorodo', 'Mutata', 'Necocli', 'San juan de Uraba', 'Turbo']};
 
     useEffect(() => {
@@ -33,10 +34,17 @@ const SearchByLocation = () => {
         } else {
           console.error('Geolocalización no está disponible en este navegador.');
         }
-        dataLocationUser && setLocation(dataLocationUser.coords);
-    }, [dataLocationUser, locationsArray]);
 
-    const mapCenter = locationsArray ? currentLocation ? currentLocation : location : location;
+        if (dataLocationUser && location !== dataLocationUser.coords) {
+            setLocation(dataLocationUser.coords);
+        }
+        window.scrollTo(0, 0);
+    }, [dataLocationUser, locationsArray, location]);
+
+
+    
+    //const mapCenter = locationsArray ? currentLocation ? currentLocation : location : location;
+    const mapCenter = location;
 
     const redIcon = new L.Icon({
     iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
@@ -79,12 +87,15 @@ const SearchByLocation = () => {
                             try {
                                 setMunicipality(valores.municipality);
                                 setDataLocationUser(await postUbicationUser(valores));
+                                if (location) {
+                                    setLocation(null);
+                                }
                             } catch (error) {
                                 Swal.fire('Oops...', 'Error al realizar la operación', 'error');
                             } 
                         }}
                     >
-                        {({values, errors, isSubmitting}) => (
+                        {({values, errors, isSubmitting }) => (
                             <Form  autoComplete="off" className="flex flex-col gap-6">
                                 <div className="hidden">
                                     <Field
@@ -198,7 +209,7 @@ const SearchByLocation = () => {
 
             <div className='h-100 w-full sm:w-105 border-2 border-black relative z-10'>
                 {location ?
-                    <MapContainer  center={mapCenter} zoom={13} scrollWheelZoom={false} className='w-full h-full'>
+                    <MapContainer center={mapCenter} zoom={13} scrollWheelZoom={false} className='w-full h-full'>
                         <TileLayer
                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -216,7 +227,7 @@ const SearchByLocation = () => {
                                 icon={redIcon}
                             >
                                 <Popup>
-                                <span>{locationData.branchName}</span>
+                                <Link to={`/tienda/${locationData.id}`}><span>{locationData.branchName}</span></Link>
                                 </Popup>
                             </Marker>
                         ))}
@@ -229,17 +240,3 @@ const SearchByLocation = () => {
 }
 
 export default SearchByLocation;
-
-
-/*
-<div>
-    <Field name="generalcategoryId" as="select" className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab">
-        <option value="" disabled hidden>Selecciona categoría</option>
-        {categories.map((category)=>(<option key={category.id} value={category.id}>{category.name}</option>))}
-    </Field>
-    <ErrorMessage name="generalcategoryId" component={() => (
-        <div className="text-xs text-red-600">{errors.generalcategoryId}</div>
-    )}/>
-</div>
-
-*/
