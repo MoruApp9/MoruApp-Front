@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react"
 import { Link, useLocation } from "react-router-dom"
@@ -101,9 +102,9 @@ const Product = ({ product }) => {
     if (user) {
       const userUpdate = GetLocalStorage()
       const response = await postChart(userUpdate?.id, productId, quantity) // esto me debería devolver el objeto guardado, no un array con objetos repetidos
-      dispatch(addToCart(response))
+      dispatch(addToCart(response)) // store
       setAddedToCart(true)
-      dispatch(getProducts())
+      dispatch(getProducts()) // endpoint
     } else
       Swal.fire(
         "Oops...",
@@ -229,7 +230,6 @@ const Product = ({ product }) => {
 
   const changeStatusToPending = async () => { // comentar esta función
     const response = await putOrderStatus(currentProductState.orderId, "pending")
-
   }
 
   const changeStatusButton = () => {
