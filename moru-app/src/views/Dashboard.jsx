@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { putBrand, putBranch,
-    putProduct,
-    getAllCommerces,
-    getAllBranches,
-    getAllProducts,
-} from "../services/services";
+import { putBrand, putBranch, putProduct, getAllCommerces, getAllBranches, getAllProducts } from "../services/services";
+import { useAuth0 } from "@auth0/auth0-react";
+import { MdLogout } from "react-icons/md";
+import { DeleteLocalStorage } from "../localStorage/DeleteLocalStorage";
 
 function Dashboard() {
     const [peticiones, setPeticiones] = useState([]);
     const [opcion, setOpcion] = useState("Marcas");
     const [selectedState, setSelectedState] = useState("Todos");
     const [productosFiltrados, setProductosFiltrados] = useState([]);
+    const { user, logout } = useAuth0();
 
     useEffect(() => {
         const getRequests = async () => {
@@ -83,44 +82,60 @@ function Dashboard() {
         setProductosFiltrados(baneados);
     };
 
+    const handleLogOut = () => {
+        DeleteLocalStorage();
+        logout({ returnTo: window.location.origin });
+    }
+
     return (
         <div className="min-h-screen container mx-auto p-4">
-            <h1 className="text-2xl font-bold mb-4">Panel de Administración</h1>
-            <select value={opcion} onChange={handleFilterChange}>
-                <option value="" disabled>
-                    Filtrar
-                </option>
-                <option value="Marcas">Marcas</option>
-                <option value="Sucursales">Sucursales</option>
-                <option value="Productos">Productos</option>
-            </select>
+            <button className="flex items-center space-x-2 mr-2 p-1 hover:bg-gray-200 rounded-md w-30" onClick={handleLogOut}>
+                <MdLogout className="w-5 text-2xl text-purple-moru" /><span>Cerrar sesión</span>
+            </button>
+            <h1 className="text-2xl font-bold mb-4 text-purple-moru text-center">Panel de Administración</h1>
 
-            <div className=" bg-white flex justify-center mx-auto w-fit my-6 space-x-4 p-4 font-roboto-slab border rounded-full top-24 ">
-                <button
-                    onClick={handleTodosButton}
-                    className={`border-r pr-2 ${selectedState === "Todos" && "font-bold"}`}
+            <div className="flex flex-col md:flex-row items-center justify-center my-4 md:my-6 space-y-4 md:space-y-0 md:space-x-4 p-4">
+                <select
+                    value={opcion}
+                    onChange={handleFilterChange}
+                    className="w-full md:w-auto border rounded-full p-2"
                 >
-                    Todos
-                </button>
-                <button
-                    onClick={handlePendientesButton}
-                    className={`border-r pr-2 ${selectedState === "Pendientes" && "font-bold"}`}
-                >
-                    Pendientes
-                </button>
-                <button
-                    onClick={handleAprobadosButton}
-                    className={`border-r pr-2 ${selectedState === "Aprobados" && "font-bold"}`}
-                >
-                    Aprobados
-                </button>
-                <button
-                    onClick={handleBaneadosButton}
-                    className={`${selectedState === "Baneados" && "font-bold"}`}
-                >
-                    Baneados
-                </button>
+                    <option value="" disabled>
+                        Filtrar
+                    </option>
+                    <option value="Marcas">Marcas</option>
+                    <option value="Sucursales">Sucursales</option>
+                    <option value="Productos">Productos</option>
+                </select>
+
+                <div className="bg-white flex flex-wrap space-x-2 md:space-x-4">
+                    <button
+                        onClick={handleTodosButton}
+                        className={`w-full md:w-auto border-r p-2 ${selectedState === "Todos" && "font-bold"}`}
+                    >
+                        Todos
+                    </button>
+                    <button
+                        onClick={handlePendientesButton}
+                        className={`w-full md:w-auto border-r p-2 ${selectedState === "Pendientes" && "font-bold"}`}
+                    >
+                        Pendientes
+                    </button>
+                    <button
+                        onClick={handleAprobadosButton}
+                        className={`w-full md:w-auto border-r p-2 ${selectedState === "Aprobados" && "font-bold"}`}
+                    >
+                        Aprobados
+                    </button>
+                    <button
+                        onClick={handleBaneadosButton}
+                        className={`w-full md:w-auto p-2 ${selectedState === "Baneados" && "font-bold"}`}
+                    >
+                        Baneados
+                    </button>
+                </div>
             </div>
+
 
             {opcion && (
                 <Tabla data={productosFiltrados} changeStatus={changeStatus} opcion={opcion} />
