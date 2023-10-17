@@ -49,16 +49,18 @@ const ProductsStateClient = () => {
     if (idBranch.length) {
       const response = await getBranchOrders(idBranch)
       console.log('getBranchOrdersResponse', response)
-      response?.forEach((product) =>
+      dispatch(setProductsOrderedToStore(response))
+      /* response?.forEach((product) =>
         dispatch(setProductsOrderedToStore(product))
-      )
+      ) */
       
     } else {
       const response = await getHistoryOfOrderedProducts(currentUser.id) // user client
       console.log(response)
-      response?.forEach((product) =>
+      dispatch(setProductsOrderedFilteredToStore(response))
+      /* response?.forEach((product) =>
         dispatch(setProductsOrderedToStore(product))
-      )
+      ) */
     }
   }
 
@@ -73,7 +75,7 @@ const ProductsStateClient = () => {
     if (selectedState === 'Enviado' && productsOrderedFilteredFromStore.length === 0 ) {
       setSelectedState('Todos')
     }
-  }, [dispatch, productsOrderedFilteredFromStore])
+  }, [dispatch])
 
   const handleTodosButton = async (event) => {
     event.stopPropagation()
