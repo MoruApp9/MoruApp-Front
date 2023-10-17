@@ -31,6 +31,7 @@ import ProductsStateClient from "./views/ProductsStateClient";
 import Footer from "./components/Footer";
 import PoliciesPrivacy from "./views/PoliciesPrivacy";
 import TermsConditions from "./views/TermsConditions";
+import { GetLocalStorage } from "./localStorage/GetLocalStorage";
 
 
 function App() {
@@ -39,8 +40,9 @@ function App() {
   const error = useSelector(state => state.errors)
   const productsStore = useSelector(state => state.allProducts.allProducts)
   const { user } = useAuth0();
-
+  
   useEffect(() => {
+    GetLocalStorage()
     if (error.length) {
       dispatch(cleanErrors());
       window.alert(error);
@@ -53,20 +55,19 @@ function App() {
         pathname !== "/login" &&
         pathname !== "/registeruser" &&
         pathname !== "/registershop" &&
-        /* pathname !== "/landing" && */
-        user?.name !== "Moru APP" &&
+        GetLocalStorage()?.userRole !== "SuperAdmin" &&
         <Nav user={user}/>
       }
       {
         pathname === "/" &&
-        user?.name !== "Moru APP" &&
+        GetLocalStorage()?.userRole !== "SuperAdmin" &&
         <SearchBar/>
       }
 
       
 
       <Routes>
-        <Route exact path="/" element={<Home />}></Route>
+        <Route exact path="/" element={<Home/>}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/registration" element={<Registration />}></Route>
         <Route path="/registeruser" element={<RegisterUser />}></Route>

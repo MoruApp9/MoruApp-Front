@@ -55,8 +55,6 @@ const Product = ({ product }) => {
 
   const index = cartStore.findIndex((product) => product.id === productId)
 
-  
-
   useEffect(() => {
     if (user) {
       if (cartStore.length) {
@@ -154,29 +152,6 @@ const Product = ({ product }) => {
     } else Swal.fire("No hay stock", response.message, "info")
   }
 
-  /* Swal.fire({
-    title: "Confirmación",
-    text: "¿Deseas confirmar el pedido?",
-    icon: "question",
-    showDenyButton: true,
-    denyButtonText: "No",
-    confirmButtonText: "Sí",
-    confirmButtonColor: "#280a50",
-  }).then((response) => {
-    if (response.isConfirmed) {
-      Swal.fire(
-        "Pedido realizado",
-        "En breve se comunicarán contigo",
-        "success"
-      )
-      postBuy(userData.id)
-      deleteAllCart(userData.id)
-      dispatch(removeAllFromCart())
-      navigate('/estado-productos')
-    }
-  })
-} */
-
   const changePendingStatusToSend = () => {
     Swal.fire({
       title: "Confirmación",
@@ -250,7 +225,7 @@ const Product = ({ product }) => {
             onClick={changeSendStatusToFinish}
             className=" flex items-center space-x-2 text-purple-moru font-bold p-2 px-3  border-2 border-purple-moru rounded-full ">
             <IoMdDoneAll className="text-xl" />
-            <span>Terminar</span>
+            <span>Finalizar</span>
           </button>
         )
 
@@ -260,6 +235,19 @@ const Product = ({ product }) => {
             <span> enviar a pendiente</span>
           </button>
         ) */
+    }
+  }
+
+  const traductState = () => {
+    switch (currentProductState?.status) {
+      case 'pending':
+        return 'Pendiente'
+
+      case 'send':
+        return 'Enviado'
+
+      case 'finish':
+        return 'Finalizado'
     }
   }
 
@@ -295,7 +283,7 @@ const Product = ({ product }) => {
           {productStateView && (
             <p className="text-gray-500">
               Cantidad:{" "}
-              <span className="font-bold">{currentProductState?.quantity}</span>
+              <span className="font-bold">{product?.quantity}</span>
             </p>
           )}
         </div>
@@ -303,7 +291,7 @@ const Product = ({ product }) => {
         <div className="flex items-center justify-between my-5">
           {productStateView && (
             <p className="text-gray-500  p-2 px-4  border rounded-full">
-              {currentProductState?.status}
+              {traductState()}
             </p>
           )}
 
