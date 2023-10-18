@@ -84,7 +84,7 @@ const ShoppingCart = () => {
           <Link to={"/"}>
             {" "}
             <h2 className="text-4xl font-bold text-center text-purple-moru-dark m-8">
-              Agregar productos
+                Ver tiendas
             </h2>
           </Link>
         </div>
@@ -95,9 +95,9 @@ const ShoppingCart = () => {
             ¡Este es tu carrito!{" "}
           </h1>
           <div className="flex flex-row items-center justify-center">
-            <h3 className="text-2xl text-purple-moru text-center m-8">{`Total del carrito: $${total}`}</h3>
+            {/* <h3 className="text-2xl text-purple-moru text-center m-8">{`Total del carrito: $${total}`}</h3> */}
             <button
-              className="bg-purple-moru text-white hover:bg-white hover:text-purple-moru  font-bold py-2 px-4 rounded rounded-xl"
+              className="bg-purple-moru text-white hover:bg-white hover:text-purple-moru mt-3 font-bold py-2 px-4 rounded rounded-xl"
               onClick={handleRemoveAllFromCart}>
               Vaciar carrito
             </button>

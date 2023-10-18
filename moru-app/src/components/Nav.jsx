@@ -22,7 +22,7 @@ import { GetLocalStorage, GetLocalStorageCommercesByOwner } from '../localStorag
 import { IoIosArrowDown } from "react-icons/io";
 import { DeleteLocalStorage, DeleteLocalStorageCommercesByOwner } from '../localStorage/DeleteLocalStorage';
 import { MdLogout } from 'react-icons/md';
-import { FaMapMarkerAlt } from "react-icons/fa";
+import { FaHtml5, FaMapMarkerAlt } from "react-icons/fa";
 import { getBrandByOwner, getChart, getFavorites, getProducts, getUser } from '../services/services';
 import { addFav } from "../redux/favoritesSlice";
 import { addToCart } from "../redux/cartSlice";
@@ -41,6 +41,7 @@ const Nav = ({ user }) => {
 
   const currentUser = GetLocalStorage();
   const sedes = GetLocalStorageCommercesByOwner();
+  console.log(currentUser);
 
   useEffect(() => {
     !allProductsStore.length && dispatch(getProducts())
@@ -157,7 +158,7 @@ const Nav = ({ user }) => {
             }
 
             {/* currentUser.userRole !== 'adminCommerce' && <ul onClick={() => { setOpenMenu(false) }} className="  order-2 flex justify-center space-x-4 " ><MdFavorite className="w-7 text-purple-moru text-3xl"></MdFavorite><Link to="/fav">Favoritos</Link></ul> */
-              (!currentUser || GetLocalStorage() && currentUser.userRole === 'buyer') &&
+            (GetLocalStorage() && currentUser.userRole === 'buyer' ) && 
               <Link to="/fav" >
                 <ul onClick={() => { setOpenMenu(false), setSelectedOption('favoritos') }} className={`flex p-2 hover:bg-gray-200 rounded-md w-52 items-center space-x-4 mr-3 ${selectedOption === "favoritos" ? 'bg-gray-200 ' : ''}`} >
                   <MdFavorite className="w-7 text-purple-moru text-3xl" /><span>Favoritos</span>
@@ -166,7 +167,7 @@ const Nav = ({ user }) => {
 
             }
             {
-              (!currentUser || GetLocalStorage() && currentUser.userRole === 'buyer') &&
+              (!currentUser || GetLocalStorage() && currentUser.userRole === 'buyer' ) && 
               <Link to='/estado-productos'>
                 <ul onClick={() => { setOpenMenu(false), setSelectedOption('pedidos') }} className={`flex p-2 hover:bg-gray-200 rounded-md w-52 items-center space-x-4 mr-3 ${selectedOption === "pedidos" ? 'bg-gray-200 ' : ''}`}>
                   <BsFillSendFill className="w-7 text-3xl text-purple-moru" /><span>Pedidos</span>
@@ -182,7 +183,7 @@ const Nav = ({ user }) => {
                 </ul>
               </Link>
             }
-            {currentUser && GetLocalStorage() && currentUser.userRole === 'adminCommerce' && currentUser.brand &&
+            {(currentUser.brand.status === 'aprobado' && currentUser && GetLocalStorage() && currentUser.userRole === 'adminCommerce' && currentUser.brand) ?
               <div>
                 <button>
                   <ul onClick={(e) => handleButtonClick(e)}
@@ -219,7 +220,7 @@ const Nav = ({ user }) => {
                   </div>
                 )}
               </div>
-            }
+            : <h5 className="text-purple-moru">Esperando aprobación</h5>}
 
             {currentUser &&
               <ul onClick={() => { setOpenMenu(false) }} className="ml-3 flex justify-center space-x-4 mr-5" ><MdAccountCircle className="w-7 text-purple-moru text-3xl"></MdAccountCircle><Link to="/cuenta">Cuenta</Link></ul>}
