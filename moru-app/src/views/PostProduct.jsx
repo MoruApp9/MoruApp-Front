@@ -71,13 +71,11 @@ const PostProduct = () => {
 
             if (!values.name) {
               error.name = 'Por favor, ingresa el nombre de una tienda'
-            } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.name)) {
-              error.name = 'El nombre solo puede contener letras y espacios'
             }
 
             if (!values.price) {
               error.price = 'Por favor, ingresa un precio'
-            } else if (!/^\d+$/.test(values.price)) {
+            } else if (!/^[0-9,.]+$/.test(values.price)) {
               error.price = 'El precio debe contener solo números'
             }
 
@@ -133,7 +131,7 @@ const PostProduct = () => {
               <div>
                 <Field
                   className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
-                  type="number"
+                  type="text"
                   name="price"
                   placeholder="Precio"
                 />

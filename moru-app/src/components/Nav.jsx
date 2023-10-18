@@ -224,7 +224,12 @@ const Nav = ({ user }) => {
             : ((currentUser?.userRole === 'adminCommerce' && currentUser?.brand?.status === 'pendiente') ? <h5 className="text-purple-moru">Esperando aprobación</h5> : null)}
 
             {currentUser &&
-              <ul onClick={() => { setOpenMenu(false) }} className="ml-3 flex justify-center space-x-4 mr-5" ><MdAccountCircle className="w-7 text-purple-moru text-3xl"></MdAccountCircle><Link to="/cuenta">Cuenta</Link></ul>}
+            <Link to="/cuenta">
+              <ul onClick={() => { setOpenMenu(false), setSelectedOption('cuenta') }} className={`flex items-center space-x-4  mr-3 justify-start p-2 hover:bg-gray-200 rounded-md w-52 ${selectedOption === 'cuenta' ? 'bg-gray-200 ' : ''}`}>
+                <MdAccountCircle className="w-7 text-purple-moru text-3xl"/>
+                <span>Cuenta</span>
+              </ul>
+            </Link>}
             <Link to="/mapa">
               <ul onClick={() => { setOpenMenu(false), setSelectedOption('ubication') }} className={`flex items-center space-x-4  mr-3 justify-start p-2 hover:bg-gray-200 rounded-md w-52  ${selectedOption === 'ubication' ? 'bg-gray-200 ': ''}`}>
                 <FaMapMarkerAlt className="w-7 text-purple-moru text-3xl"/>
