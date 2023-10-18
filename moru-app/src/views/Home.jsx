@@ -37,7 +37,7 @@ const Home = () => {
         if (!dataComplete.id) {
           if (dataComplete.userRole && dataComplete.email) {
             if (dataComplete.userRole === "buyer") {
-              console.log("register cliente");
+              //console.log("register cliente");
               await postClientRegister(dataComplete);
             } else {
               await postAdmincommerceRegister(dataComplete);
