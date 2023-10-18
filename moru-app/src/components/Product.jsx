@@ -208,7 +208,7 @@ const Product = ({ product }) => {
   }
 
   const changeStatusButton = () => {
-    switch (currentProductState?.status) {
+    switch (product?.status) {
       case "pending":
         return (
           <button
@@ -238,8 +238,8 @@ const Product = ({ product }) => {
     }
   }
 
-  const traductState = () => {
-    switch (currentProductState?.status) {
+  const translateState = () => {
+    switch (product?.status) { // product?.status
       case 'pending':
         return 'Pendiente'
 
@@ -291,7 +291,7 @@ const Product = ({ product }) => {
         <div className="flex items-center justify-between my-5">
           {productStateView && (
             <p className="text-gray-500  p-2 px-4  border rounded-full">
-              {traductState()}
+              {translateState()}
             </p>
           )}
 
