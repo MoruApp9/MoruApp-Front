@@ -167,7 +167,8 @@ const Nav = ({ user }) => {
 
             }
             {
-              (!currentUser || GetLocalStorage() && currentUser.userRole === 'buyer' ) && 
+              
+              (GetLocalStorage() && currentUser.userRole === 'buyer' ) && 
               <Link to='/estado-productos'>
                 <ul onClick={() => { setOpenMenu(false), setSelectedOption('pedidos') }} className={`flex p-2 hover:bg-gray-200 rounded-md w-52 items-center space-x-4 mr-3 ${selectedOption === "pedidos" ? 'bg-gray-200 ' : ''}`}>
                   <BsFillSendFill className="w-7 text-3xl text-purple-moru" /><span>Pedidos</span>
