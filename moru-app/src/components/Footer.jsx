@@ -26,7 +26,7 @@ const Footer = () => {
 
                     <div className='flex-col flex'>
                         <p className='text-lg font-semibold'>Moru App Team</p>
-                        <a href="" target="_blank" rel="noopener noreferrer">Dumar Arroyo - Programadora</a>
+                        <a href="" target="_blank" rel="noopener noreferrer">Dumar Arroyo - Programador</a>
                         <a href="mailto:cristianbalseiro93@gmail.com" target="_blank" rel="noopener noreferrer">Cristian Balseiro - Programador</a>
                     </div>
                 </div>

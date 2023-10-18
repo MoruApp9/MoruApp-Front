@@ -13,8 +13,8 @@ const CrearSede = () => {
     const navigate = useNavigate()
     const dataUser = GetLocalStorage()
     const dataDepartment = ['Choco', 'Antioquia'];
-    const dataMunicipality = {Choco: ['Arcadi', 'Riosucio', 'Unguia'],
-    Antioquia: ['Apartado', 'Carepa', 'Chigorodo', 'Mutata', 'Necocli', 'San juan de Uraba', 'Turbo']};
+    const dataMunicipality = {Choco: ['Acandí', 'Riosucio', 'Unguía'],
+    Antioquia: ['Apartadó', 'Carepa', 'Chigorodó', 'Mutatá', 'Necoclí', 'San Juan de Urabá', 'Turbo', 'Arboletes', 'Murindó', 'San Pedro de Urabá', 'Vigia del Fuerte']};
     const [location, setLocation] = useState(null);
     const [dataSucursal, setDataSucursal] = useState(null);
 
