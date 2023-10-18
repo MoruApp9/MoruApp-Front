@@ -208,7 +208,7 @@ const Product = ({ product }) => {
   }
 
   const changeStatusButton = () => {
-    switch (currentProductState?.status) {
+    switch (product?.status) {
       case "pending":
         return (
           <button
@@ -238,8 +238,8 @@ const Product = ({ product }) => {
     }
   }
 
-  const traductState = () => {
-    switch (currentProductState?.status) {
+  const translateState = () => {
+    switch (product?.status) { // product?.status
       case 'pending':
         return 'Pendiente'
 
@@ -257,7 +257,7 @@ const Product = ({ product }) => {
         <img
           src={product.image}
           alt={product.name}
-          className="w-full h-60 object-cover"
+          className="w-full h-80"
         />
 
         <div className="flex items-center justify-end px-4 pt-2">
@@ -291,7 +291,7 @@ const Product = ({ product }) => {
         <div className="flex items-center justify-between my-5">
           {productStateView && (
             <p className="text-gray-500  p-2 px-4  border rounded-full">
-              {traductState()}
+              {translateState()}
             </p>
           )}
 

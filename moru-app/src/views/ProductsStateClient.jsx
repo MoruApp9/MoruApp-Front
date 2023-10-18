@@ -66,7 +66,6 @@ const ProductsStateClient = () => {
       setSelectedState('Todos')
     }
     return () => {
-      console.log('hola'); 
       dispatch(cleanProductsOrderedFromStore())}
   }, [])
 

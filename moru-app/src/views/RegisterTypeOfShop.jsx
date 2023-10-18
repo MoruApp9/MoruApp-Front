@@ -90,7 +90,7 @@ const RegisterTypeOfShop = () => {
                     onSubmit={async (valores) => {
                         try {
                             await postCommerceRegister(valores);
-                            Swal.fire('Éxito', 'Comercio registrado correctamente', 'success');
+                            Swal.fire('Éxito', 'Petición creada correctamente, en breve será aceptada', 'success');
                             navigate('/');
                         } catch (error) {
                             Swal.fire('Oops...', 'Error al registrar el comercio', 'error');
