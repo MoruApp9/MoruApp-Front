@@ -1,4 +1,9 @@
+import { useEffect } from "react";
+
 const FAQ = () => {
+    useEffect(()=>{
+        window.scrollTo(0, 0);
+    },[])
     return (
         <div className="min-h-screen">
             <h1 className="text-decoration: underline text-center text-xl italic mt-2 mb-7">NOSOTROS</h1>

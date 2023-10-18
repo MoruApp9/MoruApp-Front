@@ -69,10 +69,12 @@ const RegisterTypeOfShop = () => {
 
                         if (!values.rut) {
                             error.rut = 'Por favor, ingresa un número de RUT'
-                        } else if (!/^\d+(?:-\d+)?$/.test(values.rut)) {
-                            error.rut = 'El celular debe contener solo números y "-"'
-                        } else if (values.rut.length !== 10) {
+                        } else if (values.rut.length === 10 && !/^\d{8}-\d$/.test(values.rut)) {
                             error.rut = 'El RUT debe contener 9 dígitos, el último separado por un "-"'
+                        } else if (!/^[0-9-]+$/.test(values.rut)) {
+                            error.rut = 'El RUT debe contener solo dígitos y/o guiones';
+                        } else if (values.rut.length > 10 || values.rut.length < 10) {
+                            error.rut = 'El RUT debe tener 10 caracteres';
                         }
 
                         if (!values.description) {
