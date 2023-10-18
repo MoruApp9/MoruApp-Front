@@ -12,7 +12,7 @@ const Account = () => {
   return (
     
     <div className="bg-white p-6 rounded-lg">
-      <h1 className="text-4xl text-center text-purple-moru mb-8">Esta es tu cuenta</h1>
+      <h1 className="text-4xl text-center text-purple-moru mb-8">Cuenta de usuario</h1>
       <div className='shadow-md rounded-lg'>
         <div className="mb-4 flex items-center text-2xl">
           <BsFillPersonVcardFill className="mr-2 text-purple-moru ml-2" />

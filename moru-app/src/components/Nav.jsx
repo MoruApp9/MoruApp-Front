@@ -183,7 +183,7 @@ const Nav = ({ user }) => {
                 </ul>
               </Link>
             }
-            {(currentUser.brand.status === 'aprobado' && currentUser && GetLocalStorage() && currentUser.userRole === 'adminCommerce' && currentUser.brand) ?
+            {(currentUser?.brand?.status === 'aprobado' && currentUser && GetLocalStorage() && currentUser.userRole === 'adminCommerce' && currentUser.brand) ?
               <div>
                 <button>
                   <ul onClick={(e) => handleButtonClick(e)}
@@ -220,7 +220,7 @@ const Nav = ({ user }) => {
                   </div>
                 )}
               </div>
-            : <h5 className="text-purple-moru">Esperando aprobación</h5>}
+            : ((currentUser?.userRole === 'adminCommerce' && currentUser?.brand?.status === 'pendiente') ? <h5 className="text-purple-moru">Esperando aprobación</h5> : null)}
 
             {currentUser &&
               <ul onClick={() => { setOpenMenu(false) }} className="ml-3 flex justify-center space-x-4 mr-5" ><MdAccountCircle className="w-7 text-purple-moru text-3xl"></MdAccountCircle><Link to="/cuenta">Cuenta</Link></ul>}
