@@ -22,7 +22,7 @@ const Favorites = () => {
                 ? <h1 className="text-4xl font-bold text-center text-purple-moru-dark mt-8">¡Estos son tus favoritos!</h1>
                 : (<div>
                     <h1 className="text-4xl text-center text-purple-moru m-8"> No tienes favoritos </h1>
-                    <Link to={'/'}> <h2 className="text-4xl font-bold text-center text-purple-moru-dark m-8">Agregar favoritos</h2></Link>
+                    <Link to={'/'}> <h2 className="text-4xl font-bold text-center text-purple-moru-dark m-8">Ver tiendas</h2></Link>
                 </div>)
         }
 
