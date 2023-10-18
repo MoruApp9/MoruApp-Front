@@ -106,7 +106,7 @@ const PostProduct = () => {
             try {
               console.log(values);
               await postProduct(values);
-              Swal.fire('Éxito', 'Producto creado correctamente', 'success');
+              Swal.fire('Éxito', 'Petición creada correctamente, en breve será aceptada', 'success');
               navigate('/');
               //window.location.reload()
             } catch (error) {
