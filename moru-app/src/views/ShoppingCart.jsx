@@ -97,7 +97,7 @@ const ShoppingCart = () => {
           <div className="flex flex-row items-center justify-center">
             {/* <h3 className="text-2xl text-purple-moru text-center m-8">{`Total del carrito: $${total}`}</h3> */}
             <button
-              className="bg-purple-moru text-white hover:bg-white hover:text-purple-moru mt-3 font-bold py-2 px-4 rounded rounded-xl"
+              className="bg-purple-moru text-white hover:bg-white hover:text-purple-moru mt-3 font-bold py-2 px-4  rounded-xl transition-all duration-300 ease-in-out"
               onClick={handleRemoveAllFromCart}>
               Vaciar carrito
             </button>
@@ -114,7 +114,7 @@ const ShoppingCart = () => {
       {cartItems.length > 0 && (
         <button
           onClick={comprarButton}
-          className="sticky bottom-6 w-15 mx-auto mt-6 bg-purple-moru text-white hover:bg-white hover:text-purple-moru  font-bold py-3 px-8 rounded-full border-[1.6px] border-white text-lg">
+          className="sticky bottom-6 w-15 mx-auto mt-6 bg-purple-moru text-white hover:bg-white hover:text-purple-moru  font-bold py-3 px-8 rounded-full border-[1.6px] border-white text-lg transition-all duration-300 ease-in-out">
           Comprar
         </button>
       )}
