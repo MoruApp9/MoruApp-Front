@@ -167,7 +167,6 @@ const Nav = ({ user }) => {
 
             }
             {
-              
               (GetLocalStorage() && currentUser.userRole === 'buyer' ) && 
               <Link to='/estado-productos'>
                 <ul onClick={() => { setOpenMenu(false), setSelectedOption('pedidos') }} className={`flex p-2 hover:bg-gray-200 rounded-md w-52 items-center space-x-4 mr-3 ${selectedOption === "pedidos" ? 'bg-gray-200 ' : ''}`}>
