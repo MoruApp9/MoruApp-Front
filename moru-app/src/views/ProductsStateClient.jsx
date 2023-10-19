@@ -61,7 +61,9 @@ const ProductsStateClient = () => {
       setSelectedState('Todos')
     }
     return () => {
-      dispatch(cleanProductsOrderedFromStore())}
+       dispatch(cleanProductsOrderedFilteredFromStore());
+       dispatch(cleanProductsOrderedFromStore())
+    }
   }, [])
 
   const handleTodosButton = async (event) => {
