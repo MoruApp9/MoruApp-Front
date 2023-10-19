@@ -46,7 +46,7 @@ const SearchBar = () => {
       />
 
       <button
-        className=" text-3xl text-gray-500 hover:text-purple-moru focus:outline-none"
+        className=" text-3xl text-gray-500 hover:text-purple-moru focus:outline-none transition-all duration-300 ease-in-out"
         id="searchButton"
         onClick={handleOnClickButton}>
         <BiSearchAlt />

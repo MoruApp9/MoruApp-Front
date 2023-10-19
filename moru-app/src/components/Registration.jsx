@@ -13,13 +13,13 @@ const Registration = () => {
                 <div className="flex flex-col items-center gap-3 my-5">
                     <Link to="/registeruser">
                         <button
-                            className="w-60 h-12 md:h-14 px-2 border border-purple-moru rounded-lg bg-purple-moru text-white text-base font-semibold font-roboto-slab hover:bg-purple-moru-dark">
+                            className="w-60 h-12 md:h-14 px-2 border border-purple-moru rounded-lg bg-purple-moru text-white text-base font-semibold font-roboto-slab hover:bg-purple-moru-dark transition-all duration-300 ease-in-out">
                             Crear cuenta personal
                         </button>
                     </Link>
                     <Link  to="/registershop">
                         <button
-                            className="w-60 h-12 md:h-14 px-2 border border-purple-moru rounded-lg bg-purple-moru text-white font-semibold text-base font-roboto-slab hover:bg-purple-moru-dark">
+                            className="w-60 h-12 md:h-14 px-2 border border-purple-moru rounded-lg bg-purple-moru text-white font-semibold text-base font-roboto-slab hover:bg-purple-moru-dark transition-all duration-300 ease-in-out">
                             Crear cuenta empresa
                         </button>
                     </Link>

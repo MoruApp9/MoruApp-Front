@@ -89,7 +89,7 @@ function Dashboard() {
 
     return (
         <div className="min-h-screen container mx-auto p-4">
-            <button className="flex items-center space-x-2 mr-2 p-1 hover:bg-gray-200 rounded-md w-30" onClick={handleLogOut}>
+            <button className="flex items-center space-x-2 mr-2 p-1 hover:bg-gray-200 rounded-md w-30 transition-all duration-300 ease-in-out" onClick={handleLogOut}>
                 <MdLogout className="w-5 text-2xl text-purple-moru" /><span>Cerrar sesión</span>
             </button>
             <h1 className="text-2xl font-bold mb-4 text-purple-moru text-center">Panel de Administración</h1>

@@ -35,13 +35,13 @@ const OrderDetail = () => {
   }
 
   return (
-    <section className=" font-roboto-slab border-[0.9rem] border-purple-moru rounded-3xl my-14 max-w-4xl mx-auto shadow-xl">
-      <div className="flex flex-col items-center my-11">
+    <section className=" font-roboto-slab  rounded-3xl my-14 max-w-4xl mx-auto shadow-xl">
+      <div className="flex flex-col items-center py-11">
         <img className="rounded-full border  w-60 mb-4 shadow-lg" src={orderDetail.image} alt="" />
         <h1 className="text-purple-moru text-lg font-bold ">{orderDetail.name}</h1>
       </div>
 
-      <div className="flex flex-wrap space-y-5 justify-evenly mb-11 sm:space-y-0 ">
+      <div className="flex flex-wrap space-y-5 justify-evenly pb-11 sm:space-y-0 ">
         <div className="">
             <h2 className="font-bold mb-2 text-purple-moru">Descripción del pedido</h2>
             <p>Precio: {orderDetail.price}</p>

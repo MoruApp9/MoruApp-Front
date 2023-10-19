@@ -96,7 +96,7 @@ const Nav = ({ user }) => {
     <nav className="flex flex-col sticky top-0 bg-white z-40 rounded-b-xl font-roboto-slab">
       <div className="flex w-full px-2 sm:px-6 py-2 shadow-lg rounded-b-xl font-roboto-slab z-10">
         <div className="flex w-full justify-start items-center space-x-6 whitespace-nowrap">
-          <button onClick={() => { setOpenMenu(true) }} className="hover:bg-gray-200 rounded-md">
+          <button onClick={() => { setOpenMenu(true) }} className="hover:bg-gray-200 rounded-md transition-all duration-300 ease-in-out">
             <FiMenu className="text-4xl text-purple-moru" />
           </button>
 
@@ -122,7 +122,7 @@ const Nav = ({ user }) => {
             currentUser && GetLocalStorage() && currentUser.userRole === 'adminCommerce'
               ? null
               : (
-                <Link className={`flex items-center hover:bg-gray-200 px-2 rounded-md  ${selectedOption === 'carrito' ? 'bg-gray-200 ' : ''}`} onClick={() => setSelectedOption('carrito')} to="/carrito-de-compras"><img className="w-12" src={shoppingIcon} alt="shoppingIcon" />
+                <Link className={`flex items-center hover:bg-gray-200 px-2 rounded-md transition-all duration-300 ease-in-out ${selectedOption === 'carrito' ? 'bg-gray-200 ' : ''}`} onClick={() => setSelectedOption('carrito')} to="/carrito-de-compras"><img className="w-12" src={shoppingIcon} alt="shoppingIcon" />
                   {chartStore.length ? <span className="mr-2 bg-purple-moru text-white rounded-full w-5 text-center">{chartStore.length}</span> : null}
                 </Link>
               )
@@ -142,7 +142,7 @@ const Nav = ({ user }) => {
           <li className="flex flex-col text-xl gap-10 items-start ml-12 mt-9 whitespace-nowrap w-52">
             {!currentUser &&
               <ul>
-                <button className="flex items-center space-x-4 mr-3 p-2 hover:bg-gray-200 rounded-md w-52" onClick={() => loginWithRedirect()}>
+                <button className="flex items-center space-x-4 mr-3 p-2 hover:bg-gray-200 transition-all duration-300 ease-in-out rounded-md w-52" onClick={() => loginWithRedirect()}>
                   <BiSolidUser className="w-7 text-3xl text-purple-moru" /><span>Iniciar Sesión</span>
                 </button>
               </ul >
@@ -150,7 +150,7 @@ const Nav = ({ user }) => {
 
             {!currentUser &&
               <Link to={`/registration`}>
-                <ul className={`flex ${currentUser && 'hidden'} p-2 hover:bg-gray-200 rounded-md w-52 items-center space-x-4 mr-3 ${selectedOption === "crearCuenta" ? 'bg-gray-200 ' : ''}`}
+                <ul className={`flex ${currentUser && 'hidden'} p-2 hover:bg-gray-200 transition-all duration-300 ease-in-out rounded-md w-52 items-center space-x-4 mr-3 ${selectedOption === "crearCuenta" ? 'bg-gray-200 ' : ''}`}
                   onClick={() => { setOpenMenu(false), setSelectedOption('crearCuenta') }}>
                   <AiOutlineUserAdd className="w-7 text-3xl text-purple-moru" /><span>Crear Cuenta</span>
                 </ul>
@@ -160,7 +160,7 @@ const Nav = ({ user }) => {
             {/* currentUser.userRole !== 'adminCommerce' && <ul onClick={() => { setOpenMenu(false) }} className="  order-2 flex justify-center space-x-4 " ><MdFavorite className="w-7 text-purple-moru text-3xl"></MdFavorite><Link to="/fav">Favoritos</Link></ul> */
             (GetLocalStorage() && currentUser.userRole === 'buyer' ) && 
               <Link to="/fav" >
-                <ul onClick={() => { setOpenMenu(false), setSelectedOption('favoritos') }} className={`flex p-2 hover:bg-gray-200 rounded-md w-52 items-center space-x-4 mr-3 ${selectedOption === "favoritos" ? 'bg-gray-200 ' : ''}`} >
+                <ul onClick={() => { setOpenMenu(false), setSelectedOption('favoritos') }} className={`flex p-2 hover:bg-gray-200 transition-all duration-300 ease-in-out rounded-md w-52 items-center space-x-4 mr-3 ${selectedOption === "favoritos" ? 'bg-gray-200 ' : ''}`} >
                   <MdFavorite className="w-7 text-purple-moru text-3xl" /><span>Favoritos</span>
                 </ul>
               </Link>
@@ -169,7 +169,7 @@ const Nav = ({ user }) => {
             {
               (GetLocalStorage() && currentUser.userRole === 'buyer' ) && 
               <Link to='/estado-productos'>
-                <ul onClick={() => { setOpenMenu(false), setSelectedOption('pedidos') }} className={`flex p-2 hover:bg-gray-200 rounded-md w-52 items-center space-x-4 mr-3 ${selectedOption === "pedidos" ? 'bg-gray-200 ' : ''}`}>
+                <ul onClick={() => { setOpenMenu(false), setSelectedOption('pedidos') }} className={`flex p-2 hover:bg-gray-200 transition-all duration-300 ease-in-out rounded-md w-52 items-center space-x-4 mr-3 ${selectedOption === "pedidos" ? 'bg-gray-200 ' : ''}`}>
                   <BsFillSendFill className="w-7 text-3xl text-purple-moru" /><span>Pedidos</span>
                 </ul>
               </Link>
@@ -177,7 +177,7 @@ const Nav = ({ user }) => {
 
             {!currentUser || GetLocalStorage() && currentUser.userRole === 'adminCommerce' && !currentUser.brand &&
               <Link to={`/registrar-empresa`}>
-                <ul className={`flex items-center space-x-4 mr-3 p-2 hover:bg-gray-200 rounded-md w-52 ${selectedOption === "registrarMarca" ? 'bg-gray-200 ' : ''}`}
+                <ul className={`flex items-center space-x-4 mr-3 p-2 hover:bg-gray-200 transition-all duration-300 ease-in-out rounded-md w-52 ${selectedOption === "registrarMarca" ? 'bg-gray-200 ' : ''}`}
                   onClick={() => { setOpenMenu(false), setSelectedOption('registrarMarca') }}>
                   <AiOutlineUserAdd className="w-7 text-3xl text-purple-moru" /><span className="w-28">Registrar marca</span>
                 </ul>
@@ -187,7 +187,7 @@ const Nav = ({ user }) => {
               <div>
                 <button>
                   <ul onClick={(e) => handleButtonClick(e)}
-                    className={`flex p-2 hover:bg-gray-200 rounded-md w-52  ${selectedOption === 'tienda' ? 'bg-gray-200 ' : ''}`} >
+                    className={`flex p-2 hover:bg-gray-200 transition-all duration-300 ease-in-out rounded-md w-52  ${selectedOption === 'tienda' ? 'bg-gray-200 ' : ''}`} >
                     <PiStorefrontDuotone className="w-7 text-purple-moru text-3xl" />
                     <span className="w-28 ml-4">Mis tiendas</span>
                     <IoIosArrowDown className="w-7 ml-2 text-3xl text-purple-moru " />
@@ -202,7 +202,7 @@ const Nav = ({ user }) => {
                           key={index}
                           onClick={(e) => handleOptionClick(e, option.alias, option.id)}
                           role="menuitem"
-                          className={`flex p-2 w-full text-left hover:bg-gray-200 rounded-md ${selectedOption === option.alias ? 'bg-gray-200 ' : ''}`}
+                          className={`flex p-2 w-full text-left hover:bg-gray-200 transition-all duration-300 ease-in-out rounded-md ${selectedOption === option.alias ? 'bg-gray-200 ' : ''}`}
                         >
                           {option.alias}
                         </button>
@@ -212,7 +212,7 @@ const Nav = ({ user }) => {
                     <Link to={"/crearSucursal"} onClick={() => { setSelectedOption('crearSede'), setOpenMenu(false) }}>
                       <button
                         role="menuitem"
-                        className={`flex p-2 w-full text-left hover:bg-gray-200 rounded-md ${selectedOption === 'crearSede' ? 'bg-gray-200 ' : ''}`}
+                        className={`flex p-2 w-full text-left hover:bg-gray-200 transition-all duration-300 ease-in-out rounded-md ${selectedOption === 'crearSede' ? 'bg-gray-200 ' : ''}`}
                       >
                         Crear nueva sede
                       </button>
@@ -224,20 +224,20 @@ const Nav = ({ user }) => {
 
             {currentUser &&
             <Link to="/cuenta">
-              <ul onClick={() => { setOpenMenu(false), setSelectedOption('cuenta') }} className={`flex items-center space-x-4  mr-3 justify-start p-2 hover:bg-gray-200 rounded-md w-52 ${selectedOption === 'cuenta' ? 'bg-gray-200 ' : ''}`}>
+              <ul onClick={() => { setOpenMenu(false), setSelectedOption('cuenta') }} className={`flex items-center space-x-4  mr-3 justify-start p-2 hover:bg-gray-200 transition-all duration-300 ease-in-out rounded-md w-52 ${selectedOption === 'cuenta' ? 'bg-gray-200 ' : ''}`}>
                 <MdAccountCircle className="w-7 text-purple-moru text-3xl"/>
                 <span>Cuenta</span>
               </ul>
             </Link>}
             <Link to="/mapa">
-              <ul onClick={() => { setOpenMenu(false), setSelectedOption('ubication') }} className={`flex items-center space-x-4  mr-3 justify-start p-2 hover:bg-gray-200 rounded-md w-52  ${selectedOption === 'ubication' ? 'bg-gray-200 ': ''}`}>
+              <ul onClick={() => { setOpenMenu(false), setSelectedOption('ubication') }} className={`flex items-center space-x-4  mr-3 justify-start p-2 hover:bg-gray-200 transition-all duration-300 ease-in-out rounded-md w-52  ${selectedOption === 'ubication' ? 'bg-gray-200 ': ''}`}>
                 <FaMapMarkerAlt className="w-7 text-purple-moru text-3xl"/>
                 <span className="whitespace-normal w-28">Buscar por ubicación</span>
               </ul>
             </Link>
                     
             <Link to="/support">
-              <ul onClick={() => { setOpenMenu(false), setSelectedOption('soporte') }} className={`flex items-center space-x-4 mr-3 justify-start p-2 hover:bg-gray-200 rounded-md w-52 ${selectedOption === 'soporte' ? 'bg-gray-200 ': ''}`} >
+              <ul onClick={() => { setOpenMenu(false), setSelectedOption('soporte') }} className={`flex items-center space-x-4 mr-3 justify-start p-2 hover:bg-gray-200 transition-all duration-300 ease-in-out transition-all duration-300 ease-in-out rounded-md w-52 ${selectedOption === 'soporte' ? 'bg-gray-200 ': ''}`} >
                 <BsFillPeopleFill className="w-7 text-purple-moru text-3xl"/>
                 <span>Nosotros</span>
               </ul>
@@ -246,7 +246,7 @@ const Nav = ({ user }) => {
             
             {currentUser &&
               <ul>
-                <button className="flex items-center space-x-4 mr-3 p-2 hover:bg-gray-200 rounded-md w-52" onClick={handleLogOut}>
+                <button className="flex items-center space-x-4 mr-3 p-2 hover:bg-gray-200 transition-all duration-300 ease-in-out rounded-md w-52" onClick={handleLogOut}>
                   <MdLogout className="w-7 text-3xl text-purple-moru" /><span>Cerrar sesión</span>
                 </button>
               </ul>
