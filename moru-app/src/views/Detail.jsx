@@ -126,7 +126,7 @@ const ProductDetail = () => {
 
                     <div className="flex items-center justify-center mt-40">
                         {(!currentUser || currentUser.userRole !== 'adminCommerce') && 
-                        <button className="bg-purple-moru text-white hover:bg-gray-300 hover:text-purple-moru hover:border-purple-moru font-bold py-2 px-4 rounded-full" 
+                        <button className="bg-purple-moru text-white hover:bg-gray-300 hover:text-purple-moru hover:border-purple-moru font-bold py-2 px-4 rounded-full transition-all duration-300 ease-in-out" 
                         onClick={handleAddToCart}>
                             Agregar al carrito
                         </button>}

@@ -128,7 +128,7 @@ const MiTienda = () => {
                 <div className="flex justify-center items-center space-x-2 mt-2 flex-wrap">
                   <ul className="">
                     <Link
-                      className="m-3 flex items-center space-x-3 bg-purple-moru text-white hover:bg-gray-300 hover:text-purple-moru hover:border-purple-moru font-bold py-2 px-4 rounded-full"
+                      className="m-3 flex items-center space-x-3 bg-purple-moru text-white hover:bg-gray-300 hover:text-purple-moru hover:border-purple-moru transition-all duration-300 ease-in-out font-bold py-2 px-4 rounded-full"
                       to={{
                         pathname: "/publicar-producto",
                         search: id,
@@ -140,7 +140,7 @@ const MiTienda = () => {
 
                   <ul className="">
                     <Link
-                      className=" flex items-center space-x-3 bg-purple-moru text-white hover:bg-gray-300 hover:text-purple-moru hover:border-purple-moru font-bold py-2 px-4 rounded-full"
+                      className=" flex items-center space-x-3 bg-purple-moru text-white hover:bg-gray-300 hover:text-purple-moru hover:border-purple-moru transition-all duration-300 ease-in-out font-bold py-2 px-4 rounded-full"
                       to={{
                         pathname: "/estado-productos",
                         search: branchData.id,
@@ -187,7 +187,7 @@ const MiTienda = () => {
           <ReseñasContainer reviews={reviews} />
           {currentUser?.userRole === "buyer" && (
             <button
-              className="order-2 flex justify-start p-2 hover:bg-gray-200 rounded-md w-52 space-x-4"
+              className="order-2 flex justify-start p-2 hover:bg-gray-200 rounded-md w-52 space-x-4 transition-all duration-300 ease-in-out"
               onClick={handleReviewClick}>
               <BiSolidCloudUpload className="w-7 text-purple-moru text-3xl" />
               Dejar una reseña

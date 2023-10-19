@@ -22,17 +22,12 @@ const ProductsStateClient = () => {
   const productsOrderedFilteredFromStore = useSelector(
     (state) => state.productsOrderedFiltered
   )
+  const [ selectedState, setSelectedState ] = useState("Todos")
 
-  
   const dispatch = useDispatch()
   const location = useLocation()
   
   const idBranch = location.search.slice(1)
-
-  const [selectedState, setSelectedState] = useState("Todos")
-
-
-  
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const updateStore = async () => {

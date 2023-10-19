@@ -5,6 +5,8 @@ import { getProducts } from './services/services';
 import { cleanErrors } from "./redux/errorsSlice";
 import { useAuth0 } from "@auth0/auth0-react";
 
+import { GetLocalStorage } from "./localStorage/GetLocalStorage";
+
 import "./index.css"
 
 import Home from "./views/Home"
@@ -31,7 +33,7 @@ import ProductsStateClient from "./views/ProductsStateClient";
 import Footer from "./components/Footer";
 import PoliciesPrivacy from "./views/PoliciesPrivacy";
 import TermsConditions from "./views/TermsConditions";
-import { GetLocalStorage } from "./localStorage/GetLocalStorage";
+import OrderDetail from "./views/OrderDetail";
 
 
 function App() {
@@ -89,6 +91,7 @@ function App() {
         <Route path="/politicas-privacidad" element={<PoliciesPrivacy/>}/>
         <Route path="/terminos-condiciones" element={<TermsConditions/>}/>
         <Route path="/account" element={<Account/>}/>
+        <Route path="/detalle-pedido" element={<OrderDetail/>}/>
       </Routes>
       {
         <Footer/>
