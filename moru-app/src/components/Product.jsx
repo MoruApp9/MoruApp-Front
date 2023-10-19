@@ -325,7 +325,7 @@ const Product = ({ product }) => {
                 pathname: "/detalle-pedido",
                 search: product?.commercebranchId
               }}>
-              Ver detalle
+              Detalle
             </Link>
           )}
         </div>
