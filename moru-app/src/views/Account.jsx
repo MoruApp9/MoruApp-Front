@@ -4,10 +4,14 @@ import { BsFillPersonVcardFill } from "react-icons/bs"
 import { MdPlace } from "react-icons/md"
 import { BsTelephoneFill, BsPinMapFill } from "react-icons/bs"
 import { FaGlobe, FaCity } from 'react-icons/fa';
+import { useEffect } from 'react';
 
 
 const Account = () => {
   const dataComplete = { ...GetLocalStorage() };
+  useEffect(()=>{
+    window.scrollTo(0, 0);
+  },[])
 
   return (
     

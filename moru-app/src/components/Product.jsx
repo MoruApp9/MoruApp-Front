@@ -278,7 +278,11 @@ const Product = ({ product }) => {
   return (
     <div className="max-w-md  bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition duration-300 font-roboto-slab">
       <Link to={`/producto/${productId}`}>
-        <img src={product.image} alt={product.name} className="w-full h-80" />
+        <img
+          src={product.image}
+          alt={product.name}
+          className="w-full h-64"
+        />
 
         <div className="flex items-center justify-end px-4 pt-2">
           {currentUser?.userRole !== "adminCommerce" && (
@@ -292,7 +296,7 @@ const Product = ({ product }) => {
           )}
         </div>
 
-        <h2 className="ml-4 text-lg font-semibold overflow-hidden overflow-ellipsis line-clamp-2 h-12">
+        <h2 className="ml-4 text-lg font-semibold overflow-hidden overflow-ellipsis line-clamp-2 h-14">
           {product.name}
         </h2>
       </Link>

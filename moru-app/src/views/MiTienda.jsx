@@ -53,6 +53,7 @@ const MiTienda = () => {
     }
 
     fetchData()
+    window.scrollTo(0, 0);
   }, [id])
 
   const idBrandCommerce = productsSede[productsSede.length - 1]?.commerceId
