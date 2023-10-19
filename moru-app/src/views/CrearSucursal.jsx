@@ -13,8 +13,8 @@ const CrearSede = () => {
     const navigate = useNavigate()
     const dataUser = GetLocalStorage()
     const dataDepartment = ['Choco', 'Antioquia'];
-    const dataMunicipality = {Choco: ['Arcadi', 'Riosucio', 'Unguia'],
-    Antioquia: ['Apartado', 'Carepa', 'Chigorodo', 'Mutata', 'Necocli', 'San juan de Uraba', 'Turbo']};
+    const dataMunicipality = {Choco: ['Acandí', 'Riosucio', 'Unguía'],
+    Antioquia: ['Apartadó', 'Carepa', 'Chigorodó', 'Mutatá', 'Necoclí', 'San Juan de Urabá', 'Turbo', 'Arboletes', 'Murindó', 'San Pedro de Urabá', 'Vigia del Fuerte']};
     const [location, setLocation] = useState(null);
     const [dataSucursal, setDataSucursal] = useState(null);
 
@@ -37,8 +37,17 @@ const CrearSede = () => {
         navigate('/');
     }
 
+    const blueIcon = new L.Icon({
+        iconUrl: 'https://unpkg.com/leaflet/dist/images/marker-icon.png',
+        shadowUrl: 'https://unpkg.com/leaflet/dist/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41],
+    });
+
     return (
-        <div className="min-h-screen flex flex-col justify-center items-center">
+        <div className="min-h-screen flex flex-col justify-center items-center font-roboto-slab">
             <div className="flex flex-col items-center gap-8 my-8 md:my-0">
                 <div className="flex items-center justify-between">
                     <img
@@ -102,11 +111,11 @@ const CrearSede = () => {
                         }
                     }}
                 >
-                    {({ values, errors, isSubmitting }) => (
+                    {({ values, errors, isSubmitting, setFieldValue }) => (
                         <Form autoComplete="off" className="flex flex-col gap-6">
                             <div>
                                 <Field
-                                    className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
+                                    className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm"
                                     type="text"
                                     name="alias"
                                     placeholder="Alias de esta sede"
@@ -125,9 +134,13 @@ const CrearSede = () => {
                             
                             <div>
                                 <Field
-                                    className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
+                                    className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm"
                                     as="select"
                                     name="department"
+                                    onChange={(e) => {
+                                        setFieldValue('department', e.target.value);
+                                        setFieldValue('municipality', '');  
+                                    }}
                                 >
                                     <option value="" disabled hidden>Selecciona un departamento</option>
                                     {dataDepartment.map((department)=>(<option key={department} value={department}>{department}</option>))}
@@ -139,7 +152,7 @@ const CrearSede = () => {
 
                             <div>
                                 <Field
-                                    className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
+                                    className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm"
                                     name="municipality"
                                     as="select"
                                     disabled={!values.department}
@@ -155,7 +168,7 @@ const CrearSede = () => {
 
                             <div>
                                 <Field
-                                    className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
+                                    className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm"
                                     type="text"
                                     name="address"
                                     placeholder="Dirección de la Sede"
@@ -167,7 +180,7 @@ const CrearSede = () => {
 
                             <div>
                                 <Field
-                                    className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
+                                    className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm"
                                     type="text"
                                     name="schedule"
                                     placeholder="Horario de Atención"
@@ -179,7 +192,7 @@ const CrearSede = () => {
 
                             <div>
                                 <Field
-                                    className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm font-roboto-slab"
+                                    className="w-80 h-12 px-2 border-2 border-purple-moru rounded-lg bg-gray-100 text-sm"
                                     type="text"
                                     name="phone"
                                     placeholder="Teléfono"
@@ -191,7 +204,7 @@ const CrearSede = () => {
 
                             <div className="flex justify-center items-center">
                                 <button
-                                    className="w-36 h-10 md:h-14 px-2 border border-purple-moru rounded-lg bg-purple-moru text-white text-sm font-roboto-slab"
+                                    className="w-36 h-10 md:h-14 px-2 border border-purple-moru rounded-lg bg-purple-moru text-white text-sm"
                                     type="submit"
                                     disabled={isSubmitting}>
                                     Ver en mapa
@@ -202,6 +215,10 @@ const CrearSede = () => {
                 </Formik>
             </div>
 
+            {location && 
+                <p className='mt-10 font-bold text-red-600'>Mueva la chincheta hasta la ubicación de su sede</p>
+            }
+
             <div className='h-100 w-full sm:w-105 border-2 border-black relative z-10 my-10'>
                 {location ? 
                     <MapContainer  center={location} zoom={13} scrollWheelZoom={false} className='w-full h-full'>
@@ -209,7 +226,7 @@ const CrearSede = () => {
                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                         />
-                        <Marker position={location} draggable={true} eventHandlers={{ dragend: handleMarkerDragend }}>
+                        <Marker icon={blueIcon} position={location} draggable={true} eventHandlers={{ dragend: handleMarkerDragend }}>
                             <Popup>
                                 <span className='text-center'>Usted esta <br /> aquí</span>
                             </Popup>

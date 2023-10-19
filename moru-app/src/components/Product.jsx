@@ -34,6 +34,8 @@ import { updateStatusFiltered } from "../redux/productsOrderedFilteredSlice"
 const Product = ({ product }) => {
   const productId = product.id
 
+  console.log('product', product);
+
   const dispatch = useDispatch()
   const location = useLocation()
   const [isFav, setIsFav] = useState(false)
@@ -164,10 +166,18 @@ const Product = ({ product }) => {
     }).then(async (response) => {
       if (response.isConfirmed) {
         try {
-          const response = await putOrderStatus(currentProductState.orderId, "send")
-          if(response.status === 200) {
+          const response = await putOrderStatus(
+            currentProductState.orderId,
+            "send"
+          )
+          if (response.status === 200) {
             Swal.fire("Pedido enviado", response.data.message, "success")
-            dispatch(updateStatus({productId: currentProductState.id, status: response.data.order.status}))
+            dispatch(
+              updateStatus({
+                productId: currentProductState.id,
+                status: response.data.order.status,
+              })
+            )
             dispatch(updateStatusFiltered(currentProductState.id))
           }
         } catch (error) {
@@ -189,10 +199,18 @@ const Product = ({ product }) => {
     }).then(async (response) => {
       if (response.isConfirmed) {
         try {
-          const response = await putOrderStatus(currentProductState.orderId, "finish")
-          if(response.status === 200) {
+          const response = await putOrderStatus(
+            currentProductState.orderId,
+            "finish"
+          )
+          if (response.status === 200) {
             Swal.fire("Pedido enviado", response.data.message, "success")
-            dispatch(updateStatus({productId: currentProductState.id, status: response.data.order.status}))
+            dispatch(
+              updateStatus({
+                productId: currentProductState.id,
+                status: response.data.order.status,
+              })
+            )
             dispatch(updateStatusFiltered(currentProductState.id))
           }
           Swal.fire("Pedido finalizado", response.data.message, "success")
@@ -203,8 +221,12 @@ const Product = ({ product }) => {
     })
   }
 
-  const changeStatusToPending = async () => { // comentar esta función
-    const response = await putOrderStatus(currentProductState.orderId, "pending")
+  const changeStatusToPending = async () => {
+    // comentar esta función
+    const response = await putOrderStatus(
+      currentProductState.orderId,
+      "pending"
+    )
   }
 
   const changeStatusButton = () => {
@@ -213,7 +235,7 @@ const Product = ({ product }) => {
         return (
           <button
             onClick={changePendingStatusToSend}
-            className=" flex items-center space-x-2 text-purple-moru font-bold p-2 px-3  border-2 border-purple-moru rounded-full ">
+            className=" flex mx-auto mb-6 items-center space-x-2 text-purple-moru font-bold p-2 px-3  border-2 border-purple-moru rounded-full ">
             <BiSend />
             <span>Enviar</span>
           </button>
@@ -239,15 +261,17 @@ const Product = ({ product }) => {
   }
 
   const translateState = () => {
-    switch (product?.status) { // product?.status
-      case 'pending':
-        return 'Pendiente'
+    switch (
+      product?.status // product?.status
+    ) {
+      case "pending":
+        return "Pendiente"
 
-      case 'send':
-        return 'Enviado'
+      case "send":
+        return "Enviado"
 
-      case 'finish':
-        return 'Finalizado'
+      case "finish":
+        return "Finalizado"
     }
   }
 
@@ -257,7 +281,7 @@ const Product = ({ product }) => {
         <img
           src={product.image}
           alt={product.name}
-          className="w-full h-80"
+          className="w-full h-64"
         />
 
         <div className="flex items-center justify-end px-4 pt-2">
@@ -272,7 +296,7 @@ const Product = ({ product }) => {
           )}
         </div>
 
-        <h2 className="ml-4 text-lg font-semibold overflow-hidden overflow-ellipsis line-clamp-2 h-12">
+        <h2 className="ml-4 text-lg font-semibold overflow-hidden overflow-ellipsis line-clamp-2 h-14">
           {product.name}
         </h2>
       </Link>
@@ -282,50 +306,60 @@ const Product = ({ product }) => {
           <p className="text-gray-500">$ {product.price}</p>
           {productStateView && (
             <p className="text-gray-500">
-              Cantidad:{" "}
-              <span className="font-bold">{product?.quantity}</span>
+              Cantidad: <span className="font-bold">{product?.quantity}</span>
             </p>
           )}
         </div>
 
-        <div className="flex items-center justify-between my-5">
+        <div className="flex items-center justify-between mt-5 mb-4">
           {productStateView && (
             <p className="text-gray-500  p-2 px-4  border rounded-full">
               {translateState()}
             </p>
           )}
 
-          {productStateView &&
-            currentUser.userRole === "adminCommerce" &&
-            changeStatusButton()}
+          {productStateView && currentUser.userRole === "adminCommerce" && (
+            <Link
+              className="text-purple-moru font-bold p-2 px-4  border rounded-full"
+              to={{
+                pathname: "/detalle-pedido",
+                search: product?.commercebranchId
+              }}>
+              Ver detalle
+            </Link>
+          )}
         </div>
       </div>
 
-        {!productStateView &&
-          (!carritoView ? (
-            <div className="flex items-center justify-center py-2">
-              {currentUser?.userRole !== "adminCommerce" &&
-                (addedToCart ? (
-                  <button
-                  className="bg-purple-moru text-white hover:bg-gray-300 hover:text-purple-moru hover:border-purple-moru font-bold py-2 px-4 rounded-full"
-                    onClick={handleDeleteToCart}>
-                    Eliminar
-                  </button>
-                ) : (
-                  <button
-                  className="bg-purple-moru text-white hover:bg-gray-300 hover:text-purple-moru hover:border-purple-moru font-bold py-2 px-4 rounded-full"
-                    onClick={handleAddToCart}>
-                    Agregar al carrito
-                  </button>
-                ))}
-            </div>
-          ) : (
-            <div className=" flex justify-between items-center ml-8 mr-8 mb-4">
-              <button
-                onClick={handleTrashButton}
-                className="text-purple-moru text-2xl">
-                <BsTrash3Fill />
-              </button>
+      {productStateView &&
+        currentUser.userRole === "adminCommerce" &&
+        changeStatusButton()}
+
+      {!productStateView &&
+        (!carritoView ? (
+          <div className="flex items-center justify-center py-2">
+            {currentUser?.userRole !== "adminCommerce" &&
+              (addedToCart ? (
+                <button
+                  className="bg-purple-moru text-white hover:bg-gray-300 hover:text-purple-moru hover:border-purple-moru font-bold py-2 px-4 rounded-full transition-all duration-300 ease-in-out"
+                  onClick={handleDeleteToCart}>
+                  Eliminar
+                </button>
+              ) : (
+                <button
+                  className="bg-purple-moru text-white hover:bg-gray-300 hover:text-purple-moru hover:border-purple-moru font-bold py-2 px-4 rounded-full transition-all duration-300 ease-in-out"
+                  onClick={handleAddToCart}>
+                  Agregar al carrito
+                </button>
+              ))}
+          </div>
+        ) : (
+          <div className=" flex justify-between items-center ml-8 mr-8 mb-4">
+            <button
+              onClick={handleTrashButton}
+              className="text-purple-moru text-2xl">
+              <BsTrash3Fill />
+            </button>
 
             <div className="flex items-center border-[1.5px] border-purple-moru rounded-full ">
               <button

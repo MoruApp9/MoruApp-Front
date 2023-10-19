@@ -1,5 +1,5 @@
 import 'leaflet/dist/leaflet.css';
-import { Formik, Form, ErrorMessage, Field, useFormikContext } from 'formik';
+import { Formik, Form, ErrorMessage, Field } from 'formik';
 import { postUbicationUser, postUbicationSucursales } from '../services/services';
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
@@ -50,7 +50,7 @@ const SearchByLocation = () => {
         iconAnchor: [12, 41],
         popupAnchor: [1, -34],
         shadowSize: [41, 41],
-      });
+    });
 
     const redIcon = new L.Icon({
         iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
