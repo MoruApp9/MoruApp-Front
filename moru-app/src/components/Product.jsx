@@ -245,7 +245,7 @@ const Product = ({ product }) => {
         return (
           <button
             onClick={changeSendStatusToFinish}
-            className=" flex items-center space-x-2 text-purple-moru font-bold p-2 px-3  border-2 border-purple-moru rounded-full ">
+            className=" flex mx-auto mb-6 items-center space-x-2 text-purple-moru font-bold p-2 px-3  border-2 border-purple-moru rounded-full ">
             <IoMdDoneAll className="text-xl" />
             <span>Finalizar</span>
           </button>
