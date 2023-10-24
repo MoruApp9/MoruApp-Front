@@ -34,7 +34,7 @@ const Footer = () => {
 
                 <div className='flex-col flex'>
                     <p className='text-lg font-semibold'>Equipo de desarrollo</p>
-                    <a href="https://www.linkedin.com/in/bryan-alexander-paredes-tomalo-52aa68245/" target="_blank" rel="noopener noreferrer" className='flex'>Bryan Paredes - <p className='text-slate-400'>Backend Developer</p></a>
+                    <a href="https://www.linkedin.com/in/bryan-alexander-paredes-tomalo/" target="_blank" rel="noopener noreferrer" className='flex'>Bryan Paredes - <p className='text-slate-400'>Backend Developer</p></a>
                     <a href="https://www.linkedin.com/in/felipe-fraga-757080280/" target="_blank" rel="noopener noreferrer" className='flex'>Felipe Fraga - <p className='text-slate-400'>Frontend Developer</p></a>
                     <a href="https://www.linkedin.com/in/andyi-casillas-carrasco-b1709027a/" target="_blank" rel="noopener noreferrer" className='flex'>Andyi Casillas - <p className='text-slate-400'>Frontend Developer</p></a>
                     <a href="https://www.linkedin.com/in/fernando-jose-oliva-barcena-769075280/" target="_blank" rel="noopener noreferrer" className='flex'>Fernando Oliva - <p className='text-slate-400'>Frontend Developer</p></a>
