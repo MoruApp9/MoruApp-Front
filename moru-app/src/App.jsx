@@ -87,7 +87,7 @@ function App() {
         <Route path="/registrar-empresa" element={<RegisterTypeOfShop/>} />
         <Route path="/crearSucursal" element={<CrearSede/>} />
         <Route path="/mapa" element={<SearchByLocation/>} />
-        <Route path="/dashboard" element={<Dashboard/>} />
+        { pathname === "dashboard" && GetLocalStorage()?.userRole === "SuperAdmin" &&  <Route path="/dashboard" element={<Dashboard/>} />}
         <Route path="/estado-productos" element={<ProductsStateClient/>}/>
         <Route path="/politicas-privacidad" element={<PoliciesPrivacy/>}/>
         <Route path="/terminos-condiciones" element={<TermsConditions/>}/>
