@@ -65,8 +65,9 @@ function App() {
         GetLocalStorage()?.userRole !== "SuperAdmin" &&
         <SearchBar/>
       }
-
-      
+      { pathname === "/dashboard" && 
+         GetLocalStorage()?.userRole === "SuperAdmin" && 
+            <Dashboard/> }
 
       <Routes>
         <Route exact path="/" element={<Home/>}></Route>
