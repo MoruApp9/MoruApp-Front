@@ -24,7 +24,7 @@ const slide3 = 'https://res.cloudinary.com/dsgvvje7v/image/upload/v1697575327/st
 const slide4 = 'https://res.cloudinary.com/dsgvvje7v/image/upload/v1697575327/stores-images-front/banners/banners%20desktop/oyrcbftbdrejzybzmpxp.png';
 const slide5 = 'https://res.cloudinary.com/dsgvvje7v/image/upload/v1697575327/stores-images-front/banners/banners%20desktop/tc5ttsq2s9ezdrqldlmd.png';
 const slide6 = 'https://res.cloudinary.com/dsgvvje7v/image/upload/v1697575326/stores-images-front/banners/banners%20desktop/smbgkqo5grcbp6msu6fe.png';
-const slide7 = 'https://res.cloudinary.com/dsgvvje7v/image/upload/v1697575323/stores-images-front/banners/banners%20desktop/pdnth3mj6drqlwp9npid.png';
+const slide7 = 'https://res.cloudinary.com/dsgvvje7v/image/upload/v1700337119/Dise%C3%B1o_sin_t%C3%ADtulo_qhrzls.jpg';
 
 const slide8 = 'https://res.cloudinary.com/dsgvvje7v/image/upload/v1697575361/stores-images-front/banners/banners%20mobile/a5sbryqw9r8dsgpslvkm.png'
 const slide9 = 'https://res.cloudinary.com/dsgvvje7v/image/upload/v1697575361/stores-images-front/banners/banners%20mobile/vjra3pupruxpwpdfrnun.png'
