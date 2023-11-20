@@ -203,6 +203,7 @@ const MiTienda = () => {
                   value={reviewText}
                   onChange={(e) => setReviewText(e.target.value)}
                 />
+                
                 <button
                   type="submit"
                   className="ml-2 bg-purple-moru text-white px-4 py-2 rounded">
