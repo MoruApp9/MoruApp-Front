@@ -203,6 +203,7 @@ const MiTienda = () => {
                   value={reviewText}
                   onChange={(e) => setReviewText(e.target.value)}
                 />
+
                 
                 <button
                   type="submit"
