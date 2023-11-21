@@ -6,7 +6,7 @@ import { BrowserRouter } from "react-router-dom"
 import store from "./redux/store"
 import { Provider } from "react-redux"
 import { Auth0Provider } from "@auth0/auth0-react"
-const URL = import.meta.env.VITE_URL_AUTH0;
+// const URL = import.meta.env.VITE_URL_AUTH0;
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -15,7 +15,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         domain="dev-mnept00qkj4yz84v.us.auth0.com"
         clientId="GSt7hjypueLPGGDpDLTOJrt0B693zEz2"
         authorizationParams={{
-          redirect_uri: `${URL}`,
+          redirect_uri: `https://moru.com.co/`,
         }}>
         <BrowserRouter>
           <App />
