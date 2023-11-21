@@ -41,7 +41,7 @@ const Nav = ({ user }) => {
 
   const currentUser = GetLocalStorage();
   const sedes = GetLocalStorageCommercesByOwner();
-  console.log(currentUser);
+  // console.log(currentUser);
 
   useEffect(() => {
     !allProductsStore.length && dispatch(getProducts())
