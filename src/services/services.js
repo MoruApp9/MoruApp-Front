@@ -130,9 +130,9 @@ export const postAdmincommerceRegister = async (dataAdminCommerce) => {
 
 export const postProduct = async (productData) => {
   try {
-    console.log(productData);
+    // console.log(productData);
     const product = (await axios.post(`${BASE_URL}/products/create`, productData)).data
-    console.log(product);
+    // console.log(product);
     return product
   } catch (error) {
     errorHandler(error)
@@ -173,7 +173,6 @@ export const postFavorites = (clientId, productId) => async (dispatch) => {
       productId,
     })
     dispatch(addFav(data.product))
-    console.log(data)
   } catch (error) {
     errorHandler(error)
   }
@@ -194,7 +193,6 @@ export const deleteFavorite = (clientId, productId) => async (dispatch) => {
       `${BASE_URL}/client/favorites?clientId=${clientId}&&productId=${productId}`
     )
     dispatch(removeFav(productId))
-    console.log(data)
   } catch (error) {
     errorHandler(error)
   }
@@ -220,16 +218,12 @@ export const putSucursal = async (dataSucursal) => {
 
 export const postChart = async (clientId, productId, quantity) => {
   try {
-    console.log('clientId', clientId);
-    console.log('productId', productId);
-    console.log('quantity', quantity);
 
     const { data } = await axios.post(`${BASE_URL}/client/chart`, {
       clientId,
       productId,
       quantity,
     })
-    console.log(data)
     return data
   } catch (error) {
     errorHandler(error)
@@ -238,12 +232,10 @@ export const postChart = async (clientId, productId, quantity) => {
 
 export const postOneQuantityOfProduct = async (clientId, productId) => {
   try {
-    console.log(clientId, productId);
     const { data } = await axios.post(`${BASE_URL}/client/oneproductmore`, {
       clientId,
       productId
     })
-    console.log(data);
     return data
   } catch (error) {
     //Swal.fire('No hay stock', error.response.data.error , 'info');
@@ -257,7 +249,6 @@ export const getChart = async (clientId) => {
     const { data } = await axios.get(
       `${BASE_URL}/client/chartforclient/${clientId}`
     )
-    console.log("carrito", data)
     return data
   } catch (error) {
     errorHandler(error)
@@ -269,7 +260,6 @@ export const removeChart = async (clientId, productId) => {
     const { data } = await axios.delete(
       `${BASE_URL}/client/deleteoneinchart?clientId=${clientId}&&productId=${productId}`
     )
-    console.log(data);
     return data
   } catch (error) {
     errorHandler(error)
@@ -279,7 +269,6 @@ export const removeChart = async (clientId, productId) => {
 export const deleteAllCart = async (clientId) => {
   try {
     const { data } = await axios.delete(`${BASE_URL}/client/emptychart?clientId=${clientId}`)
-    console.log(data);
   } catch (error) {
     errorHandler(error)
   }
@@ -287,9 +276,7 @@ export const deleteAllCart = async (clientId) => {
 
 export const deleteAllQuantityOfProductFromCart = async (clientId, productId, quantity) => {
   try {
-    console.log('clientID', clientId, 'productId', productId, 'quantity', quantity);
     const { data } = await axios.delete(`${BASE_URL}/client/deleteproductinchart?clientId=${clientId}&&productId=${productId}&&quantity=${quantity}`)
-    console.log(data);
     //return data
   } catch (error) {
     errorHandler(error)
@@ -329,7 +316,6 @@ export const getInfoBranch = async (idBranch) => {
 
 export const postReview = async (reviewData) => {
   try {
-    console.log(reviewData);
     const response = (await axios.post(`${BASE_URL}/rating/`, reviewData)).data;
     return response;
   } catch (error) {
@@ -340,7 +326,6 @@ export const postReview = async (reviewData) => {
 export const getReviews = async (idSucursal) => {
   try {
     const response = (await axios.get(`${BASE_URL}/rating?idSucursal=${idSucursal}`)).data;
-    console.log(response)
     return response;
   } catch (error) {
     errorHandler(error)
@@ -351,7 +336,6 @@ export const postBuy = async (clientId) => {
   try {
     //console.log(clientId);
     const response = await axios.post(`${BASE_URL}/client/buy`, { clientId })
-    console.log(response);
   } catch (error) {
     errorHandler(error)
   }
@@ -359,10 +343,7 @@ export const postBuy = async (clientId) => {
 
 export const putBrand = async (id, obj) => {
   try {
-    console.log(obj);
-    console.log(id, obj);
     const response = await axios.put(`${BASE_URL}/commerce/approvecommerce/${id}`, obj)
-    console.log(response);
   } catch (error) {
     errorHandler(error)
   }
@@ -370,10 +351,8 @@ export const putBrand = async (id, obj) => {
 
 export const putBranch = async (id, obj) => {
   try {
-    console.log(obj);
-    console.log(id, obj);
     const response = await axios.put(`${BASE_URL}/commerce/putbranchstatus/${id}`, obj)
-    console.log(response);
+
   } catch (error) {
     errorHandler(error)
   }
@@ -381,10 +360,7 @@ export const putBranch = async (id, obj) => {
 
 export const putProduct = async (id, obj) => {
   try {
-    console.log(obj);
-    console.log(id, obj);
     const response = await axios.put(`${BASE_URL}/products/confirmproductcreated/${id}`, obj)
-    console.log(response);
   } catch (error) {
     errorHandler(error)
   }
@@ -422,7 +398,7 @@ export const getAllProducts = async () => {
 export const getPendingCommerces = async () => {
   try {
     const response = (await axios.get(`${BASE_URL}/commerce/pendingcommerces`)).data
-    console.log(response);
+
     return response;
   } catch (error) {
     errorHandler(error)
@@ -432,7 +408,7 @@ export const getPendingCommerces = async () => {
 export const getPendingBranches = async () => {
   try {
     const response = (await axios.get(`${BASE_URL}/commerce/pendingbranches`)).data
-    console.log(response);
+
     return response;
   } catch (error) {
     errorHandler(error)
@@ -442,7 +418,7 @@ export const getPendingBranches = async () => {
 export const getPendingProducts = async () => {
   try {
     const response = (await axios.get(`${BASE_URL}/products/productspending`)).data
-    console.log(response);
+
     return response;
   } catch (error) {
     errorHandler(error)
@@ -452,7 +428,7 @@ export const getPendingProducts = async () => {
 export const getHistoryOfOrderedProducts = async (clientId) => {
   try {
     const response = await axios(`${BASE_URL}/client/history/${clientId}`)
-    console.log('get history',response);
+
     return response.data
   } catch (error) {
     console.error(error);
@@ -472,7 +448,7 @@ export const getBranchOrders = async (branchId) => {
 export const putOrderStatus = async (orderId, status) => {
   try {
     const response = await axios.put(`${BASE_URL}/commerce/putproductstatus/${orderId}`, {status: status})
-    console.log('putOrderStatus',response);
+
     return response
   } catch (error) {
     console.error(error)

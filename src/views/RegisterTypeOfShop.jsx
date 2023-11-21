@@ -13,7 +13,6 @@ const RegisterTypeOfShop = () => {
     //const { user, isAuthenticated } = useAuth0();
     //const dataUser = { ...GetLocalStorage(), ...user };
     const dataUser = GetLocalStorage();
-    console.log("infoRegist", dataUser);
     const categories = useSelector((state) => state.categories.categorias);
     const navigate = useNavigate();
     //const dispatch = useDispatch();
@@ -41,7 +40,6 @@ const RegisterTypeOfShop = () => {
 
     const handleOnChange = async (event) => {
         await uploadImageClaudinary(event) // esta función sube la imagen a claudinary y entrega la URL para mandarselo al back
-        console.log(await uploadImageClaudinary(event)); //url creada mostrada en consola
     }
 
     return (

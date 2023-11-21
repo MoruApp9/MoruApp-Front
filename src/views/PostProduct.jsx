@@ -102,7 +102,6 @@ const PostProduct = () => {
               : values.specificCategory = values.specificCategory
             values.image = imageUpload;
             try {
-              console.log(values);
               await postProduct(values);
               Swal.fire('Éxito', 'Petición creada correctamente, en breve será aceptada', 'success');
               navigate('/');

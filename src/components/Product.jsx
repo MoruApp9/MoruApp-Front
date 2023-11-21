@@ -34,7 +34,7 @@ import { updateStatusFiltered } from "../redux/productsOrderedFilteredSlice"
 const Product = ({ product }) => {
   const productId = product.id
 
-  console.log('product', product);
+  // console.log('product', product);
 
   const dispatch = useDispatch()
   const location = useLocation()
@@ -83,7 +83,7 @@ const Product = ({ product }) => {
       } else {
         // si no es fav
         setIsFav(true) // se vuelve fav
-        console.log(userUpdate)
+        // console.log(userUpdate)
         dispatch(postFavorites(userUpdate.id, productId)) // Se postea en la base de datos como fav y se actualiza el estado global
       }
     } else

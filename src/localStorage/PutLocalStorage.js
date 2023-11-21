@@ -8,7 +8,7 @@ export const putLocalStorageFavs = (productId) => (dispatch) => {
     //dispatch(addFav(fav)) // al estado global
     //deleteLocalStorageFavs()
     const updatedArray = currentLSFavs.filter(fav => fav.id !== productId)
-    console.log(updatedArray);
+    // console.log(updatedArray);
     dispatch(removeFav(productId))
     localStorage.setItem('Fav', JSON.stringify(updatedArray))
 }

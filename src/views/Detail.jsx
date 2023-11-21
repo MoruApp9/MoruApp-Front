@@ -21,7 +21,7 @@ const ProductDetail = () => {
     const [isFav, setIsFav] = useState(false)
     const userRole = useSelector(state => state.userRole)
     const currentUser = GetLocalStorage();
-    console.log(currentUser);
+    // console.log(currentUser);
     const detailRef = useRef();
     const { isAuthenticated, user } = useAuth0()
     
@@ -48,7 +48,7 @@ const ProductDetail = () => {
             } else {
               // si no es fav
               setIsFav(true) // se vuelve fav
-              console.log(userUpdate)
+            //   console.log(userUpdate)
               dispatch(postFavorites(userUpdate.id, id)) // Se postea en la base de datos como fav y se actualiza el estado global
             }
           } else
