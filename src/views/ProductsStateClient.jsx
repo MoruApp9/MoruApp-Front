@@ -33,7 +33,6 @@ const ProductsStateClient = () => {
   const updateStore = async () => {
     if (idBranch.length) {
       const response = await getBranchOrders(idBranch)
-      console.log('getBranchOrdersResponse', response)
       dispatch(setProductsOrderedToStore(response))
       /* response?.forEach((product) =>
         dispatch(setProductsOrderedToStore(product))
@@ -41,7 +40,7 @@ const ProductsStateClient = () => {
       
     } else {
       const response = await getHistoryOfOrderedProducts(currentUser.id) // user client
-      console.log(response)
+
       dispatch(setProductsOrderedToStore(response))
       /* response?.forEach((product) =>
         dispatch(setProductsOrderedToStore(product))
