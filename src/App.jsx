@@ -34,6 +34,7 @@ import Footer from "./components/Footer";
 import PoliciesPrivacy from "./views/PoliciesPrivacy";
 import TermsConditions from "./views/TermsConditions";
 import OrderDetail from "./views/OrderDetail";
+import EditProductForm from "./components/EditProductForm.jsx";
 
 
 function App() {
@@ -78,6 +79,7 @@ function App() {
         <Route path="/carrito-de-compras" element={<ShoppingCart/>}/>
         <Route path="/support" element={<FAQ/>}/>
         <Route path="/producto/:id" element={<ProductDetail/>} />
+        <Route path="/product/edit/:productId" element={<EditProductForm/>} />
         <Route path="/products/:id" element={<CategoryView />} />
         <Route path="/fav" element={<Favorites/>} />
         <Route path="/publicar-producto" element={<PostProduct/>} />

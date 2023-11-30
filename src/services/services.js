@@ -139,6 +139,14 @@ export const postProduct = async (productData) => {
   }
 }
 
+export const editProduct = async (id, productToEdit) => {
+  try {
+    const product = (await axios.put(`${BASE_URL}/products/edit/${id}`, productToEdit))
+  } catch (error) {
+    errorHandler(error)
+  }
+}
+
 export const getUser = async (emailUser) => {
   try {
     // const peticion = [axios.post(`${BASE_URL}/users/findforemail`, {email: emailUser})]
