@@ -126,4 +126,7 @@ const Categories = ({ getProductsByCategory }) => {
     );
 }
 
+const array = [{nombre: "regalos"}, {nombre: "comida"}, ]
+
+
 export default Categories;
