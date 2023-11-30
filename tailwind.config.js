@@ -8,7 +8,7 @@ export default {
       },
       colors: {
         'purple-moru': "#280a50",
-        'purple-moru-dark': "#1F0638",
+        'purple-moru-dark': "#361365",
       },
       height: {
         'min1': '1px',
