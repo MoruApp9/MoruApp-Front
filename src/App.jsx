@@ -34,7 +34,7 @@ import Footer from "./components/Footer";
 import PoliciesPrivacy from "./views/PoliciesPrivacy";
 import TermsConditions from "./views/TermsConditions";
 import OrderDetail from "./views/OrderDetail";
-import EditProductForm from "./components/EditProductForm.jsx";
+import EditProductForm from "./views/EditProductForm.jsx";
 
 
 function App() {

@@ -93,7 +93,7 @@ const Nav = ({ user }) => {
   }
 
   return (
-    <nav className="flex flex-col sticky top-0 bg-purple-moru-dark z-40 font-roboto-slab pb-2">
+    <nav className={`flex flex-col sticky top-0 bg-purple-moru-dark z-40 font-roboto-slab`}>
       <div className="flex w-full px-2 sm:px-6 py-2 shadow-lg rounded-b-xl font-roboto-slab z-10">
         <div className="flex w-full justify-start items-center space-x-6 whitespace-nowrap">
           <button onClick={() => { setOpenMenu(true) }} className="hover:bg-purple-moru rounded-md transition-all duration-300 ease-in-out">
