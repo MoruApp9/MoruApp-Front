@@ -5,9 +5,11 @@ export default {
     extend: {
       fontFamily: {
         'roboto-slab': ['Roboto Slab', 'serif'],
+        'bree-serif': ['Bree Serif', 'serif'],
+        'montserrat': ['Montserrat', 'sans-serif'],
       },
       colors: {
-        'purple-moru': "#280a50",
+        'purple-moru': "#361365",
         'purple-moru-dark': "#361365",
       },
       height: {

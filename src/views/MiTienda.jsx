@@ -11,6 +11,7 @@ import {
 import { useEffect, useState } from "react"
 import {
   getBrandByOwner,
+  getBrandForId,
   getInfoBranch,
   getReviews,
   postReview,
@@ -27,6 +28,7 @@ import { FaMapMarker, FaClock, FaPhoneAlt } from "react-icons/fa" // Importa los
 const MiTienda = () => {
   const { id } = useParams()
   const [branchData, setBranchData] = useState(null)
+  const [brandData,setBrandData] = useState({})
   const currentUser = GetLocalStorage()
   const [isReviewInputVisible, setIsReviewInputVisible] = useState(false)
   const [reviewText, setReviewText] = useState("")
@@ -46,6 +48,8 @@ const MiTienda = () => {
         const data = await getInfoBranch(id)
         setBranchData(data)
         const reviews = (await getReviews(id)).newRatingArray
+        const brand = await getBrandForId(data.commerceId)
+        setBrandData(brand)
         setReviews(reviews)
       } catch (error) {
         console.log(error)
@@ -101,7 +105,8 @@ const MiTienda = () => {
       <div>
         <div>
           {branchData ? (
-            <div className="mx-auto w-full md:w-3/4 lg:w-1/2">
+            <div className="mx-auto w-full md:w-3/4 lg:w-1/2 flex flex-col items-center">
+            {brandData.image ? <img className="w-96" src={brandData.image}/> : null}
               <h1 className="pt-5 text-3xl text-center font-bold text-purple-moru">
                 {branchData.alias}
               </h1>
