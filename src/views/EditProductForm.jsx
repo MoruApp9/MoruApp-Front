@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import imagen from "../images/Moru.jpeg";
-import { getBrandByOwner, getSpecificCategories, postProduct, uploadImageClaudinary, editProduct } from "../services/services"
+import { getSpecificCategories, uploadImageClaudinary, editProduct } from "../services/services"
 import { Formik, Form, ErrorMessage, Field } from 'formik';
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -107,7 +107,9 @@ const EditProductForm = () => {
               try {
                 await editProduct(productId ,values); // funcion para actualizar el producto
                 Swal.fire('Éxito', 'Pedido actualizado correctamente en breve será aceptado', 'success');
+
                 navigate('/');
+                window.location.reload();
                 //window.location.reload()
               } catch (error) {
                 Swal.fire('Oops...', 'Error al crear el producto', 'error');
