@@ -21,7 +21,7 @@ import { addFav } from "../redux/favoritesSlice";
 //import { setUser } from "../redux/userSlice";
 import Loader from "../components/Loader";
 import Dashboard from "./Dashboard";
-import SearchBar from '../components/SearchBar';
+import SearchBar from "../components/SearchBar";
 
 const Home = () => {
   const { pathname } = useLocation()
