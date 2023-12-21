@@ -17,7 +17,6 @@ import RegisterShop from "./views/RegisterShop.jsx";
 import Nav from "./components/Nav";
 import ShoppingCart from "./views/ShoppingCart";
 import FAQ from "./components/FAQ";
-import SearchBar from "./components/SearchBar.jsx";
 import Registration from "./components/Registration";
 import ProductDetail from "./views/Detail";
 import Favorites from "./views/Favorites";
