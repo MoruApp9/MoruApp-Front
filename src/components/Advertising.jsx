@@ -91,7 +91,7 @@ const Advertising = () => {
   };
 
   return (
-    <div className="rounded-lg w-full overflow-hidden">
+    <div className="w-full overflow-hidden">
       <Slider {...settings} ref={sliderRef}>
         {slides.map((slide, index) => (
           <div key={index} className="w-full h-56 sm:h-72 md:h-96 lg:h-102">
