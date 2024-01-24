@@ -22,7 +22,6 @@ import ProductDetail from "./views/Detail";
 import Favorites from "./views/Favorites";
 import CategoryView from "./views/CategoryView";
 import PostProduct from "./views/PostProduct";
-import MiTienda from "./views/MiTienda";
 import Account from "./views/Account";
 import RegisterTypeOfShop from "./views/RegisterTypeOfShop";
 import CrearSede from "./views/CrearSucursal";
@@ -34,6 +33,8 @@ import PoliciesPrivacy from "./views/PoliciesPrivacy";
 import TermsConditions from "./views/TermsConditions";
 import OrderDetail from "./views/OrderDetail";
 import EditProductForm from "./views/EditProductForm.jsx";
+import Commerce from "./views/Commerce.jsx";
+
 
 function App() {
   const { pathname } = useLocation();
@@ -76,7 +77,7 @@ function App() {
         <Route path="/products/:id" element={<CategoryView />} />
         <Route path="/fav" element={<Favorites />} />
         <Route path="/publicar-producto" element={<PostProduct />} />
-        <Route path="/tienda/:id" element={<MiTienda />} />
+        <Route path="/tienda/:id" element={<Commerce/>} />
         <Route path="/cuenta" element={<Account />} />
         <Route path="/registrar-empresa" element={<RegisterTypeOfShop />} />
         <Route path="/crearSucursal" element={<CrearSede />} />

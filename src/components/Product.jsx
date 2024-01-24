@@ -228,28 +228,39 @@ const Product = ({ product, match }) => {
     });
   };
 
-  const changeStatusToPending = async () => {
-    // comentar esta función
-    const response = await putOrderStatus(
-      currentProductState.orderId,
-      "pending"
-    );
-  };
+  // const changeStatusToPending = async () => {
+  //   // comentar esta función
+  //   const response = await putOrderStatus(
+  //     currentProductState.orderId,
+  //     "pending"
+  //   );
+  // };
 
   const changeStatusButton = () => {
     switch (product?.status) {
-      case "pending":
+      case "recibido":
         return (
           <button
             onClick={changePendingStatusToSend}
             className=" flex mx-auto mb-6 items-center space-x-2 text-purple-moru font-bold p-2 px-3  border-2 border-purple-moru rounded-full "
           >
             <BiSend />
+            <span>Preparar</span>
+          </button>
+        );
+
+      case "preparando":
+        return (
+          <button
+            onClick={changeSendStatusToFinish}
+            className=" flex mx-auto mb-6 items-center space-x-2 text-purple-moru font-bold p-2 px-3  border-2 border-purple-moru rounded-full "
+          >
+            <IoMdDoneAll className="text-xl" />
             <span>Enviar</span>
           </button>
         );
 
-      case "send":
+      case "enviado":
         return (
           <button
             onClick={changeSendStatusToFinish}
@@ -273,10 +284,13 @@ const Product = ({ product, match }) => {
     switch (
       product?.status // product?.status
     ) {
-      case "pending":
-        return "Pendiente";
+      case "recibido":
+        return "Recibido";
 
-      case "send":
+      case "preparando":
+        return "Preparando"
+
+      case "enviado":
         return "Enviado";
 
       case "finish":

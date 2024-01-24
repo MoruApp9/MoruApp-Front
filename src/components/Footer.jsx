@@ -5,9 +5,10 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <div className="bg-purple-moru-dark px-20 py-10 leading-relaxed" 
-     style={{
-      background: 'linear-gradient(180deg, #3C096C 5.99%, #240046 47.47%, #10002B 84.17%)',
-    }}>
+      style={{
+        background:
+          "linear-gradient(to left, #260d4f 0%, #391376 50%, #561db2 100%)",
+      }}>
       <div className="flex justify-between text-white font-montserrat flex-col md:flex-row">
         <div>
           <img className="w-40" src={logoFooter} />

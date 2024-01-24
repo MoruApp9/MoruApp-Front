@@ -40,6 +40,7 @@ import { addFav } from "../redux/favoritesSlice";
 import { addToCart } from "../redux/cartSlice";
 import SearchBar from "./SearchBar";
 import { createSelector } from "reselect";
+import SideBarBranch from "./SideBarBranch";
 
 const Nav = ({ user }) => {
   const { pathname } = useLocation();
@@ -51,6 +52,7 @@ const Nav = ({ user }) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isDropdownOpenNav, setDropdownOpenNav] = useState(false);
+  const [isDropdownOpenMore, setIsDropdownOpenMore] = useState(false);
   const { loginWithRedirect, logout } = useAuth0();
 
   const favsStore = useSelector((state) => state.favorites);
@@ -89,7 +91,7 @@ const Nav = ({ user }) => {
 
   const idBrandUser = currentUser?.brand ? currentUser.brand.id : null;
 
-  const esDueño = idBrandUser === idBrandCommerce || null === idBrandCommerce;
+  const isOwner = idBrandUser === idBrandCommerce || null === idBrandCommerce;
 
   const sedes = GetLocalStorageCommercesByOwner();
   // console.log(currentUser);
@@ -134,6 +136,13 @@ const Nav = ({ user }) => {
     e.preventDefault();
     setSelectedOption("tienda");
     setDropdownOpenNav(!isDropdownOpenNav);
+    setIsDropdownOpenMore(false);
+  };
+
+  const handleButtonClickMore = (e) => {
+    e.preventDefault();
+    setIsDropdownOpenMore(!isDropdownOpenMore);
+    setDropdownOpenNav(false);
   };
 
   const handleOptionClick = (e, option, id) => {
@@ -150,13 +159,13 @@ const Nav = ({ user }) => {
 
   return (
     <nav
-      className={`flex flex-col sticky top-0 z-40 font-roboto-slab`}
+      className={`flex flex-col sticky top-0 z-40 font-roboto-slab `}
       style={{
         background:
-          "linear-gradient(180deg, #10002B 0%, #240046 50%, #3C096C 100%)",
+          "linear-gradient(to right, #260d4f 0%, #391376 50%, #561db2 100%)",
       }}
     >
-      <div className="flex w-full px-2 sm:px-6 py-2 shadow-lg rounded-b-xl font-roboto-slab z-10 items-center justify-center">
+      <div className="flex w-full px-2 sm:px-6 py-2 shadow-lg rounded-b-xl font-roboto-slab z-10 items-center h-24 justify-center">
         <div className="flex space-x-6 whitespace-nowrap items-center">
           <button
             onClick={() => {
@@ -164,7 +173,8 @@ const Nav = ({ user }) => {
             }}
             className="hover:bg-purple-moru rounded-md transition-all duration-300 ease-in-out"
           >
-            <FiMenu className="text-4xl text-white" />
+            {isOwner && pathname.includes('/tienda') ? null : <FiMenu className="text-4xl text-white"/>}
+            
           </button>
 
           {/* {!user && <button className="hidden md:block text-purple-moru hover:bg-gray-200 p-1 rounded-md" onClick={() => loginWithRedirect()}>
@@ -216,11 +226,12 @@ const Nav = ({ user }) => {
               </button>
 
               {isDropdownOpenNav && (
-                <div className="absolute max-h-48 right-7 overflow-y-auto whitespace-normal bg-gray-100 rounded-md">
+                <div className="absolute w-60 sm:w-100 p-4 right-7 overflow-y-auto whitespace-normal bg-purple-moru rounded-md border">
                   <div
                     role="menu"
                     aria-orientation="vertical"
                     aria-labelledby="options-menu"
+                    className="flex flex-col gap-5"
                   >
                     {sedes?.map((option, index) => (
                       <button
@@ -229,7 +240,7 @@ const Nav = ({ user }) => {
                           handleOptionClick(e, option.alias, option.id)
                         }
                         role="menuitem"
-                        className={`flex p-2 w-full text-left hover:bg-gray-200 transition-all duration-300 ease-in-out rounded-md ${
+                        className={`flex p-2 w-full flex text-white justify-center hover:bg-purple-moru-medium shadow-bottom shadow-md transition-all duration-300 ease-in-out ${
                           selectedOption === option.alias
                             ? "bg-gray-200 text-purple-moru"
                             : ""
@@ -248,7 +259,7 @@ const Nav = ({ user }) => {
                   >
                     <button
                       role="menuitem"
-                      className={`flex p-2 w-full hover:text-purple-moru text-left hover:bg-gray-200 transition-all duration-300 ease-in-out rounded-md ${
+                      className={`p-2 w-full text-purple-moru border-purple-moru hover:text-purple-moru-medium mt-5 bg-gray-100 border-2 flex justify-center hover:bg-gray-300 transition-all duration-300 ease-in-out rounded-md ${
                         selectedOption === "crearSede"
                           ? "bg-gray-200 text-purple-moru"
                           : ""
@@ -300,8 +311,8 @@ const Nav = ({ user }) => {
             )
           }
 
-          {esDueño && pathname.includes("/tienda") ? (
-            <div>
+          {isOwner && pathname.includes("/tienda") ? (
+            <div className="mb-1">
               <Link
                 to={{
                   pathname: "/estado-productos",
@@ -314,6 +325,7 @@ const Nav = ({ user }) => {
                   height="26"
                   viewBox="0 0 22 26"
                   fill="none"
+                  className="hover:fill-purple-300"
                 >
                   <path
                     d="M16.2833 1H5.71667C4.42889 1 3.78556 1 3.26556 1.1956C2.77531 1.38334 2.33173 1.6906 1.96926 2.09351C1.6068 2.49642 1.3352 2.98414 1.17556 3.51879C1 4.09719 1 4.81239 1 6.24398V23.0487C1 24.0783 2.09444 24.6255 2.78667 23.9415C2.98087 23.7477 3.23558 23.6401 3.5 23.6401C3.76442 23.6401 4.01913 23.7477 4.21333 23.9415L4.75 24.4719C5.09023 24.8117 5.53659 25.0004 6 25.0004C6.46341 25.0004 6.90977 24.8117 7.25 24.4719C7.59023 24.1321 8.03659 23.9434 8.5 23.9434C8.96341 23.9434 9.40977 24.1321 9.75 24.4719C10.0902 24.8117 10.5366 25.0004 11 25.0004C11.4634 25.0004 11.9098 24.8117 12.25 24.4719C12.5902 24.1321 13.0366 23.9434 13.5 23.9434C13.9634 23.9434 14.4098 24.1321 14.75 24.4719C15.0902 24.8117 15.5366 25.0004 16 25.0004C16.4634 25.0004 16.9098 24.8117 17.25 24.4719L17.7867 23.9415C17.9809 23.7477 18.2356 23.6401 18.5 23.6401C18.7644 23.6401 19.0191 23.7477 19.2133 23.9415C19.9056 24.6255 21 24.0783 21 23.0487V6.24398C21 4.81239 21 4.09599 20.8244 3.51999C20.665 2.98507 20.3935 2.49707 20.031 2.09394C19.6685 1.6908 19.2249 1.38339 18.7344 1.1956C18.2144 1 17.5711 1 16.2833 1Z"
@@ -330,12 +342,65 @@ const Nav = ({ user }) => {
               </Link>
             </div>
           ) : null}
-        </div>{" "}
+
+          {isOwner && pathname.includes("/tienda/") ? (
+            <div>
+              <button>
+                <ul
+                  onClick={(e) => handleButtonClickMore(e)}
+                  className={`flex p-2 text-white hover:text-purple-300 transition-all duration-100 ease-in-out rounded-md `}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    className="fill-white hover:fill-purple-300"
+                  >
+                    <path d="M11.5294 5.33333C12.06 5.33333 12.4902 5.78105 12.4902 6.33333V11H16.9739C17.5045 11 17.9346 11.4477 17.9346 12C17.9346 12.5523 17.5045 13 16.9739 13H12.4902V17.6667C12.4902 18.2189 12.06 18.6667 11.5294 18.6667C10.9988 18.6667 10.5686 18.2189 10.5686 17.6667V13H6.08497C5.55435 13 5.12418 12.5523 5.12418 12C5.12418 11.4477 5.55435 11 6.08497 11H10.5686V6.33333C10.5686 5.78105 10.9988 5.33333 11.5294 5.33333ZM0 4.33333C0 1.94009 1.86401 0 4.1634 0H18.8954C21.1948 0 23.0588 1.94009 23.0588 4.33333V19.6667C23.0588 22.0599 21.1948 24 18.8954 24H4.1634C1.86401 24 0 22.0599 0 19.6667V4.33333ZM4.1634 2C2.92527 2 1.92157 3.04467 1.92157 4.33333V19.6667C1.92157 20.9553 2.92527 22 4.1634 22H18.8954C20.1336 22 21.1373 20.9553 21.1373 19.6667V4.33333C21.1373 3.04467 20.1336 2 18.8954 2H4.1634Z" />
+                  </svg>
+                  <IoIosArrowDown className="w-4 ml-1 text-3xl" />
+                </ul>
+              </button>
+
+              {isDropdownOpenMore && (
+                <div className="absolute w-60 sm:w-100 right-7 whitespace-normal bg-gray-100 p-2 rounded-md">
+                  <div
+                    role="menu"
+                    aria-orientation="vertical"
+                    aria-labelledby="options-menu"
+                  >
+                    <button
+                      className="flex p-2 w-full justify-center hover:text-gray-300 bg-purple-moru text-white transition-all duration-300 ease-in-out border-2 mb-1 rounded-md border-purple-moru"
+                      role="menuitem"
+                    >
+                      Nuevo Pedido
+                    </button>
+
+                    <Link
+                      to={{
+                        pathname: "/publicar-producto",
+                        search: id,
+                      }}
+                    >
+                      <button
+                        className="flex p-2 w-full justify-center border-purple-moru hover:text-gray-300 bg-purple-moru text-white transition-all duration-300 ease-in-out border-2 rounded-md"
+                        role="menuitem"
+                      >
+                        Añadir Producto
+                      </button>
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
+          ) : null}
+        </div>
         {/** //* Cierre Div accesos rapidos */}
       </div>
 
       {/* //* Menú desplegable */}
-
       <div
         onClick={() => {
           setOpenMenu(false);
@@ -356,7 +421,7 @@ const Nav = ({ user }) => {
               setOpenMenu(false);
             }}
           >
-            <FiMenu className="text-4xl text-white ml-6 mb-5"></FiMenu>
+            <FiMenu className="text-4xl text-white ml-3 mt-4"></FiMenu>
           </button>
 
           <li className="flex flex-col text-xl gap-10 items-start ml-12 mt-9 whitespace-nowrap w-52">
