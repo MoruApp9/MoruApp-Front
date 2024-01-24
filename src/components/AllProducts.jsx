@@ -32,8 +32,9 @@ const AllProducts = () => {
                     ))}
                 </div>
             </div>
-            }    
-            <div className="p-6 lg:px-28">
+            }  
+            {/** Luego comentar todo el div de todos los productos */} 
+            {/* <div className="p-6 lg:px-28">
                 <h1 className="text-2xl md:text-3xl text-purple-moru py-4">
                     Todos los productos
                 </h1>
@@ -43,7 +44,7 @@ const AllProducts = () => {
                         <Product key={product.id} product={product} />
                     ))}
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 };

@@ -25,7 +25,7 @@ import { Stars } from "../components/Stars"
 import { ReseñasContainer } from "../components/ReseñasContainer"
 import { FaMapMarker, FaClock, FaPhoneAlt } from "react-icons/fa" // Importa los íconos necesarios
 
-const MiTienda = () => {
+const ViewCommerce = () => {
   const { id } = useParams()
   const [branchData, setBranchData] = useState(null)
   const [brandData,setBrandData] = useState({})
@@ -223,4 +223,4 @@ const MiTienda = () => {
   )
 }
 
-export default MiTienda
+export default ViewCommerce

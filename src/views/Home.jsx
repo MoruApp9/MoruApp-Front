@@ -24,7 +24,7 @@ import Dashboard from "./Dashboard";
 import SearchBar from "../components/SearchBar";
 
 const Home = () => {
-  const { pathname } = useLocation()
+  const { pathname } = useLocation();
   const productsFiltered = useSelector((state) => state.productsFiltered);
   const favsGlobalState = useSelector((state) => state.favorites);
   const chartGlobalState = useSelector((state) => state.cart.cart);
@@ -94,14 +94,15 @@ const Home = () => {
           {!productsFiltered.length && <Advertising />}
 
           {pathname === "/" && GetLocalStorage()?.userRole !== "SuperAdmin" && (
-            <div className="md:hidden ml-auto">
+            <div className="md:hidden">
               <SearchBar />
             </div>
           )}
-
-          {!productsFiltered.length && <Categories />}
-          {!productsFiltered.length && <AllProducts />}
-          {productsFiltered.length !== 0 && <Filters />}
+          <div className="flex flex-col aling-center p-5 md:p-20">
+            {!productsFiltered.length && <Categories />}
+            {!productsFiltered.length && <AllProducts />}
+            {productsFiltered.length !== 0 && <Filters />}
+          </div>
         </div>
       )}
     </div>

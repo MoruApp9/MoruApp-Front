@@ -20,9 +20,8 @@ const EditProductForm = () => {
     const navigate = useNavigate()
     const allProducts = useSelector((state) => state.allProducts.allProducts)
     const productToEdit = allProducts?.find(product => productId === product.id)
-    const [imageUpload, setImageUpload] = useState(productToEdit.image)
+    const [imageUpload, setImageUpload] = useState(productToEdit?.image)
 
-  console.log(productToEdit)
   
     const handleOnChange = async (event) => {
       const imagen = await uploadImageClaudinary(event)
@@ -30,7 +29,6 @@ const EditProductForm = () => {
       // esta función sube la imagen a claudinary y entrega la URL para mandarselo al back
       //console.log(await uploadImageClaudinary(event)); //url creada mostrada en consola
     }
-  
   
     useEffect(() => {
       const fetchData = async () => {  //hace la funcion asincrona para poder esperar a que se resuelva la promesa de Categorias
@@ -165,8 +163,8 @@ const EditProductForm = () => {
                     onChange={handleOnChange}
                   />
   
-                  <label htmlFor="fileInput" className={` w-80 h-12 px-2 border-2 rounded-lg border-purple-moru ${!imageUpload.length ? 'text-purple-moru' : 'border-lime-600 text-lime-600'} bg-gray-100 text-m font-roboto-slab flex items-center justify-center cursor-pointer`}>
-                    <span>{!imageUpload.length ? 'Subir imagen' : 'Imagen subida'}</span>
+                  <label htmlFor="fileInput" className={` w-80 h-12 px-2 border-2 rounded-lg border-purple-moru ${!imageUpload?.length ? 'text-purple-moru' : 'border-lime-600 text-lime-600'} bg-gray-100 text-m font-roboto-slab flex items-center justify-center cursor-pointer`}>
+                    <span>{!imageUpload?.length ? 'Subir imagen' : 'Imagen subida'}</span>
                     <BsImageFill className="text-xl ml-2"></BsImageFill>
                   </label>
                 </div>
