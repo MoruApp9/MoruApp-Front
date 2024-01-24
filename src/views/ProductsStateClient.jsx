@@ -52,7 +52,7 @@ const ProductsStateClient = () => {
     updateStore()
     //window.scrollTo(0, 0)
 
-    if (selectedState === 'Pendiente' && productsOrderedFilteredFromStore.length === 0 ) {
+    if (selectedState === 'recibido' && productsOrderedFilteredFromStore.length === 0 ) {
       setSelectedState('Todos')
     }
   
@@ -73,17 +73,29 @@ const ProductsStateClient = () => {
     dispatch(cleanProductsOrderedFilteredFromStore())
   }
 
-  const handlePendienteButton = async (event) => {
+  const handleRecibidoButton = async (event) => {
     event.stopPropagation()
     event.preventDefault()
 
-    const pendingsProducts = productsOrderedFromStore.filter(
-      (product) => product.status === "pending"
+    const receivedProducts = productsOrderedFromStore.filter(
+      (product) => product.status === "recibido"
     )
-    pendingsProducts.length
-      ? (dispatch(setProductsOrderedFilteredToStore(pendingsProducts)),
-        setSelectedState("Pendiente"))
-      : Swal.fire("Oops...", "No hay productos pendientes", "info")
+    receivedProducts.length
+      ? (dispatch(setProductsOrderedFilteredToStore(receivedProducts)),
+        setSelectedState("Recibido"))
+      : Swal.fire("Oops...", "No hay productos Recibidos", "info")
+  }
+  const handlePreparandoButton = async (event) => {
+    event.stopPropagation()
+    event.preventDefault()
+
+    const receivedProducts = productsOrderedFromStore.filter(
+      (product) => product.status === "preparando"
+    )
+    receivedProducts.length
+      ? (dispatch(setProductsOrderedFilteredToStore(receivedProducts)),
+        setSelectedState("Preparando"))
+      : Swal.fire("Oops...", "No hay productos Recibidos", "info")
   }
 
   const handleEnviadoButton = async (event) => {
@@ -91,7 +103,7 @@ const ProductsStateClient = () => {
     event.preventDefault()
 
     const sentProducts = productsOrderedFromStore.filter(
-      (product) => product.status === "send"
+      (product) => product.status === "enviado"
     )
     sentProducts.length
       ? (dispatch(setProductsOrderedFilteredToStore(sentProducts)),
@@ -123,11 +135,18 @@ const ProductsStateClient = () => {
           Todos
         </button>
         <button
-          onClick={handlePendienteButton}
+          onClick={handleRecibidoButton}
           className={`border-r pr-2 ${
-            selectedState === "Pendiente" && "font-bold"
+            selectedState === "recibido" && "font-bold"
           }`}>
-          Pendiente
+          Recibido
+        </button>
+        <button
+          onClick={handlePreparandoButton}
+          className={`border-r pr-2 ${
+            selectedState === "preparando" && "font-bold"
+          }`}>
+          Preparando
         </button>
         <button
           onClick={handleEnviadoButton}

@@ -15,8 +15,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         domain="dev-mnept00qkj4yz84v.us.auth0.com"
         clientId="GSt7hjypueLPGGDpDLTOJrt0B693zEz2"
         authorizationParams={{
-          redirect_uri: `https://moru.com.co/`,
+          redirect_uri: `http://localhost:5173/`,
         }}>
+        {/* https://moru.com.co/ */}
         <BrowserRouter>
           <App />
         </BrowserRouter>

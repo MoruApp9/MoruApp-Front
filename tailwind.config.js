@@ -9,8 +9,9 @@ export default {
         'montserrat': ['Montserrat', 'sans-serif'],
       },
       colors: {
-        'purple-moru': "#361365",
-        'purple-moru-dark': "#361365",
+        'purple-moru': "#561db2",
+        'purple-moru-medium': '#391376',
+        'purple-moru-dark': "#260d4f",
       },
       height: {
         'min1': '1px',

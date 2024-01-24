@@ -17,7 +17,7 @@ function Arrow(props) {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        background: "#280a50",
+        background: "#391376",
         boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
         cursor: "pointer"
     };
@@ -53,8 +53,8 @@ const Categories = ({ getProductsByCategory }) => {
         dots: false,
         infinite: true,
         speed: 500,
-        slidesToShow: 6,
-        slidesToScroll: 6,
+        slidesToShow: 4,
+        slidesToScroll: 1,
         nextArrow: <Arrow />,
         prevArrow: <Arrow />,
         initialSlide: 0,
@@ -62,21 +62,21 @@ const Categories = ({ getProductsByCategory }) => {
             {
                 breakpoint: 1024,
                 settings: {
-                    slidesToShow: 5,
+                    slidesToShow: 4,
                     slidesToScroll: 1,
                 }
             },
             {
                 breakpoint: 768,
                 settings: {
-                    slidesToShow: 5,
+                    slidesToShow: 3,
                     slidesToScroll: 1,
                 },
             },
             {
                 breakpoint: 630,
                 settings: {
-                    slidesToShow: 4,
+                    slidesToShow: 3,
                     slidesToScroll: 1,
                 }
             },
@@ -107,11 +107,11 @@ const Categories = ({ getProductsByCategory }) => {
             <div className="w-full px-10 lg:px-36 py-2">
                 <Slider {...settings} >
                     {categorias?.map((categoria) => (
-                        <div key={categoria.id} className="h-28 sm:h-36 xl:h-28 hover:border-2 hover:rounded-xl  cursor-pointer hover:shadow-xl transition-all duration-300 ease-in-out flex flex-col items-center px-0" onClick={() => handleClickCategoria(categoria.id)}>
+                        <div key={categoria.id} className=" cursor-pointer hover:shadow-2xl transition-all duration-300 ease-in-out flex flex-col items-center px-0" onClick={() => handleClickCategoria(categoria.id)}>
                             <img
                                 src={categoria.img}
                                 alt={categoria.category}
-                                className='w-14 sm:w-20 md:w-26   m-auto'
+                                className='w-40 m-auto'
                             />
                             <p
                                 className="text-center  md:text-xl text-base text-purple-moru "

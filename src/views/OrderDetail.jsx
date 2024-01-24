@@ -23,13 +23,16 @@ const OrderDetail = () => {
     switch (
         orderDetail.status // product?.status
     ) {
-      case "pending":
-        return "Pendiente"
+      case "recibido":
+        return "Recibido"
 
-      case "send":
+      case "preparando":
+        return "Preparando"
+
+      case "enviado":
         return "Enviado"
 
-      case "finish":
+      case "finalizado":
         return "Finalizado"
     }
   }
