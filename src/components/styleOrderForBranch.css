@@ -1,0 +1,23 @@
+/* styles.css */
+
+.button-style {
+    position: relative;
+    border: 1px solid #000; /* Cambia el color del borde según tus preferencias */
+    border-right: none; /* Elimina el borde derecho predeterminado */
+    padding-right: 20px; /* Ajusta según sea necesario */
+  
+    /* Estilo del triángulo en el borde derecho */
+    &::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+      border-style: solid;
+      border-width: 8px 0 8px 10px; /* Ajusta el tamaño del triángulo según sea necesario */
+      border-color: transparent transparent transparent #000; /* Ajusta el color del triángulo */
+    }
+  }
+  
+  /* Estilos adicionales según sea necesario */
+  

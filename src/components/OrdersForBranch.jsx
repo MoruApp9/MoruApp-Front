@@ -4,12 +4,14 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   cleanProductsOrderedFromStore,
   setProductsOrderedToStore,
+  updateStatus,
 } from "../redux/productsOrderedSlice";
+import { updateStatusFiltered } from "../redux/productsOrderedFilteredSlice";
 import {
   cleanProductsOrderedFilteredFromStore,
   setProductsOrderedFilteredToStore,
 } from "../redux/productsOrderedFilteredSlice";
-import { getBranchOrders } from "../services/services";
+import { getBranchOrders, putOrderStatus } from "../services/services";
 import Swal from "sweetalert2";
 import Product from "./Product";
 
@@ -122,186 +124,185 @@ const OrdersForBranch = ({ id }) => {
       : Swal.fire("Oops...", "No hay productos finalizados", "info");
   };
 
+  function handleClickChangeStatus(orderId) {
+    const productFound = productsOrderedFilteredFromStore.find((product) => {
+      return product.orderId === orderId;
+    });
+
+    if (productFound) {
+      Swal.fire({
+        title: "Confirmación",
+        text: `Deseas cambiar el estado del producto a ${
+          productFound.status === "recibido"
+            ? "Preparando"
+            : productFound.status === "preparando"
+            ? "enviado"
+            : productFound.status === "enviado"
+            ? "Finalizado"
+            : null
+        }`,
+        icon: "question",
+        showDenyButton: true,
+        denyButtonText: "No",
+        confirmButtonText: "Sí",
+        confirmButtonColor: "#280a50",
+      }).then(async (response) => {
+        if (response.isConfirmed) {
+          try {
+            const newStatus =
+              productFound.status === "recibido"
+                ? "preparando"
+                : productFound.status === "preparando"
+                ? "enviado"
+                : productFound.status === "enviado"
+                ? "finalizado"
+                : null;
+            const response = await putOrderStatus(
+              productFound.orderId,
+              newStatus
+            );
+
+            // Validar si fue cambiado el estado correctamente
+
+            if (response.status === 200) {
+              dispatch(
+                updateStatus({
+                  productId: productFound.id,
+                  status: response.data.order.status,
+                })
+              );
+              dispatch(updateStatusFiltered(productFound.id));
+            }
+            Swal.fire(
+              `Pedido ${
+                productFound.status === "recibido"
+                  ? "Preparando"
+                  : productFound.status === "preparando"
+                  ? "Enviado"
+                  : productFound.status === "Enviado"
+                  ? "Finalizado"
+                  : null
+              }`,
+              response.data.message,
+              "success"
+            );
+          } catch (error) {}
+        }
+      });
+    } else {
+      console.log("No found");
+    }
+  }
+
   return (
-    <div className="flex flex-col justify-center items-center">
-      <div className=" bg-white flex justify-center p-4 font-roboto-slab ">
-        <button
-          onClick={handleTodosButton}
-          className={`flex items-center justify-start ${
-            selectedState === "Todos" && "font-bold"
-          }`}
-        >
-          <span className="absolute ml-4">Todos</span>
-          <span className="relative">
-            {/* Aquí inserta tu SVG */}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="214"
-              height="44"
-              viewBox="0 0 214 44"
-              fill="none"
-            >
-              <path
-                d="M0.254883 0.25H191.638L212.696 21.0079L191.631 43.75H0.254883V0.25Z"
-                stroke="black"
-                strokeWidth="0.5"
-              />
-            </svg>
-          </span>
-        </button>
-
-        <button
-          onClick={handleRecibidoButton}
-          className={`flex items-center justify-start ${
-            selectedState === "Recibido" && "text-[#8B80F9]"
-          }`}
-        >
-          <span className="absolute ml-7">Recibido</span>
-          <span className="relative">
-            {/* Aquí inserta tu SVG */}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="217"
-              height="44"
-              viewBox="0 0 217 44"
-              className={`${selectedState === "Recibido" ? "stroke-[#8B80F9] stroke-2" : "stroke-black stroke-[0.5]"} fill-none`}
-            >
-              <path
-                d="M194.411 43.75H1.54178L22.1276 21.1684L22.2883 20.9922L22.1198 20.8234L1.57847 0.25H194.418L215.675 21.0079L194.411 43.75Z"
-              />
-            </svg>
-          </span>
-        </button>
-        <button
-          onClick={handlePreparandoButton}
-          className={`flex items-center justify-start ${
-            selectedState === "Preparando" && "text-[#FFD901]"
-          }`}
-        >
-          <span className="absolute ml-7">Preparando</span>
-          <span className="relative">
-            {/* Aquí inserta tu SVG */}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="217"
-              height="44"
-              viewBox="0 0 217 44"
-              className={`${selectedState === "Preparando" ? "stroke-[#FFD901] stroke-2" : "stroke-black stroke-[0.5]"} fill-none`}
-            >
-              <path
-                d="M194.411 43.75H1.54178L22.1276 21.1684L22.2883 20.9922L22.1198 20.8234L1.57847 0.25H194.418L215.675 21.0079L194.411 43.75Z"
-              />
-            </svg>
-          </span>
-        </button>
-        <button
-          onClick={handleEnviadoButton}
-          className={`flex items-center justify-start ${
-            selectedState === "Enviado" && "text-[#5CB765]"
-          }`}
-        >
-          <span className="absolute ml-7">Enviado</span>
-          <span className="relative">
-            {/* Aquí inserta tu SVG */}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="217"
-              height="44"
-              viewBox="0 0 217 44"
-              className={`${selectedState === "Enviado" ? "stroke-[#5CB765] stroke-2" : "stroke-black stroke-[0.5]"} fill-none`}
-            >
-              <path
-                d="M194.411 43.75H1.54178L22.1276 21.1684L22.2883 20.9922L22.1198 20.8234L1.57847 0.25H194.418L215.675 21.0079L194.411 43.75Z"
-              />
-            </svg>
-          </span>
-        </button>
-        <button
-          onClick={handleFinalizadoButton}
-          className={`flex items-center justify-start ${
-            selectedState === "Finalizado" && "text-[#F4434F]"
-          }`}
-        >
-          <span className="absolute ml-7">Finalizado</span>
-          <span className="relative">
-            {/* Aquí inserta tu SVG */}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="217"
-              height="44"
-              viewBox="0 0 217 44"
-              className={`${selectedState === "Finalizado" ? "stroke-[#F4434F] stroke-2" : "stroke-black stroke-[0.5]"} fill-none`}
-            >
-              <path
-                d="M194.411 43.75H1.54178L22.1276 21.1684L22.2883 20.9922L22.1198 20.8234L1.57847 0.25H194.418L215.675 21.0079L194.411 43.75Z"
-              />
-            </svg>
-          </span>
-        </button>
-      </div>
-
-      <table className="flex flex-col gap-2 w-full border-collapse">
-        <thead className={`flex border p-2 w-full px-5 bg-gray-300`}>
-          <tr className="flex justify-between w-full">
-            <th>Fecha</th>
-            <th>Producto</th>
-            <th>Precio</th>
-            <th>Estado</th>
+    <div className="overflow-x-auto">
+    {/* Flechas */}
+    <div className="flex flex-col mb-5 md:flex-row lg:flex-row lg:gap-16 gap-2">
+      <button
+        onClick={handleTodosButton}
+        className={`flex-1 mb-2 ${
+          selectedState === "Todos" && "font-bold border-2 border-black"
+        } border rounded-md p-2`}
+      >
+        Todos
+      </button>
+  
+      <button
+        onClick={handleRecibidoButton}
+        className={`flex-1 mb-2 ${
+          selectedState === "Recibido" && "text-[#8B80F9] border-[#8B80F9]"
+        } p-2 rounded-md border`}
+      >
+        Recibido
+      </button>
+  
+      <button
+        onClick={handlePreparandoButton}
+        className={`flex-1 mb-2 ${
+          selectedState === "Preparando" && "text-[#FFD901] border-[#FFD901]"
+        } p-2 rounded-md border`}
+      >
+        <span>Preparando</span>
+      </button>
+  
+      <button
+        onClick={handleEnviadoButton}
+        className={`flex-1 mb-2 ${
+          selectedState === "Enviado" && "text-[#5CB765] border-[#5CB765]"
+        } p-2 rounded-md border`}
+      >
+        Enviado
+      </button>
+  
+      <button
+        onClick={handleFinalizadoButton}
+        className={`flex-1 mb-2 ${
+          selectedState === "Finalizado" && "text-[#F4434F] border-[#F4434F]"
+        } p-2 rounded-md border`}
+      >
+        Finalizado
+      </button>
+    </div>
+    {/* Fin de las flechas */}
+    <div className="max-w-full overflow-x-auto">
+      <table className="w-full border-collapse">
+        <thead className={`flex border p-2 bg-gray-300`}>
+          <tr className="flex items-center w-full justify-around">
+            <th className="">Fecha</th>
+            <th className="">Producto</th>
+            <th className="">Precio</th>
+            <th className="">Estado</th>
             <th
-              className={`${selectedState === "Finalizado" && "hidden"} ${
-                selectedState === "Todos" && "hidden"
-              }`}
+              className={`${
+                selectedState === "Finalizado" && "hidden"
+              } ${selectedState === "Todos" && "hidden"}`}
             >
               Cambiar estado
             </th>
-            <th>Cancelar</th>
+            <th className="">Cancelar</th>
           </tr>
         </thead>
-
+  
         {productsOrderedFilteredFromStore.length > 0 ? (
-          <tbody className="flex flex-col">
+          <tbody className="flex flex-col pt-2 justify-center">
             {productsOrderedFilteredFromStore?.map((product) => (
               <tr
                 key={product.orderId}
-                className="flex justify-between border p-2"
+                className="flex justify-around border items-center p-2"
               >
-                <td>{product.date}</td>
-                <td>
+                <td className="">{product.date}</td>
+                <td className="">
                   {product.name.length > 10
                     ? `${product.name.slice(0, 10)}...`
                     : product.name}
                 </td>
-                <td>{product.price}</td>
-                <td className={`capitalize text-white rounded-xl p-2 ${(() => {
-                      switch (product?.status) {
-                        case "recibido":
-                          return "bg-[#8B80F9]";
-                        case "preparando":
-                          return "bg-[#FFD901]";
-                        case "enviado":
-                          return "bg-[#5CB765]";
-                        case "finalizado":
-                          return "bg-[#F4434F]"
-                        default:
-                          return null;
-                      }
-                    })()}`}>{product.status}</td>
-                <td className={`${selectedState === "Finalizado" && "hidden"}`}>
+                <td className="">{product.price}</td>
+                <td
+                  className={`capitalize text-white rounded-xl p-2 text-center ${
+                    product?.status === "recibido" ? "bg-[#8B80F9]" :
+                    product?.status === "preparando" ? "bg-[#FFD901]" :
+                    product?.status === "enviado" ? "bg-[#5CB765]" :
+                    product?.status === "finalizado" ? "bg-[#F4434F]" : ""
+                  }`}
+                >
+                  {product.status}
+                </td>
+                <td
+                  className={`${
+                    selectedState === "Finalizado" && "hidden"
+                  } w-24 items-center`}
+                >
+                  {/* Boton para cambiar de estado el producto */}
                   <button
                     className={`btn p-2 flex gap-2 text-white rounded-xl ${
                       selectedState === "Finalizado" && "hidden"
-                    } ${(() => {
-                      switch (product?.status) {
-                        case "recibido":
-                          return "bg-[#FFD901] fill-[#FFD901]";
-                        case "preparando":
-                          return "bg-[#5CB765] fill-[#5CB765]";
-                        case "enviado":
-                          return "BG-[#F4434F] fill-[#F4434F]";
-                        default:
-                          return null;
-                      }
-                    })()}`}
+                    } ${
+                      product?.status === "recibido" ? "bg-[#FFD901] fill-[#FFD901]" :
+                      product?.status === "preparando" ? "bg-[#5CB765] fill-[#5CB765]" :
+                      product?.status === "enviado" ? "bg-[#F4434F] fill-[#F4434F]" :
+                      ""
+                    }`}
+                    onClick={() => handleClickChangeStatus(product.orderId)}
                   >
                     {(() => {
                       switch (product?.status) {
@@ -334,7 +335,7 @@ const OrdersForBranch = ({ id }) => {
                     </svg>
                   </button>
                 </td>
-                <td>
+                <td className="items-center">
                   <button>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -346,7 +347,7 @@ const OrdersForBranch = ({ id }) => {
                       <path
                         d="M10 0C15.5 0 20 4.5 20 10C20 15.5 15.5 20 10 20C4.5 20 0 15.5 0 10C0 4.5 4.5 0 10 0ZM10 2C8.1 2 6.4 2.6 5.1 3.7L16.3 14.9C17.3 13.5 18 11.8 18 10C18 5.6 14.4 2 10 2ZM14.9 16.3L3.7 5.1C2.6 6.4 2 8.1 2 10C2 14.4 5.6 18 10 18C11.9 18 13.6 17.4 14.9 16.3Z"
                         fill="#61696D"
-                        fill-opacity="0.6"
+                        fillOpacity="0.6"
                       />
                     </svg>
                   </button>
@@ -355,34 +356,31 @@ const OrdersForBranch = ({ id }) => {
             ))}
           </tbody>
         ) : (
-          <tbody className="flex flex-col">
+          // Este es el body que se muestra en "Todos" 
+          <tbody className="flex flex-col pt-2 justify-center">
             {productsOrderedFromStore?.map((product) => (
               <tr
                 key={product.orderId}
-                className="flex justify-between border p-2"
+                className="flex justify-around border p-2 items-center"
               >
-                <td>{product.date}</td>
-                <td>
+                <td className="">{product.date}</td>
+                <td className="">
                   {product.name.length > 10
                     ? `${product.name.slice(0, 10)}...`
                     : product.name}
                 </td>
-                <td>{product.price}</td>
-                <td className={`capitalize text-white rounded-xl p-2 ${(() => {
-                      switch (product?.status) {
-                        case "recibido":
-                          return "bg-[#8B80F9]";
-                        case "preparando":
-                          return "bg-[#FFD901]";
-                        case "enviado":
-                          return "bg-[#5CB765]";
-                        case "finalizado":
-                          return "bg-[#F4434F]"
-                        default:
-                          return null;
-                      }
-                    })()}`}>{product.status}</td>
-                <td>
+                <td className="">{product.price}</td>
+                <td
+                  className={`text-center capitalize text-white rounded-xl p-2 ${
+                    product?.status === "recibido" ? "bg-[#8B80F9]" :
+                    product?.status === "preparando" ? "bg-[#FFD901]" :
+                    product?.status === "enviado" ? "bg-[#5CB765]" :
+                    product?.status === "finalizado" ? "bg-[#F4434F]" : ""
+                  }`}
+                >
+                  {product?.status}
+                </td>
+                <td className="justify-center">
                   <button className="pr-10">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -394,7 +392,7 @@ const OrdersForBranch = ({ id }) => {
                       <path
                         d="M10 0C15.5 0 20 4.5 20 10C20 15.5 15.5 20 10 20C4.5 20 0 15.5 0 10C0 4.5 4.5 0 10 0ZM10 2C8.1 2 6.4 2.6 5.1 3.7L16.3 14.9C17.3 13.5 18 11.8 18 10C18 5.6 14.4 2 10 2ZM14.9 16.3L3.7 5.1C2.6 6.4 2 8.1 2 10C2 14.4 5.6 18 10 18C11.9 18 13.6 17.4 14.9 16.3Z"
                         fill="#61696D"
-                        fill-opacity="0.6"
+                        fillOpacity="0.6"
                       />
                     </svg>
                   </button>
@@ -405,6 +403,9 @@ const OrdersForBranch = ({ id }) => {
         )}
       </table>
     </div>
+  </div>
+  
+
   );
 };
 
