@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
-import AllProducts from '../components/AllProducts';
+import AllProducts from '../components/ProductComponents/AllProducts';
 import { addFav, removeFav } from "../redux/favoritesSlice";
 import { addToCart } from '../redux/cartSlice'
 import { FiHeart } from 'react-icons/fi';

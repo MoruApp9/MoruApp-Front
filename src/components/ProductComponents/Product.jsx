@@ -5,7 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 
-import { addToCart, removefromCart, uploadQuantity } from "../redux/cartSlice";
+import { addToCart, removefromCart, uploadQuantity } from "../../redux/cartSlice";
 
 import {
   postFavorites,
@@ -16,7 +16,7 @@ import {
   postOneQuantityOfProduct,
   getProducts,
   putOrderStatus,
-} from "../services/services";
+} from "../../services/services";
 
 import { FiHeart } from "react-icons/fi";
 import { AiOutlinePlus } from "react-icons/ai";
@@ -30,9 +30,9 @@ import Swal from "sweetalert2";
 import {
   GetLocalStorage,
   GetLocalStorageCommercesByOwner,
-} from "../localStorage/GetLocalStorage";
-import { updateStatus } from "../redux/productsOrderedSlice";
-import { updateStatusFiltered } from "../redux/productsOrderedFilteredSlice";
+} from "../../localStorage/GetLocalStorage";
+import { updateStatus } from "../../redux/productsOrderedSlice";
+import { updateStatusFiltered } from "../../redux/productsOrderedFilteredSlice";
 
 const Product = ({ product, match }) => {
   const productId = product.id;

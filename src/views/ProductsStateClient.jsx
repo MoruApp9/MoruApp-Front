@@ -5,7 +5,7 @@ import {
 } from "../services/services"
 import { GetLocalStorage } from "../localStorage/GetLocalStorage"
 import { useDispatch, useSelector } from "react-redux"
-import Product from "../components/Product"
+import Product from "../components/ProductComponents/Product"
 import { cleanProductsOrderedFromStore, setProductsOrderedToStore } from "../redux/productsOrderedSlice"
 import {
   cleanProductsOrderedFilteredFromStore,

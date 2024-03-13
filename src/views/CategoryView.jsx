@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductsByCategory } from "../services/services";
-import Product from "../components/Product";
+import Product from "../components/ProductComponents/Product";
 import Categories from "../components/Categories";
 import { createSelector } from "reselect";
 import Loader from "../components/Loader";

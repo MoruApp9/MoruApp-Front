@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import Advertising from "../components/Advertising";
-import AllProducts from "../components/AllProducts";
+import AllProducts from "../components/ProductComponents/AllProducts";
 import Filters from "../components/Filters";
 import Categories from "../components/Categories";
 import { useAuth0 } from "@auth0/auth0-react";
