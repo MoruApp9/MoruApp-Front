@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Product from "../components/Product";
+import Product from "../components/ProductComponents/Product";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";

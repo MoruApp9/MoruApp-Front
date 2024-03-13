@@ -13,7 +13,7 @@ import {
 } from "../redux/productsOrderedFilteredSlice";
 import { getBranchOrders, putOrderStatus } from "../services/services";
 import Swal from "sweetalert2";
-import Product from "./Product";
+import Product from "./ProductComponents/Product";
 
 const OrdersForBranch = ({ id }) => {
   const currentUser = GetLocalStorage();

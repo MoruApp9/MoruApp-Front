@@ -18,7 +18,7 @@ import {
 } from "../services/services"
 import { BiSolidCloudUpload } from "react-icons/bi"
 import { Link, useParams } from "react-router-dom"
-import Product from "../components/Product"
+import Product from "../components/ProductComponents/Product"
 import { createSelector } from "reselect"
 import Loader from "../components/Loader"
 import { Stars } from "../components/Stars"
