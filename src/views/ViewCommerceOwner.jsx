@@ -1,6 +1,6 @@
 import SideBarBranch from "../components/SideBarBranch";
 import { useEffect, useState } from "react";
-import AllProducts from "../components/AllProducts";
+import AllProducts from "../components/ProductComponents/AllProducts";
 import ProductsForBranch from "../components/ProductsForBranch";
 import { useParams } from "react-router-dom";
 import { getInfoBranch, getBrandForId } from "../services/services";

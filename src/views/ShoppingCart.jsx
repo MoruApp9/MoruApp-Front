@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux"
 import { addToCart, removeAllFromCart } from "../redux/cartSlice" // Asegúrate de importar la acción adecuada
-import Product from "../components/Product"
+import Product from "../components/ProductComponents/Product"
 import { Link, useNavigate } from "react-router-dom"
 import { useEffect } from "react"
 import { GetLocalStorage } from "../localStorage/GetLocalStorage"
