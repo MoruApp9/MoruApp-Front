@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux"
-import Product from "./ProductComponents/Product"
+import Product from "../ProductComponents/Product"
 
 const Filters = () => {
   const productsFiltered = useSelector((state) => state.productsFiltered)

@@ -1,4 +1,4 @@
-import { GetLocalStorage } from "../localStorage/GetLocalStorage";
+import { GetLocalStorage } from "../../localStorage/GetLocalStorage";
 import { AiFillMail } from "react-icons/ai";
 import { BsFillPersonVcardFill } from "react-icons/bs";
 import { MdPlace } from "react-icons/md";
@@ -6,7 +6,7 @@ import { BsTelephoneFill, BsPinMapFill } from "react-icons/bs";
 import { FaGlobe, FaCity } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import FormEditUser from "../components/FormEditUser";
+import FormEditUser from "../../components/LogComponents/FormEditUser";
 
 const Account = () => {
   const [isOpen, setIsOpen] = useState(false);

@@ -1,12 +1,12 @@
-import SideBarBranch from "../components/SideBarBranch";
+import SideBarBranch from "../../components/SideBarBranch";
 import { useEffect, useState } from "react";
-import AllProducts from "../components/ProductComponents/AllProducts";
-import ProductsForBranch from "../components/ProductsForBranch";
+import AllProducts from "../../components/ProductComponents/AllProducts";
+import ProductsForBranch from "../../components/ProductComponents/ProductsForBranch";
 import { useParams } from "react-router-dom";
-import { getInfoBranch, getBrandForId } from "../services/services";
-import Loader from "../components/Loader";
+import { getInfoBranch, getBrandForId } from "../../services/services";
+import Loader from "../../components/Loader";
 import { FaMapMarker, FaClock, FaPhoneAlt } from "react-icons/fa";
-import OrdersForBranch from "../components/OrdersForBranch";
+import OrdersForBranch from "../../components/OrderComponents/OrdersForBranch";
 import { FiMenu } from "react-icons/fi";
 
 const ViewCommerceOwner = () => {

@@ -2,18 +2,18 @@ import { useEffect, useState } from "react"
 import {
   getBranchOrders,
   getHistoryOfOrderedProducts,
-} from "../services/services"
-import { GetLocalStorage } from "../localStorage/GetLocalStorage"
+} from "../../services/services"
+import { GetLocalStorage } from "../../localStorage/GetLocalStorage"
 import { useDispatch, useSelector } from "react-redux"
-import Product from "../components/ProductComponents/Product"
-import { cleanProductsOrderedFromStore, setProductsOrderedToStore } from "../redux/productsOrderedSlice"
+import Product from "../../components/ProductComponents/Product"
+import { cleanProductsOrderedFromStore, setProductsOrderedToStore } from "../../redux/productsOrderedSlice"
 import {
   cleanProductsOrderedFilteredFromStore,
   setProductsOrderedFilteredToStore,
-} from "../redux/productsOrderedFilteredSlice"
+} from "../../redux/productsOrderedFilteredSlice"
 import Swal from "sweetalert2"
 import { useLocation } from "react-router-dom"
-import { cleanProductsFiltered } from "../redux/productsFilteredSlice"
+import { cleanProductsFiltered } from "../../redux/productsFilteredSlice"
 
 const ProductsStateClient = () => {
   const currentUser = GetLocalStorage()

@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import imagen from "../images/Moru.jpeg";
+import imagen from "../../images/Moru.jpeg";
 import { useAuth0 } from '@auth0/auth0-react';
 import { Formik, Form, ErrorMessage, Field } from 'formik';
-import {PostLocalStorage} from "../localStorage/PostLocalStorage";
+import {PostLocalStorage} from "../../localStorage/PostLocalStorage";
 
 const RegisterShop = () => {
 

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { putBrand, putBranch, putProduct, getAllCommerces, getAllBranches, getAllProducts } from "../services/services";
+import { putBrand, putBranch, putProduct, getAllCommerces, getAllBranches, getAllProducts } from "../../services/services";
 import { useAuth0 } from "@auth0/auth0-react";
 import { MdLogout } from "react-icons/md";
-import { DeleteLocalStorage } from "../localStorage/DeleteLocalStorage";
+import { DeleteLocalStorage } from "../../localStorage/DeleteLocalStorage";
 
 function Dashboard() {
     const [peticiones, setPeticiones] = useState([]);

@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import imagen from "../images/logo-moruApp.png";
+import imagen from "../../images/logo-moruApp.png";
 import { Formik, Form, ErrorMessage, Field } from "formik";
-import { GetLocalStorage } from "../localStorage/GetLocalStorage";
-import { putAdminCommerce } from "../services/services";
+import { GetLocalStorage } from "../../localStorage/GetLocalStorage";
+import { putAdminCommerce } from "../../services/services";
 import { useNavigate } from "react-router-dom";
-import { putLocalStorageAdminCommerce } from "../localStorage/PutLocalStorage";
+import { putLocalStorageAdminCommerce } from "../../localStorage/PutLocalStorage";
 import Swal from "sweetalert2";
 
 const FormEditUser = ({ openModal }) => {

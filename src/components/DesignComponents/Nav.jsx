@@ -6,7 +6,7 @@ import { BsFillSendFill } from "react-icons/bs";
 import { BiSolidUser } from "react-icons/bi";
 import { BiSolidCloudUpload } from "react-icons/bi";
 import { PiStorefrontDuotone } from "react-icons/pi";
-import logoMoru from "../images/LogoFooter.png";
+import logoMoru from "../../images/LogoFooter.png";
 import { FiMenu } from "react-icons/fi";
 import { MdFavorite } from "react-icons/md";
 import { MdAccountCircle } from "react-icons/md";
@@ -15,17 +15,17 @@ import { BsFillPeopleFill } from "react-icons/bs";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { cleanProductsFiltered } from "../redux/productsFilteredSlice";
+import { cleanProductsFiltered } from "../../redux/productsFilteredSlice";
 import { useDispatch, useSelector } from "react-redux";
 import {
   GetLocalStorage,
   GetLocalStorageCommercesByOwner,
-} from "../localStorage/GetLocalStorage";
+} from "../../localStorage/GetLocalStorage";
 import { IoIosArrowDown } from "react-icons/io";
 import {
   DeleteLocalStorage,
   DeleteLocalStorageCommercesByOwner,
-} from "../localStorage/DeleteLocalStorage";
+} from "../../localStorage/DeleteLocalStorage";
 import { MdLogout } from "react-icons/md";
 import { FaHtml5, FaMapMarkerAlt } from "react-icons/fa";
 import {
@@ -35,12 +35,12 @@ import {
   getInfoBranch,
   getProducts,
   getUser,
-} from "../services/services";
-import { addFav } from "../redux/favoritesSlice";
-import { addToCart } from "../redux/cartSlice";
-import SearchBar from "./SearchBar";
+} from "../../services/services";
+import { addFav } from "../../redux/favoritesSlice";
+import { addToCart } from "../../redux/cartSlice";
+import SearchBar from "../SearchBar";
 import { createSelector } from "reselect";
-import SideBarBranch from "./SideBarBranch";
+import SideBarBranch from "../SideBarBranch";
 
 const Nav = ({ user }) => {
   const { pathname } = useLocation();

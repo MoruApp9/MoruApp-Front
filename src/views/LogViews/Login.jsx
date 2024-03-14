@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import logo from "../images/logo.jpeg";
+import logo from "../../images/logo.jpeg";
 import { BsEyeSlash, BsEye } from 'react-icons/bs';
 import { Link } from 'react-router-dom'
 

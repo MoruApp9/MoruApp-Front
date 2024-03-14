@@ -1,11 +1,11 @@
 import { useSelector, useDispatch } from "react-redux"
-import { addToCart, removeAllFromCart } from "../redux/cartSlice" // Asegúrate de importar la acción adecuada
-import Product from "../components/ProductComponents/Product"
+import { addToCart, removeAllFromCart } from "../../redux/cartSlice" // Asegúrate de importar la acción adecuada
+import Product from "../../components/ProductComponents/Product"
 import { Link, useNavigate } from "react-router-dom"
 import { useEffect } from "react"
-import { GetLocalStorage } from "../localStorage/GetLocalStorage"
+import { GetLocalStorage } from "../../localStorage/GetLocalStorage"
 import { useAuth0 } from "@auth0/auth0-react"
-import { deleteAllCart, getChart, postBuy } from "../services/services"
+import { deleteAllCart, getChart, postBuy } from "../../services/services"
 import Swal from "sweetalert2"
 
 const ShoppingCart = () => {

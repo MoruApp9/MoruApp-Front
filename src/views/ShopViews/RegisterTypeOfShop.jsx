@@ -1,11 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form, ErrorMessage, Field } from 'formik';
-import { GetLocalStorage } from '../localStorage/GetLocalStorage';
+import { GetLocalStorage } from '../../localStorage/GetLocalStorage';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUser, postCommerceRegister, uploadImageClaudinary } from "../services/services";
+import { getUser, postCommerceRegister, uploadImageClaudinary } from "../../services/services";
 import { useEffect, useState } from "react";
 import { BsImageFill } from "react-icons/bs"
-import { PostLocalStorage } from "../localStorage/PostLocalStorage";
+import { PostLocalStorage } from "../../localStorage/PostLocalStorage";
 import { useAuth0 } from "@auth0/auth0-react";
 import Swal from 'sweetalert2';
 

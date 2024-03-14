@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
-import { GetLocalStorage } from "../localStorage/GetLocalStorage"
+import { GetLocalStorage } from "../../localStorage/GetLocalStorage"
 import { createSelector } from "@reduxjs/toolkit"
-import Product from "./ProductComponents/Product"
+import Product from "./Product"
 import { useSelector } from "react-redux"
 
 
