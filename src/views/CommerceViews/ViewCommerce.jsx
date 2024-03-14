@@ -1,13 +1,13 @@
-import backgroundDefault from "../images/background-perfil-shop.jpeg"
+import backgroundDefault from "../../images/background-perfil-shop.jpeg"
 import { BsFillCameraFill } from "react-icons/bs"
 import { BsFillSendFill } from "react-icons/bs"
 import { useSelector } from "react-redux"
-import slide1 from "../images/slide.jpeg"
+import slide1 from "../../images/slide.jpeg"
 import { HiPencil } from "react-icons/hi"
 import {
   GetLocalStorage,
   GetLocalStorageCommercesByOwner,
-} from "../localStorage/GetLocalStorage"
+} from "../../localStorage/GetLocalStorage"
 import { useEffect, useState } from "react"
 import {
   getBrandByOwner,
@@ -15,14 +15,14 @@ import {
   getInfoBranch,
   getReviews,
   postReview,
-} from "../services/services"
+} from "../../services/services"
 import { BiSolidCloudUpload } from "react-icons/bi"
 import { Link, useParams } from "react-router-dom"
-import Product from "../components/ProductComponents/Product"
+import Product from "../../components/ProductComponents/Product"
 import { createSelector } from "reselect"
-import Loader from "../components/Loader"
-import { Stars } from "../components/Stars"
-import { ReseñasContainer } from "../components/ReseñasContainer"
+import Loader from "../../components/Loader"
+import { Stars } from "../../components/Stars"
+import { ReseñasContainer } from "../../components/ReseñasContainer"
 import { FaMapMarker, FaClock, FaPhoneAlt } from "react-icons/fa" // Importa los íconos necesarios
 
 const ViewCommerce = () => {

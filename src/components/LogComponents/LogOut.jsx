@@ -1,6 +1,6 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import { MdLogout } from 'react-icons/md'
-import {DeleteLocalStorage} from '../localStorage/DeleteLocalStorage';
+import {DeleteLocalStorage} from '../../localStorage/DeleteLocalStorage';
 
 export const LogOutButton = () => {
     const { logout } = useAuth0();

@@ -1,10 +1,10 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { GetLocalStorage } from "../localStorage/GetLocalStorage";
+import { GetLocalStorage } from "../../localStorage/GetLocalStorage";
 import { createSelector } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux/es/hooks/useSelector";
-import ViewCommerce from "./ViewCommerce";
-import ViewCommerceOwner from "./ViewCommerceOwner";
+import ViewCommerce from "../../views/CommerceViews/ViewCommerce";
+import ViewCommerceOwner from "../../views/CommerceViews/ViewCommerceOwner";
 
 const Commerce = () => {
   const { id } = useParams();

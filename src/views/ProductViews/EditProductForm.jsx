@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react"
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import imagen from "../images/Moru.jpeg";
-import { getSpecificCategories, uploadImageClaudinary, editProduct } from "../services/services"
+import imagen from "../../images/Moru.jpeg";
+import { getSpecificCategories, uploadImageClaudinary, editProduct } from "../../services/services"
 import { Formik, Form, ErrorMessage, Field } from 'formik';
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { BsImageFill } from "react-icons/bs"
-import { GetLocalStorage, GetLocalStorageCommercesByOwner } from '../localStorage/GetLocalStorage';
+import { GetLocalStorage, GetLocalStorageCommercesByOwner } from '../../localStorage/GetLocalStorage';
 import Swal from 'sweetalert2';
 
 

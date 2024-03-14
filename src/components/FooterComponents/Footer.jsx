@@ -1,4 +1,4 @@
-import logoFooter from "../images/LogoFooter.png";
+import logoFooter from "../../images/LogoFooter.png";
 import { FaEnvelope, FaWhatsapp, FaInstagram } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
