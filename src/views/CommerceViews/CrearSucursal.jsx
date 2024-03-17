@@ -3,8 +3,8 @@ import React from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import imagen from "../images/Moru.jpeg";
 import { Formik, Form, ErrorMessage, Field } from 'formik';
-import { GetLocalStorage } from '../localStorage/GetLocalStorage'
-import { postSucursal, putSucursal } from '../services/services';
+import { GetLocalStorage } from '../../localStorage/GetLocalStorage'
+import { postSucursal, putSucursal } from '../../services/services';
 import Swal from 'sweetalert2';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { useState, useEffect } from 'react';

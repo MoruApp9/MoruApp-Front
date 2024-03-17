@@ -1,6 +1,6 @@
 import 'leaflet/dist/leaflet.css';
 import { Formik, Form, ErrorMessage, Field } from 'formik';
-import { postUbicationUser, postUbicationSucursales } from '../services/services';
+import { postUbicationUser, postUbicationSucursales } from '../../services/services';
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';

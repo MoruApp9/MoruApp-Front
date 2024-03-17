@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import Product from "../components/ProductComponents/Product";
+import Product from "../../components/ProductComponents/Product";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { GetLocalStorage } from "../localStorage/GetLocalStorage";
-import { getFavorites } from "../services/services";
-import { addFav } from "../redux/favoritesSlice";
+import { GetLocalStorage } from "../../localStorage/GetLocalStorage";
+import { getFavorites } from "../../services/services";
+import { addFav } from "../../redux/favoritesSlice";
 
 
 const Favorites = () => {

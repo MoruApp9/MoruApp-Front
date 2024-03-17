@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { GetLocalStorage } from "../localStorage/GetLocalStorage";
+import { GetLocalStorage } from "../../localStorage/GetLocalStorage";
 import { MdLogout } from "react-icons/md";
-import { DeleteLocalStorage, DeleteLocalStorageCommercesByOwner } from "../localStorage/DeleteLocalStorage";
+import { DeleteLocalStorage, DeleteLocalStorageCommercesByOwner } from "../../localStorage/DeleteLocalStorage";
 import { useAuth0 } from "@auth0/auth0-react";
 
 
