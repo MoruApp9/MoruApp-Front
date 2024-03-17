@@ -1,12 +1,12 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
-import AllProducts from '../components/ProductComponents/AllProducts';
-import { addFav, removeFav } from "../redux/favoritesSlice";
-import { addToCart } from '../redux/cartSlice'
+import AllProducts from '../../components/ProductComponents/AllProducts';
+import { addFav, removeFav } from "../../redux/favoritesSlice";
+import { addToCart } from '../../redux/cartSlice'
 import { FiHeart } from 'react-icons/fi';
-import { GetLocalStorage } from "../localStorage/GetLocalStorage";
-import { deleteFavorite } from "../services/services";
+import { GetLocalStorage } from "../../localStorage/GetLocalStorage";
+import { deleteFavorite } from "../../services/services";
 import { useAuth0 } from "@auth0/auth0-react";
 import Swal from "sweetalert2";
 

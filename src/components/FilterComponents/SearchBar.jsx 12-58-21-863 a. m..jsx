@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { BiSearchAlt } from "react-icons/bi";
 import { useDispatch } from "react-redux";
-import { setProductsByName, cleanProductsFiltered } from "../redux/productsFilteredSlice";
-import { getProductsByName } from "../services/services";
+import { setProductsByName, cleanProductsFiltered } from "../../redux/productsFilteredSlice";
+import { getProductsByName } from "../../services/services";
 
 const SearchBar = () => {
   const [name, setName] = useState("");
