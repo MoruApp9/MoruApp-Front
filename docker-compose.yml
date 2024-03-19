@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+  react-app:
+    image: node:alpine
+    working_dir: /app
+    build: .
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/app
+    command: sh -c "rm -rf package-lock.json node_modules && npm install && npm run dev"

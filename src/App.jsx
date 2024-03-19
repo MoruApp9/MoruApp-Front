@@ -9,31 +9,31 @@ import { GetLocalStorage } from "./localStorage/GetLocalStorage";
 
 import "./index.css";
 
-import Home from "./views/Home";
+import Home from "./views/DesignViews/Home.jsx";
 import Landing from "./views/Landing";
-import Login from "./views/Login.jsx";
-import RegisterUser from "./views/RegisterUser.jsx";
-import RegisterShop from "./views/RegisterShop.jsx";
-import Nav from "./components/Nav";
-import ShoppingCart from "./views/ShoppingCart";
+import Login from "./views/LogViews/Login.jsx";
+import RegisterUser from "./views/LogViews/RegisterUser.jsx";
+import RegisterShop from "./views/ShopViews/RegisterShop.jsx";
+import Nav from "./components/DesignComponents/Nav.jsx";
+import ShoppingCart from "./views/ShopViews/ShoppingCart.jsx";
 import FAQ from "./components/FAQ";
-import Registration from "./components/Registration";
+import Registration from "./components/LogComponents/Registration";
 import ProductDetail from "./views/Detail";
 import Favorites from "./views/Favorites";
-import CategoryView from "./views/CategoryView";
-import PostProduct from "./views/PostProduct";
-import Account from "./views/Account";
-import RegisterTypeOfShop from "./views/RegisterTypeOfShop";
+import CategoryView from "./views/CategoryViews/CategoryView.jsx";
+import PostProduct from "./views/ProductViews/PostProduct.jsx";
+import Account from "./views/UserViews/Account.jsx";
+import RegisterTypeOfShop from "./views/ShopViews/RegisterTypeOfShop";
 import CrearSede from "./views/CrearSucursal";
 import SearchByLocation from "./views/SearchByLocation";
-import Dashboard from "./views/Dashboard";
-import ProductsStateClient from "./views/ProductsStateClient";
-import Footer from "./components/Footer";
-import PoliciesPrivacy from "./views/PoliciesPrivacy";
-import TermsConditions from "./views/TermsConditions";
-import OrderDetail from "./views/OrderDetail";
-import EditProductForm from "./views/EditProductForm.jsx";
-import Commerce from "./views/Commerce.jsx";
+import Dashboard from "./views/DesignViews/Dashboard.jsx";
+import ProductsStateClient from "./views/ProductViews/ProductsStateClient.jsx";
+import Footer from "./components/FooterComponents/Footer.jsx";
+import PoliciesPrivacy from "././views/LegalDocument/PoliciesPrivacy.jsx";
+import TermsConditions from "././views/LegalDocument/TermsConditions.jsx";
+import OrderDetail from "./views/OrderViews/OrderDetail.jsx";
+import EditProductForm from "./views/ProductViews/EditProductForm.jsx";
+import Commerce from "./components/CommerceComponents/Commerce.jsx";
 
 
 function App() {
