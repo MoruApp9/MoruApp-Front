@@ -8,4 +8,8 @@ export default defineConfig({
   plugins: [react(),
     tailwindcss(),
     postcss],
+  preview: {
+    host:true,
+    port: 8080
+  }
 })
