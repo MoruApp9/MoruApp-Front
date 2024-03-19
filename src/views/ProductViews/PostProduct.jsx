@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import imagen from "../../images/Moru.jpeg";
-import { getBrandByOwner, getSpecificCategories, postProduct, uploadImageClaudinary } from "../../services/services"
+//import { getBrandByOwner, getSpecificCategories, postProduct, uploadImageClaudinary } from "../../services/services"
+import { getBrandByOwner } from "../../services/sucursalStoreServices";
+import { getSpecificCategories } from "../../services/categoriesServices";
+import { postProduct } from "../../services/productServices";
+import { uploadImageClaudinary } from "../../services/cloudinaryServices"
 import { Formik, Form, ErrorMessage, Field } from 'formik';
 import axios from "axios";
 import { useDispatch } from "react-redux";

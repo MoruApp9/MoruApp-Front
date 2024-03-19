@@ -1,7 +1,8 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts } from "./services/services";
+//import { getProducts } from "./services/services";
+import { getProducts } from "./services/productServices.js";
 import { cleanErrors } from "./redux/errorsSlice";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -10,22 +11,22 @@ import { GetLocalStorage } from "./localStorage/GetLocalStorage";
 import "./index.css";
 
 import Home from "./views/DesignViews/Home.jsx";
-import Landing from "./views/Landing";
+import Landing from "./views/DesignViews/Landing.jsx";
 import Login from "./views/LogViews/Login.jsx";
 import RegisterUser from "./views/LogViews/RegisterUser.jsx";
 import RegisterShop from "./views/ShopViews/RegisterShop.jsx";
 import Nav from "./components/DesignComponents/Nav.jsx";
 import ShoppingCart from "./views/ShopViews/ShoppingCart.jsx";
-import FAQ from "./components/FAQ";
+import FAQ from "./components/InformativeComponents/FAQ.jsx";
 import Registration from "./components/LogComponents/Registration";
-import ProductDetail from "./views/Detail";
-import Favorites from "./views/Favorites";
+import ProductDetail from "./views/ProductViews/Detail.jsx";
+import Favorites from "./views/ProductViews/Favorites.jsx";
 import CategoryView from "./views/CategoryViews/CategoryView.jsx";
 import PostProduct from "./views/ProductViews/PostProduct.jsx";
 import Account from "./views/UserViews/Account.jsx";
 import RegisterTypeOfShop from "./views/ShopViews/RegisterTypeOfShop";
-import CrearSede from "./views/CrearSucursal";
-import SearchByLocation from "./views/SearchByLocation";
+import CrearSede from "./views/CommerceViews/CrearSucursal.jsx";
+import SearchByLocation from "./views/UserViews/SearchByLocation.jsx";
 import Dashboard from "./views/DesignViews/Dashboard.jsx";
 import ProductsStateClient from "./views/ProductViews/ProductsStateClient.jsx";
 import Footer from "./components/FooterComponents/Footer.jsx";

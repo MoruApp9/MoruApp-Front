@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react"
-import {
+/*import {
   getBranchOrders,
   getHistoryOfOrderedProducts,
-} from "../../services/services"
+} from "../../services/services"*/
+import { getBranchOrders } from "../../services/sucursalStoreServices"
+import { getHistoryOfOrderedProducts } from "../../services/adminCliServices"
 import { GetLocalStorage } from "../../localStorage/GetLocalStorage"
 import { useDispatch, useSelector } from "react-redux"
 import Product from "../../components/ProductComponents/Product"

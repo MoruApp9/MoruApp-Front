@@ -28,19 +28,25 @@ import {
 } from "../../localStorage/DeleteLocalStorage";
 import { MdLogout } from "react-icons/md";
 import { FaHtml5, FaMapMarkerAlt } from "react-icons/fa";
-import {
+/*import {
   getBrandByOwner,
   getChart,
   getFavorites,
   getInfoBranch,
   getProducts,
   getUser,
-} from "../../services/services";
+} from "../../services/services";*/
+import { getBrandByOwner } from "../../services/sucursalStoreServices";
+import { getChart } from "../../services/shopServices";
+import { getFavorites } from "../../services/favoritesServices";
+import { getInfoBranch } from "../../services/sucursalStoreServices";
+import { getProducts } from "../../services/productServices";
+import { getUser } from "../../services/adminCliServices";
 import { addFav } from "../../redux/favoritesSlice";
 import { addToCart } from "../../redux/cartSlice";
-import SearchBar from "../SearchBar";
+import SearchBar from "../FilterComponents/searchbar";
 import { createSelector } from "reselect";
-import SideBarBranch from "../SideBarBranch";
+import SideBarBranch from "../FilterComponents/SideBarBranch";
 
 const Nav = ({ user }) => {
   const { pathname } = useLocation();

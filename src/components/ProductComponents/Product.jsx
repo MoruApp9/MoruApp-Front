@@ -7,7 +7,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 import { addToCart, removefromCart, uploadQuantity } from "../../redux/cartSlice";
 
-import {
+/*import {
   postFavorites,
   deleteFavorite,
   postChart,
@@ -16,7 +16,16 @@ import {
   postOneQuantityOfProduct,
   getProducts,
   putOrderStatus,
-} from "../../services/services";
+} from "../../services/services";*/
+import { postFavorites,deleteFavorite } from "../../services/favoritesServices";
+import { 
+  postChart, 
+  removeChart, 
+  deleteAllQuantityOfProductFromCart, 
+  postOneQuantityOfProduct 
+} from "../../services/shopServices";
+import { getProducts, putOrderStatus } from "../../services/productServices";
+
 
 import { FiHeart } from "react-icons/fi";
 import { AiOutlinePlus } from "react-icons/ai";

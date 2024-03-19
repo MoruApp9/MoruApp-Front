@@ -11,7 +11,9 @@ import {
   cleanProductsOrderedFilteredFromStore,
   setProductsOrderedFilteredToStore,
 } from "../../redux/productsOrderedFilteredSlice";
-import { getBranchOrders, putOrderStatus } from "../../services/services";
+//import { getBranchOrders, putOrderStatus } from "../../services/services";
+import { getBranchOrders } from "../../services/sucursalStoreServices";
+import { putOrderStatus } from "../../services/productServices";
 import Swal from "sweetalert2";
 import Product from "../ProductComponents/Product";
 

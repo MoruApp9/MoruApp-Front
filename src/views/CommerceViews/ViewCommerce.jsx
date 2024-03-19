@@ -9,20 +9,22 @@ import {
   GetLocalStorageCommercesByOwner,
 } from "../../localStorage/GetLocalStorage"
 import { useEffect, useState } from "react"
-import {
+/*import {
   getBrandByOwner,
   getBrandForId,
   getInfoBranch,
   getReviews,
   postReview,
-} from "../../services/services"
+} from "../../services/services"*/
+import { getBrandByOwner, getBrandForId, getInfoBranch} from "../../services/sucursalStoreServices"
+import { getReviews, postReview} from "../../services/reviewServices"
 import { BiSolidCloudUpload } from "react-icons/bi"
 import { Link, useParams } from "react-router-dom"
 import Product from "../../components/ProductComponents/Product"
 import { createSelector } from "reselect"
-import Loader from "../../components/Loader"
-import { Stars } from "../../components/Stars"
-import { ReseñasContainer } from "../../components/ReseñasContainer"
+import Loader from "../../components/DesignComponents/Loader"
+import { Stars } from "../../components/InformativeComponents/Stars"
+import { ReseñasContainer } from "../../components/ProductComponents/ReseñasContainer"
 import { FaMapMarker, FaClock, FaPhoneAlt } from "react-icons/fa" // Importa los íconos necesarios
 
 const ViewCommerce = () => {

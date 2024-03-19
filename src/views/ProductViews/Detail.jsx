@@ -6,7 +6,8 @@ import { addFav, removeFav } from "../../redux/favoritesSlice";
 import { addToCart } from '../../redux/cartSlice'
 import { FiHeart } from 'react-icons/fi';
 import { GetLocalStorage } from "../../localStorage/GetLocalStorage";
-import { deleteFavorite } from "../../services/services";
+//import { deleteFavorite } from "../../services/services";
+import { deleteFavorite } from "../../services/favoritesServices";
 import { useAuth0 } from "@auth0/auth0-react";
 import Swal from "sweetalert2";
 

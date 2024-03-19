@@ -1,5 +1,6 @@
 import { useLocation } from "react-router-dom"
-import { getBranchOrders } from "../../services/services"
+//import { getBranchOrders } from "../../services/services"
+import { getBranchOrders } from "../../services/sucursalStoreServices"
 import { useEffect } from "react"
 import { useState } from "react"
 

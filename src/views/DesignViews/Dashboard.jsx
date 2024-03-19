@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { putBrand, putBranch, putProduct, getAllCommerces, getAllBranches, getAllProducts } from "../../services/services";
+//import { putBrand, putBranch, putProduct, getAllCommerces, getAllBranches, getAllProducts } from "../../services/services";
+import { putBrand, putBranch, getAllCommerces, getAllBranches } from "../../services/sucursalStoreServices";
+import { putProduct,getAllProducts } from "../../services/productServices";
 import { useAuth0 } from "@auth0/auth0-react";
 import { MdLogout } from "react-icons/md";
 import { DeleteLocalStorage } from "../../localStorage/DeleteLocalStorage";

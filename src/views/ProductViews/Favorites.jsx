@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { GetLocalStorage } from "../../localStorage/GetLocalStorage";
-import { getFavorites } from "../../services/services";
+//import { getFavorites } from "../../services/services";
+import { getFavorites } from "../../services/favoritesServices";
 import { addFav } from "../../redux/favoritesSlice";
 
 

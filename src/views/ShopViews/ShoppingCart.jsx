@@ -5,7 +5,9 @@ import { Link, useNavigate } from "react-router-dom"
 import { useEffect } from "react"
 import { GetLocalStorage } from "../../localStorage/GetLocalStorage"
 import { useAuth0 } from "@auth0/auth0-react"
-import { deleteAllCart, getChart, postBuy } from "../../services/services"
+//import { deleteAllCart, getChart, postBuy } from "../../services/services"
+import { deleteAllCart, getChart } from "../../services/shopServices"
+import { postBuy } from "../../services/adminCliServices"
 import Swal from "sweetalert2"
 
 const ShoppingCart = () => {

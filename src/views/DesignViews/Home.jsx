@@ -4,24 +4,28 @@ import AllProducts from "../../components/ProductComponents/AllProducts";
 import Filters from "../../components/FilterComponents/Filters";
 import Categories from "../../components/CategorieComponents/Categories";
 import { useAuth0 } from "@auth0/auth0-react";
-import {
+/*import {
   postAdmincommerceRegister,
   postClientRegister,
   getUser,
   getBrandByOwner,
   getChart,
   getFavorites,
-} from "../../services/services";
+} from "../../services/services";*/
+import { postAdmincommerceRegister,postClientRegister,getUser } from "../../services/adminCliServices";
+import { getBrandByOwner } from "../../services/sucursalStoreServices";
+import { getChart } from "../../services/shopServices";
+import { getFavorites } from "../../services/favoritesServices";
 import { GetLocalStorage } from "../../localStorage/GetLocalStorage";
-import ErrorMessage from "../../components/ErrorMessage";
+import ErrorMessage from "../../components/InformativeComponents/ErrorMessage";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { addToCart } from "../../redux/cartSlice";
 import { addFav } from "../../redux/favoritesSlice";
 //import { setUser } from "../redux/userSlice";
-import Loader from "../../components/Loader";
+import Loader from "../../components/DesignComponents/Loader";
 import Dashboard from "./Dashboard";
-import SearchBar from "../../components/SearchBar";
+import SearchBar from "../../components/FilterComponents/searchbar";
 
 const Home = () => {
   const { pathname } = useLocation();

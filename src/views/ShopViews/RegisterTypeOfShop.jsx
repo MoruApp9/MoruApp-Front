@@ -2,7 +2,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form, ErrorMessage, Field } from 'formik';
 import { GetLocalStorage } from '../../localStorage/GetLocalStorage';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUser, postCommerceRegister, uploadImageClaudinary } from "../../services/services";
+//import { getUser, postCommerceRegister, uploadImageClaudinary } from "../../services/services";
+import { getUser } from "../../services/adminCliServices";
+import { postCommerceRegister } from "../../services/sucursalStoreServices";
+import { uploadImageClaudinary } from "../../services/cloudinaryServices";
 import { useEffect, useState } from "react";
 import { BsImageFill } from "react-icons/bs"
 import { PostLocalStorage } from "../../localStorage/PostLocalStorage";

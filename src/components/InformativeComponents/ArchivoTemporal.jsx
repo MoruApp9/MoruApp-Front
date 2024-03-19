@@ -1,19 +1,21 @@
 import { useState, useEffect } from "react";
-import { GetLocalStorage } from "../localStorage/GetLocalStorage";
+import { GetLocalStorage } from "../../localStorage/GetLocalStorage";
 import { useDispatch, useSelector } from "react-redux";
 import {
   cleanProductsOrderedFromStore,
   setProductsOrderedToStore,
   updateStatus,
-} from "../redux/productsOrderedSlice";
-import { updateStatusFiltered } from "../redux/productsOrderedFilteredSlice";
+} from "../../redux/productsOrderedSlice";
+import { updateStatusFiltered } from "../../redux/productsOrderedFilteredSlice";
 import {
   cleanProductsOrderedFilteredFromStore,
   setProductsOrderedFilteredToStore,
-} from "../redux/productsOrderedFilteredSlice";
-import { getBranchOrders, putOrderStatus } from "../services/services";
+} from "../../redux/productsOrderedFilteredSlice";
+//import { getBranchOrders, putOrderStatus } from "../../services/services";
+import { getBranchOrders } from "../../services/sucursalStoreServices";
+import { putOrderStatus } from "../../services/productServices";
 import Swal from "sweetalert2";
-import Product from "./ProductComponents/Product";
+import Product from "../ProductComponents/Product";
 
 const OrdersForBranch = ({ id }) => {
   const currentUser = GetLocalStorage();

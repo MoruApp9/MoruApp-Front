@@ -5,7 +5,9 @@ import 'slick-carousel/slick/slick-theme.css';
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProductsByCategory, getProducts, getCategorias } from '../../services/services';
+//import { getProductsByCategory, getProducts, getCategorias } from '../../services/services';
+import { getProductsByCategory, getProducts } from '../../services/productServices';
+import { getCategorias } from '../../services/categoriesServices';
 import { setCategorias } from '../../redux/categoriesSlice';
 
 function Arrow(props) {
